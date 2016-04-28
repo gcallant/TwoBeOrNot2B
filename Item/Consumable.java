@@ -1,3 +1,5 @@
+package Item;
+
 public abstract class Consumable implements Storable
 {
    private int power;

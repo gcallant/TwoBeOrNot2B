@@ -15,8 +15,8 @@ public abstract class Armor implements Storable, Equipable
       this.power = power;
       this.enchantment = null;
    }
-   
-   public void use(Character character)
+
+   public void use(Character.Character character)
    {
       this.equip(character);
    }
@@ -30,6 +30,6 @@ public abstract class Armor implements Storable, Equipable
    {
       this.enchantment = enchantment;
    }
-   
-   public abstract void equip(Character character);
+
+   public abstract void equip(Character.Character character);
 }

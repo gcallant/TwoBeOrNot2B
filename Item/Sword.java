@@ -6,8 +6,8 @@ public class Sword extends Weapon
    {
       super(power);
    }
-   
-   public void equip(Character character)
+
+   public void equip(Character.Character character)
    {
       character.equipWeapon(this);
    }

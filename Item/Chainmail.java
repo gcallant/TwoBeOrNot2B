@@ -6,8 +6,8 @@ public class Chainmail extends Armor
    {
       super(power);
    }
-   
-   public void equip(Character character)
+
+   public void equip(Character.Character character)
    {
       character.equipWeapon(this);
    }

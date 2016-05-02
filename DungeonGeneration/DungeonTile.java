@@ -1,3 +1,5 @@
+package DungeonGeneration;
+
 import java.util.Random;
 
 public class DungeonTile

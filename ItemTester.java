@@ -14,7 +14,7 @@ public class ItemTester
       myList.add(new Bow(1));
       myList.add(new Hammer(3));
       myList.add(new Dagger(1));
-      myList.add(new Potion(2));
+      //myList.add(new Potion(2));
       myList.add(new Staff(1));
       myList.add(new Sword(2));
       

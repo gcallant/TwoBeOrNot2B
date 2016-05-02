@@ -7,8 +7,8 @@ public class Chainmail extends Armor
       super(power);
    }
    
-   public void equip(Character character)
+   public String toString()
    {
-      character.equipWeapon(this);
+      return super.toString() + "Chainmail";
    }
 }

@@ -7,8 +7,8 @@ public class Potion extends Consumable
       super(power);
    }
    
-   public void consume(Character character)
+   public String toString()
    {
-      character.restore(super.getPower());
+      return super.toString() + "Healing";
    }
 }

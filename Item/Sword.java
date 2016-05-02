@@ -2,13 +2,16 @@ package Item;
 
 public class Sword extends Weapon
 {
+   private DamageType damageType;
+   
    public Sword(int power)
    {
       super(power);
+      this.damageType = DamageType.Slashing;
    }
    
-   public void equip(Character character)
+   public String toString()
    {
-      character.equipWeapon(this);
+      return super.toString() + "Sword";
    }
 }

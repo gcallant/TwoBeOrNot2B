@@ -2,13 +2,16 @@ package Item;
 
 public class Staff extends Weapon
 {
+   private DamageType damageType;
+   
    public Staff(int power)
    {
       super(power);
+      this.damageType = DamageType.Bludgeoning;
    }
    
-   public void equip(Character character)
+   public String toString()
    {
-      character.equipWeapon(this);
+      return super.toString() + "Staff";
    }
 }

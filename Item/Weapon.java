@@ -4,6 +4,8 @@ public abstract class Weapon implements Storable, Equipable
 {
    private int power;
    private Enchantment enchantment;
+   private boolean equipped;
+   private boolean stored;
    
    public Weapon(int power)
    {
@@ -14,11 +16,30 @@ public abstract class Weapon implements Storable, Equipable
       
       this.power = power;
       this.enchantment = null;
+      this.equipped = false;
+      this.stored = false;
    }
    
-   public void use(Character character)
+   public void store()
    {
-      this.equip(character);
+      this.stored = true;
+      this.equipped = false;
+   }
+   
+   public void use()
+   {
+      this.equipped = true;
+      this.stored = false;
+   }
+   
+   public boolean isEquipped()
+   {
+      return this.equipped;
+   }
+   
+   public boolean isStored()
+   {
+      return this.stored;
    }
    
    public int getPower()
@@ -31,5 +52,18 @@ public abstract class Weapon implements Storable, Equipable
       this.enchantment = enchantment;
    }
    
-   public abstract void equip(Character character);
+   public String getParentType()
+   {
+      return "Weapon";
+   }
+   
+   public String getChildType()
+   {
+      return this.getClass() + "";
+   }
+   
+   public String toString()
+   {
+      return "Weapon: ";
+   }
 }

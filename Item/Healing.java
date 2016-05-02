@@ -1,8 +1,8 @@
 package Item;
 
-public class Potion extends Consumable
+public class Healing extends Consumable
 {
-   public Potion(int power)
+   public Healing(int power)
    {
       super(power);
    }

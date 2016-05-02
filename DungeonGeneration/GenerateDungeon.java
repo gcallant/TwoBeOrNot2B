@@ -1,3 +1,5 @@
+package DungeonGeneration;
+
 import java.util.Random;
 
 public class GenerateDungeon
@@ -6,13 +8,21 @@ public class GenerateDungeon
    private int size;
    private static int maxSearch;
    private static int countToMax;
+   private int[] startEnd;
+   private int xStart, yStart, xEnd, yEnd;
    
-   public GenerateDungeon(int size)
+   public GenerateDungeon(int height, int width)
    {
       this.size = size;
-      this.dungeon = new DungeonTile[size][size];
-      maxSearch = ((size*size)/2) + 1;
+      this.dungeon = new DungeonTile[height][width];
       countToMax = 0;
+      maxSearch = width*height;
+      
+      this.startEnd = chooseStartEnd();
+      this.startEnd[0] = 0;
+      this.startEnd[1] = 0;
+      this.startEnd[2] = width - 1;
+      this.startEnd[3] = height - 1;
       
       for(int row = 0; row < this.dungeon.length; row++)
       {
@@ -23,25 +33,56 @@ public class GenerateDungeon
       }
    }
    
-   public void generatePath()
+   private int[] chooseStartEnd()
+   {
+      int[] array = new int[4];
+      Random rand = new Random();
+      
+      int leftOrTop = rand.nextInt(1);
+      int rightOrBottom = rand.nextInt(1);
+      
+      if(leftOrTop == 0)
+      {
+         array[1] = rand.nextInt(this.dungeon.length);
+         array[0] = 0;
+      }
+      else
+      {
+         array[0] = rand.nextInt(this.dungeon[0].length);
+         array[1] = 0;
+      }
+      if(rightOrBottom == 0)
+      {
+         array[3] = rand.nextInt(this.dungeon.length);
+         array[2] = this.dungeon[0].length - 1;
+      }
+      else
+      {
+         array[2] = rand.nextInt(this.dungeon[0].length);
+         array[3] = this.dungeon.length - 1;
+      }
+      return array;
+   }
+   
+   public void generatePath()throws StackOverflowError
    {
       int xPrev = -1, yPrev = -1, count = 0;
-      int xLoc = 0, yLoc = 0;
+      int xLoc = startEnd[0], yLoc = startEnd[1];
       int[] direction, path;
       Random rand = new Random();
-      int[][] checked = new int[size][size];
+      int[][] checked = new int[dungeon.length][dungeon[0].length];
       checked[yLoc][xLoc] = 3;
       
-      while(xLoc != this.size - 1 || yLoc != this.size - 1)
+      while(xLoc != startEnd[2] || yLoc != this.startEnd[3])
       {
-         direction = findLimit(xLoc,yLoc,xPrev,yPrev,this.dungeon);
+         direction = findLimit(xLoc,yLoc,xPrev,yPrev,this.dungeon, this.startEnd);
          count = 0;
          path = null;
          
          while(path == null)
          {
             dungeon[yLoc][xLoc].generateDirection(direction);
-            path = checkIfGoodPath(xLoc, yLoc, xPrev, yPrev, direction, this.dungeon, this.size, checked);
+            path = checkIfGoodPath(xLoc, yLoc, xPrev, yPrev, direction, this.dungeon, checked, this.startEnd);
          }
          
          checked[yLoc][xLoc] = 2;
@@ -65,7 +106,10 @@ public class GenerateDungeon
          }
       }
       
-      fixDungeon(this.dungeon, this.size);
+      fixDungeon(this.dungeon, this.startEnd);
+      int[] array = this.dungeon[0][0].getDirection();
+      array[0] = 1;
+      this.dungeon[0][0].setDirection(array);
    }
    
    private static int choosePath(int[] path, Random rand)
@@ -93,21 +137,21 @@ public class GenerateDungeon
       return -1;
    }
    
-   private static void fixDungeon(DungeonTile[][] dungeon, int size)
+   private static void fixDungeon(DungeonTile[][] dungeon, int[] startEnd)
    {
-      int[] fixArray = {1,1,0,0};
-      dungeon[size-1][size-1].setDirection(fixArray);
+      int[] fixArray = {1,1,1,1};
+      dungeon[startEnd[3]][startEnd[2]].setDirection(fixArray);
       
-      for(int y = 0; y < size; y++)
+      for(int y = 0; y < dungeon.length; y++)
       {
-         for(int x = 0; x < size; x++)
+         for(int x = 0; x < dungeon[0].length; x++)
          {
             fixArray = dungeon[y][x].getDirection();
             if(y != 0 && dungeon[y-1][x].getDirection()[3] == 0)
             {
                fixArray[1] = 0;
             }
-            if(y != size - 1 && dungeon[y+1][x].getDirection()[1] == 0)
+            if(y != startEnd[3] && dungeon[y+1][x].getDirection()[1] == 0)
             {
                fixArray[3] = 0;
             }
@@ -115,28 +159,26 @@ public class GenerateDungeon
             {
                fixArray[0] = 0;
             }
-            if(x != size - 1 && dungeon[y][x+1].getDirection()[0] == 0)
+            if(x != startEnd[2] && dungeon[y][x+1].getDirection()[0] == 0)
             {
                fixArray[2] = 0;
             }
-            if(x == 0)
+            if(x == 0 && y != 0)
                fixArray[0] = 0;
-            if(x == size - 1)
+            if(x == dungeon[0].length - 1 )
                fixArray[2] = 0;
             if(y == 0)
                fixArray[1] = 0;
-            if(y == size - 1)
+            if(y == startEnd[3])
                fixArray[3] = 0; 
-            if(x == 0 && y == 0)
-               fixArray[0] = 1;
-            if(x == size - 1 && y == size - 1)
+            if(x == startEnd[2] && y == startEnd[3])
                fixArray[2] = 1;
             dungeon[y][x].setDirection(fixArray);
          }
       }
    }
    
-   private static int[] findLimit(int xLoc, int yLoc, int xPrev, int yPrev, DungeonTile[][] dungeon)
+   private static int[] findLimit(int xLoc, int yLoc, int xPrev, int yPrev, DungeonTile[][] dungeon, int[] startEnd)
    {
       int[] retArray = new int[4];
       retArray[0] = 2;
@@ -156,7 +198,7 @@ public class GenerateDungeon
       {
          retArray[0] = 0;
       }
-      if(xLoc == dungeon.length - 1)
+      if(xLoc == dungeon[0].length - 1)
       {
          retArray[2] = 0;
       }
@@ -195,7 +237,7 @@ public class GenerateDungeon
       return retArray;
    }
    
-   private static int[] checkIfGoodPath(int xLoc, int yLoc, int xPrev, int yPrev, int[] limit, DungeonTile[][] dungeon, int size, int[][] checked)
+   private static int[] checkIfGoodPath(int xLoc, int yLoc, int xPrev, int yPrev, int[] limit, DungeonTile[][] dungeon, int[][] checked, int[] startEnd)throws StackOverflowError
    {
       int[] direction = dungeon[yLoc][xLoc].getDirection();
       int[] validPaths = new int[4];
@@ -210,24 +252,24 @@ public class GenerateDungeon
       if(limit[0] == 2 && dungeon[yLoc][xLoc].getDirection()[0] == 1)
       {
             countToMax = 0;
-            if(yLoc != size - 1 && yLoc != 0)
-               validPaths[0] = findIfValid(xLoc - 1, yLoc, size, dungeon, checked);
+            //if(yLoc != dungeon.length - 1 && yLoc != 0)
+               validPaths[0] = findIfValid(xLoc - 1, yLoc, dungeon, checked, startEnd);
       }
       if(limit[1] == 2 && dungeon[yLoc][xLoc].getDirection()[1] == 1)
       {
             countToMax = 0;
-            if(xLoc != size -1 && xLoc != 0)
-               validPaths[1] = findIfValid(xLoc, yLoc - 1, size, dungeon, checked);
+            //if(xLoc != dungeon[0].length - 1 && xLoc != 0)
+               validPaths[1] = findIfValid(xLoc, yLoc - 1, dungeon, checked, startEnd);
       }
       if(limit[2] == 2 && dungeon[yLoc][xLoc].getDirection()[2] == 1)
       {
             countToMax = 0;
-            validPaths[2] = findIfValid(xLoc + 1, yLoc, size, dungeon, checked);
+            validPaths[2] = findIfValid(xLoc + 1, yLoc, dungeon, checked, startEnd);
       }
       if(limit[3] == 2 && dungeon[yLoc][xLoc].getDirection()[3] == 1)
       {
             countToMax = 0;
-            validPaths[3] = findIfValid(xLoc, yLoc + 1, size, dungeon, checked);
+            validPaths[3] = findIfValid(xLoc, yLoc + 1, dungeon, checked, startEnd);
       }
       
       for(int x = 0; x < validPaths.length; x++)
@@ -238,7 +280,7 @@ public class GenerateDungeon
       return null;
    }
    
-   private static int findIfValid(int xLoc, int yLoc, int size, DungeonTile[][] dungeon, int[][] checked)
+   private static int findIfValid(int xLoc, int yLoc, DungeonTile[][] dungeon, int[][] checked, int[] startEnd)throws StackOverflowError
    {
       int value = 0;
       countToMax++;
@@ -249,30 +291,56 @@ public class GenerateDungeon
       if(checked[yLoc][xLoc] == 0)
       {
          checked[yLoc][xLoc] = 1;
-         if(xLoc == size - 1 && yLoc == size -1)
+         if(xLoc == startEnd[2] && yLoc == startEnd[3])
          {
             checked[yLoc][xLoc] = 0;
             return 1;
          }
-         if(value == 0 && xLoc + 1 != size && !dungeon[yLoc][xLoc + 1].isUsed() && checked[yLoc][xLoc + 1] == 0)
+         if(value == 0 && xLoc + 1 != dungeon[0].length && !dungeon[yLoc][xLoc + 1].isUsed() && checked[yLoc][xLoc + 1] == 0)
          {
-            value = findIfValid(xLoc + 1, yLoc, size, dungeon, checked);
+            value = findIfValid(xLoc + 1, yLoc, dungeon, checked, startEnd);
          }
-         if(value == 0 && yLoc + 1 != size && !dungeon[yLoc + 1][xLoc].isUsed() && checked[yLoc + 1][xLoc] == 0)
+         if(value == 0 && yLoc + 1 != dungeon.length && !dungeon[yLoc + 1][xLoc].isUsed() && checked[yLoc + 1][xLoc] == 0)
          {
-            value = findIfValid(xLoc, yLoc + 1, size, dungeon, checked);
+            value = findIfValid(xLoc, yLoc + 1, dungeon, checked, startEnd);
          }
          if(value == 0 && xLoc - 1 != -1 && !dungeon[yLoc][xLoc - 1].isUsed() && checked[yLoc][xLoc - 1] == 0)
          {
-            value = findIfValid(xLoc - 1, yLoc, size, dungeon, checked);
+            value = findIfValid(xLoc - 1, yLoc, dungeon, checked, startEnd);
          }
          if(value == 0 && yLoc - 1 != -1 && !dungeon[yLoc - 1][xLoc].isUsed() && checked[yLoc - 1][xLoc] == 0)
          {
-            value = findIfValid(xLoc, yLoc - 1, size, dungeon, checked);
+            value = findIfValid(xLoc, yLoc - 1, dungeon, checked, startEnd);
          }
          checked[yLoc][xLoc] = 0;
       }
       return value;
+   }
+   
+   public String output()
+   {
+      String str = "";
+      int[] direction;
+      int total;
+      
+      for(int x = 0; x < dungeon.length; x++)
+      {
+         for(int y = 0; y < dungeon[0].length; y++)
+         {
+            direction = this.dungeon[x][y].getDirection();
+            total = 0;
+            for(int z = 0; z < 4; z++)
+            {
+               total += direction[z]*Math.pow(2,z);
+            }
+            if((total + "").length() > 1)
+               str += total + " ";
+            else
+               str += total + "  ";
+         }
+         str += "\n";
+      }
+      return str;
    }
    
    public String toString()
@@ -280,12 +348,12 @@ public class GenerateDungeon
       String finalStr = "";
       String str1 = "", str2 = "", str3 = "";
       boolean ifUsed = false;
-      for(int x = 0; x < this.size; x++)
+      for(int x = 0; x < dungeon.length; x++)
       {
          str1 = "";
          str2 = ""; 
          str3 = "";
-         for(int z = 0; z < this.size; z++)
+         for(int z = 0; z < dungeon[0].length; z++)
          {
             for(int y = 0; y < 3; y++)
             {
@@ -303,29 +371,52 @@ public class GenerateDungeon
                }
                else if(y == 1)
                {
-                  if(this.dungeon[x][z].getDirection()[0] == 0)
+                  if(x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1)
                   {
-                     str2 += "[";
-                  }
-                  else
-                  {
-                     str2 += " ";
-                  }
-                  if(ifUsed)
-                  {
+                     if(this.dungeon[x][z].getDirection()[0] == 0)
+                     {
+                        str2 += "[";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
                      str2 += "x";
+                     if(this.dungeon[x][z].getDirection()[2] == 0)
+                     {
+                        str2 += "]";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
                   }
                   else
                   {
-                     str2 += " ";
-                  }
-                  if(this.dungeon[x][z].getDirection()[2] == 0)
-                  {
-                     str2 += "]";
-                  }
-                  else
-                  {
-                     str2 += " ";
+                     if(this.dungeon[x][z].getDirection()[0] == 0)
+                     {
+                        str2 += "[";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                     if(ifUsed)
+                     {
+                        str2 += "x";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                     if(this.dungeon[x][z].getDirection()[2] == 0)
+                     {
+                        str2 += "]";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
                   }
                }
                else

@@ -30,5 +30,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="com.google.inject:guice:4.0" level="project" />
+    <orderEntry type="library" name="guice-4.0-javadoc" level="project" />
   </component>
 </module>

@@ -1,5 +1,7 @@
 package Parser;
 
+import com.google.inject.Inject;
+
 import java.io.Reader;
 
 /**
@@ -7,9 +9,10 @@ import java.io.Reader;
  */
 public class GenericInput
 {
-	private Reader input = null;
+	private final Reader input = null;
 
-	GenericInput()
+	@Inject
+	public GenericInput()
 	{
 
 	}

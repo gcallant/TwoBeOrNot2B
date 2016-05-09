@@ -5,37 +5,32 @@ package StateExample;
  */
 public class StateBase
 {
-    private State[] states;
-    private State currentState;
+    private A_State[] states;
+    private A_State currentState;
 
     public StateBase()
     {
-        this.states = new State[5];
-        this.states[StateValues.MainMenu.ordinal()] = new MainMenu();
-        this.states[StateValues.MapExploration.ordinal()] = new MapExploration();
-        this.states[StateValues.InGameMenu.ordinal()] = new InGameMenu();
-        this.states[StateValues.QuitGame.ordinal()] = new QuitGame();
-        this.states[StateValues.ExitGame.ordinal()] = new ExitGame();
-        this.currentState = this.states[0];
+        states = new A_State[5];
+        states[StateValues.MainMenu.ordinal()] = new MainMenu();
+        states[StateValues.MapExploration.ordinal()] = new MapExploration();
+        states[StateValues.InGameMenu.ordinal()] = new InGameMenu();
+        states[StateValues.QuitGame.ordinal()] = new QuitGame();
+        states[StateValues.ExitGame.ordinal()] = new ExitGame();
+        currentState = states[0];
     }
 
-    public void executeState()
+    public String displayCurrentState()
     {
-        System.out.println(this.currentState.display());
+        return currentState.display();
     }
 
-    public String display()
+    public void executeCurrentState(String command)
     {
-        return this.currentState.display();
-    }
-
-    public void execute(String command)
-    {
-        this.currentState = this.states[this.currentState.execute(command)];
+        currentState = states[currentState.execute(command)];
     }
 
     public boolean exitGame()
     {
-        return this.currentState.getOrdinalValue() == StateValues.ExitGame.ordinal();
+        return currentState.getOrdinalValue() == StateValues.ExitGame.ordinal();
     }
 }

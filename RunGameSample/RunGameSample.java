@@ -17,8 +17,8 @@ public class RunGameSample
 
         while(!gameState.exitGame())
         {
-            System.out.println(gameState.display());
-            gameState.execute(kb.nextLine());
+            System.out.println(gameState.displayCurrentState());
+            gameState.executeCurrentState(kb.nextLine());
         }
     }
 }

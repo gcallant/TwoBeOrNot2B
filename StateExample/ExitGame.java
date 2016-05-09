@@ -5,12 +5,13 @@ import StringTester.TestString;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class ExitGame extends State
+public class ExitGame extends A_State
 {
     public ExitGame()
     {
-        setStates(null,StateValues.ExitGame.ordinal());
+        setStates(null, StateValues.ExitGame.ordinal());
     }
+    
     public String display()
     {
         return "Thanks for playing!";

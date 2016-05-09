@@ -5,7 +5,7 @@ import StringTester.TestString;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class QuitGame extends State
+public class QuitGame extends A_State
 {
     private String[] validInputs;
 

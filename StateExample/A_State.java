@@ -3,15 +3,15 @@ package StateExample;
 /**
  * Created by Michael on 5/6/2016.
  */
-public abstract class State
+public abstract class A_State
 {
     private StateValues[] validStates;
     private int ordinalValue;
 
     public void setStates(StateValues[] states, int ordinalValue)
     {
-        this.validStates = states;
-        this.ordinalValue = ordinalValue;
+        validStates = states;
+        ordinalValue = ordinalValue;
     }
 
     public abstract String display();
@@ -25,6 +25,6 @@ public abstract class State
 
     public int getOrdinalValue()
     {
-        return this.ordinalValue;
+        return ordinalValue;
     }
 }

@@ -3,7 +3,6 @@ package Item;
 public abstract class Consumable implements Storable
 {
    private int power;
-   private boolean stored;
    
    protected Consumable(int power)
    {
@@ -13,22 +12,6 @@ public abstract class Consumable implements Storable
       }
       
       this.power = power;
-      this.stored = false;
-   }
-   
-   public void use()
-   {
-      this.stored = false;
-   }
-   
-   public void store()
-   {
-      this.stored = true;
-   }
-   
-   public boolean isStored()
-   {
-      return this.stored;
    }
    
    public int getPower()

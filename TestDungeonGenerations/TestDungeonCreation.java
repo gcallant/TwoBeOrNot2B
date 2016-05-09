@@ -8,8 +8,8 @@ public class TestDungeonCreation
    {
       GenerateDungeon dungeon = null;
       System.out.println(1);
-      int x = 10, y = 15;
-      for(int z = 0; z < 100; z++)
+      int x = 15, y = 15;
+      for(int z = 0; z < 10; z++)
       {
          System.out.println(x + " " + y);
          dungeon = new GenerateDungeon(x,y);

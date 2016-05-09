@@ -10,6 +10,7 @@ public class GenerateDungeon
    private static int countToMax;
    private int[] startEnd;
    private int xStart, yStart, xEnd, yEnd;
+   private int characterX, characterY;
    
    public GenerateDungeon(int height, int width)
    {
@@ -23,6 +24,8 @@ public class GenerateDungeon
       this.startEnd[1] = 0;
       this.startEnd[2] = width - 1;
       this.startEnd[3] = height - 1;
+      this.characterX = 0;
+      this.characterY = 0;
       
       for(int row = 0; row < this.dungeon.length; row++)
       {
@@ -341,6 +344,140 @@ public class GenerateDungeon
          str += "\n";
       }
       return str;
+   }
+
+   public String printCharacter()
+   {
+      String finalStr = "";
+      String str1 = "", str2 = "", str3 = "";
+      boolean ifUsed = false;
+      for(int x = 0; x < dungeon.length; x++)
+      {
+         str1 = "";
+         str2 = "";
+         str3 = "";
+         for(int z = 0; z < dungeon[0].length; z++)
+         {
+            for(int y = 0; y < 3; y++)
+            {
+               ifUsed = this.dungeon[x][z].isUsed();
+               if(y == 0)
+               {
+                  if(this.dungeon[x][z].getDirection()[1] == 0)
+                  {
+                     str1 += " - ";
+                  }
+                  else
+                  {
+                     str1 += "   ";
+                  }
+               }
+               else if(y == 1)
+               {
+                  if(x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1)
+                  {
+                     if(this.dungeon[x][z].getDirection()[0] == 0)
+                     {
+                        str2 += "[";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                     str2 += " ";
+                     if(this.dungeon[x][z].getDirection()[2] == 0)
+                     {
+                        str2 += "]";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                  }
+                  else
+                  {
+                     if(this.dungeon[x][z].getDirection()[0] == 0)
+                     {
+                        str2 += "[";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                     if(x == characterX && z == characterY)
+                     {
+                        str2 += "x";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                     if(this.dungeon[x][z].getDirection()[2] == 0)
+                     {
+                        str2 += "]";
+                     }
+                     else
+                     {
+                        str2 += " ";
+                     }
+                  }
+               }
+               else
+               {
+                  if(this.dungeon[x][z].getDirection()[3] == 0)
+                  {
+                     str3 += " - ";
+                  }
+                  else
+                  {
+                     str3 += "   ";
+                  }
+               }
+            }
+         }
+         finalStr += str1 + "\n"  + str2 + "\n" + str3 + "\n";
+      }
+      return finalStr;
+   }
+
+   public boolean isValidDirection(String direction)
+   {
+      switch(direction)
+      {
+         case "right":
+            return dungeon[characterX][characterY].getDirection()[2] == 1;
+         case "left":
+            return dungeon[characterX][characterY].getDirection()[0] == 1;
+         case "up":
+            return dungeon[characterX][characterY].getDirection()[1] == 1;
+         case "down":
+            return dungeon[characterX][characterY].getDirection()[3] == 1;
+      }
+      return false;
+   }
+
+   public boolean endOfMap()
+   {
+      return characterX == dungeon.length - 1 && characterY == dungeon[0].length - 1;
+   }
+
+   public void updateCharacter(String direction)
+   {
+      switch(direction)
+      {
+         case "right":
+            characterY++;
+            break;
+         case "left":
+            characterY--;
+            break;
+         case "up":
+            characterX--;
+            break;
+         case "down":
+            characterX++;
+            break;
+      }
    }
    
    public String toString()

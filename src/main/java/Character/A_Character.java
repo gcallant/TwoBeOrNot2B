@@ -24,6 +24,11 @@ public abstract class A_Character
 		setArmor(newArmor);
 	}
 
+	public A_Character()
+	{
+
+	}
+
 	public void attack()
 	{
 		attackBehavior.performAttack();

@@ -11,4 +11,6 @@ public abstract class A_Monster extends A_Character
 	{
 		super(newName, newHealth, newStrength, newDexterity, newSpeed, newArmor);
 	}
+
+
 }

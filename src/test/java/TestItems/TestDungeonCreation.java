@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestDungeonCreation
 {
 	GenerateDungeon dungeon;
-	int x = 2, y = 3;
+	int x = 15, y = 15;
 
 	@Before
 	public void setUp() throws Exception
@@ -19,7 +19,7 @@ public class TestDungeonCreation
 	@Test
 	public void testDungeonOuput()
 	{
-		for(int z = 0; z < 2; z++)
+		for(int z = 0; z < 10; z++)
 		{
 			System.out.println(x + " " + y);
 			dungeon = new GenerateDungeon(x, y);
@@ -29,7 +29,8 @@ public class TestDungeonCreation
 				System.out.println(dungeon);
 				System.out.println();
 				System.out.println(dungeon.output());
-			} catch(StackOverflowError e)
+			}
+			catch(StackOverflowError e)
 			{
 				//System.out.println("Dungeon " + x + " failed to be created");
 			}

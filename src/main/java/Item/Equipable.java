@@ -2,9 +2,6 @@ package Item;
 
 public interface Equipable
 {
-	void use();
-
-	int getPower();
-
-	void setEnchantment(Enchantment enchantment);
+   public int getPower();
+   public void setEnchantment(Enchantment enchantment);
 }

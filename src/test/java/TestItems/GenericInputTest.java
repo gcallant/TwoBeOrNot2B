@@ -17,29 +17,29 @@ public class GenericInputTest
 	GenericInput genericInput = null;
 
 	@Before
-	public void setUp() throws Exception
+	public void setUp() throws FileNotFoundException
 	{
 		genericInput = new GenericInput();
-	}
-
-	@Test
-	public void testAttachment() throws FileNotFoundException
-	{
-		genericInput.attach(new FileInputStream(new File("/Users/grantley/Documents/TwoBeOrNot2B/" +
-				                                                   "src/test/java/TestItems/testInputFile.txt")));
+		genericInput.attach(new FileInputStream(new File("testInputFile.txt")));
 	}
 
 	@Test
 	public void testReading() throws FileNotFoundException
 	{
-		testAttachment();
 		genericInput.read();
 	}
 
-	@After
-	public void tearDown() throws Exception
+	@Test
+	public void testToString() throws FileNotFoundException
 	{
+		testReading();
+		System.out.println(genericInput);
+	}
 
+	@After
+	public void tearDown()
+	{
+		genericInput.closeInputStream();
 	}
 
 }

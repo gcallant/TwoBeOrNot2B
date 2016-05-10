@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class GenericInput
 {
 	char[]            dataToRead;
-	ArrayList<String> dataToSave;
+	ArrayList<char[]> dataToSave;
 	private Reader input;
 	private int readSize = 100;
 
@@ -22,30 +22,30 @@ public class GenericInput
 
 	}
 
-	public ArrayList<String> getDataToSave()
+	public ArrayList<char[]> getDataToSave()
 	{
 		return this.dataToSave;
 	}
 
-	public void attach(InputStream inputStream)
+	public final void attach(InputStream inputStream)
 	{
 		input = new BufferedReader(new InputStreamReader(inputStream));
 	}
 
-	public void read()
+	public final void read()
 	{
-		int bytesRead = 0;
+		int bytesRead = 0, i = 0;
 		while(true)
 		{
 			try
 			{
 				dataToRead = new char[readSize];
-				dataToSave = new ArrayList<>(readSize);
+				dataToSave = new ArrayList<char[]>(readSize);
 
 				do
 				{
 					bytesRead = input.read(dataToRead);
-					dataToSave.add(Arrays.toString(dataToRead));
+					dataToSave.add(dataToRead);
 				}
 				while(bytesRead != - 1);
 				break;
@@ -60,6 +60,30 @@ public class GenericInput
 				readSize /= 10;
 			}
 		}
+	}
 
+	@org.jetbrains.annotations.NotNull
+	@Override
+	public final String toString()
+	{
+		final StringBuilder sb = new StringBuilder("GenericInput{");
+		sb.append("dataToSave=\n");
+		for(char[] c : dataToSave)
+		{
+			sb.append(c);
+		}
+		sb.append('}');
+		return sb.toString();
+	}
+
+	public void closeInputStream()
+	{
+		try
+		{
+			input.close();
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

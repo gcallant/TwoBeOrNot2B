@@ -2,17 +2,19 @@ package Parser;
 
 import com.google.inject.Inject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Grant Callant on 4/29/16. TwoBeOrNot2B
  */
 public class GenericInput
 {
+	char[]            dataToRead;
+	ArrayList<char[]> dataToSave;
 	private Reader input;
+	private int readSize = 100;
 
 	@Inject
 	public GenericInput()
@@ -20,8 +22,68 @@ public class GenericInput
 
 	}
 
-	protected void attach(InputStream inputStream)
+	public ArrayList<char[]> getDataToSave()
 	{
-		this.input = new BufferedReader(new InputStreamReader(inputStream));
+		return this.dataToSave;
+	}
+
+	public final void attach(InputStream inputStream)
+	{
+		input = new BufferedReader(new InputStreamReader(inputStream));
+	}
+
+	public final void read()
+	{
+		int bytesRead = 0, i = 0;
+		while(true)
+		{
+			try
+			{
+				dataToRead = new char[readSize];
+				dataToSave = new ArrayList<char[]>(readSize);
+
+				do
+				{
+					bytesRead = input.read(dataToRead);
+					dataToSave.add(dataToRead);
+				}
+				while(bytesRead != - 1);
+				break;
+
+			}
+			catch(IOException ioE)
+			{
+				ioE.printStackTrace();
+			}
+			catch(OutOfMemoryError outOfMemoryError)
+			{
+				readSize /= 10;
+			}
+		}
+	}
+
+	@org.jetbrains.annotations.NotNull
+	@Override
+	public final String toString()
+	{
+		final StringBuilder sb = new StringBuilder("GenericInput{");
+		sb.append("dataToSave=\n");
+		for(char[] c : dataToSave)
+		{
+			sb.append(c);
+		}
+		sb.append('}');
+		return sb.toString();
+	}
+
+	public void closeInputStream()
+	{
+		try
+		{
+			input.close();
+		} catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

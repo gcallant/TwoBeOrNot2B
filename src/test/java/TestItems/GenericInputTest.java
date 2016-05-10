@@ -1,35 +1,45 @@
 package TestItems;
 
 import Parser.GenericInput;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * Created by Grant Callant on 5/4/16.
  */
 public class GenericInputTest
 {
-	@Before
-	public void setUp() throws Exception
-	{
+	GenericInput genericInput = null;
 
+	@Before
+	public void setUp() throws FileNotFoundException
+	{
+		genericInput = new GenericInput();
+		genericInput.attach(new FileInputStream(new File("testInputFile.txt")));
 	}
 
 	@Test
-	public void testInput()
+	public void testReading() throws FileNotFoundException
 	{
-		Injector injector = Guice.createInjector();
-		GenericInput genericInput = new GenericInput();
-		injector.injectMembers(genericInput);
+		genericInput.read();
+	}
+
+	@Test
+	public void testToString() throws FileNotFoundException
+	{
+		testReading();
+		System.out.println(genericInput);
 	}
 
 	@After
-	public void tearDown() throws Exception
+	public void tearDown()
 	{
-
+		genericInput.closeInputStream();
 	}
 
 }

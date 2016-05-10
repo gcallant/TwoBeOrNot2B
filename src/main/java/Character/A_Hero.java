@@ -9,5 +9,6 @@ public abstract class A_Hero extends A_Character
 	{
 		super(newName, newHealth, newStrength, newDexterity, newSpeed, newArmor);
 	}
+
 }
 

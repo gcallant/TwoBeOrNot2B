@@ -22,7 +22,7 @@ public class TestPartySelectionAndCharacterCreation
 	{
 		characterFactory = new CharacterFactory();
 		injector = Guice.createInjector();
-		character = characterFactory.createCharacter("ConcreteHeroA", 100, 5, 5, 3, 12);
+		character = characterFactory.createCharacter("Warrior", 100, 5, 5, 3, 12);
 	}
 
 	@Test

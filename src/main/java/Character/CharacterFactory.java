@@ -11,24 +11,24 @@ public class CharacterFactory
 
 	public A_Character createCharacter(String name, int health, int strength, int dexterity, int speed, int armor)
 	{
-		if(name.equals("ConcreteHeroA"))
+		if(name.equals("Warrior"))
 		{
-			return new ConcreteHeroA(name, health, strength, dexterity, speed, armor);
+			return new Character.Warrior(name, health, strength, dexterity, speed, armor);
 		}
 
-		else if(name.equals("ConcreteHeroB"))
+		else if(name.equals("Mage"))
 		{
-			return new ConcreteHeroB(name, health, strength, dexterity, speed, armor);
+			return new Character.Mage(name, health, strength, dexterity, speed, armor);
 		}
 
-		else if(name.equals("ConcreteMonsterA"))
+		else if(name.equals("Goblin"))
 		{
-			return new ConcreteMonsterA(name, health, strength, dexterity, speed, armor);
+			return new Character.Goblin(name, health, strength, dexterity, speed, armor);
 		}
 
 		else
 		{
-			return new ConcreteMonsterB(name, health, strength, dexterity, speed, armor);
+			return new Character.Orc(name, health, strength, dexterity, speed, armor);
 		}
 	}
 }

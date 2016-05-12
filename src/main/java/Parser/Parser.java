@@ -5,4 +5,10 @@ package Parser;
  */
 public class Parser
 {
+	GenericInput genericInput = null;
+
+	public Parser()
+	{
+		genericInput = new GenericInput();
+	}
 }

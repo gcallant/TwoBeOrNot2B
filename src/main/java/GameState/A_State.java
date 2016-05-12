@@ -13,7 +13,7 @@ public abstract class A_State
     public void setStates(StateValues[] states, int ordinalValue)
     {
         validStates = states;
-        ordinalValue = ordinalValue;
+        this.ordinalValue = ordinalValue;
     }
 
     public abstract String display();

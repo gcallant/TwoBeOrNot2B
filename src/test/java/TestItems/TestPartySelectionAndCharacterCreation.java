@@ -1,7 +1,6 @@
 package TestItems;
 
 import Character.A_Character;
-import Character.CharacterFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.After;
@@ -13,16 +12,16 @@ import org.junit.Test;
  */
 public class TestPartySelectionAndCharacterCreation
 {
-	CharacterFactory characterFactory = null;
+	Character.HeroFactory heroFactory = null;
 	Injector         injector         = null;
 	A_Character      character        = null;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		characterFactory = new CharacterFactory();
+		heroFactory = new Character.HeroFactory();
 		injector = Guice.createInjector();
-		character = characterFactory.createCharacter("Warrior", 100, 5, 5, 3, 12);
+		character = heroFactory.createCharacter("Warrior", 100, 5, 5, 3, 12);
 	}
 
 	@Test

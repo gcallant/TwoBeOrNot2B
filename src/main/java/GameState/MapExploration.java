@@ -1,4 +1,4 @@
-package StateExample;
+package GameState;
 
 import DungeonGeneration.GenerateDungeon;
 import StringTester.TestString;

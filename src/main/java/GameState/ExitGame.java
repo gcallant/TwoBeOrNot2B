@@ -1,6 +1,4 @@
-package StateExample;
-
-import StringTester.TestString;
+package GameState;
 
 /**
  * Created by Michael on 5/8/2016.

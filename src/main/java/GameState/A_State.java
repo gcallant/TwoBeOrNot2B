@@ -1,4 +1,6 @@
-package StateExample;
+package GameState;
+
+import java.util.ArrayList;
 
 /**
  * Created by Michael on 5/6/2016.
@@ -27,4 +29,6 @@ public abstract class A_State
     {
         return ordinalValue;
     }
+
+    public void giveParty(ArrayList<Character> party){}
 }

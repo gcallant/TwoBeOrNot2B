@@ -1,5 +1,4 @@
-import DungeonGeneration.*;
-import StateExample.StateBase;
+import GameState.StateBase;
 
 import java.util.*;
 

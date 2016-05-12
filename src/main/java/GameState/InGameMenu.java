@@ -1,4 +1,4 @@
-package StateExample;
+package GameState;
 
 import StringTester.TestString;
 

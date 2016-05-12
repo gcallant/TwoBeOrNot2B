@@ -28,10 +28,10 @@ public class Equipment
         return armor.getPower();
     }
 
-    public int calculateDamage(int attackBonus, Equipment enemyEquipment)
+    public int calculateDamage(int attackBonus, int defenseBonus)
     {
         Random rand = new Random();
-        if((rand.nextInt(5) + this.getWeaponPower()) > enemyEquipment.getArmorPower())
+        if((rand.nextInt(5) + attackBonus) > defenseBonus)
         {
             return this.getWeaponPower();
         }

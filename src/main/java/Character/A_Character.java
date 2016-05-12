@@ -1,7 +1,8 @@
 package Character;
 
-import AttackAndDefendBehavior.I_Attack;
-import AttackAndDefendBehavior.I_Defend;
+import AttackAndDefendBehavior.*;
+import java.util.*;
+
 
 public abstract class A_Character
 {
@@ -13,6 +14,7 @@ public abstract class A_Character
 	protected int      armor;
 	protected I_Attack attackBehavior;
 	protected I_Defend defendBehavior;
+	protected boolean isDefeated;
 
 	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
 	{
@@ -22,11 +24,40 @@ public abstract class A_Character
 		setDexterity(newDexterity);
 		setSpeed(newSpeed);
 		setArmor(newArmor);
+		isDefeated = false;
 	}
 
 	public A_Character()
 	{
 
+	}
+
+	public void takeAction(ArrayList<A_Hero> heroes, ArrayList<A_Monster> monsters)
+	{
+		Scanner input = new Scanner(System.in);
+		int choice;
+		do
+		{
+			System.out.println("Choose an action:");
+			System.out.print("1.) Attack\n" +
+							"2.) Defend\n" +
+							"3.) Use Special\n" +
+							"4.) Use Item\n"+
+							"5.) Run\n");
+			choice = input.nextInt();
+			switch(choice)
+			{
+
+			}
+
+		}
+		while(choice < 1 || choice > 5);
+
+	}
+
+	public int generateInitiative()//will generate the character's initiative.
+	{
+		return 0;
 	}
 
 	public void attack()
@@ -132,6 +163,17 @@ public abstract class A_Character
 	{
 		defendBehavior = newDefendBehavior;
 	}
+
+	public boolean getDefeated()
+	{
+		return isDefeated;
+	}
+
+	public void setDefeated(boolean isDown)
+	{
+		isDefeated = isDown;
+	}
+
 
 	@Override
 	public String toString()

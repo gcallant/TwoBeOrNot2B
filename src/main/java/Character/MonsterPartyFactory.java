@@ -1,8 +1,6 @@
 package Character;
+import java.util.*;
 
-/**
- * Created by gm14793 on 5/9/16.
- */
 public class MonsterPartyFactory
 {
 
@@ -12,5 +10,23 @@ public class MonsterPartyFactory
     }
 
 
+    public MonsterParty defaultMonsterParty(double difficulty)//generates a party using default settings
+    {
+        ArrayList<A_Monster> monsters = new ArrayList<A_Monster>();
+        Goblin goblin1 = new Goblin("Goblin",(int)(50*difficulty), (int)(3*difficulty), (int)(4*difficulty),(int)(5*difficulty),(int)(4*difficulty));
+        monsters.add(goblin1);
+        Goblin goblin2 = new Goblin("Goblin",(int)(50*difficulty), (int)(3*difficulty), (int)(4*difficulty),(int)(5*difficulty),(int)(4*difficulty));
+        monsters.add(goblin2);
+        Orc orc = new Orc("Orc",(int)(100*difficulty), (int)(5*difficulty), (int)(3*difficulty), (int)(4*difficulty), (int)(5*difficulty));
+        monsters.add(orc);
+        Ogre ogre = new Ogre("Ogre", (int)(200*difficulty), (int)(7*difficulty), (int)(3*difficulty), (int)(3*difficulty), (int)(6*difficulty));
+        monsters.add(ogre);
+        return new MonsterParty(monsters);
+    }
+
+    public MonsterParty randomMonsterParty(int diff)//Will generate a random party of monsters
+    {
+        return null;
+    }
 
 }

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 /**
  * Created by Michael on 5/6/2016.
  */
-public class StateBase
+public class
+StateBase
 {
     private A_State[] states;
     private A_State currentState;

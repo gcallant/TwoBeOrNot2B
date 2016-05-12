@@ -1,5 +1,4 @@
 package Character;
-
 /**
  * Created by SaraPage on 4/29/2016.
  */

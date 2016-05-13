@@ -38,6 +38,30 @@ public class DatabaseManager
 	private void createTables() throws SQLException
 	{
 		sqlStatement = databaseConnector.createStatement();
+		String statement = "CREATE TABLE CHARACTERS(" +
+				                     "NAME TEXT PRIMARY KEY NOT NULL," +
+				                     " HEALTH INT NOT NULL," +
+				                     " STRENGTH INT NOT NULL," +
+				                     " DEXTERITY INT NOT NULL," +
+				                     " SPEED INT NOT NULL," +
+				                     " ARMOR INT NOT NULL)";
 
+		sqlStatement.executeUpdate(statement);
+
+		//statement = "CREATE TABLE ";
+
+		sqlStatement.close();
+	}
+
+	public void closeConnection()
+	{
+		try
+		{
+			databaseConnector.close();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

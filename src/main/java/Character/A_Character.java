@@ -1,7 +1,10 @@
 package Character;
 
-import AttackAndDefendBehavior.*;
-import java.util.*;
+import AttackAndDefendBehavior.I_Attack;
+import AttackAndDefendBehavior.I_Defend;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public abstract class A_Character
@@ -51,7 +54,7 @@ public abstract class A_Character
 			}
 
 		}
-		while(choice < 1 || choice > 5);
+		while(choice < 1 || choice > 5);  //TODO is this logic correct? -Grant
 
 	}
 

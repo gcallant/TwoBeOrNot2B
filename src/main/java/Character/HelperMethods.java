@@ -91,7 +91,7 @@ public class HelperMethods
 		return result;
 	}//end getOptionsForParty
 
-	public static void executePartyMenuChoice(Scanner kb, int choice, HeroFactory factory)
+	public static void executePartyMenuChoice(Scanner kb, int choice, CharacterFactory factory)
 	{
 		int numberOfHeros, numberOfMonsters;
 		ArrayList<A_Character> listOfHeroes, listOfMonsters;
@@ -114,7 +114,7 @@ public class HelperMethods
 		}//end switch statement
 	}//end executePartyMenuChoice
 
-	private static ArrayList<A_Character> createListOfCharacters(HeroFactory factory, int numberInParty, Scanner
+	private static ArrayList<A_Character> createListOfCharacters(CharacterFactory factory, int numberInParty, Scanner
 			                                                                                                            kb)
 	{
 		ArrayList<A_Character> list = new ArrayList<A_Character>(numberInParty);

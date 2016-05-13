@@ -1,7 +1,6 @@
 package TestItems;
 
-import Character.A_Character;
-import Character.HeroFactory;
+import Character.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.After;
@@ -14,8 +13,8 @@ import org.junit.Test;
 public class TestPartySelectionAndCharacterCreation
 {
 	HeroFactory heroFactory = null;
-	Injector    injector    = null;
-	A_Character character   = null;
+	Injector         injector         = null;
+	A_Character      character        = null;
 
 	@Before
 	public void setUp() throws Exception

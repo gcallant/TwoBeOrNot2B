@@ -5,5 +5,5 @@ package GameState;
  */
 public enum StateValues
 {
-    MainMenu, MapExploration, InGameMenu, QuitGame, ExitGame, Battle, Victory, Defeated;
+    MainMenu, MapExploration, InGameMenu, QuitGame, ExitGame, CharacterCreation, Battle, Victory, Defeated, EndOfMap, total;
 }

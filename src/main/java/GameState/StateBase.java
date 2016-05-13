@@ -1,7 +1,7 @@
 package GameState;
 
 import java.util.ArrayList;
-
+import Mediator.Mediator;
 /**
  * Created by Michael on 5/6/2016.
  */
@@ -13,13 +13,19 @@ StateBase
 
     public StateBase()
     {
-        states = new A_State[6];
+
+        Mediator mediator = new Mediator();
+        states = new A_State[StateValues.total.ordinal()];
         states[StateValues.MainMenu.ordinal()] = new MainMenu();
         states[StateValues.MapExploration.ordinal()] = new MapExploration();
         states[StateValues.InGameMenu.ordinal()] = new InGameMenu();
         states[StateValues.QuitGame.ordinal()] = new QuitGame();
         states[StateValues.ExitGame.ordinal()] = new ExitGame();
-        states[StateValues.Battle.ordinal()] = new Battle();
+        states[StateValues.Battle.ordinal()] = new Battle(mediator);
+        states[StateValues.CharacterCreation.ordinal()] = new CharacterCreation(mediator);
+        states[StateValues.Victory.ordinal()] = new Victory();
+        states[StateValues.Defeated.ordinal()] = null;
+        states[StateValues.EndOfMap.ordinal()] = new EndOfMap();
 
         currentState = states[0];
     }

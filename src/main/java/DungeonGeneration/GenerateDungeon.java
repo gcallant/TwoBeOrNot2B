@@ -69,6 +69,9 @@ public class GenerateDungeon
    
    public void generatePath()throws StackOverflowError
    {
+      characterX = 0;
+      characterY = 0;
+
       int xPrev = -1, yPrev = -1, count = 0;
       int xLoc = startEnd[0], yLoc = startEnd[1];
       int[] direction, path;
@@ -572,5 +575,11 @@ public class GenerateDungeon
          finalStr += str1 + "\n"  + str2 + "\n" + str3 + "\n";
       }
       return finalStr;
+   }
+
+   public boolean isAtEnd()
+   {
+      return this.characterY == this.dungeon.length - 1 && this.characterX == this.dungeon[0].length - 1;
+
    }
 }

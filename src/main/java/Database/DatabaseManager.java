@@ -3,6 +3,11 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import Character.*;
+import Inventory.Inventory;
+import Item.Equipable;
+import Mediator.Mediator;
+
 import java.sql.Statement;
 
 /**
@@ -13,7 +18,7 @@ import java.sql.Statement;
  */
 public class DatabaseManager
 {
-	private static final String     DATABASE          = "jdbc:sqlite:/src/resources/database"; //TODO connect
+	private static final String     DATABASE          = "jdbc:sqlite:storedInformation";
 	private              Connection databaseConnector = null;
 	private              Statement  sqlStatement      = null;
 
@@ -51,6 +56,21 @@ public class DatabaseManager
 		//statement = "CREATE TABLE ";
 
 		sqlStatement.close();
+	}
+
+	public A_Character loadParty(Mediator mediator)
+	{
+		return null;
+	}
+
+	public Inventory loadInventory(Mediator mediator)
+	{
+		return null;
+	}
+
+	public Equipable loadEquipment(Mediator mediator)
+	{
+		return null;
 	}
 
 	public void closeConnection()

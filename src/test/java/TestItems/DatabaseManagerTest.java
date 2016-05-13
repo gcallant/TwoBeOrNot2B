@@ -5,14 +5,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
-
-import static org.unitils.reflectionassert.ReflectionAssert.assertPropertyLenientEquals;
+import Character.*;
 
 /**
  * Created by Grant Callant on 5/12/2016. GitHub
  *
  * @author Grant Callant
  */
+
 @DataSet( {"DatabaseManagerCharacterTest.xml"})
 public class DatabaseManagerTest
 {
@@ -27,7 +27,8 @@ public class DatabaseManagerTest
 	@Test
 	public void testCharacter()
 	{
-		assertPropertyLenientEquals("", "", "");
+		CharacterFactory characterFactory = new CharacterFactory();
+		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2, 7, 1);
 	}
 
 	@After

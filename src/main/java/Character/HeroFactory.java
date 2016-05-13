@@ -9,7 +9,7 @@ public class HeroFactory
 	{
 	}
 
-	public A_Hero createCharacter(String name)
+	public A_Character createCharacter(String name)
 	{
 		if(name.equalsIgnoreCase("Warrior"))
 		{

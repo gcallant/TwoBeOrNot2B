@@ -13,7 +13,7 @@ import java.sql.Statement;
  */
 public class DatabaseManager
 {
-	private static final String     DATABASE          = "jdbc:sqlite:database";
+	private static final String     DATABASE          = "jdbc:sqlite:/src/resources/database"; //TODO connect
 	private              Connection databaseConnector = null;
 	private              Statement  sqlStatement      = null;
 

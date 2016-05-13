@@ -18,7 +18,7 @@ public class Equipment
         this.armor = armor;
     }
 
-    public int getWeaponPower()
+    private int getWeaponPower()
     {
         return weapon.getPower();
     }
@@ -28,17 +28,9 @@ public class Equipment
         return armor.getPower();
     }
 
-    public int calculateDamage(int attackBonus, int defenseBonus)
+    public int calculateDamage()
     {
-        Random rand = new Random();
-        if((rand.nextInt(5) + attackBonus) > defenseBonus)
-        {
-            return this.getWeaponPower();
-        }
-        else
-        {
-            return 0;
-        }
+        return this.getWeaponPower();
     }
 
     public Storable equipWeapon(Storable weapon)

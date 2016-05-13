@@ -16,7 +16,7 @@ public class MainMenu extends A_State
         validInputs[1] = "start";
        
         StateValues[] validStates = new StateValues[2];
-        validStates[1] = StateValues.MapExploration;
+        validStates[1] = StateValues.CharacterCreation;
         validStates[0] = StateValues.MainMenu;
         
         setStates(validStates, StateValues.MainMenu.ordinal());

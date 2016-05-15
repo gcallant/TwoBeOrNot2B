@@ -32,7 +32,9 @@ public class OSUtilTest
 	public void getParentDirectory() throws Exception
 	{
 		File parent = OSUtil.getParentDirectory();
-		File compare = new File("C:\\Users\\Grantley\\IdeaProjects\\");
+		/* Change to expected test location - otherwise will cause build failure
+		 * Example: File compare = new File("C:\\Users\\Grantley\\IdeaProjects\\");*/
+		File compare = new File("/home/travis/build/gcallant");
 		assertEquals(compare, parent);
 	}
 

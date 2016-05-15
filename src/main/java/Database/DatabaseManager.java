@@ -1,34 +1,36 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import Character.*;
+import Character.A_Character;
 import Inventory.Inventory;
 import Item.Equipable;
 import Mediator.Mediator;
+import org.jetbrains.annotations.Contract;
+import org.sqlite.SQLiteConfig;
 
-import java.sql.Statement;
+import java.sql.*;
 
 /**
- * Created by Grant Callant on 5/12/2016. Manages an SQLlite database object called database- constructor will create
+ * Created by Grant Callant on 5/12/2016. Manages an SQLite database object called database- constructor will create
  * database if it does not exist, or connect to existing database.
  *
  * @author Grant Callant
  */
 public class DatabaseManager
 {
+	private static final String     DRIVER            = "org.sqlite.JDBC";
 	private static final String     DATABASE          = "jdbc:sqlite:storedInformation";
 	private              Connection databaseConnector = null;
 	private              Statement  sqlStatement      = null;
 
-	public DatabaseManager()
+	private DatabaseManager()
 	{
 		try
 		{
-			Class.forName("org.sqlite.JDBC");
-			databaseConnector = DriverManager.getConnection(DATABASE);
-			createTables();
+			SQLiteConfig sqLiteConfig = new SQLiteConfig();
+			sqLiteConfig.enforceForeignKeys(true);
+			Class.forName(DRIVER);
+			databaseConnector = DriverManager.getConnection(DATABASE, sqLiteConfig.toProperties());
+
 		}
 		catch(ClassNotFoundException e)
 		{
@@ -38,24 +40,75 @@ public class DatabaseManager
 		{
 			e.printStackTrace();
 		}
+		createTables();
 	}
 
-	private void createTables() throws SQLException
+	@Contract(pure = true)
+	public static DatabaseManager getInstance()
 	{
-		sqlStatement = databaseConnector.createStatement();
+		return DatabaseSingle.INSTANCE;
+	}
+
+	private void createTables()
+	{
+		try
+		{
+			sqlStatement = databaseConnector.createStatement();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
 		String statement = "CREATE TABLE CHARACTERS(" +
 				                     "NAME TEXT PRIMARY KEY NOT NULL," +
 				                     " HEALTH INT NOT NULL," +
 				                     " STRENGTH INT NOT NULL," +
 				                     " DEXTERITY INT NOT NULL," +
 				                     " SPEED INT NOT NULL," +
-				                     " ARMOR INT NOT NULL)";
+				                     " ARMOR INT NOT NULL" +
+				                     ");";
 
-		sqlStatement.executeUpdate(statement);
+		try
+		{
+			sqlStatement.executeUpdate(statement);
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 
-		//statement = "CREATE TABLE ";
+		statement = "CREATE TABLE INVENTORY(" +
+				              "ITEMID INT PRIMARY KEY NOT NULL," +
+				              " ITEMTYPE TEXT NOT NULL," +
+				              " OWNER TEXT NOT NULL," +
+				              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME)" +
+				              ");";
 
-		sqlStatement.close();
+		try
+		{
+			sqlStatement.close();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private boolean tableIsPresent(String tableName)
+	{
+		try
+		{
+			DatabaseMetaData metaData = databaseConnector.getMetaData();
+			ResultSet resultSet = metaData.getTables(null, null, tableName, null);
+			if(resultSet != null)
+			{ return true; }
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public A_Character loadParty(Mediator mediator)
@@ -83,5 +136,10 @@ public class DatabaseManager
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private static class DatabaseSingle
+	{
+		private static final DatabaseManager INSTANCE = new DatabaseManager();
 	}
 }

@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
 
 /**
- * Created by Grant Callant on 5/12/2016. GitHub
+ * Created by Grant Callant on 5/12/2016.
  *
  * @author Grant Callant
  */

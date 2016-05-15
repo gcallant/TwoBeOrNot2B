@@ -1,6 +1,6 @@
 codecov:
   token: cde1e30c-2371-40c0-8763-757ea1e0cff1
-  branch: grantBranch
+  branch: master
   bot: null
 
 coverage:

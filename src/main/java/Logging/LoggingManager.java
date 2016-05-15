@@ -1,31 +1,29 @@
 package Logging;
 
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by Grant Callant on 5/14/2016. GitHub
+ * Created by Grant Callant on 5/14/2016.
  *
  * @author Grant Callant
  */
 public class LoggingManager
 {
-	final static Logger logger = LoggerFactory.getLogger(LoggingManager.class);
+	private static Logger logger = null;
 
-	private LoggingManager() //Prevents Instantiation
+	public LoggingManager(Class callingClass)
 	{
-
+		logger = LoggerFactory.getLogger(callingClass);
 	}
 
-	@Contract(pure = true)
-	public static LoggingManager getInstance()
+	public LoggingManager(String callingClass)
 	{
-		return LoggerSingleton.INSTANCE;
+		logger = LoggerFactory.getLogger(callingClass);
 	}
 
-	private static class LoggerSingleton
+	public static Logger getLogger()
 	{
-		private static final LoggingManager INSTANCE = new LoggingManager();
+		return logger;
 	}
 }

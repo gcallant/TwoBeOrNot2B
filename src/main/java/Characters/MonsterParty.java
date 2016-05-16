@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 import java.util.*;
 
 

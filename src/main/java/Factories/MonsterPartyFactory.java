@@ -1,13 +1,10 @@
-package Character;
+package Factories;
 import java.util.*;
+import Characters.*;
 
 public class MonsterPartyFactory
 {
 
-    public MonsterPartyFactory()
-    {
-
-    }
 
 
     public MonsterParty defaultMonsterParty(double difficulty)//generates a party using default settings
@@ -28,5 +25,8 @@ public class MonsterPartyFactory
     {
         return null;
     }
+
+
+
 
 }

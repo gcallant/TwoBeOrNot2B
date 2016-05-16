@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 import AttackAndDefendBehavior.*;
 
 
@@ -16,7 +16,7 @@ public class Ogre extends A_Monster implements I_Attack
     }
 
 
-    public void performAttack()
+    public void performAttack(A_Character toAttack)
     {
 
     }

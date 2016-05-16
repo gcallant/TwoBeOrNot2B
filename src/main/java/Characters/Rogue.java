@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 
 import AttackAndDefendBehavior.*;
 
@@ -14,7 +14,7 @@ public class Rogue extends A_Hero implements I_Attack, I_Defend
     }
 
 
-    public void performAttack()
+    public void performAttack(A_Character toAttack)
     {
 
     }

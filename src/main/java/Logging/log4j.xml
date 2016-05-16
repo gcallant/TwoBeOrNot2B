@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="debug" strict="true" name="XMLConfigTest"
-               packages="org.apache.logging.log4j.test">
+               packages="org.apache.logging.log4j">
     <Properties>
         <Property name="filename">C:\Users\Grantley\IdeaProjects\log.log</Property>
     </Properties>
@@ -20,7 +20,7 @@
                 <Filter type="MarkerFilter" marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
             </Filters>
         </Appender>
-        <Appender type="File" name="File" fileName="${filename}">
+        <Appender type="File" name="File" fileName="C:\Users\Grantley\IdeaProjects\log.log">
             <Layout type="PatternLayout">
                 <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
             </Layout>

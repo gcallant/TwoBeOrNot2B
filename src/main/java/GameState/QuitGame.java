@@ -1,24 +1,22 @@
 package GameState;
 
 import StringTester.TestString;
-
+import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class QuitGame extends A_State
+public class QuitGame implements A_State
 {
-    private String[] validInputs;
+    private Mediator mediator;
 
-    public QuitGame()
+    public QuitGame(Mediator mediator)
     {
-        this.validInputs = new String[2];
-        this.validInputs[0] = "yes";
-        this.validInputs[1] = "no";
-        StateValues[] validStates = new StateValues[2];
-        validStates[0] = StateValues.ExitGame;
-        validStates[1] = StateValues.MapExploration;
+        this.mediator = mediator;
+    }
 
-        this.setStates(validStates,StateValues.QuitGame.ordinal());
+    public boolean isEndOfGame()
+    {
+        return false;
     }
 
     public String display()
@@ -26,16 +24,16 @@ public class QuitGame extends A_State
         return "Are you sure you want to quit?";
     }
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
-        int stateSwitch = TestString.testInput(command, this.validInputs);
-        if(stateSwitch == -1)
+        switch(command)
         {
-            return StateValues.QuitGame.ordinal();
-        }
-        else
-        {
-            return this.getStateValue(stateSwitch);
+            case "yes":
+                return new ExitGame(mediator);
+            case "no":
+                return new MapExploration(mediator);
+            default:
+                return new QuitGame(mediator);
         }
     }
 }

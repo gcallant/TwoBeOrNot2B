@@ -5,15 +5,15 @@ package StringTester;
  */
 public class TestString
 {
-    public static int testInput(String command, String[] validInputs)
+    public static String testInput(String command, String[] validInputs)
     {
         for(int x = 0; x < validInputs.length; x++)
         {
             if(command.toLowerCase().equals(validInputs[x]))
             {
-                return x;
+                return command.toLowerCase();
             }
         }
-        return -1;
+        return "";
     }
 }

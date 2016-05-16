@@ -1,20 +1,25 @@
-package Character;
+package Characters;
 
 import AttackAndDefendBehavior.*;
+
 import java.util.*;
 
+import Item.*;
+import Inventory.*;
 
 public abstract class A_Character
 {
-	protected String   name;
-	protected int      health;
-	protected int      strength;
-	protected int      dexterity;
-	protected int      speed;
-	protected int      armor;
-	protected I_Attack attackBehavior;
-	protected I_Defend defendBehavior;
-	protected boolean isDefeated;
+	protected String                name;
+	protected int                   health;
+	protected int                   strength;
+	protected int                   dexterity;
+	protected int                   speed;
+	protected int                   armor;
+	protected I_Attack              attackBehavior;
+	protected I_Defend              defendBehavior;
+	protected boolean               isDefeated;
+	protected ArrayList<Consumable> usables;
+	protected Inventory             inventory;
 
 	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
 	{
@@ -25,44 +30,29 @@ public abstract class A_Character
 		setSpeed(newSpeed);
 		setArmor(newArmor);
 		isDefeated = false;
+		usables = new ArrayList<Consumable>();
+		inventory = new Inventory();
 	}
 
-	public A_Character()
-	{
-
-	}
-
-	public void takeAction(ArrayList<A_Hero> heroes, ArrayList<A_Monster> monsters)
-	{
-		Scanner input = new Scanner(System.in);
-		int choice;
-		do
-		{
-			System.out.println("Choose an action:");
-			System.out.print("1.) Attack\n" +
-							"2.) Defend\n" +
-							"3.) Use Special\n" +
-							"4.) Use Item\n"+
-							"5.) Run\n");
-			choice = input.nextInt();
-			switch(choice)
-			{
-
-			}
-
-		}
-		while(choice < 1 || choice > 5);
-
-	}
+	public abstract void takeAction(Party heroes, Party monsters);
 
 	public int generateInitiative()//will generate the character's initiative.
 	{
 		return 0;
 	}
 
-	public void attack()
+	public void takeDamage(int total)
 	{
-		attackBehavior.performAttack();
+		this.health -= total;
+		if(health <= 0)
+		{
+			this.isDefeated = true;
+		}
+	}
+
+	public void attack(A_Character toAttack)
+	{
+		toAttack.takeDamage(10);
 	}
 
 	public void defend()
@@ -174,11 +164,10 @@ public abstract class A_Character
 		isDefeated = isDown;
 	}
 
-
 	@Override
 	public String toString()
 	{
-		return "Name: " + getName() + "\nHealth: " + getHealth() + "\nStrength: " + getStrength() +
-				         "\nDexterity: " + getDexterity() + "\nSpeed: " + getSpeed() + "\nArmor: " + getArmor();
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
+				         "\tDexterity: " + getDexterity() + "\tSpeed: " + getSpeed() + "\tArmor: " + getArmor();
 	}
 }

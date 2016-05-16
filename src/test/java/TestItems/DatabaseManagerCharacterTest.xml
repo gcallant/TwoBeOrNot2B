@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <character name="Cloud" health="10" strength="7" dexterity="2" speed="7" armor="1"/>
+
+</dataset>

@@ -12,7 +12,7 @@ public class RunGameSample
         StateBase gameState = new StateBase();
         Scanner kb = new Scanner(System.in);
 
-        while(!gameState.exitGame())
+        while(gameState.isNotEnd())
         {
             System.out.println(gameState.displayCurrentState());
             gameState.executeCurrentState(kb.nextLine());

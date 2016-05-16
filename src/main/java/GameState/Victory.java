@@ -1,15 +1,23 @@
 package GameState;
 
 import StringTester.TestString;
+import Mediator.*;
 
 /**
  * Created by Michael on 5/12/2016.
  */
 public class Victory extends A_State
 {
-    public Victory()
+    private Mediator mediator;
+
+    public Victory(Mediator mediator)
     {
-        setStates(null, StateValues.InGameMenu.ordinal());
+        this.mediator = mediator;
+    }
+
+    public boolean isEndOfGame()
+    {
+        return false;
     }
 
     public String display()
@@ -17,9 +25,9 @@ public class Victory extends A_State
         return "You won! Press enter to continue!";
     }
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
-        return StateValues.MapExploration.ordinal();
+        return new MapExploration(mediator);
     }
 
 }

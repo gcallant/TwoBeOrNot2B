@@ -8,26 +8,13 @@ import Mediator.Mediator;
 public class
 StateBase
 {
-    private A_State[] states;
     private A_State currentState;
+    private Mediator mediator;
 
     public StateBase()
     {
-
-        Mediator mediator = new Mediator();
-        states = new A_State[StateValues.total.ordinal()];
-        states[StateValues.MainMenu.ordinal()] = new MainMenu();
-        states[StateValues.MapExploration.ordinal()] = new MapExploration();
-        states[StateValues.InGameMenu.ordinal()] = new InGameMenu();
-        states[StateValues.QuitGame.ordinal()] = new QuitGame();
-        states[StateValues.ExitGame.ordinal()] = new ExitGame();
-        states[StateValues.Battle.ordinal()] = new Battle(mediator);
-        states[StateValues.CharacterCreation.ordinal()] = new CharacterCreation(mediator);
-        states[StateValues.Victory.ordinal()] = new Victory();
-        states[StateValues.Defeated.ordinal()] = null;
-        states[StateValues.EndOfMap.ordinal()] = new EndOfMap();
-
-        currentState = states[0];
+        mediator = new Mediator();
+        currentState = new MainMenu(mediator);
     }
 
     public String displayCurrentState()
@@ -37,16 +24,11 @@ StateBase
 
     public void executeCurrentState(String command)
     {
-        currentState = states[currentState.execute(command)];
+        currentState = currentState.execute(command);
     }
 
-    public boolean exitGame()
+    public boolean isNotEnd()
     {
-        return currentState.getOrdinalValue() == StateValues.ExitGame.ordinal();
-    }
-
-    public void giveParty(ArrayList<Character> party)
-    {
-        states[StateValues.Battle.ordinal()].giveParty(party);
+        return !currentState.isEndOfGame();
     }
 }

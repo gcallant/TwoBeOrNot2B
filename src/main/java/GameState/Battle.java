@@ -8,7 +8,7 @@ import Mediator.Mediator;
 /**
  * Created by Michael on 5/11/2016.
  */
-public class Battle extends A_State
+public class Battle implements A_State
 {
     private Party heroParty;
     private Party enemyParty;

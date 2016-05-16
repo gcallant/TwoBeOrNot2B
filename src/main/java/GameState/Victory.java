@@ -6,7 +6,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/12/2016.
  */
-public class Victory extends A_State
+public class Victory implements A_State
 {
     private Mediator mediator;
 

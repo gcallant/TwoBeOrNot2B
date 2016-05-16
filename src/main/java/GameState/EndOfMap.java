@@ -7,7 +7,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/12/2016.
  */
-public class EndOfMap extends A_State
+public class EndOfMap implements A_State
 {
     Mediator mediator;
 

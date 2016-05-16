@@ -4,7 +4,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class ExitGame extends A_State
+public class ExitGame implements A_State
 {
 
     public ExitGame(Mediator mediator)

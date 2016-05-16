@@ -5,7 +5,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class QuitGame extends A_State
+public class QuitGame implements A_State
 {
     private Mediator mediator;
 

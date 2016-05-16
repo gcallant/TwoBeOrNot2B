@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by Michael on 5/12/2016.
  */
 
-public class CharacterCreation extends A_State
+public class CharacterCreation implements A_State
 {
     private Mediator mediator;
 

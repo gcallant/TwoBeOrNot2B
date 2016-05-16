@@ -6,7 +6,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/6/2016.
  */
-public class MainMenu extends A_State
+public class MainMenu implements A_State
 {
     private Mediator mediator;
 

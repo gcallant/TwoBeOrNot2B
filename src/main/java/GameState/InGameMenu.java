@@ -5,7 +5,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class InGameMenu extends A_State
+public class InGameMenu implements A_State
 {
     private Mediator mediator;
 

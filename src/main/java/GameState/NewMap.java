@@ -6,7 +6,7 @@ import Mediator.Mediator;
 /**
  * Created by Michael on 5/15/2016.
  */
-public class NewMap extends A_State
+public class NewMap implements A_State
 {
     private Mediator mediator;
 

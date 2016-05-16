@@ -8,7 +8,7 @@ import Mediator.*;
 /**
  * Created by Michael on 5/6/2016.
  */
-public class MapExploration extends A_State
+public class MapExploration implements A_State
 {
     private Random rand;
     private GenerateDungeon myMap = new GenerateDungeon(3, 3);

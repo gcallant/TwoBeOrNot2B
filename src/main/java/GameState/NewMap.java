@@ -27,7 +27,7 @@ public class NewMap extends A_State
 
     public A_State execute(String command)
     {
-        GenerateDungeon dungeon = new GenerateDungeon(2,2);
+        GenerateDungeon dungeon = new GenerateDungeon(5,5);
         dungeon.generatePath();
         mediator.recieveMap(dungeon);
         return new MapExploration(mediator);

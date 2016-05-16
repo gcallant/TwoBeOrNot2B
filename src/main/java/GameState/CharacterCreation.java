@@ -26,7 +26,7 @@ public class CharacterCreation extends A_State
 
     public String display()
     {
-        return "Create your party\nCancel\n";
+        return "Create your party\nCancel";
     }
 
     public A_State execute(String command)

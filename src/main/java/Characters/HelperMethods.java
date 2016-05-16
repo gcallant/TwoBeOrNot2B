@@ -1,4 +1,6 @@
-package Character;
+package Characters;
+
+import Factories.HeroFactory;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -131,7 +133,7 @@ public class HelperMethods
 			speed = getValidNumber(kb, "Please enter the %s: \n", "speed");
 			armor = getValidNumber(kb, "Please enter the %s: \n", "armor");
 
-			list.add(factory.createCharacter(name, health, strength, dexterity, speed, armor));
+			//list.add(factory.createCharacter(name, health, strength, dexterity, speed, armor));
 		}//end for loop
 
 		return list;

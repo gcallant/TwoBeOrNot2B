@@ -1,7 +1,7 @@
 package Equipment;
 
 import Item.*;
-import Character.*;
+
 import java.util.Random;
 
 /**

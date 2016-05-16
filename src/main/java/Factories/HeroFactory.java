@@ -1,4 +1,5 @@
-package Character;
+package Factories;
+import Characters.*;
 
 /**
  * Created by SaraPage on 4/29/2016.
@@ -9,7 +10,7 @@ public class HeroFactory
 	{
 	}
 
-	public A_Character createCharacter(String name)
+	public A_Hero createCharacter(String name, int health, int strength, int dexterity, int speed, int armor)
 	{
 		if(name.equalsIgnoreCase("Warrior"))
 		{
@@ -25,6 +26,6 @@ public class HeroFactory
 		{
 			return new Rogue(name, 200, 7, 7, 8, 10);
 		}
-		return createCharacter("Warrior");
+		return createCharacter("Warrior", health, strength, dexterity, speed, armor);
 	}
 }

@@ -1,10 +1,9 @@
-package Character;
+package Characters;
 
-import AttackAndDefendBehavior.I_Attack;
-import AttackAndDefendBehavior.I_Defend;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+import AttackAndDefendBehavior.*;
+import java.util.*;
+import Item.*;
+import Inventory.*;
 
 
 public abstract class A_Character
@@ -18,6 +17,8 @@ public abstract class A_Character
 	protected I_Attack attackBehavior;
 	protected I_Defend defendBehavior;
 	protected boolean isDefeated;
+	protected ArrayList<Consumable> usables;
+	protected Inventory inventory;
 
 	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
 	{
@@ -28,12 +29,10 @@ public abstract class A_Character
 		setSpeed(newSpeed);
 		setArmor(newArmor);
 		isDefeated = false;
+		usables = new ArrayList<Consumable>();
+		inventory = new Inventory();
 	}
 
-	public A_Character()
-	{
-
-	}
 
 	public void takeAction(ArrayList<A_Hero> heroes, ArrayList<A_Monster> monsters)
 	{
@@ -50,11 +49,49 @@ public abstract class A_Character
 			choice = input.nextInt();
 			switch(choice)
 			{
+				case 1:
+					System.out.println("Choose which monster to attack");
+					int index = 1;
+					int toAttack;
+					for(A_Monster monster : monsters)
+					{
+						System.out.println(index + ".) " + monster.toString());
+						index++;
+					}
+					System.out.println("Choose a monster to attack or enter " + (index) + " to cancel attack");
+					toAttack = input.nextInt();
+					if(toAttack == index)
+					{
+						break;
+					}
+					else
+					{
+						this.attack(monsters.get(toAttack - 1));
+					}
+					break;
+				case 2:
+					this.defend();
+					break;
+				case 3:
+					System.out.println("Special attacks not currently available.");
+					break;
+				case 4:
+					int itemIndex = 1;
+					for(Consumable item: this.usables)
+					{
+						System.out.println(itemIndex + ".)" + item.toString());
+						itemIndex++;
+					}
 
+					System.out.println("Choose an item to use or enter " + itemIndex + " to cancel item use.");
+					break;
+				case 5:
+					System.out.println("Run not available");
+					break;
 			}
 
 		}
-		while(choice < 1 || choice > 5);  //TODO is this logic correct? -Grant
+		while(!(choice < 1 || choice > 5));
 
 	}
 
@@ -63,9 +100,9 @@ public abstract class A_Character
 		return 0;
 	}
 
-	public void attack()
+	public void attack(A_Character toAttack)
 	{
-		attackBehavior.performAttack();
+		attackBehavior.performAttack(toAttack);
 	}
 
 	public void defend()
@@ -181,7 +218,7 @@ public abstract class A_Character
 	@Override
 	public String toString()
 	{
-		return "Name: " + getName() + "\nHealth: " + getHealth() + "\nStrength: " + getStrength() +
-				         "\nDexterity: " + getDexterity() + "\nSpeed: " + getSpeed() + "\nArmor: " + getArmor();
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
+				         "\tDexterity: " + getDexterity() + "\tSpeed: " + getSpeed() + "\tArmor: " + getArmor();
 	}
 }

@@ -34,6 +34,11 @@ public class OSUtil
 		return parent;
 	}
 
+	public static void readLoggerProperties()
+	{
+
+	}
+
 	public static File createNewDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);

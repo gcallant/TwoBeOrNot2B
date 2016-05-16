@@ -1,4 +1,4 @@
-package Character;
+package Characters;
 
 
 import java.util.ArrayList;
@@ -38,17 +38,16 @@ public class Party
         System.out.println(inventory.displayInventory());
     }
 
-    public boolean isDefeated(boolean bool)
+    public boolean isDefeated()
     {
-        return bool;
-        /*for(A_Character character : characterParty)
+        for(A_Character character : characterParty)
         {
             if(!character.getDefeated())
             {
                 return false;
             }
         }
-        return true;*/
+        return true;
     }
 
     public ArrayList<A_Character> getParty()

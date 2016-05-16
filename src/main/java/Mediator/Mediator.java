@@ -1,7 +1,10 @@
 package Mediator;
 
-import Character.Party;
+import Characters.A_Character;
+import Characters.Party;
 import DungeonGeneration.GenerateDungeon;
+
+import java.util.ArrayList;
 
 /**
  * Created by Michael on 5/12/2016.
@@ -9,8 +12,12 @@ import DungeonGeneration.GenerateDungeon;
 public class Mediator
 {
     private Party characterParty;
+    private Party enemies;
     private GenerateDungeon map;
     private int dungeonSize;
+    private boolean newBattle;
+    private int currentTurn;
+    private ArrayList<A_Character> turnOrder;
 
     public Mediator()
     {
@@ -34,7 +41,7 @@ public class Mediator
         return this.map;
     }
 
-    public void recieveMap(GenerateDungeon map)
+    public void receiveMap(GenerateDungeon map)
     {
         this.map = map;
     }
@@ -43,4 +50,46 @@ public class Mediator
     {
         return dungeonSize;
     }
+
+    public void receiveNewBattle(boolean newBattle)
+    {
+        this.newBattle = newBattle;
+    }
+
+    public boolean giveNewBattle()
+    {
+        return newBattle;
+    }
+
+    public void receiveEnemies(Party party)
+    {
+        this.enemies = party;
+    }
+
+    public Party giveEnemies()
+    {
+        return enemies;
+    }
+
+    public void receiveTurnOrder(ArrayList<A_Character> turnOrder)
+    {
+        this.turnOrder = turnOrder;
+    }
+
+    public ArrayList<A_Character>  giveTurnOrder()
+    {
+        return turnOrder;
+    }
+
+    public void receiveCurrentTurn(int currentTurn)
+    {
+        this.currentTurn = currentTurn;
+    }
+
+    public int giveCurrentTurn()
+    {
+        return currentTurn;
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package TestItems;
 
-import Character.A_Character;
-import Character.CharacterFactory;
+import Characters.A_Character;
+import Characters.CharacterFactory;
 import Database.DatabaseManager;
 import org.junit.After;
 import org.junit.Before;

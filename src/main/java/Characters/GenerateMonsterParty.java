@@ -1,4 +1,6 @@
-package Character;
+package Characters;
+
+import Factories.MonsterFactory;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,7 +22,7 @@ public class GenerateMonsterParty
         listsOfMonsters = new ArrayList<ArrayList<String>>(numOfDifficultyLevels);
         for(int i = 0; i < listsOfMonsters.size(); i++)
         {
-            listsOfMonsters.add(new ArrayList<String>);
+            listsOfMonsters.add(new ArrayList<String>());
         }
 
         //Manually add one monster to each of the lists

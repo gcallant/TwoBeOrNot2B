@@ -1,6 +1,6 @@
 package Database;
 
-import Character.A_Character;
+import Characters.A_Character;
 import Inventory.Inventory;
 import Item.Equipable;
 import Mediator.Mediator;

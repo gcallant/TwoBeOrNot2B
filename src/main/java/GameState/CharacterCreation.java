@@ -1,8 +1,9 @@
 package GameState;
 
-import StringTester.TestString;
+import Characters.A_Character;
+import Characters.Party;
+import Characters.Warrior;
 import Mediator.Mediator;
-import Character.*;
 
 import java.util.ArrayList;
 

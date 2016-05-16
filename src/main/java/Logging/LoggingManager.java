@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 public class LoggingManager
 {
 	private static Logger logger = null;
+	private static boolean isLoggerConfigured = false;
 
 	public LoggingManager(Class callingClass)
 	{

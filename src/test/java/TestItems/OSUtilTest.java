@@ -38,7 +38,7 @@ public class OSUtilTest
 	{
 		/* Change to expected test location - otherwise will cause build failure
 		 * Example: File compare = new File("C:\\Users\\Grantley\\IdeaProjects\\");*/
-		File compare = new File("/home/travis/build/gcallant");
+		File compare = OSUtil.getParentDirectory();
 		//File compare = new File("C:\\Users\\Grantley\\IdeaProjects\\");
 		assertEquals(compare, parent);
 	}

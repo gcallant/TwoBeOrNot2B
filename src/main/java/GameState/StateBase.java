@@ -15,6 +15,7 @@ StateBase
     {
         mediator = new Mediator();
         currentState = new MainMenu(mediator);
+        mediator.receiveNewBattle(true);
     }
 
     public String displayCurrentState()

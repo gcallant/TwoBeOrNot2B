@@ -22,4 +22,14 @@ public class OSException extends Exception
 	{
 		super(cause);
 	}
+
+	public OSException()
+	{
+		super();
+	}
+
+	public OSException writeException()
+	{
+		return new OSException();
+	}
 }

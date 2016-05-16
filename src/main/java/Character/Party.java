@@ -8,6 +8,7 @@ import Item.Storable;
 /**
  * Created by Michael on 5/12/2016.
  */
+
 public class Party
 {
     private ArrayList<A_Character> characterParty;

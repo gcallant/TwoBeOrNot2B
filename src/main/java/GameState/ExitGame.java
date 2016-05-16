@@ -1,22 +1,29 @@
 package GameState;
 
+import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class ExitGame extends A_State
+public class ExitGame implements A_State
 {
-    public ExitGame()
+
+    public ExitGame(Mediator mediator)
     {
-        setStates(null, StateValues.ExitGame.ordinal());
+
     }
-    
+
+    public boolean isEndOfGame()
+    {
+        return true;
+    }
+
     public String display()
     {
         return "Thanks for playing!";
     }
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
-        return StateValues.ExitGame.ordinal();
+        return null;
     }
 }

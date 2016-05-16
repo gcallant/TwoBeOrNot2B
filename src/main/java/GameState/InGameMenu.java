@@ -1,29 +1,22 @@
 package GameState;
 
 import StringTester.TestString;
-
+import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
  */
-public class InGameMenu extends A_State
+public class InGameMenu implements A_State
 {
-    private String[] validInputs;
+    private Mediator mediator;
 
-    public InGameMenu()
+    public InGameMenu(Mediator mediator)
     {
-        validInputs = new String[4];
-        validInputs[0] = "quit";
-        validInputs[1] = "resume";
-        validInputs[2] = "inventory";
-        validInputs[3] = "saveGame";
-        
-        StateValues[] validStates = new StateValues[4];
-        validStates[0] = StateValues.QuitGame;
-        validStates[1] = StateValues.MapExploration;
-        validStates[2] = StateValues.InGameMenu;
-        validStates[3] = StateValues.InGameMenu;
+        this.mediator = mediator;
+    }
 
-        setStates(validStates, StateValues.InGameMenu.ordinal());
+    public boolean isEndOfGame()
+    {
+        return false;
     }
 
     public String display()
@@ -31,16 +24,20 @@ public class InGameMenu extends A_State
        return "Choose an option\nResume\nInventory\nSaveGame\nQuit\n";
     }
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
-        int stateSwitch = TestString.testInput(command, validInputs);
-        if(stateSwitch == -1)
+        switch(command)
         {
-            return StateValues.InGameMenu.ordinal();
-        }
-        else
-        {
-            return getStateValue(stateSwitch);
+            case "quit":
+                return new QuitGame(mediator);
+            case "resume":
+                return new MapExploration(mediator);
+            case "inventory":
+                return new InGameMenu(mediator);
+            case "saveGame":
+                return new InGameMenu(mediator);
+            default:
+                return new InGameMenu(mediator);
         }
     }
 

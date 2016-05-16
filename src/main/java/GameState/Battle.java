@@ -8,7 +8,7 @@ import Mediator.Mediator;
 /**
  * Created by Michael on 5/11/2016.
  */
-public class Battle extends A_State
+public class Battle implements A_State
 {
     private Party heroParty;
     private Party enemyParty;
@@ -20,16 +20,10 @@ public class Battle extends A_State
 
     public Battle(Mediator mediator)
     {
-        StateValues[] validStates = new StateValues[5];
-        validStates[0] = StateValues.Battle;
-        validStates[1] = StateValues.Victory;
-        validStates[2] = StateValues.Defeated;
         nextToAttack = 0;
         newBattle = true;
         this.mediator = mediator;
         monsterPartyFactory = new MonsterPartyFactory();
-
-        setStates(validStates, StateValues.Battle.ordinal());
     }
 
     public String display()
@@ -41,12 +35,17 @@ public class Battle extends A_State
         return "Press enter to continue";
     }
 
+    public boolean isEndOfGame()
+    {
+        return false;
+    }
+
     /*public void giveParty(Party party)
     {
         this.heroParty = party;
     }*/
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
         boolean heroesDefeated = true;
         boolean enemiesDefeated = true;
@@ -81,14 +80,14 @@ public class Battle extends A_State
         if(heroParty.isDefeated(false))
         {
             newBattle = true;
-            return StateValues.Defeated.ordinal();
+            //return new Defeated(mediator);
         }
         if(enemyParty.isDefeated(true))
         {
             newBattle = true;
-            return StateValues.Victory.ordinal();
+            return new Victory(mediator);
         }
 
-        return StateValues.Battle.ordinal();
+        return new Battle(mediator);
     }
 }

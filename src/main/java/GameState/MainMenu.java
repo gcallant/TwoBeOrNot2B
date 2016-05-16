@@ -1,25 +1,23 @@
 package GameState;
 
 import StringTester.TestString;
+import Mediator.*;
 
 /**
  * Created by Michael on 5/6/2016.
  */
-public class MainMenu extends A_State
+public class MainMenu implements A_State
 {
-    private String[] validInputs;
+    private Mediator mediator;
 
-    public MainMenu()
+    public MainMenu(Mediator mediator)
     {
-        validInputs = new String[2];
-        validInputs[0] = "quit";
-        validInputs[1] = "start";
-       
-        StateValues[] validStates = new StateValues[2];
-        validStates[1] = StateValues.CharacterCreation;
-        validStates[0] = StateValues.MainMenu;
-        
-        setStates(validStates, StateValues.MainMenu.ordinal());
+        this.mediator = mediator;
+    }
+
+    public boolean isEndOfGame()
+    {
+        return false;
     }
 
     public String display()
@@ -27,16 +25,16 @@ public class MainMenu extends A_State
         return "Choose an option\nStart\nQuit";
     }
 
-    public int execute(String command)
+    public A_State execute(String command)
     {
-        int stateSwitch = TestString.testInput(command, validInputs);
-        if(stateSwitch == -1)
+        switch(command)
         {
-            return StateValues.MainMenu.ordinal();
-        }
-        else
-        {
-            return getStateValue(stateSwitch);
+            case "quit":
+                return new ExitGame(mediator);
+            case "start":
+                return new CharacterCreation(mediator);
+            default:
+                return new MainMenu(mediator);
         }
     }
 

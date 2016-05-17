@@ -4,8 +4,9 @@ public abstract class Weapon implements Storable, Equipable
 {
    private int power;
    private Enchantment enchantment;
+   private String attackType;
    
-   public Weapon(int power)
+   public Weapon(int power, String attackType)
    {
       if(power > 3 || power < 0)
       {
@@ -13,11 +14,17 @@ public abstract class Weapon implements Storable, Equipable
       }
       this.power = power;
       this.enchantment = null;
+      this.attackType = attackType;
+   }
+
+   public String getAttackType()
+   {
+      return this.attackType;
    }
    
    public int getPower()
    {
-      return this.power;
+      return this.power + getBase();
    }
    
    public void setEnchantment(Enchantment enchantment)
@@ -39,4 +46,6 @@ public abstract class Weapon implements Storable, Equipable
    {
       return "+" + this.getPower() + " Weapon: ";
    }
+
+   public abstract int getBase();
 }

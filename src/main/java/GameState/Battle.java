@@ -1,11 +1,13 @@
 package GameState;
 
 import Characters.A_Character;
+import Characters.InitiativeSort;
 import Characters.Party;
 import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Michael on 5/11/2016.
@@ -62,12 +64,16 @@ public class Battle implements A_State
 
 			for(A_Character character : heroParty.getParty())
 			{
+				character.generateInitiative();
 				wholeBattle.add(character);
 			}
 			for(A_Character character : enemyParty.getParty())
 			{
+				character.generateInitiative();
 				wholeBattle.add(character);
 			}
+
+			Collections.sort(wholeBattle, new InitiativeSort());
 
 			mediator.receiveCurrentTurn(0);
 			mediator.receiveTurnOrder(wholeBattle);
@@ -86,7 +92,12 @@ public class Battle implements A_State
 		{
 			this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
 		}
-		wholeBattle.get(this.nextToAttack).takeAction(heroParty, enemyParty);
+
+		if(wholeBattle.get(this.nextToAttack).takeAction(heroParty, enemyParty))
+		{
+			mediator.receiveNewBattle(true);
+			return new MapExploration(mediator);
+		}
 
 		mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
 		this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();

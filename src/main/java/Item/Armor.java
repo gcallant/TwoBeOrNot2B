@@ -17,7 +17,7 @@ public abstract class Armor implements Storable, Equipable
    
    public int getPower()
    {
-      return this.power;
+      return this.power + getBase();
    }
    
    public void setEnchantment(Enchantment enchantment)
@@ -39,4 +39,6 @@ public abstract class Armor implements Storable, Equipable
    {
       return this.getClass() + "";
    }
+
+   protected abstract int getBase();
 }

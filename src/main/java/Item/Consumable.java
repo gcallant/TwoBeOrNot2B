@@ -1,5 +1,7 @@
 package Item;
 
+import Characters.A_Character;
+
 public abstract class Consumable implements Storable
 {
    private int power;
@@ -13,6 +15,8 @@ public abstract class Consumable implements Storable
       
       this.power = power;
    }
+
+   public abstract void use(A_Character character);
    
    public int getPower()
    {

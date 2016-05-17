@@ -34,6 +34,10 @@ public class MapExploration implements A_State
 
     public A_State moveDirection(String command)
     {
+        if(!myMap.isValidDirection(command))
+        {
+            return new MapExploration(mediator);
+        }
         boolean battleChance;
         myMap.updateCharacter(command);
         if(myMap.endOfMap())

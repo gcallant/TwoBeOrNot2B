@@ -11,17 +11,22 @@ public abstract class A_Character
 {
 	protected String                name;
 	protected int                   health;
+	protected int					maxHealth;
 	protected int                   strength;
 	protected int                   dexterity;
 	protected int                   speed;
-	protected int                   armor;
+	protected Armor                 armor;
+	protected Weapon				weapon;
 	protected I_Attack              attackBehavior;
 	protected I_Defend              defendBehavior;
 	protected boolean               isDefeated;
-	protected ArrayList<Consumable> usables;
+	protected boolean				defending;
 	protected Inventory             inventory;
+	protected Random 				rand;
+	protected int 					initiative;
+	protected boolean				isStunned;
 
-	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
+	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor newArmor, Weapon newWeapon)
 	{
 		setName(newName);
 		setHealth(newHealth);
@@ -29,16 +34,106 @@ public abstract class A_Character
 		setDexterity(newDexterity);
 		setSpeed(newSpeed);
 		setArmor(newArmor);
+		setWeapon(newWeapon);
+		maxHealth = newHealth;
 		isDefeated = false;
-		usables = new ArrayList<Consumable>();
 		inventory = new Inventory();
+		rand = new Random();
+		isStunned = false;
 	}
 
-	public abstract void takeAction(Party heroes, Party monsters);
-
-	public int generateInitiative()//will generate the character's initiative.
+	protected void sneakAttack(A_Character character)
 	{
-		return 0;
+		int normalStrength = getStrength();
+		System.out.println(getName() + " used sneak attack on " + character.getName());
+		if(character.getHealth() == character.getMaxHealth())
+		{
+			setStrength(normalStrength*6);
+		}
+		attack(character);
+		setStrength(normalStrength);
+	}
+
+	protected void magicStrike(Party heroes, Party monsters)
+	{
+		System.out.println(getName() + " used meteor shower!");
+		for(A_Character character : monsters.getParty())
+		{
+			if(!character.getDefeated())
+			{
+				preformAttack(character);
+			}
+		}
+	}
+
+	protected void stunningStrike(A_Character character)
+	{
+		int normalStrength = getStrength();
+
+		setStrength(normalStrength*2);
+
+		System.out.println(getName() + " used stunning strike on " + character.getName());
+		if(canAttack(character))
+		{
+			preformAttack(character);
+			if(rand.nextBoolean())
+			{
+				System.out.println(character.getName() + " was stunned!");
+				character.setStun();
+			}
+		}
+		else
+		{
+			System.out.println("But missed!");
+		}
+	}
+
+	protected void removeStun()
+	{
+		isStunned = false;
+	}
+
+	private void setStun()
+	{
+		isStunned = true;
+	}
+
+	public boolean isStunned()
+	{
+		return isStunned;
+	}
+
+	public int getMaxHealth()
+	{
+		return maxHealth;
+	}
+
+	public int getInitiative()
+	{
+		return this.initiative;
+	}
+
+	public abstract boolean takeAction(Party heroes, Party monsters);
+
+	public void heal(int amount)
+	{
+		System.out.println(getName() + " was healed for " + amount + " HP!");
+		health = Math.min(health + amount, maxHealth);
+	}
+
+	public void generateInitiative()//will generate the character's initiative.
+	{
+		resetInitiative();
+
+		int randomValue;
+
+		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
+		initiative = randomValue + speed;
+	}
+
+	public void resetInitiative()
+	{
+		initiative = 0;
 	}
 
 	public void takeDamage(int total)
@@ -46,18 +141,83 @@ public abstract class A_Character
 		this.health -= total;
 		if(health <= 0)
 		{
+			health = 0;
 			this.isDefeated = true;
 		}
 	}
 
+	public boolean canAttack(A_Character toAttack)
+	{
+		int attackBonus = 0;
+		switch(weapon.getAttackType())
+		{
+			case "dexterity":
+				attackBonus = this.getDexterity();
+				break;
+			case "strength":
+				attackBonus = this.getStrength();
+				break;
+		}
+		attackBonus += weapon.getPower();
+		attackBonus += rand.nextInt(ConstantValues.ChanceToHit.getValue());
+
+		return attackBonus >= toAttack.totalDefense();
+	}
+
+	public int totalDefense()
+	{
+		int defense = armor.getPower();
+		defense += getDexterity();
+
+		return defense;
+	}
+
 	public void attack(A_Character toAttack)
 	{
-		toAttack.takeDamage(10);
+		if(canAttack(toAttack))
+		{
+			preformAttack(toAttack);
+		}
+		else
+		{
+			System.out.println(this.getName() + " attacked " + toAttack.getName() + " but missed!");
+		}
+	}
+
+	public void preformAttack(A_Character toAttack)
+	{
+		int totalDamage = 0;
+
+		totalDamage += weapon.getPower();
+		totalDamage += getStrength();
+		totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
+		if(toAttack.isDefending())
+		{
+			totalDamage = totalDamage/2;
+		}
+		toAttack.takeDamage(totalDamage);
+
+		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
+
+		if(toAttack.getDefeated())
+		{
+			System.out.println(this.getName() + " killed " + toAttack.getName() + "!");
+		}
 	}
 
 	public void defend()
 	{
-		defendBehavior.performDefense();
+		defending = true;
+	}
+
+	public void endDefend()
+	{
+		defending = false;
+	}
+
+	public boolean isDefending()
+	{
+		return defending;
 	}
 
 	public String getName()
@@ -130,18 +290,27 @@ public abstract class A_Character
 		speed = newSpeed;
 	}
 
-	public int getArmor()
+	public Armor getArmor()
 	{
 		return armor;
 	}
 
-	public void setArmor(int newArmor)
+	public void setArmor(Storable newArmor)
 	{
-		if(HelperMethods.isValidInteger(newArmor + "") == null)
+		if(newArmor == null || !(newArmor instanceof Armor) )
 		{
-			throw new IllegalArgumentException("Invalid attack");
+			throw new IllegalArgumentException("Invalid armor");
 		}
-		armor = newArmor;
+		armor = (Armor)newArmor;
+	}
+
+	public void setWeapon(Storable newWeapon)
+	{
+		if(newWeapon == null || !(newWeapon instanceof Weapon) )
+		{
+			throw new IllegalArgumentException("Invalid armor");
+		}
+		weapon = (Weapon)newWeapon;
 	}
 
 	public void setAttackBehavior(I_Attack newAttackBehavior)

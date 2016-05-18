@@ -1,7 +1,9 @@
 package Characters;
 
 import Item.Armor;
+import Item.ArmorType;
 import Item.Weapon;
+import Item.WeaponType;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,12 +14,12 @@ import java.util.Scanner;
  */
 public class Goblin extends A_Monster
 {
-	public Goblin(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor armor, Weapon weapon)
+	public Goblin(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armor, weapon);
+		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, WeaponType.Light, weapon);
 	}
 
-	public boolean specialAttack(Random rand, Party heroes, Party monsters)
+	public boolean specialAbility(Random rand, Party heroes, Party monsters)
 	{
 		ArrayList<Integer> possibleChoices = new ArrayList<Integer>();
 		int count = 0;

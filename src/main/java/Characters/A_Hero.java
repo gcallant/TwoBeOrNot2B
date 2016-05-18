@@ -1,30 +1,28 @@
 package Characters;
 
-import Item.Armor;
-import Item.Consumable;
-import Item.Storable;
-import Item.Weapon;
+import Item.*;
 
 import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.
  */
+
 public abstract class A_Hero extends A_Character
 {
-	public A_Hero(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor armor, Weapon weapon)
+	public A_Hero(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armor, weapon);
+		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, weaponType, weapon);
 	}
 
-	public abstract boolean specialAttack(Party heroes, Party monsters);
+	public abstract boolean specialAbility(Party heroes, Party monsters);
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
 		Scanner input = new Scanner(System.in);
 		int choice;
 		boolean cancel;
-		this.endDefend();
+		this.resetTurn();
 
 		if(isStunned())
 		{
@@ -32,6 +30,9 @@ public abstract class A_Hero extends A_Character
 			removeStun();
 			return false;
 		}
+
+		monsters.sortDefeated();
+		heroes.sortDefeated();
 
 		do
 		{
@@ -52,7 +53,7 @@ public abstract class A_Hero extends A_Character
 					this.defend();
 					break;
 				case 3:
-					cancel = specialAttack(heroes, monsters);
+					cancel = specialAbility(heroes, monsters);
 					break;
 				case 4:
 					cancel = useConsumable(heroes, monsters, input);
@@ -71,8 +72,11 @@ public abstract class A_Hero extends A_Character
 		int index = 1;
 		for(A_Character character : party.getParty())
 		{
-			System.out.println(index + ".)" + character.toString());
-			index++;
+			if(!character.getDefeated())
+			{
+				System.out.println(index + ".)" + character.battleDisplay());
+				index++;
+			}
 		}
 		return index;
 	}
@@ -92,7 +96,7 @@ public abstract class A_Hero extends A_Character
 
 		toUse = ensureInput(input, itemIndex) - 1;
 
-		if(toUse == itemIndex)
+		if(toUse == itemIndex - 1)
 		{
 			return true;
 		}
@@ -104,12 +108,12 @@ public abstract class A_Hero extends A_Character
 
 		toPick = ensureInput(input, itemIndex) - 1;
 
-		if(toPick == itemIndex)
+		if(toPick >= itemIndex - 1)
 		{
 			return true;
 		}
 
-		heroes.useConsumable(heroes.getParty().get(toPick), toUse);
+		heroes.useConsumable(heroes.getCharacter(toPick), toUse);
 		return false;
 	}
 
@@ -136,7 +140,7 @@ public abstract class A_Hero extends A_Character
 	private boolean tryToRun(Party heroes, Party monsters)
 	{
 		System.out.println("You attempt to run!");
-		int chanceToRun = rand.nextInt(3*monsters.getParty().size()/heroes.getParty().size());
+		int chanceToRun = rand.nextInt(3*monsters.size()/heroes.size());
 		if(chanceToRun == 0)
 		{
 			System.out.println("You successfully escaped!");
@@ -158,9 +162,11 @@ public abstract class A_Hero extends A_Character
 				index++;
 			}
 		}
+
 		System.out.println("Choose a monster to attack or enter " + (index) + " to cancel attack");
 		toAttack = input.nextInt();
-		if(toAttack == index)
+
+		if(toAttack >= index)
 		{
 			return true;
 		}

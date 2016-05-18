@@ -1,7 +1,9 @@
 package Characters;
 
 import Item.Armor;
+import Item.ArmorType;
 import Item.Weapon;
+import Item.WeaponType;
 
 import java.util.Scanner;
 
@@ -10,12 +12,12 @@ import java.util.Scanner;
  */
 public class Warrior extends A_Hero
 {
-	public Warrior(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor armor, Weapon weapon)
+	public Warrior(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armor, weapon);
+		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, WeaponType.Heavy, weapon);
 	}
 
-	public boolean specialAttack(Party heroes, Party monsters)
+	public boolean specialAbility(Party heroes, Party monsters)
 	{
 		Scanner input = new Scanner(System.in);
 		int toPick = -1;
@@ -25,7 +27,7 @@ public class Warrior extends A_Hero
 
 		toPick = ensureInput(input, itemIndex) - 1;
 
-		if(toPick == itemIndex)
+		if(toPick == itemIndex - 1)
 		{
 			return true;
 		}

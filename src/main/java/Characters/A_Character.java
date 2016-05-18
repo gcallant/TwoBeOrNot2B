@@ -25,8 +25,11 @@ public abstract class A_Character
 	protected Random 				rand;
 	protected int 					initiative;
 	protected boolean				isStunned;
+	protected ArmorType             armorType;
+	protected WeaponType			weaponType;
+	protected boolean				protection;
 
-	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor newArmor, Weapon newWeapon)
+	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
 	{
 		setName(newName);
 		setHealth(newHealth);
@@ -40,6 +43,29 @@ public abstract class A_Character
 		inventory = new Inventory();
 		rand = new Random();
 		isStunned = false;
+		this.armorType = armorType;
+		this.armorType = armorType;
+		protection = false;
+	}
+
+	protected void protect(A_Character character)
+	{
+		character.protection();
+	}
+
+	protected void protection()
+	{
+		protection = true;
+	}
+
+	protected void removeProtection()
+	{
+		protection = false;
+	}
+
+	public void resetTurn()
+	{
+		this.defending = false;
 	}
 
 	protected void sneakAttack(A_Character character)
@@ -48,10 +74,34 @@ public abstract class A_Character
 		System.out.println(getName() + " used sneak attack on " + character.getName());
 		if(character.getHealth() == character.getMaxHealth())
 		{
-			setStrength(normalStrength*6);
+			setStrength(normalStrength*10);
 		}
 		attack(character);
 		setStrength(normalStrength);
+	}
+
+	public boolean canEquip(Armor armor)
+	{
+		return armorType == armor.getArmorType();
+	}
+
+	public boolean canEquip(Weapon weapon)
+	{
+		return weaponType == weapon.getWeaponType();
+	}
+
+	public Armor equip(Armor armor)
+	{
+		Armor temp = this.armor;
+		this.armor = armor;
+		return temp;
+	}
+
+	public Weapon equip(Weapon weapon)
+	{
+		Weapon temp = this.weapon;
+		this.weapon = weapon;
+		return temp;
 	}
 
 	protected void magicStrike(Party heroes, Party monsters)
@@ -210,14 +260,9 @@ public abstract class A_Character
 		defending = true;
 	}
 
-	public void endDefend()
-	{
-		defending = false;
-	}
-
 	public boolean isDefending()
 	{
-		return defending;
+		return defending || protection;
 	}
 
 	public String getName()
@@ -295,22 +340,22 @@ public abstract class A_Character
 		return armor;
 	}
 
-	public void setArmor(Storable newArmor)
+	public void setArmor(Armor newArmor)
 	{
-		if(newArmor == null || !(newArmor instanceof Armor) )
+		if(newArmor == null )
 		{
 			throw new IllegalArgumentException("Invalid armor");
 		}
-		armor = (Armor)newArmor;
+		armor = newArmor;
 	}
 
-	public void setWeapon(Storable newWeapon)
+	public void setWeapon(Weapon newWeapon)
 	{
-		if(newWeapon == null || !(newWeapon instanceof Weapon) )
+		if(newWeapon == null)
 		{
 			throw new IllegalArgumentException("Invalid armor");
 		}
-		weapon = (Weapon)newWeapon;
+		weapon = newWeapon;
 	}
 
 	public void setAttackBehavior(I_Attack newAttackBehavior)
@@ -328,6 +373,11 @@ public abstract class A_Character
 		return isDefeated;
 	}
 
+	public Weapon getWeapon()
+	{
+		return weapon;
+	}
+
 	public void setDefeated(boolean isDown)
 	{
 		isDefeated = isDown;
@@ -337,6 +387,16 @@ public abstract class A_Character
 	public String toString()
 	{
 		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
-				         "\tDexterity: " + getDexterity() + "\tSpeed: " + getSpeed() + "\tArmor: " + getArmor();
+				         "\tDexterity: " + getDexterity() + "\tSpeed: " + getSpeed() + "\tArmor: ";
+	}
+
+	public String inventoryDisplay()
+	{
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tArmor: " + getArmor() + "\tWeapon: " + getWeapon();
+	}
+
+	public String battleDisplay()
+	{
+		return "Name: " + getName() + "\tHealth: " + getHealth();
 	}
 }

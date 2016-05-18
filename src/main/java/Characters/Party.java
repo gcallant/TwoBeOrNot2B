@@ -9,6 +9,7 @@ import Item.Armor;
 import Item.Consumable;
 import Item.Storable;
 import Item.Weapon;
+import StringTester.TestString;
 
 /**
  * Created by Michael on 5/12/2016.
@@ -129,5 +130,71 @@ public class Party
     {
         Collections.sort(characterParty, new DefeatedSort());
         return characterParty.get(index);
+    }
+
+    public boolean consumePotion()
+    {
+        System.out.println("Select who you want to use a potion");
+        int choice = TestString.getCharacterChoice(characterParty);
+
+        if(choice == -1)
+        {
+            return false;
+        }
+
+        A_Character character = characterParty.get(choice);
+
+        System.out.println("Enter an item to use");
+        choice = TestString.getConsumableChoice(inventory.getConsumables());
+
+        if(choice == -1)
+        {
+            System.out.println("There is nothing for " + character.getName() + " to use!");
+            return false;
+        }
+
+        inventory.useConsumable(character, choice);
+        return true;
+    }
+
+    public boolean equip()
+    {
+        System.out.println("Select who you want to equip");
+        int choice = TestString.getCharacterChoice(characterParty);
+
+        if(choice == -1)
+        {
+            return false;
+        }
+
+        A_Character character = characterParty.get(choice);
+
+        System.out.println("Do you want to equip:\n1) Armor\n2) Weapons\n");
+
+        choice = TestString.getInput(3);
+
+        switch(choice)
+        {
+            case 0:
+                System.out.println("Enter an Armor to equip");
+                choice = TestString.getArmorChoice(inventory.getArmor());
+                if(choice == -1)
+                {
+                    System.out.println("There is no Armor for " + character.getName() + " to equip!");
+                    return false;
+                }
+                inventory.equipArmor(character, choice);
+                break;
+            case 1:
+                choice = TestString.getWeaponChoice(inventory.getWeapons());
+                if(choice == -1)
+                {
+                    System.out.println("There is no weapon for " + character.getName() + " to equip!");
+                    return false;
+                }
+                inventory.equipWeapon(character, choice);
+                break;
+        }
+        return true;
     }
 }

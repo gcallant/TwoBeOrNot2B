@@ -1,7 +1,9 @@
 package Characters;
 
 import Item.Armor;
+import Item.ArmorType;
 import Item.Weapon;
+import Item.WeaponType;
 
 import java.util.Random;
 
@@ -13,9 +15,9 @@ public abstract class A_Monster extends A_Character
 	protected String name;
 	protected Random rand;
 
-	public A_Monster(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor armor, Weapon weapon)
+	public A_Monster(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armor, weapon);
+		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, weaponType, weapon);
 		rand = new Random();
 	}
 
@@ -32,23 +34,23 @@ public abstract class A_Monster extends A_Character
 
 		if(rand.nextBoolean())
 		{
-			specialAttack(rand, heroes, monsters);
+			specialAbility(rand, heroes, monsters);
 		}
 		else
 		{
 
 			A_Character toAttack = heroes.getParty().get(choiceToAttack);
 
-			String toPrint;
+			/*String toPrint;
 			toPrint = this.getName();
 			toPrint = toPrint + " attacks ";
 			toPrint = toPrint + toAttack.getName();
-			System.out.println(toPrint);
+			System.out.println(toPrint);*/
 
 			attack(toAttack);
 		}
 		return false;
 	}
 
-	public abstract boolean specialAttack(Random rand, Party heroes, Party monsters);
+	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 }

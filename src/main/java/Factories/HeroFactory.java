@@ -15,17 +15,17 @@ public class HeroFactory
 	{
 		if(type.equalsIgnoreCase("Warrior"))
 		{
-			return new Warrior(name, 250, 10, 5, 4, new Chainmail(1), new Sword(1));
+			return new Warrior(name, 250, 10, 5, 4, ArmorType.Heavy, new Chainmail(1), new Hammer(1));
 		}
 
 		else if(type.equalsIgnoreCase("Mage"))
 		{
-			return new Mage(name, 180, 5, 6, 6, new Chainmail(1), new Staff(1));
+			return new Mage(name, 180, 5, 6, 6, ArmorType.Light, new Cloth(1), new Staff(1));
 		}
 
 		else if(type.equalsIgnoreCase("Rogue"))
 		{
-			return new Rogue(name, 200, 6, 10, 8, new Chainmail(1), new Dagger(1));
+			return new Rogue(name, 200, 6, 10, 8, ArmorType.Medium,  new Leather(1), new Dagger(1));
 		}
 		return createCharacter("Warrior", "Bob", health, strength, dexterity, speed);
 	}

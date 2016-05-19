@@ -19,6 +19,7 @@ public class ItemTester
 	{
 		weaponList = new ArrayList<Weapon>();
 		armorList = new ArrayList<Armor>();
+		consumableList = new ArrayList<Consumable>();
 	}
 
 	@Test

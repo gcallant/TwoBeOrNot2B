@@ -313,6 +313,38 @@ public abstract class A_Character
 		weapon = (Weapon)newWeapon;
 	}
 
+	public String compareWeapon(Weapon equipped, Weapon toCompare)
+	{
+		int powerDiff;
+		if(equipped.getWeaponType() == toCompare.getWeaponType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Weapons are of different types.";
+	}
+
+	public String compareArmor(Armor equipped, Armor toCompare)
+	{
+		int powerDiff;
+		if(equipped.getArmorType() == toCompare.getArmorType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Armor is of a different type.";
+	}
+
 	public void setAttackBehavior(I_Attack newAttackBehavior)
 	{
 		attackBehavior = newAttackBehavior;

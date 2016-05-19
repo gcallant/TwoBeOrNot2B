@@ -33,7 +33,7 @@ public class DatabaseManagerTest
 	public void testCharacter()
 	{
 		CharacterFactory characterFactory = new CharacterFactory();
-		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2, 7);
+		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2);
 	}
 
 	@After

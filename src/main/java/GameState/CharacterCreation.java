@@ -1,12 +1,8 @@
 package GameState;
 
-import Characters.A_Character;
-import Characters.Party;
-import Characters.Warrior;
+import Characters.*;
 import Factories.HeroFactory;
-import Item.Chainmail;
-import Item.Hammer;
-import Item.Healing;
+import Item.*;
 import Mediator.Mediator;
 
 import java.util.ArrayList;
@@ -18,10 +14,13 @@ import java.util.ArrayList;
 public class CharacterCreation implements A_State
 {
     private Mediator mediator;
+    private ArrayList<A_Character> party;
 
     public CharacterCreation(Mediator mediator)
     {
         this.mediator = mediator;
+        party = new ArrayList<A_Character>();
+        this.mediator.receiveCurrentLevel(1);
     }
 
     public boolean isEndOfGame()
@@ -31,7 +30,7 @@ public class CharacterCreation implements A_State
 
     public String display()
     {
-        return "Create your party\nCancel";
+        return "Select 'party' to create your party\nOr 'cancel' to Cancel";
     }
 
     public A_State execute(String command)
@@ -39,16 +38,12 @@ public class CharacterCreation implements A_State
         switch(command)
         {
             case "party":
-                ArrayList<A_Character> party = new ArrayList<A_Character>();
-                party.add(new HeroFactory().createCharacter("Warrior", "Gorvok", 250, 10, 5, 4));
-                party.add(new HeroFactory().createCharacter("Mage", "Geofry", 100, 10, 5, 4));
-                party.add(new HeroFactory().createCharacter("Rogue", "Orion", 100, 10, 5, 4));
-                Party myParty = new Party(party);
-                mediator.recieveParty(myParty);
-                myParty.addToInventory(new Healing(2));
-                myParty.addToInventory(new Chainmail(1));
-                myParty.addToInventory(new Hammer(2));
-                return new NewMap(mediator);
+                if(createNewParty())
+                {
+                    mediator.recieveParty(new Party(party));
+                    return new NewMap(mediator);
+                }
+                return new MainMenu(mediator);
 
             case "cancel":
                 return new MainMenu(mediator);
@@ -56,5 +51,19 @@ public class CharacterCreation implements A_State
             default:
                 return new CharacterCreation(mediator);
         }
+    }
+
+    private boolean createNewParty()
+    {
+        String input = "";
+        while(party.size() < 4)
+        {
+            A_Character toAdd = CreateMember.createMember();
+            if(toAdd != null)
+            {
+                party.add(toAdd);
+            }
+        }
+        return CreateMember.confirm();
     }
 }

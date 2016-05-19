@@ -2,6 +2,7 @@ package Inventory;
 
 import Characters.A_Character;
 import Item.*;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,9 +99,9 @@ public class Inventory
 
     public void sortInventory()
     {
-        Collections.sort(this.armors,new StorableSort());
-        Collections.sort(this.consumables,new StorableSort());
-        Collections.sort(this.weapons,new StorableSort());
+        Collections.sort(this.armors, new ArmorSort());
+        Collections.sort(this.consumables, new ConsumableSort());
+        Collections.sort(this.weapons, new WeaponSort());
     }
 
     public String displayInventory()
@@ -117,9 +118,30 @@ public class Inventory
         return returnValue;
     }
 
-    public ArrayList<Consumable> getConsumables()
+    public int getConsumables()
     {
-        return consumables;
+        int itemIndex = 1;
+        for(Consumable item : consumables)
+        {
+            System.out.println(itemIndex + ".)" + item.toString());
+            itemIndex++;
+        }
+        return itemIndex;
+    }
+
+    public int chooseConsumable()
+    {
+        return TestString.getConsumableChoice(consumables);
+    }
+
+    public ArrayList<Weapon> getWeapons()
+    {
+        return weapons;
+    }
+
+    public ArrayList<Armor> getArmor()
+    {
+        return armors;
     }
 
     public boolean useConsumable(A_Character character, int index)
@@ -128,9 +150,48 @@ public class Inventory
         {
             return false;
         }
-
         Consumable consumable = removeFromInventory(consumables.get(index));
         consumable.use(character);
+        return true;
+    }
+
+    public boolean equipWeapon(A_Character character, int index)
+    {
+        if(index >= weapons.size())
+        {
+            return false;
+        }
+
+        Weapon weapon = removeFromInventory(weapons.get(index));
+        if(!character.canEquip(weapon))
+        {
+            addToInventory(weapon);
+            System.out.println(character.getName() + " cannot equip this type of weapon!");
+            return false;
+        }
+        Weapon toAdd = character.equip(weapon);
+        addToInventory(toAdd);
+        return true;
+    }
+
+    public boolean equipArmor(A_Character character, int index)
+    {
+        if(index >= armors.size())
+        {
+            return false;
+        }
+
+        Armor armor = removeFromInventory(armors.get(index));
+
+        if(!character.canEquip(armor))
+        {
+            addToInventory(armor);
+            System.out.println(character.getName() + " cannot equip this type of armor!");
+            return false;
+        }
+
+        Armor toAdd = character.equip(armor);
+        addToInventory(toAdd);
         return true;
     }
 

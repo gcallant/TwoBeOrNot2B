@@ -1,7 +1,9 @@
 package Characters;
 
 import Item.Armor;
+import Item.ArmorType;
 import Item.Weapon;
+import Item.WeaponType;
 
 import java.util.Random;
 
@@ -10,14 +12,34 @@ import java.util.Random;
  */
 public class Orc extends A_Monster
 {
-	public Orc(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, Armor armor, Weapon weapon)
+	private boolean exhausted;
+
+	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armor, weapon);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+		exhausted = false;
 	}
 
-	public boolean specialAttack(Random rand, Party heroes, Party monsters)
+	public boolean specialAbility(Random rand, Party heroes, Party monsters)
 	{
 		stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
+		exhausted = true;
 		return false;
+	}
+
+	public boolean cannotAttack()
+	{
+		return super.cannotAttack() || exhausted;
+	}
+
+	public void resetTurn()
+	{
+		super.resetTurn();
+		exhausted = false;
+	}
+
+	public int getLevel()
+	{
+		return 3;
 	}
 }

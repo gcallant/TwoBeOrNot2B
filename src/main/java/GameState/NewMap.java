@@ -13,6 +13,7 @@ public class NewMap implements A_State
     public NewMap(Mediator mediator)
     {
         this.mediator = mediator;
+        this.mediator.receiveCurrentLevel(this.mediator.giveCurrentLevel() + 1);
     }
 
     public boolean isEndOfGame()

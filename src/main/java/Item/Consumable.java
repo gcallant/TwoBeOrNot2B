@@ -2,7 +2,7 @@ package Item;
 
 import Characters.A_Character;
 
-public abstract class Consumable implements Storable
+public abstract class Consumable
 {
    private int power;
    

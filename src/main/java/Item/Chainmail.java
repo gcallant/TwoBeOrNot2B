@@ -3,11 +3,18 @@ package Item;
 public class Chainmail extends Armor
 {
 	private int base;
+	private ArmorType armorType;
 
 	public Chainmail(int power)
 	{
 		super(power);
-		base = 6;
+		base = 5;
+		armorType = ArmorType.Heavy;
+	}
+
+	public ArmorType getArmorType()
+	{
+		return this.armorType;
 	}
 
 	protected int getBase()
@@ -17,6 +24,6 @@ public class Chainmail extends Armor
 
 	public String toString()
 	{
-		return super.toString() + "Chainmail";
+		return super.toString() + "Chainmail(" + (getPower()) + ")" ;
 	}
 }

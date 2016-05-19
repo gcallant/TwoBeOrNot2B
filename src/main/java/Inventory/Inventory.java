@@ -2,6 +2,7 @@ package Inventory;
 
 import Characters.A_Character;
 import Item.*;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,9 +118,20 @@ public class Inventory
         return returnValue;
     }
 
-    public ArrayList<Consumable> getConsumables()
+    public int getConsumables()
     {
-        return consumables;
+        int itemIndex = 1;
+        for(Consumable item : consumables)
+        {
+            System.out.println(itemIndex + ".)" + item.toString());
+            itemIndex++;
+        }
+        return itemIndex;
+    }
+
+    public int chooseConsumable()
+    {
+        return TestString.getConsumableChoice(consumables);
     }
 
     public ArrayList<Weapon> getWeapons()

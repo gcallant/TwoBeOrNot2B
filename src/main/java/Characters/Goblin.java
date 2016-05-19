@@ -14,18 +14,19 @@ import java.util.Scanner;
  */
 public class Goblin extends A_Monster
 {
-	public Goblin(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, Weapon weapon)
+	public Goblin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, WeaponType.Light, weapon);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
 	}
 
 	public boolean specialAbility(Random rand, Party heroes, Party monsters)
 	{
 		ArrayList<Integer> possibleChoices = new ArrayList<Integer>();
 		int count = 0;
-		for(A_Character character : heroes.getParty())
+		for(int x = 0; x < heroes.size(); x++)
 		{
-			if(character.getHealth() == character.getMaxHealth())
+			A_Character character = heroes.getCharacter(x);
+			if(character.getHealth() == character.getMaxHealth() || character.cannotAttack())
 			{
 				possibleChoices.add(count);
 			}
@@ -42,5 +43,10 @@ public class Goblin extends A_Monster
 			sneakAttack(heroes.getCharacter(rand.nextInt(heroes.size())));
 		}
 		return false;
+	}
+
+	public int getLevel()
+	{
+		return 2;
 	}
 }

@@ -10,24 +10,29 @@ import java.util.Scanner;
 
 public abstract class A_Hero extends A_Character
 {
-	public A_Hero(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
+	public A_Hero(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, weaponType, weapon);
+		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
 	}
 
 	public abstract boolean specialAbility(Party heroes, Party monsters);
+
+	public void resetTurn(Party monsters)
+	{
+		super.resetTurn();
+	}
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
 		Scanner input = new Scanner(System.in);
 		int choice;
-		boolean cancel;
-		this.resetTurn();
+		boolean cancel, noTurn;
 
-		if(isStunned())
+		noTurn = cannotAttack();
+		resetTurn(monsters);
+		if(noTurn)
 		{
-			System.out.println(getName() + " is stunned and can't act!");
-			removeStun();
+			System.out.println(getName() + " is incapacitated and can't act!");
 			return false;
 		}
 
@@ -37,13 +42,13 @@ public abstract class A_Hero extends A_Character
 		do
 		{
 			cancel = false;
-			System.out.println("It's " + getName() + "'s turn!\nYou have " + health + " HP\nChoose an action:");
+			System.out.println("It's " + getName() + "'s turn!\nYou have " + getHealth() + " HP\nChoose an action:");
 			System.out.print("1.) Attack\n" +
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
 					                   "4.) Use Item\n" +
 					                   "5.) Run\n");
-			choice = input.nextInt();
+			choice = ensureInput(input, 5);
 			switch(choice)
 			{
 				case 1:
@@ -56,7 +61,7 @@ public abstract class A_Hero extends A_Character
 					cancel = specialAbility(heroes, monsters);
 					break;
 				case 4:
-					cancel = useConsumable(heroes, monsters, input);
+					cancel = heroes.consumePotion();
 					break;
 				case 5:
 					return tryToRun(heroes, monsters);
@@ -70,51 +75,12 @@ public abstract class A_Hero extends A_Character
 	protected int pickCharacter(Party party)
 	{
 		int index = 1;
-		for(A_Character character : party.getParty())
+		for(int x = 0; x < party.size(); x++)
 		{
-			if(!character.getDefeated())
-			{
-				System.out.println(index + ".)" + character.battleDisplay());
-				index++;
-			}
+			System.out.println(index + ".)" + party.getCharacter(x).battleDisplay());
+			index++;
 		}
 		return index;
-	}
-
-	private boolean useConsumable(Party heroes, Party monsters, Scanner input)
-	{
-		int itemIndex = 1;
-		String validInput;
-		int toUse;
-		for(Consumable item : heroes.getConsumables())
-		{
-			System.out.println(itemIndex + ".)" + item.toString());
-			itemIndex++;
-		}
-
-		System.out.println("Choose an item to use or enter " + itemIndex + " to cancel item use.");
-
-		toUse = ensureInput(input, itemIndex) - 1;
-
-		if(toUse == itemIndex - 1)
-		{
-			return true;
-		}
-
-		int toPick = -1;
-		itemIndex = pickCharacter(heroes);
-
-		System.out.println("Choose someone to use the " + heroes.getConsumable(toUse) + " on or " + itemIndex + " to cancel:");
-
-		toPick = ensureInput(input, itemIndex) - 1;
-
-		if(toPick >= itemIndex - 1)
-		{
-			return true;
-		}
-
-		heroes.useConsumable(heroes.getCharacter(toPick), toUse);
-		return false;
 	}
 
 	protected int ensureInput(Scanner input, int itemIndex)
@@ -154,13 +120,10 @@ public abstract class A_Hero extends A_Character
 	{
 		int index = 1;
 		int toAttack;
-		for(A_Character monster : monsters.getParty())
+		for(int x = 0; x < monsters.size(); x++)
 		{
-			if(!monster.getDefeated())
-			{
-				System.out.println(index + ".) " + monster.toString());
-				index++;
-			}
+			System.out.println(index + ".) " + monsters.getCharacter(x));
+			index++;
 		}
 
 		System.out.println("Choose a monster to attack or enter " + (index) + " to cancel attack");
@@ -172,11 +135,30 @@ public abstract class A_Hero extends A_Character
 		}
 		else
 		{
-			this.attack(monsters.getParty().get(toAttack - 1));
+			this.attack(monsters.getCharacter(toAttack - 1));
 			monsters.sortDefeated();
 		}
 		return false;
 	}
 
+	protected boolean cannotAttack()
+	{
+		return super.cannotAttack();
+	}
+
+	public void gainExperience(int experience)
+	{
+		super.gainExperience(experience);
+		System.out.println(getName() + " gained " + experience +" experience!");
+	}
+
+	public boolean canLevel()
+	{
+		if(super.canLevel())
+		{
+			System.out.println(getName() + " leveled up!");
+		}
+		return super.canLevel();
+	}
 }
 

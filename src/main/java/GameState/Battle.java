@@ -1,6 +1,7 @@
 package GameState;
 
 import Characters.A_Character;
+import Characters.GenerateMonsterParty;
 import Characters.InitiativeSort;
 import Characters.Party;
 import Factories.MonsterPartyFactory;
@@ -44,11 +45,6 @@ public class Battle implements A_State
 		return false;
 	}
 
-    /*public void giveParty(Party party)
-    {
-        this.heroParty = party;
-    }*/
-
 	public A_State execute(String command)
 	{
 		boolean heroesDefeated = true;
@@ -57,18 +53,20 @@ public class Battle implements A_State
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
-			enemyParty = monsterPartyFactory.defaultMonsterParty(1);
+			enemyParty = new GenerateMonsterParty().generateEnemyParty(0);
 			wholeBattle = new ArrayList<A_Character>();
 
 			mediator.receiveEnemies(enemyParty);
 
-			for(A_Character character : heroParty.getParty())
+			for(int index = 0; index < heroParty.size(); index++)
 			{
+				A_Character character = heroParty.getCharacter(index);
 				character.generateInitiative();
 				wholeBattle.add(character);
 			}
-			for(A_Character character : enemyParty.getParty())
+			for(int index = 0; index < enemyParty.size(); index++)
 			{
+				A_Character character = enemyParty.getCharacter(index);
 				character.generateInitiative();
 				wholeBattle.add(character);
 			}
@@ -86,6 +84,8 @@ public class Battle implements A_State
 			enemyParty = mediator.giveEnemies();
 			wholeBattle = mediator.giveTurnOrder();
 			nextToAttack = mediator.giveCurrentTurn();
+			heroParty.sortDefeated();
+			enemyParty.sortDefeated();
 		}
 
 		while(wholeBattle.get(this.nextToAttack).getDefeated())
@@ -110,6 +110,7 @@ public class Battle implements A_State
 		if(enemyParty.isDefeated())
 		{
 			mediator.receiveNewBattle(true);
+			heroParty.fixParty();
 			return new Victory(mediator);
 		}
 

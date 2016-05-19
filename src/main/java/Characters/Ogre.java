@@ -13,16 +13,33 @@ import java.util.Random;
  */
 public class Ogre extends A_Monster
 {
+    private boolean exhausted;
 
-
-    public Ogre(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, Weapon weapon)
+    public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, WeaponType.Heavy, weapon);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
         stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
+        exhausted = true;
         return false;
+    }
+
+    protected boolean cannotAttack()
+    {
+        return super.cannotAttack() || exhausted;
+    }
+
+    public void resetTurn()
+    {
+        super.resetTurn();
+        exhausted = false;
+    }
+
+    public int getLevel()
+    {
+        return 10;
     }
 }

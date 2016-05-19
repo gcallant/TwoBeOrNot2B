@@ -1,5 +1,6 @@
 package GameState;
 
+import Characters.Party;
 import StringTester.TestString;
 import Mediator.*;
 
@@ -27,6 +28,11 @@ public class Victory implements A_State
 
     public A_State execute(String command)
     {
+        Party enemies = mediator.giveEnemies();
+        Party heroes = mediator.giveParty();
+
+        heroes.gainExperience(enemies.calculatePartyLevel());
+
         return new MapExploration(mediator);
     }
 

@@ -11,22 +11,19 @@ public class HeroFactory
 	{
 	}
 
-	public A_Character createCharacter(String type, String name, int health, int strength, int dexterity, int speed)
+	public A_Character createCharacter(String type, String name)
 	{
-		if(type.equalsIgnoreCase("Warrior"))
+		switch(type)
 		{
-			return new Warrior(name, 250, 10, 5, 4, ArmorType.Heavy, new Chainmail(1), new Hammer(1));
+			case "Warrior":
+				return new Warrior(name, 250, 10, 5, new Leather(1), new Hammer(1));
+			case "Mage":
+				return new Mage(name, 180, 5, 6, new Cloth(1), new Staff(1));
+			case "Rogue":
+				return new Rogue(name, 200, 6, 10, new Leather(1), new Dagger(1));
+			case "Paladin":
+				return new Paladin(name, 300, 8, 4, new Chainmail(1), new Sword(1));
 		}
-
-		else if(type.equalsIgnoreCase("Mage"))
-		{
-			return new Mage(name, 180, 5, 6, 6, ArmorType.Light, new Cloth(1), new Staff(1));
-		}
-
-		else if(type.equalsIgnoreCase("Rogue"))
-		{
-			return new Rogue(name, 200, 6, 10, 8, ArmorType.Medium,  new Leather(1), new Dagger(1));
-		}
-		return createCharacter("Warrior", "Bob", health, strength, dexterity, speed);
+		return createCharacter("Warrior", "Bob");
 	}
 }

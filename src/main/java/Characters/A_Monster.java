@@ -15,22 +15,31 @@ public abstract class A_Monster extends A_Character
 	protected String name;
 	protected Random rand;
 
-	public A_Monster(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
+	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, weaponType, weapon);
+		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
 		rand = new Random();
+	}
+
+	public void resetTurn()
+	{
+		super.resetTurn();
 	}
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
-		if(isStunned())
+		boolean noTurn;
+
+		noTurn = cannotAttack();
+		resetTurn();
+
+		if(noTurn)
 		{
-			System.out.println(getName() + " is stunned and can't act!");
-			removeStun();
+			System.out.println(getName() + " is incapacitated and can't act!");
 			return false;
 		}
 
-		int choiceToAttack = rand.nextInt(heroes.getParty().size());
+		int choiceToAttack = rand.nextInt(heroes.size());
 
 		if(rand.nextBoolean())
 		{
@@ -38,18 +47,15 @@ public abstract class A_Monster extends A_Character
 		}
 		else
 		{
-
-			A_Character toAttack = heroes.getParty().get(choiceToAttack);
-
-			/*String toPrint;
-			toPrint = this.getName();
-			toPrint = toPrint + " attacks ";
-			toPrint = toPrint + toAttack.getName();
-			System.out.println(toPrint);*/
-
+			A_Character toAttack = heroes.getCharacter(choiceToAttack);
 			attack(toAttack);
 		}
 		return false;
+	}
+
+	protected boolean cannotAttack()
+	{
+		return super.cannotAttack();
 	}
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);

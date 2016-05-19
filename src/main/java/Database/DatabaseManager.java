@@ -2,7 +2,6 @@ package Database;
 
 import Characters.A_Character;
 import Inventory.Inventory;
-import Item.Equipable;
 import Mediator.Mediator;
 import org.jetbrains.annotations.Contract;
 import org.sqlite.SQLiteConfig;
@@ -117,11 +116,6 @@ public class DatabaseManager
 	}
 
 	public Inventory loadInventory(Mediator mediator)
-	{
-		return null;
-	}
-
-	public Equipable loadEquipment(Mediator mediator)
 	{
 		return null;
 	}

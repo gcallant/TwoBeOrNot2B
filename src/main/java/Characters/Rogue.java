@@ -14,9 +14,9 @@ import java.util.Scanner;
 public class Rogue extends A_Hero
 {
 
-    public Rogue(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, ArmorType armorType, Armor armor, Weapon weapon)
+    public Rogue(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(newName, newHealth, newStrength, newDexterity, newSpeed, armorType, armor, WeaponType.Light, weapon);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -34,8 +34,28 @@ public class Rogue extends A_Hero
             return true;
         }
 
-        sneakAttack(monsters.getParty().get(toPick));
+        sneakAttack(monsters.getCharacter(toPick));
 
         return false;
+    }
+
+    public static String Information()
+    {
+        return "Rogue: Rogues are fast and hard to hit. They excel at striking their enemies when they are at full health or incapacitated";
+    }
+
+    public int strengthIncrease()
+    {
+        return 2;
+    }
+
+    public int dexterityIncrease()
+    {
+        return 3;
+    }
+
+    public int healthIncrease()
+    {
+        return 15;
     }
 }

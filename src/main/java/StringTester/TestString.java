@@ -48,7 +48,7 @@ public class TestString
             System.out.println(itemIndex + ".)" + consumable.toString());
             itemIndex++;
         }
-        return getInput(getInput(itemIndex));
+        return getInput(itemIndex);
     }
 
     public static int getArmorChoice(ArrayList<Armor> list)
@@ -79,6 +79,10 @@ public class TestString
 
     public static int getInput(int itemIndex)
     {
+        if(itemIndex == 1)
+        {
+            return -1;
+        }
         Scanner kb = new Scanner(System.in);
         String validInput;
         int choice = 0;

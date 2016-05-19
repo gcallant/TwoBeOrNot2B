@@ -7,7 +7,6 @@ import java.util.Collections;
 import Inventory.Inventory;
 import Item.Armor;
 import Item.Consumable;
-import Item.Storable;
 import Item.Weapon;
 import StringTester.TestString;
 
@@ -20,12 +19,14 @@ public class Party
     private ArrayList<A_Character> characterParty;
     private Inventory inventory;
     private int partyLevel;
+    private boolean shout;
 
     public Party(ArrayList<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
+        this.shout = false;
     }
 
     public void addToInventory(Weapon item)
@@ -61,10 +62,10 @@ public class Party
         return inventory.removeFromInventory(item);
     }
 
-    public void displayInventory()
+    /*private void displayInventory()
     {
         System.out.println(inventory.displayInventory());
-    }
+    }*/
 
     public boolean isDefeated()
     {
@@ -78,9 +79,32 @@ public class Party
         return true;
     }
 
-    public ArrayList<A_Character> getParty()
+    public boolean hasShouted()
     {
-        return characterParty;
+        return shout;
+    }
+
+    public void shout()
+    {
+        shout = true;
+    }
+
+    public int calculatePartyLevel()
+    {
+        int total = 0;
+        for(A_Character character : characterParty)
+        {
+            total += character.getLevel();
+        }
+        return total;
+    }
+
+    public void gainExperience(int experience)
+    {
+        for(A_Character character : characterParty)
+        {
+            character.gainExperience(experience);
+        }
     }
 
     public String print()
@@ -93,12 +117,27 @@ public class Party
         return retStr;
     }
 
+    public void fixParty()
+    {
+        for(A_Character character : characterParty)
+        {
+            character.resetTurn();
+            character.resetStats();
+            if(character.getDefeated())
+            {
+                character.heal(1);
+                character.removeDefeated();
+            }
+            shout = false;
+        }
+    }
+
     public void sortDefeated()
     {
         Collections.sort(characterParty, new DefeatedSort());
     }
 
-    public ArrayList<Consumable> getConsumables()
+    public int getConsumables()
     {
         return inventory.getConsumables();
     }
@@ -128,7 +167,6 @@ public class Party
 
     public A_Character getCharacter(int index)
     {
-        Collections.sort(characterParty, new DefeatedSort());
         return characterParty.get(index);
     }
 
@@ -145,7 +183,7 @@ public class Party
         A_Character character = characterParty.get(choice);
 
         System.out.println("Enter an item to use");
-        choice = TestString.getConsumableChoice(inventory.getConsumables());
+        choice = inventory.chooseConsumable();
 
         if(choice == -1)
         {

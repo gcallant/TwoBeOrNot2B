@@ -1,3 +1,4 @@
+import Database.DatabaseManager;
 import GameState.StateBase;
 import Logging.LoggingManager;
 import Utilities.OSException;
@@ -18,6 +19,8 @@ public class RunGameSample
     {
         createExternalDirectory();
         LoggingManager loggingManager = new LoggingManager("RunGameSample");
+        DatabaseManager database = DatabaseManager.getInstance();
+        database.closeConnection();
 
 
         StateBase gameState = new StateBase();

@@ -93,15 +93,21 @@ public class OSUtil
 	public static File createNewDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);
-		//logger.getLogger().info("Attempting to create new directory {} in {}",
-		//                        newDirectoryName, parentDirectory);
+		if(logger.isConfigured())
+		{
+			logger.getLogger().info("Attempting to create new directory {} in {}",
+			                        newDirectoryName, parentDirectory);
+		}
 		File newDirectory = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newDirectoryName);
 		newDirectory.mkdir();
 		if(! newDirectory.exists())
 		{
 			throw new OSException(new Throwable("Could not create new directory"));
 		}
-		//logger.getLogger().info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
+		if(logger.isConfigured())
+		{
+			logger.getLogger().info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
+		}
 		return newDirectory;
 	}
 

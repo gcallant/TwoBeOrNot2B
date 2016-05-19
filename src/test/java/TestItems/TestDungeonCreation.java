@@ -8,7 +8,7 @@ import org.junit.Test;
 public class TestDungeonCreation
 {
 	GenerateDungeon dungeon;
-	int x = 15, y = 15;
+	int x = 0, y = 0;
 
 	@Before
 	public void setUp() throws Exception
@@ -19,7 +19,7 @@ public class TestDungeonCreation
 	@Test
 	public void testDungeonOuput()
 	{
-		for(int z = 0; z < 10; z++)
+		for(int z = 0; z < 0; z++)
 		{
 			System.out.println(x + " " + y);
 			dungeon = new GenerateDungeon(x, y);

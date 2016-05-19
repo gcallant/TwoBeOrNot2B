@@ -2,7 +2,6 @@ package Characters;
 
 import Item.Armor;
 import Item.Consumable;
-import Item.Storable;
 import Item.Weapon;
 
 import java.util.Scanner;
@@ -42,7 +41,7 @@ public abstract class A_Hero extends A_Character
 					                   "3.) Use Special\n" +
 					                   "4.) Use Item\n" +
 					                   "5.) Run\n");
-			choice = input.nextInt();
+			choice = input.nextInt();           //TODO This can throw an InputMismatchException on Scanner
 			switch(choice)
 			{
 				case 1:

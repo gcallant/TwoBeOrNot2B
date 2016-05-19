@@ -8,13 +8,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
 
+import java.io.File;
+
+import static org.junit.Assert.assertFalse;
+
 /**
  * Created by Grant Callant on 5/12/2016.
  *
  * @author Grant Callant
  */
 
-@DataSet( {"DatabaseManagerCharacterTest.xml"})
+@DataSet({"DatabaseManagerCharacterTest.xml"})
 public class DatabaseManagerTest
 {
 	DatabaseManager databaseManager = null;
@@ -35,13 +39,9 @@ public class DatabaseManagerTest
 	@After
 	public void tearDown() throws Exception
 	{
-
-	}
-
-	@Test
-	public void closeConnection() throws Exception
-	{
 		databaseManager.closeConnection();
+		File deleteTestDirectory = new File("storedInformation");
+		deleteTestDirectory.delete();
+		assertFalse(deleteTestDirectory.exists());
 	}
-
 }

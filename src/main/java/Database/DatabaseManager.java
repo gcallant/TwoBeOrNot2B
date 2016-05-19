@@ -1,8 +1,5 @@
 package Database;
 
-import Characters.A_Character;
-import Inventory.Inventory;
-import Item.Equipable;
 import Mediator.Mediator;
 import org.jetbrains.annotations.Contract;
 import org.sqlite.SQLiteConfig;
@@ -66,8 +63,8 @@ public class DatabaseManager
 				                     " STRENGTH INT NOT NULL," +
 				                     " DEXTERITY INT NOT NULL," +
 				                     " SPEED INT NOT NULL," +
-				                     " ARMOR INT NOT NULL" +
-				                     ");";
+				                     " ARMOR BLOB NOT NULL," +
+				                     " WEAPON BLOB NOT NULL);";
 
 		try
 		{
@@ -111,19 +108,34 @@ public class DatabaseManager
 		return false;
 	}
 
-	public A_Character loadParty(Mediator mediator)
+	public void loadParty(Mediator mediator)
 	{
-		return null;
+
 	}
 
-	public Inventory loadInventory(Mediator mediator)
+	public void loadInventory(Mediator mediator)
 	{
-		return null;
+
 	}
 
-	public Equipable loadEquipment(Mediator mediator)
+	public void loadEquipment(Mediator mediator)
 	{
-		return null;
+
+	}
+
+	public void saveParty(Mediator mediator)
+	{
+
+	}
+
+	public void saveInventory(Mediator mediator)
+	{
+
+	}
+
+	public void saveEquipment(Mediator mediator)
+	{
+
 	}
 
 	public void closeConnection()

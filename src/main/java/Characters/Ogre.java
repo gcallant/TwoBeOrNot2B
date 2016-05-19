@@ -1,24 +1,45 @@
 package Characters;
 import AttackAndDefendBehavior.*;
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
 
+import java.util.Random;
 
 
 /**
  * Created by gm14793 on 5/9/16.
  */
-public class Ogre extends A_Monster implements I_Attack
+public class Ogre extends A_Monster
 {
+    private boolean exhausted;
 
-
-    public Ogre(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
+    public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(newName, newHealth, newStrength, newDexterity, newSpeed, newArmor);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
     }
 
-
-    public void performAttack(A_Character toAttack)
+    public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
-
+        stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
+        exhausted = true;
+        return false;
     }
 
+    protected boolean cannotAttack()
+    {
+        return super.cannotAttack() || exhausted;
+    }
+
+    public void resetTurn()
+    {
+        super.resetTurn();
+        exhausted = false;
+    }
+
+    public int getLevel()
+    {
+        return 10;
+    }
 }

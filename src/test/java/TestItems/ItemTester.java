@@ -10,47 +10,82 @@ import java.util.Collections;
 
 public class ItemTester
 {
-	ArrayList myList;
+	ArrayList<Weapon> weaponList;
+	ArrayList<Armor> armorList;
+	ArrayList<Consumable> consumableList;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		myList = new ArrayList<Storable>();
+		weaponList = new ArrayList<Weapon>();
+		armorList = new ArrayList<Armor>();
+		consumableList = new ArrayList<Consumable>();
 	}
 
 	@Test
 	public void testItemAdd()
 	{
-		myList.add(new Bow(1));
-		myList.add(new Chainmail(2));
-		myList.add(new Dagger(3));
-		myList.add(new Bow(3));
-		myList.add(new Bow(1));
-		myList.add(new Hammer(3));
-		myList.add(new Dagger(1));
-		myList.add(new Healing(2));
-		myList.add(new Staff(1));
-		myList.add(new Sword(2));
+		weaponList.add(new Bow(1));
+		weaponList.add(new Dagger(3));
+		weaponList.add(new Bow(3));
+		weaponList.add(new Bow(1));
+		weaponList.add(new Hammer(3));
+		weaponList.add(new Dagger(1));
+		weaponList.add(new Staff(1));
+		weaponList.add(new Sword(2));
+
+		armorList.add(new Chainmail(3));
+		armorList.add(new Cloth(2));
+		armorList.add(new Leather(1));
+		armorList.add(new Chainmail(1));
+		armorList.add(new Cloth(1));
+
+		consumableList.add(new Strength(3));
+		consumableList.add(new Healing(2));
+		consumableList.add(new Healing(1));
+		consumableList.add(new Strength(1));
 	}
 
 	@Test
 	public void testSorting()
 	{
 		System.out.println("Before sorting");
-		for(int x = 0; x < myList.size(); x++)
+		for(Weapon weapon : weaponList)
 		{
-			System.out.println(myList.get(x) + " " + ((Storable) myList.get(x)).getPower());
+			System.out.println(weapon);
+		}
+
+		for(Armor armor : armorList)
+		{
+			System.out.println(armor);
+		}
+
+		for(Consumable consumable : consumableList)
+		{
+			System.out.println(consumable);
 		}
 
 		System.out.println("\n\n\n");
 
 		System.out.println("After sorting");
 
-		Collections.sort(myList, new CompareStorables());
+		Collections.sort(weaponList, new WeaponSort());
+		Collections.sort(armorList, new ArmorSort());
+		Collections.sort(consumableList, new ConsumableSort());
 
-		for(int x = 0; x < myList.size(); x++)
+		for(Weapon weapon : weaponList)
 		{
-			System.out.println(myList.get(x) + " " + ((Storable) myList.get(x)).getPower());
+			System.out.println(weapon);
+		}
+
+		for(Armor armor : armorList)
+		{
+			System.out.println(armor);
+		}
+
+		for(Consumable consumable : consumableList)
+		{
+			System.out.println(consumable);
 		}
 	}
 

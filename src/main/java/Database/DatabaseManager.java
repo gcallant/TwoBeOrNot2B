@@ -1,9 +1,7 @@
 package Database;
 
-import Characters.A_Character;
-import Inventory.Inventory;
-import Item.Equipable;
 import Mediator.Mediator;
+import Utilities.OSUtil;
 import org.jetbrains.annotations.Contract;
 import org.sqlite.SQLiteConfig;
 
@@ -18,7 +16,9 @@ import java.sql.*;
 public class DatabaseManager
 {
 	private static final String     DRIVER            = "org.sqlite.JDBC";
-	private static final String     DATABASE          = "jdbc:sqlite:storedInformation";
+	private static final String     DATABASE          =
+			  "jdbc:sqlite:" + OSUtil.getExternalDirectory().toString() +
+						 OSUtil.getSeparator() + "DungeonCrawler.db";
 	private              Connection databaseConnector = null;
 	private              Statement  sqlStatement      = null;
 
@@ -60,38 +60,46 @@ public class DatabaseManager
 			e.printStackTrace();
 		}
 
-		String statement = "CREATE TABLE CHARACTERS(" +
-				                     "NAME TEXT PRIMARY KEY NOT NULL," +
-				                     " HEALTH INT NOT NULL," +
-				                     " STRENGTH INT NOT NULL," +
-				                     " DEXTERITY INT NOT NULL," +
-				                     " SPEED INT NOT NULL," +
-				                     " ARMOR INT NOT NULL" +
-				                     ");";
+		String statement = "";
 
-		try
+		if(! tableIsPresent("CHARACTERS"))
 		{
-			sqlStatement.executeUpdate(statement);
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
+			statement = "CREATE TABLE CHARACTERS(" +
+					              "NAME TEXT PRIMARY KEY NOT NULL," +
+					              " HEALTH INT NOT NULL," +
+					              " STRENGTH INT NOT NULL," +
+					              " DEXTERITY INT NOT NULL," +
+					              " SPEED INT NOT NULL," +
+					              " ARMOR BLOB NOT NULL," +
+					              " WEAPON BLOB NOT NULL);";
+
+			try
+			{
+				sqlStatement.executeUpdate(statement);
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 
-		statement = "CREATE TABLE INVENTORY(" +
-				              "ITEMID INT PRIMARY KEY NOT NULL," +
-				              " ITEMTYPE TEXT NOT NULL," +
-				              " OWNER TEXT NOT NULL," +
-				              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME)" +
-				              ");";
+		if(! tableIsPresent("INVENTORY"))
+		{
+			statement = "CREATE TABLE INVENTORY(" +
+					              "ITEMID INT PRIMARY KEY NOT NULL," +
+					              " ITEMTYPE TEXT NOT NULL," +
+					              " OWNER TEXT NOT NULL," +
+					              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME)" +
+					              ");";
 
-		try
-		{
-			sqlStatement.close();
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
+			try
+			{
+				sqlStatement.close();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -111,19 +119,24 @@ public class DatabaseManager
 		return false;
 	}
 
-	public A_Character loadParty(Mediator mediator)
+	public void loadParty(Mediator mediator)
 	{
-		return null;
+
 	}
 
-	public Inventory loadInventory(Mediator mediator)
+	public void loadInventory(Mediator mediator)
 	{
-		return null;
+
 	}
 
-	public Equipable loadEquipment(Mediator mediator)
+	public void saveParty(Mediator mediator)
 	{
-		return null;
+
+	}
+
+	public void saveInventory(Mediator mediator)
+	{
+
 	}
 
 	public void closeConnection()

@@ -1,10 +1,7 @@
 package TestItems;
 
-import Logging.LoggingManager;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URL;
 
 /**
  * Created by Grant Callant on 5/16/2016. GitHub
@@ -22,11 +19,11 @@ public class LoggingManagerTest
 	@Test
 	public void shouldLog()
 	{
-		URL resource = Thread.currentThread().getContextClassLoader()
-				                 .getResource("log4j.properties");
-		System.out.println("resource = " + resource);
-		final LoggingManager logger = new LoggingManager(getClass());
-		logger.getLogger().info("Hello world");
+		//		URL resource = Thread.currentThread().getContextClassLoader()
+		//				                 .getResource("log4j.properties");
+		//		System.out.println("resource = " + resource);
+		//		final LoggingManager logger = new LoggingManager(getClass());
+		//		logger.getLogger().info("Hello world");
 	}
 
 }

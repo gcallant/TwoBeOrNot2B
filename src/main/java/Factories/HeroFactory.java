@@ -1,5 +1,6 @@
 package Factories;
 import Characters.*;
+import Item.*;
 
 /**
  * Created by SaraPage on 4/29/2016.
@@ -10,22 +11,19 @@ public class HeroFactory
 	{
 	}
 
-	public A_Hero createCharacter(String name, int health, int strength, int dexterity, int speed, int armor)
+	public A_Character createCharacter(String type, String name)
 	{
-		if(name.equalsIgnoreCase("Warrior"))
+		switch(type)
 		{
-			return new Warrior(name, 250, 10, 5, 4, 13);
+			case "Warrior":
+				return new Warrior(name, 250, 10, 5, new Leather(1), new Hammer(1));
+			case "Mage":
+				return new Mage(name, 180, 5, 6, new Cloth(1), new Staff(1));
+			case "Rogue":
+				return new Rogue(name, 200, 6, 10, new Leather(1), new Dagger(1));
+			case "Paladin":
+				return new Paladin(name, 300, 8, 4, new Chainmail(1), new Sword(1));
 		}
-
-		else if(name.equalsIgnoreCase("Mage"))
-		{
-			return new Mage(name, 180, 5, 6, 6, 8);
-		}
-
-		else if(name.equalsIgnoreCase("Rogue"))
-		{
-			return new Rogue(name, 200, 7, 7, 8, 10);
-		}
-		return createCharacter("Warrior", health, strength, dexterity, speed, armor);
+		return createCharacter("Warrior", "Bob");
 	}
 }

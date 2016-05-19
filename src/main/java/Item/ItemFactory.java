@@ -2,7 +2,7 @@ package Item;
 
 public class ItemFactory
 {
-	public static Storable getStorable(String type, int power)
+	/*public static Storable getStorable(String type, int power)
 	{
 		if(power < 1)
 		{
@@ -43,5 +43,5 @@ public class ItemFactory
 
 		System.out.println(type + " not recognized. No item of type Storable could be found to match.");
 		return null;
-	}
+	}*/
 }

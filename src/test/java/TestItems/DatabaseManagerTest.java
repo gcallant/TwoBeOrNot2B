@@ -3,10 +3,16 @@ package TestItems;
 import Characters.A_Character;
 import Characters.CharacterFactory;
 import Database.DatabaseManager;
+import Utilities.OSException;
+import Utilities.OSUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
+
+import java.io.File;
+
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Grant Callant on 5/12/2016.
@@ -14,14 +20,34 @@ import org.unitils.dbunit.annotation.DataSet;
  * @author Grant Callant
  */
 
-@DataSet( {"DatabaseManagerCharacterTest.xml"})
+@DataSet({"DatabaseManagerCharacterTest.xml"})
 public class DatabaseManagerTest
 {
+	private static final String GAME_NAME          = "Dungeon Crawler";
+	private static       File   EXTERNAL_DIRECTORY = null;
 	DatabaseManager databaseManager = null;
+
+	private static void createExternalDirectory()
+	{
+		try
+		{
+			File parent = OSUtil.getParentDirectory();
+			EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
+			OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
+
+		}
+		catch(OSException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not make new directory- program must exit");
+			System.exit(- 1);
+		}
+	}
 
 	@Before
 	public void setUp() throws Exception
 	{
+		createExternalDirectory();
 		databaseManager = DatabaseManager.getInstance();
 	}
 
@@ -29,19 +55,20 @@ public class DatabaseManagerTest
 	public void testCharacter()
 	{
 		CharacterFactory characterFactory = new CharacterFactory();
-		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2, 7, 1);
+		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2);
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
-
-	}
-
-	@Test
-	public void closeConnection() throws Exception
-	{
 		databaseManager.closeConnection();
-	}
+		File deleteTestDatabase = new File(EXTERNAL_DIRECTORY.getAbsolutePath() +
+				                                     OSUtil.getSeparator() + "DungeonCrawler.db");
+		File deleteTestDirectory = new File(EXTERNAL_DIRECTORY.getAbsolutePath());
+		deleteTestDatabase.delete();
+		assertFalse(deleteTestDatabase.exists());
+		deleteTestDirectory.delete();
+		assertFalse(deleteTestDirectory.exists());
 
+	}
 }

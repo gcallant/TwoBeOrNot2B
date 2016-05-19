@@ -21,7 +21,7 @@ public class InGameMenu implements A_State
 
     public String display()
     {
-       return "Choose an option\nResume\nInventory\nSaveGame\nQuit\n";
+       return "Choose an option\nResume\nInventory\nQuit\n";
     }
 
     public A_State execute(String command)
@@ -33,9 +33,7 @@ public class InGameMenu implements A_State
             case "resume":
                 return new MapExploration(mediator);
             case "inventory":
-                return new InGameMenu(mediator);
-            case "saveGame":
-                return new InGameMenu(mediator);
+                return new PartyInventory(mediator);
             default:
                 return new InGameMenu(mediator);
         }

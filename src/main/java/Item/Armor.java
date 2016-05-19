@@ -1,6 +1,6 @@
 package Item;
 
-public abstract class Armor implements Storable, Equipable
+public abstract class Armor
 {
    private int power;
    private Enchantment enchantment;
@@ -17,7 +17,7 @@ public abstract class Armor implements Storable, Equipable
    
    public int getPower()
    {
-      return this.power;
+      return this.power + getBase();
    }
    
    public void setEnchantment(Enchantment enchantment)
@@ -25,18 +25,12 @@ public abstract class Armor implements Storable, Equipable
       this.enchantment = enchantment;
    }
    
-   public String getParentType()
-   {
-      return "Armor";
-   }
-   
    public String toString()
    {
       return "Armor: ";
    }
-   
-   public String getChildType()
-   {
-      return this.getClass() + "";
-   }
+
+   protected abstract int getBase();
+
+   public abstract ArmorType getArmorType();
 }

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +17,8 @@ import static org.junit.Assert.*;
  */
 public class OSUtilTest
 {
-	private static final String TEST_DIRECTORY = "\\New Directory";
+	private static final String SEPARATOR      = FileSystems.getDefault().getSeparator();
+	private static final String TEST_DIRECTORY = SEPARATOR + "NewDirectory";
 	private              File   parent         = null;
 
 	@Before
@@ -28,7 +30,7 @@ public class OSUtilTest
 	@Test
 	public void createNewDirectory() throws Exception
 	{
-		OSUtil.createNewDirectory(parent, "New Directory");
+		OSUtil.createNewDirectory(parent, "NewDirectory");
 		File compare = new File(parent.getAbsolutePath() + TEST_DIRECTORY);
 		assertTrue(compare.exists());
 	}

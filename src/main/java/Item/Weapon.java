@@ -1,11 +1,12 @@
 package Item;
 
-public abstract class Weapon implements Storable, Equipable
+public abstract class Weapon
 {
    private int power;
    private Enchantment enchantment;
+   private String attackType;
    
-   public Weapon(int power)
+   public Weapon(int power, String attackType)
    {
       if(power > 3 || power < 0)
       {
@@ -13,11 +14,17 @@ public abstract class Weapon implements Storable, Equipable
       }
       this.power = power;
       this.enchantment = null;
+      this.attackType = attackType;
+   }
+
+   public String getAttackType()
+   {
+      return this.attackType;
    }
    
    public int getPower()
    {
-      return this.power;
+      return this.power + getBase();
    }
    
    public void setEnchantment(Enchantment enchantment)
@@ -25,18 +32,12 @@ public abstract class Weapon implements Storable, Equipable
       this.enchantment = enchantment;
    }
    
-   public String getParentType()
-   {
-      return "Weapon";
-   }
-   
-   public String getChildType()
-   {
-      return this.getClass() + "";
-   }
-   
    public String toString()
    {
-      return "+" + this.getPower() + " Weapon: ";
+      return "Weapon: ";
    }
+
+   public abstract WeaponType getWeaponType();
+
+   public abstract int getBase();
 }

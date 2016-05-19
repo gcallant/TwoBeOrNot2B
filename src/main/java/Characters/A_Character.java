@@ -1,157 +1,495 @@
 package Characters;
 
-import AttackAndDefendBehavior.*;
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
 
-import java.util.*;
-
-import Item.*;
-import Inventory.*;
+import java.util.Random;
 
 public abstract class A_Character
 {
-	protected String                name;
-	protected int                   health;
-	protected int                   strength;
-	protected int                   dexterity;
-	protected int                   speed;
-	protected int                   armor;
-	protected I_Attack              attackBehavior;
-	protected I_Defend              defendBehavior;
-	protected boolean               isDefeated;
-	protected ArrayList<Consumable> usables;
-	protected Inventory             inventory;
+	protected Random     rand;
+	private   String     name;
+	private   int        health;
+	private   int        maxHealth;
+	private   int        strength;
+	private   int        dexterity;
+	private   int        tempStrength;
+	private   int        tempDexterity;
+	private   int        level;
+	private   int        experience;
+	private   Armor      armor;
+	private   Weapon     weapon;
+	private   boolean    isDefeated;
+	private   boolean    defending;
+	private   int        initiative;
+	private   boolean    isStunned;
+	private   ArmorType  armorType;
+	private   WeaponType weaponType;
+	private boolean    protection;
 
-	public A_Character(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
+	public A_Character(String name, int health, int strength, int dexterity, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
 	{
-		setName(newName);
-		setHealth(newHealth);
-		setStrength(newStrength);
-		setDexterity(newDexterity);
-		setSpeed(newSpeed);
-		setArmor(newArmor);
+		this.name      = name;
+		this.health    = health;
+		this.strength  = strength;
+		this.dexterity = dexterity;
+		this.armor     = newArmor;
+		this.weapon    = newWeapon;
+		this.maxHealth = health;
+		this.armorType = armorType;
+		this.armorType = armorType;
+
+		this.tempDexterity = 0;
+		this.tempStrength  = 0;
+		this.level         = 1;
+		this.experience    = 0;
+
 		isDefeated = false;
-		usables = new ArrayList<Consumable>();
-		inventory = new Inventory();
+		isStunned  = false;
+		protection = false;
+
+		rand = new Random();
 	}
 
-	public abstract void takeAction(Party heroes, Party monsters);
 
-	public int generateInitiative()//will generate the character's initiative.
+	public abstract boolean takeAction(Party heroes, Party monsters);
+
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*  * * *   * * *   * * *     * * *   * * *      *      *      *
+	*  *       *   *   *        *          *       * *     *      *
+	*  * * *   * * *   * * *   *           *      * * *    *      *
+	*      *   *       *        *          *     *     *   *      *
+	*  * * *   *       * * *     * * *   * * *   *     *   * * *  *
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	protected void intimidatingShout(Party enemies)
 	{
-		return 0;
+		System.out.println(getName() + " used intimidating shout!");
+		for(int x = 0; x < enemies.size(); x++)
+		{
+			enemies.getCharacter(x).removeTempStrength(2*level);
+		}
 	}
 
-	public void takeDamage(int total)
+	protected void resetShout(Party enemies)
+	{
+		System.out.println(getName() + "'s intimidating shout has ended!");
+		for(int x = 0; x < enemies.size(); x++)
+		{
+			enemies.getCharacter(x).giveTempStrength(2*level);
+		}
+	}
+
+	protected void healingLight(Party allies)
+	{
+		System.out.println(getName() + " healed their whole party for " + (2*strength));
+		for(int x = 0; x < allies.size(); x++)
+		{
+			allies.getCharacter(x).heal(2*strength);
+			allies.getCharacter(x).removeStun();
+		}
+
+	}
+
+	protected void protect(A_Character character)
+	{
+		character.protection();
+	}
+
+	protected void protection()
+	{
+		protection = true;
+	}
+
+	protected void sneakAttack(A_Character character)
+	{
+		int tempBoost = 0;
+		System.out.println(getName() + " used sneak attack on " + character.getName());
+
+		if((character.getHealth() == character.getMaxHealth()) || character.cannotAttack())
+		{
+			tempBoost = getStrength()*10;
+			giveTempStrength(tempBoost);
+		}
+
+		attack(character);
+
+		removeTempStrength(tempBoost);
+	}
+
+	protected void meteorShower(Party enemies)
+	{
+		System.out.println(getName() + " used meteor shower!");
+		for(int x = 0; x < enemies.size(); x++)
+		{
+			preformAttack(enemies.getCharacter(x));
+		}
+	}
+
+	protected void stunningStrike(A_Character character)
+	{
+		int tempBoost = getStrength()*2;
+		giveTempStrength(tempBoost);
+
+		System.out.println(getName() + " used stunning strike on " + character.getName());
+		if(canAttack(character))
+		{
+			preformAttack(character);
+			if(rand.nextBoolean())
+			{
+				System.out.println(character.getName() + " was stunned!");
+				character.setStun();
+			}
+		}
+		else
+		{
+			System.out.println("But missed!");
+		}
+		removeTempStrength(tempBoost);
+	}
+
+	protected void magicBuff()
+	{
+		System.out.println(getName() + " buffed themself with magic!");
+		giveTempStrength(5*getLevel());
+	}
+
+	protected void removeMagicBuff()
+	{
+		System.out.println(getName() + " lost their magic buff");
+		removeTempStrength(5*getLevel());
+	}
+
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*    *      * * *   * * *      *        * * *   *   *   *
+	*   * *       *       *       * *      *        * *     *
+	*  *   *      *       *      *   *    *         *  *    *
+	* * * * *     *       *     * * * *    *        *   *   *
+	* *     *     *       *     *     *     * * *   *    *  *
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	protected boolean cannotAttack()
+	{
+		return isStunned();
+	}
+
+	private void takeDamage(int total)
 	{
 		this.health -= total;
 		if(health <= 0)
 		{
+			health = 0;
 			this.isDefeated = true;
 		}
 	}
 
-	public void attack(A_Character toAttack)
+	private boolean canAttack(A_Character toAttack)
 	{
-		toAttack.takeDamage(10);
-	}
-
-	public void defend()
-	{
-		defendBehavior.performDefense();
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String newName)
-	{
-		if(! HelperMethods.isValidName(newName))
+		int attackBonus = 0;
+		switch(weapon.getAttackType())
 		{
-			throw new IllegalArgumentException("Invalid name");
+			case "dexterity":
+				attackBonus = this.getDexterity();
+				break;
+			case "strength":
+				attackBonus = this.getStrength();
+				break;
 		}
-		name = newName;
+		attackBonus += weapon.getPower();
+		attackBonus += rand.nextInt(ConstantValues.ChanceToHit.getValue());
+
+		return attackBonus >= toAttack.totalDefense();
 	}
 
-	public int getHealth()
+	protected void attack(A_Character toAttack)
 	{
-		return health;
-	}
-
-	public void setHealth(int newHealth)
-	{
-		if(HelperMethods.isValidInteger(newHealth + "") == null)
+		if(canAttack(toAttack))
 		{
-			throw new IllegalArgumentException("Invalid health");
+			preformAttack(toAttack);
 		}
-		health = newHealth;
-	}
-
-	public int getStrength()
-	{
-		return strength;
-	}
-
-	public void setStrength(int newStrength)
-	{
-		if(HelperMethods.isValidInteger(newStrength + "") == null)
+		else
 		{
-			throw new IllegalArgumentException("Invalid defense");
+			System.out.println(this.getName() + " attacked " + toAttack.getName() + " but missed!");
 		}
-		strength = newStrength;
 	}
 
-	public int getDexterity()
+	private void preformAttack(A_Character toAttack)
 	{
-		return dexterity;
-	}
+		int totalDamage = 0;
 
-	public void setDexterity(int newDexterity)
-	{
-		if(HelperMethods.isValidInteger(newDexterity + "") == null)
+		totalDamage += weapon.getPower();
+		totalDamage += getStrength();
+		totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
+		if(toAttack.isDefending())
 		{
-			throw new IllegalArgumentException("Invalid defense");
+			totalDamage = totalDamage/2;
 		}
-		dexterity = newDexterity;
-	}
+		toAttack.takeDamage(totalDamage);
 
-	public int getSpeed()
-	{
-		return speed;
-	}
+		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
 
-	public void setSpeed(int newSpeed)
-	{
-		if(HelperMethods.isValidInteger(newSpeed + "") == null)
+		if(toAttack.getDefeated())
 		{
-			throw new IllegalArgumentException("Invalid speed");
+			System.out.println(this.getName() + " killed " + toAttack.getName() + "!");
 		}
-		speed = newSpeed;
 	}
 
-	public int getArmor()
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * * * *
+	*  *       * * *   *         *   * * *   *      *
+	*  *       *        *       *    *       *      *
+	*  *       * * *     *     *     * * *   *      *
+	*  *       *          *   *      *       *      *
+	*  * * *   * * *       * *       * * *   * * *  *
+	* * * * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	public int getLevel()
 	{
-		return armor;
+		return this.level;
 	}
 
-	public void setArmor(int newArmor)
+	private void levelUp()
 	{
-		if(HelperMethods.isValidInteger(newArmor + "") == null)
+		strength += strengthIncrease();
+		dexterity += dexterityIncrease();
+		maxHealth += healthIncrease();
+		health = maxHealth;
+		experience = 0;
+	}
+
+	protected boolean canLevel()
+	{
+		return experience/(level*100) > 0;
+	}
+
+	public void gainExperience(int experience)
+	{
+		if(experience > 0)
 		{
-			throw new IllegalArgumentException("Invalid attack");
+			this.experience += experience;
 		}
-		armor = newArmor;
+		if(canLevel())
+		{
+			levelUp();
+		}
 	}
 
-	public void setAttackBehavior(I_Attack newAttackBehavior)
+	public int strengthIncrease()
 	{
-		attackBehavior = newAttackBehavior;
+		return 0;
 	}
 
-	public void setDefendBehavior(I_Defend newDefendBehavior)
+	public int dexterityIncrease()
 	{
-		defendBehavior = newDefendBehavior;
+		return 0;
+	}
+
+	public int healthIncrease()
+	{
+		return 0;
+	}
+
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * *
+	*  * * *   * * *    *   *   * * *   * * *   *
+	*  *       *   *    *   *     *     *   *   *
+	*  * * *   *  **    *   *     *     * * *   *
+	*  *       * * *    *   *     *     *       *
+	*  * * *        *   * * *   * * *   *       *
+	* * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	public boolean canEquip(Armor armor)
+	{
+		return armorType == armor.getArmorType();
+	}
+
+	public boolean canEquip(Weapon weapon)
+	{
+		return weaponType == weapon.getWeaponType();
+	}
+
+	public Armor equip(Armor armor)
+	{
+		Armor temp = this.armor;
+		this.armor = armor;
+		return temp;
+	}
+
+	public Weapon equip(Weapon weapon)
+	{
+		Weapon temp = this.weapon;
+		this.weapon = weapon;
+		return temp;
+	}
+
+	public String compareWeapon(Weapon equipped, Weapon toCompare)
+	{
+		int powerDiff;
+		if(equipped.getWeaponType() == toCompare.getWeaponType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Weapons are of different types.";
+	}
+
+	public String compareArmor(Armor equipped, Armor toCompare)
+	{
+		int powerDiff;
+		if(equipped.getArmorType() == toCompare.getArmorType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Armor is of a different type.";
+	}
+
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*  * * *     * *     * * *   * * *     * *     *    * *
+	*  *   *   *     *     *       *     *     *   * *  * *
+	*  * * *   *     *     *       *     *     *   *  * * *
+	*  *       *     *     *       *     *     *   *   ** *
+	*  *         * *       *     * * *     * *     *    * *
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	public void heal(int amount)
+	{
+		System.out.println(getName() + " was healed for " + amount + " HP!");
+		health = Math.min(health + amount, maxHealth);
+		removeDefeated();
+	}
+
+	public void giveTempStrength(int tempStrength)
+	{
+		this.tempStrength += tempStrength;
+	}
+
+	public void removeTempStrength(int tempStrength)
+	{
+		if(tempStrength - this.tempStrength > strength)
+		{
+			this.tempStrength = -strength + 1;
+		}
+		else
+		{
+			this.tempStrength -= tempStrength;
+		}
+	}
+
+	public void giveTempDexterity(int tempDexterity)
+	{
+		this.tempDexterity += tempDexterity;
+	}
+
+	public void removeTempDexterity(int tempDexterity)
+	{
+		if(tempDexterity - this.tempDexterity > dexterity)
+		{
+			this.tempDexterity = -dexterity + 1;
+		}
+		else
+		{
+			this.tempDexterity -= tempDexterity;
+		}
+	}
+
+	/*
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*  * * * *   * * *   * * *   *       *   * * *   * * *  *
+	*  *     *   *   *     *     * *     *     *     *      *
+	*  * * * *   * * *     *     *   *   *     *     * * *  *
+	*  *         * *       *     *     * *     *         *  *
+	*  *         *   *   * * *   *       *     *     * * *  *
+	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	*/
+
+	@Override
+	public String toString()
+	{
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
+				         "\tDexterity: " + getDexterity() + "\tArmor: ";
+	}
+
+	public String inventoryDisplay()
+	{
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tArmor: " + getArmor() + "\tWeapon: " + getWeapon();
+	}
+
+	public String battleDisplay()
+	{
+		String retString = "Name: " + getName() + "\tHealth: " + getHealth();
+		if(cannotAttack())
+		{
+			retString += " Incapacitated";
+		}
+		return retString;
+	}
+
+	/*
+	* * * * * * * * * * * * * * * * * *
+	*  * * *    * * *   * * *   * * *  *
+	*  *        *         *     *      *
+	*  * * *    * * *     *     * * *  *
+	*      *    *         *         *  *
+	*  * * *    * * *     *     * * *  *
+	* * * * * * * * * * * * * * * * * *
+	*/
+
+	private void setStun()
+	{
+		isStunned = true;
+	}
+
+	protected void removeProtection()
+	{
+		protection = false;
+	}
+
+	public void resetTurn()
+	{
+		this.defending = false;
+		this.isStunned = false;
+	}
+
+	protected void removeStun()
+	{
+		isStunned = false;
+	}
+
+	public void removeDefeated()
+	{
+		isDefeated = false;
+	}
+
+	public void resetStats()
+	{
+		this.tempDexterity = 0;
+		this.tempStrength  = 0;
+	}
+
+	protected void defend()
+	{
+		defending = true;
 	}
 
 	public boolean getDefeated()
@@ -159,15 +497,84 @@ public abstract class A_Character
 		return isDefeated;
 	}
 
-	public void setDefeated(boolean isDown)
+	/*
+	* * * * * * * * * * * * * * * * * * * *
+	*  * * * *   * * *   * * *     * * *  *
+	*  *         *         *       *      *
+	*  *   * *   * * *     *       * * *  *
+	*  *     *   *         *           *  *
+	*  * * * *   * * *     *       * * *  *
+	* * * * * * * * * * * * * * * * * * * *
+	*/
+
+	private void setDefeated(boolean isDown)
 	{
 		isDefeated = isDown;
 	}
 
-	@Override
-	public String toString()
+	private Weapon getWeapon()
 	{
-		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
-				         "\tDexterity: " + getDexterity() + "\tSpeed: " + getSpeed() + "\tArmor: " + getArmor();
+		return weapon;
+	}
+
+	private Armor getArmor()
+	{
+		return armor;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	protected int getHealth()
+	{
+		return health;
+	}
+
+	private int getStrength()
+	{
+		return strength + tempStrength;
+	}
+
+	private int getDexterity()
+	{
+		return dexterity + tempDexterity;
+	}
+
+	public boolean isDefending()
+	{
+		return defending || protection;
+	}
+
+	private boolean isStunned()
+	{
+		return isStunned;
+	}
+
+	protected int getMaxHealth()
+	{
+		return maxHealth;
+	}
+
+	private int totalDefense()
+	{
+		int defense = armor.getPower();
+		defense += getDexterity();
+
+		return defense;
+	}
+
+	protected int getInitiative()
+	{
+		return this.initiative;
+	}
+
+	public void generateInitiative()
+	{
+		int randomValue;
+
+		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
+		initiative = randomValue + dexterity;
 	}
 }

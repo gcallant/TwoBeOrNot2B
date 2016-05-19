@@ -1,23 +1,62 @@
 package Characters;
 
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
+
+import java.util.Random;
+
 /**
  * Created by SaraPage on 4/29/2016.
  */
 public abstract class A_Monster extends A_Character
 {
 	protected String name;
+	protected Random rand;
 
-	public A_Monster(String newName, int newHealth, int newStrength, int newDexterity, int newSpeed, int newArmor)
+	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(newName, newHealth, newStrength, newDexterity, newSpeed, newArmor);
+		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
+		rand = new Random();
 	}
 
-	public void takeAction(Party heroes, Party monsters)
+	public void resetTurn()
 	{
-		String toPrint;
-		toPrint = this.getName();
-		toPrint = toPrint + " attacks ";
-		toPrint = toPrint + heroes.getParty().get(0).getName();
-		System.out.println(toPrint);
+		super.resetTurn();
 	}
+
+	public boolean takeAction(Party heroes, Party monsters)
+	{
+		boolean noTurn;
+
+		noTurn = cannotAttack();
+		resetTurn();
+
+		if(noTurn)
+		{
+			System.out.println(getName() + " is incapacitated and can't act!");
+			return false;
+		}
+
+		int choiceToAttack = rand.nextInt(heroes.size());
+
+		if(rand.nextBoolean())
+		{
+			specialAbility(rand, heroes, monsters);
+		}
+		else
+		{
+			A_Character toAttack = heroes.getCharacter(choiceToAttack);
+			attack(toAttack);
+		}
+		return false;
+	}
+
+	protected boolean cannotAttack()
+	{
+		return super.cannotAttack();
+	}
+
+	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 }

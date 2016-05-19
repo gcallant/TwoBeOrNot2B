@@ -1,7 +1,8 @@
 package Inventory;
 
-import Item.Storable;
-import Item.CompareStorables;
+import Characters.A_Character;
+import Item.*;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,54 +12,191 @@ import java.util.Collections;
  */
 public class Inventory
 {
-    private ArrayList<Storable> inventory;
+    private ArrayList<Weapon> weapons;
+    private ArrayList<Armor> armors;
+    private ArrayList<Consumable> consumables;
+    private int totalSize;
 
     public Inventory()
     {
-        this.inventory = new ArrayList<Storable>();
+        weapons = new ArrayList<Weapon>();
+        armors = new ArrayList<Armor>();
+        consumables = new ArrayList<Consumable>();
+        totalSize = 0;
     }
 
-    public void addToInventory(Storable item)
+    public void addToInventory(Weapon item)
     {
         if(item != null)
         {
-            this.inventory.add(item);
+            this.weapons.add(item);
+            totalSize++;
         }
     }
 
-    public Storable removeFromInventory(Storable item)
+    public void addToInventory(Armor item)
     {
-        if(this.inventory.contains(item))
+        if(item != null)
+        {
+            this.armors.add(item);
+            totalSize++;
+        }
+    }
+
+    public void addToInventory(Consumable item)
+    {
+        if(item != null)
+        {
+            this.consumables.add(item);
+            totalSize++;
+        }
+    }
+
+    public Weapon removeFromInventory(Weapon item)
+    {
+        if(this.weapons.contains(item))
         {
             int indexOfValue;
-            Storable returnValue;
-            indexOfValue = this.inventory.indexOf(item);
-            returnValue = this.inventory.get(indexOfValue);
-            this.inventory.remove(indexOfValue);
+            Weapon returnValue;
+            indexOfValue = this.weapons.indexOf(item);
+            returnValue = this.weapons.get(indexOfValue);
+            this.weapons.remove(indexOfValue);
+            totalSize--;
             return returnValue;
         }
-        else
+        return null;
+    }
+
+    public Armor removeFromInventory(Armor item)
+    {
+        if(this.armors.contains(item))
         {
-            return null;
+            int indexOfValue;
+            Armor returnValue;
+            indexOfValue = this.armors.indexOf(item);
+            returnValue = this.armors.get(indexOfValue);
+            this.armors.remove(indexOfValue);
+            totalSize--;
+            return returnValue;
         }
+        return null;
+    }
+
+    public Consumable removeFromInventory(Consumable item)
+    {
+        if(this.consumables.contains(item))
+        {
+            int indexOfValue;
+            Consumable returnValue;
+            indexOfValue = this.consumables.indexOf(item);
+            returnValue = this.consumables.get(indexOfValue);
+            this.consumables.remove(indexOfValue);
+            totalSize--;
+            return returnValue;
+        }
+        return null;
     }
 
     public void sortInventory()
     {
-        Collections.sort(this.inventory,new CompareStorables());
+        Collections.sort(this.armors, new ArmorSort());
+        Collections.sort(this.consumables, new ConsumableSort());
+        Collections.sort(this.weapons, new WeaponSort());
     }
 
     public String displayInventory()
     {
-        if(this.inventory.size() == 0)
+        if(totalSize == 0)
         {
             return "No items in Inventory";
         }
         String returnValue = "";
-        for(int x = 0; x < this.inventory.size(); x++)
+        for(Consumable consumable : consumables)
         {
-            returnValue = this.inventory.get(x).toString() + "\n";
+            returnValue = returnValue + consumable.toString() + "\n";
         }
         return returnValue;
+    }
+
+    public int getConsumables()
+    {
+        int itemIndex = 1;
+        for(Consumable item : consumables)
+        {
+            System.out.println(itemIndex + ".)" + item.toString());
+            itemIndex++;
+        }
+        return itemIndex;
+    }
+
+    public int chooseConsumable()
+    {
+        return TestString.getConsumableChoice(consumables);
+    }
+
+    public ArrayList<Weapon> getWeapons()
+    {
+        return weapons;
+    }
+
+    public ArrayList<Armor> getArmor()
+    {
+        return armors;
+    }
+
+    public boolean useConsumable(A_Character character, int index)
+    {
+        if(index >= consumables.size())
+        {
+            return false;
+        }
+        Consumable consumable = removeFromInventory(consumables.get(index));
+        consumable.use(character);
+        return true;
+    }
+
+    public boolean equipWeapon(A_Character character, int index)
+    {
+        if(index >= weapons.size())
+        {
+            return false;
+        }
+
+        Weapon weapon = removeFromInventory(weapons.get(index));
+        if(!character.canEquip(weapon))
+        {
+            addToInventory(weapon);
+            System.out.println(character.getName() + " cannot equip this type of weapon!");
+            return false;
+        }
+        Weapon toAdd = character.equip(weapon);
+        addToInventory(toAdd);
+        return true;
+    }
+
+    public boolean equipArmor(A_Character character, int index)
+    {
+        if(index >= armors.size())
+        {
+            return false;
+        }
+
+        Armor armor = removeFromInventory(armors.get(index));
+
+        if(!character.canEquip(armor))
+        {
+            addToInventory(armor);
+            System.out.println(character.getName() + " cannot equip this type of armor!");
+            return false;
+        }
+
+        Armor toAdd = character.equip(armor);
+        addToInventory(toAdd);
+        return true;
+    }
+
+    public String getConsumable(int index)
+    {
+        return consumables.get(index).toString();
     }
 }

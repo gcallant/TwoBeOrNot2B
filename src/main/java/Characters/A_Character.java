@@ -1,34 +1,33 @@
 package Characters;
 
-import AttackAndDefendBehavior.*;
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
 
-import java.util.*;
-
-import Item.*;
-import Inventory.*;
+import java.util.Random;
 
 public abstract class A_Character
 {
-	private String     name;
-	private int        health;
-	private int	       maxHealth;
-	private int        strength;
-	private int        dexterity;
-	private int		   tempStrength;
-	private int 	   tempDexterity;
-	private int        level;
-	private int        experience;
-	private Armor      armor;
-	private Weapon     weapon;
-	private boolean    isDefeated;
-	private boolean    defending;
-	private int        initiative;
-	private boolean	   isStunned;
-	private ArmorType  armorType;
-	private WeaponType weaponType;
+	protected Random     rand;
+	private   String     name;
+	private   int        health;
+	private   int        maxHealth;
+	private   int        strength;
+	private   int        dexterity;
+	private   int        tempStrength;
+	private   int        tempDexterity;
+	private   int        level;
+	private   int        experience;
+	private   Armor      armor;
+	private   Weapon     weapon;
+	private   boolean    isDefeated;
+	private   boolean    defending;
+	private   int        initiative;
+	private   boolean    isStunned;
+	private   ArmorType  armorType;
+	private   WeaponType weaponType;
 	private boolean    protection;
-
-	protected Random   rand;
 
 	public A_Character(String name, int health, int strength, int dexterity, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
 	{
@@ -331,6 +330,38 @@ public abstract class A_Character
 		return temp;
 	}
 
+	public String compareWeapon(Weapon equipped, Weapon toCompare)
+	{
+		int powerDiff;
+		if(equipped.getWeaponType() == toCompare.getWeaponType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Weapons are of different types.";
+	}
+
+	public String compareArmor(Armor equipped, Armor toCompare)
+	{
+		int powerDiff;
+		if(equipped.getArmorType() == toCompare.getArmorType())
+		{
+			powerDiff = equipped.getPower() - toCompare.getPower();
+			if(powerDiff >= 0)
+			{
+				return "+" + powerDiff;
+			}
+			return "" + powerDiff;
+
+		}
+		return "Not comparable. Armor is of a different type.";
+	}
+
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	*  * * *     * *     * * *   * * *     * *     *    * *
@@ -429,11 +460,6 @@ public abstract class A_Character
 		isStunned = true;
 	}
 
-	private void setDefeated(boolean isDown)
-	{
-		isDefeated = isDown;
-	}
-
 	protected void removeProtection()
 	{
 		protection = false;
@@ -466,6 +492,11 @@ public abstract class A_Character
 		defending = true;
 	}
 
+	public boolean getDefeated()
+	{
+		return isDefeated;
+	}
+
 	/*
 	* * * * * * * * * * * * * * * * * * * *
 	*  * * * *   * * *   * * *     * * *  *
@@ -476,9 +507,9 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * * * *
 	*/
 
-	public boolean getDefeated()
+	private void setDefeated(boolean isDown)
 	{
-		return isDefeated;
+		isDefeated = isDown;
 	}
 
 	private Weapon getWeapon()

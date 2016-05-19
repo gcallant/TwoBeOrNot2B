@@ -129,22 +129,12 @@ public class DatabaseManager
 
 	}
 
-	public void loadEquipment(Mediator mediator)
-	{
-
-	}
-
 	public void saveParty(Mediator mediator)
 	{
 
 	}
 
 	public void saveInventory(Mediator mediator)
-	{
-
-	}
-
-	public void saveEquipment(Mediator mediator)
 	{
 
 	}

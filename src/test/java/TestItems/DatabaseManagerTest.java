@@ -3,6 +3,8 @@ package TestItems;
 import Characters.A_Character;
 import Characters.CharacterFactory;
 import Database.DatabaseManager;
+import Utilities.OSException;
+import Utilities.OSUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,11 +23,31 @@ import static org.junit.Assert.assertFalse;
 @DataSet({"DatabaseManagerCharacterTest.xml"})
 public class DatabaseManagerTest
 {
+	private static final String GAME_NAME          = "Dungeon Crawler";
+	private static       File   EXTERNAL_DIRECTORY = null;
 	DatabaseManager databaseManager = null;
+
+	private static void createExternalDirectory()
+	{
+		try
+		{
+			File parent = OSUtil.getParentDirectory();
+			EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
+			OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
+
+		}
+		catch(OSException e)
+		{
+			e.printStackTrace();
+			System.out.println("Could not make new directory- program must exit");
+			System.exit(- 1);
+		}
+	}
 
 	@Before
 	public void setUp() throws Exception
 	{
+		createExternalDirectory();
 		databaseManager = DatabaseManager.getInstance();
 	}
 
@@ -40,8 +62,13 @@ public class DatabaseManagerTest
 	public void tearDown() throws Exception
 	{
 		databaseManager.closeConnection();
-		File deleteTestDirectory = new File("storedInformation");
+		File deleteTestDatabase = new File(EXTERNAL_DIRECTORY.getAbsolutePath() +
+				                                     OSUtil.getSeparator() + "DungeonCrawler.db");
+		File deleteTestDirectory = new File(EXTERNAL_DIRECTORY.getAbsolutePath());
+		deleteTestDatabase.delete();
+		assertFalse(deleteTestDatabase.exists());
 		deleteTestDirectory.delete();
 		assertFalse(deleteTestDirectory.exists());
+
 	}
 }

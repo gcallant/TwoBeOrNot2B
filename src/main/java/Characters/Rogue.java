@@ -23,9 +23,32 @@ public class Rogue extends A_Hero
     {
         Scanner input = new Scanner(System.in);
         int toPick = -1;
+        int specialAttack = -1;
+
+        System.out.println("Choose which special attack to use:\n1) Sneak Attack: deal immense damage to an enemy who is full health or incapacitated\n2) Cancel");
+
+        specialAttack = ensureInput(input, 2);
+
+        switch(specialAttack)
+        {
+            case 1:
+               return sneak(monsters);
+        }
+        return true;
+    }
+
+    public static String Information()
+    {
+        return "Rogue: Rogues are fast and hard to hit. They excel at striking their enemies when they are at full health or incapacitated";
+    }
+
+    private boolean sneak(Party monsters)
+    {
+        Scanner input = new Scanner(System.in);
+        int toPick = -1;
         int itemIndex = pickCharacter(monsters);
 
-        System.out.println("Choose someone to use your special attack on or " + itemIndex + " to cancel:");
+        System.out.println("Choose someone to use your sneak attack on or " + itemIndex + " to cancel:");
 
         toPick = ensureInput(input, itemIndex) - 1;
 
@@ -33,15 +56,9 @@ public class Rogue extends A_Hero
         {
             return true;
         }
-
         sneakAttack(monsters.getCharacter(toPick));
 
         return false;
-    }
-
-    public static String Information()
-    {
-        return "Rogue: Rogues are fast and hard to hit. They excel at striking their enemies when they are at full health or incapacitated";
     }
 
     public int strengthIncrease()

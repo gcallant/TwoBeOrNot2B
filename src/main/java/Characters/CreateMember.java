@@ -29,7 +29,14 @@ public class CreateMember
         System.out.println(Paladin.Information());
 
         type = kb.nextLine();
+        if(type.length() < 3)
+        {
+            return null;
+        }
 
+        String part1 = type.substring(0,1);
+        String part2 = type.substring(1);
+        type = part1.toUpperCase() + part2.toLowerCase();
         if(!names.contains(type))
         {
             return null;

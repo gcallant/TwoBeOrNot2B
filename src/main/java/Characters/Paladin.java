@@ -28,7 +28,7 @@ public class Paladin extends A_Hero
         int toPick = -1;
         int specialAttack = -1;
 
-        System.out.println("Choose which special attack to use:\n1) Protect\n2) Healing Light\n3) Cancel");
+        System.out.println("Choose which special attack to use:\n1) Protect: defends an ally from damage\n2) Healing Light: heals all allies and removes the stun status\n3) Cancel");
 
         specialAttack = ensureInput(input, 3);
 
@@ -38,7 +38,7 @@ public class Paladin extends A_Hero
                 return chooseProtect(input, heroes);
             case 2:
                 healingLight(heroes);
-                healingLight = 2;
+                healingLight = 1;
                 return false;
         }
 

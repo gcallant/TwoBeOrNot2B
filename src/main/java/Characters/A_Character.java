@@ -122,7 +122,7 @@ public abstract class A_Character
 		removeTempStrength(tempBoost);
 	}
 
-	protected void magicStrike(Party enemies)
+	protected void meteorShower(Party enemies)
 	{
 		System.out.println(getName() + " used meteor shower!");
 		for(int x = 0; x < enemies.size(); x++)
@@ -151,6 +151,18 @@ public abstract class A_Character
 			System.out.println("But missed!");
 		}
 		removeTempStrength(tempBoost);
+	}
+
+	protected void magicBuff()
+	{
+		System.out.println(getName() + " buffed themself with magic!");
+		giveTempStrength(5*getLevel());
+	}
+
+	protected void removeMagicBuff()
+	{
+		System.out.println(getName() + " lost their magic buff");
+		removeTempStrength(5*getLevel());
 	}
 
 	/*

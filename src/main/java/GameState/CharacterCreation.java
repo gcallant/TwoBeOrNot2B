@@ -20,6 +20,7 @@ public class CharacterCreation implements A_State
     {
         this.mediator = mediator;
         party = new ArrayList<A_Character>();
+        this.mediator.receiveCurrentLevel(1);
     }
 
     public boolean isEndOfGame()
@@ -29,7 +30,7 @@ public class CharacterCreation implements A_State
 
     public String display()
     {
-        return "Create your party\nCancel";
+        return "Select 'party' to create your party\nOr 'cancel' to Cancel";
     }
 
     public A_State execute(String command)

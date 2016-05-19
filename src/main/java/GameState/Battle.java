@@ -22,6 +22,7 @@ public class Battle implements A_State
 	private boolean                newBattle;
 	private Mediator               mediator;
 	private MonsterPartyFactory    monsterPartyFactory;
+	private int					   floorLevel;
 
 	public Battle(Mediator mediator)
 	{
@@ -29,6 +30,7 @@ public class Battle implements A_State
 		newBattle = true;
 		this.mediator = mediator;
 		monsterPartyFactory = new MonsterPartyFactory();
+		floorLevel = this.mediator.giveCurrentLevel();
 	}
 
 	public String display()
@@ -53,7 +55,7 @@ public class Battle implements A_State
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
-			enemyParty = new GenerateMonsterParty().generateEnemyParty(0);
+			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel);
 			wholeBattle = new ArrayList<A_Character>();
 
 			mediator.receiveEnemies(enemyParty);

@@ -13,8 +13,8 @@ import java.util.Scanner;
 public class Warrior extends A_Hero
 {
 	private boolean exhausted;
-	int shoutCount;
-	boolean shout;
+	private int shoutCount;
+	private boolean shout;
 
 	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
@@ -30,7 +30,7 @@ public class Warrior extends A_Hero
 		int toPick = -1;
 		int specialAttack = -1;
 
-		System.out.println("Choose which special attack to use:\n1) Shout\n2) Stunning Strike\n3) Cancel");
+		System.out.println("Choose which special attack to use:\n1) Shout: reduce all enemies strength for a few turns\n2) Stunning Strike: A strong attack with a chance to stun\n3) Cancel");
 
 		specialAttack = ensureInput(input, 3);
 
@@ -42,7 +42,7 @@ public class Warrior extends A_Hero
 					System.out.println("An intimidating shout has already used this battle!");
 					return true;
 				}
-				shoutCount = 2;
+				shoutCount = 2*getLevel();
 				heroes.shout();
 				intimidatingShout(monsters);
 				shout = true;

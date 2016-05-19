@@ -57,7 +57,7 @@ public class GenerateMonsterParty
         {
             indexForDifficulty = listsOfMonsters.size() - 1;
         }
-        ArrayList<String> listToPullFrom = listsOfMonsters.get(indexForDifficulty);
+        ArrayList<String> listToPullFrom = listsOfMonsters.get(indexForDifficulty - 1);
 
         //We are randomly choosing the names of monsters from listToPullFrom
         //We create the monster first and then add it to the listOfParty

@@ -122,12 +122,12 @@ public abstract class A_Hero extends A_Character
 		int toAttack;
 		for(int x = 0; x < monsters.size(); x++)
 		{
-			System.out.println(index + ".) " + monsters.getCharacter(x));
+			System.out.println(index + ".) " + monsters.getCharacter(x).battleDisplay());
 			index++;
 		}
 
 		System.out.println("Choose a monster to attack or enter " + (index) + " to cancel attack");
-		toAttack = input.nextInt();
+		toAttack = ensureInput(input, index);
 
 		if(toAttack >= index)
 		{

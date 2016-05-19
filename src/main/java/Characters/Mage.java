@@ -26,7 +26,7 @@ public class Mage extends A_Hero
 		int toPick = -1;
 		int specialAttack = -1;
 
-		System.out.println("Choose which special attack to use:\n1) Magic Buff: increase your magic attack for a few turns\n2) Magic Strike: An attack which hits all enemies\n3) Cancel");
+		System.out.println("Choose which special attack to use:\n1) Magic Buff: increase your magic attack for a few turns\n2) Meteor Strike: An attack which hits all enemies\n3) Cancel");
 
 		specialAttack = ensureInput(input, 3);
 

@@ -27,7 +27,8 @@ public abstract class A_Character
 	private   boolean    isStunned;
 	private   ArmorType  armorType;
 	private   WeaponType weaponType;
-	private boolean    protection;
+	private	  boolean    protection;
+	private   int 		 bleedDuration;
 
 	public A_Character(String name, int health, int strength, int dexterity, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
 	{
@@ -162,6 +163,26 @@ public abstract class A_Character
 	{
 		System.out.println(getName() + " lost their magic buff");
 		removeTempStrength(5*getLevel());
+	}
+
+	protected void viciousBite(A_Character character)
+	{
+		if(canAttack(character))
+		{
+			System.out.println(getName() + "used Vicious Bite on " + character.getName() + "!");
+			preformAttack(character);
+			if(rand.nextBoolean())
+			{
+				System.out.println(character.getName() + " is bleeding from the attack!");
+				character.setBleed(3);
+			}
+		}
+	}
+
+	protected A_Monster summonSkeleton()
+	{
+		//will return a Skeleton to join the summoner in battle. Need to work out implementation details.
+		return null;
 	}
 
 	/*
@@ -471,6 +492,11 @@ public abstract class A_Character
 		this.isStunned = false;
 	}
 
+	protected void setBleed(int duration)
+	{
+		this.bleedDuration = duration;
+	}
+
 	protected void removeStun()
 	{
 		isStunned = false;
@@ -576,5 +602,10 @@ public abstract class A_Character
 
 		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
 		initiative = randomValue + dexterity;
+	}
+
+	protected int getBleedDuration()
+	{
+		return this.bleedDuration;
 	}
 }

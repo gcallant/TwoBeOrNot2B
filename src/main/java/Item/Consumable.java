@@ -18,7 +18,6 @@ public abstract class Consumable
    }
 
    public abstract void use(A_Character character);
-   public abstract void debibe(A_Character character);
 
    public boolean decrementRounds()
    {

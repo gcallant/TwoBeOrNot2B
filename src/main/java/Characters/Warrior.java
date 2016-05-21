@@ -4,7 +4,12 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import SpecialAbilities.IntimidatingShout;
+import SpecialAbilities.SpecialAbility;
+import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StunningStrike;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,18 +17,22 @@ import java.util.Scanner;
  */
 public class Warrior extends A_Hero
 {
-	private int shoutCount;
-	private boolean shout;
-
+	SpecialManager specialManager;
 	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
 		super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon);
-		shoutCount = -1;
-		shout = false;
+
+		specialManager = new SpecialManager();
+
+		specialManager.addSpecialAbility(new StunningStrike());
+		specialManager.addSpecialAbility(new IntimidatingShout());
+
 	}
 
 	public boolean specialAbility(Party heroes, Party monsters)
 	{
+		return specialManager.chooseSpecialAbility(this, heroes, monsters);
+		/*
 		Scanner input = new Scanner(System.in);
 		int toPick = -1;
 		int specialAttack = -1;
@@ -35,22 +44,14 @@ public class Warrior extends A_Hero
 		switch(specialAttack)
 		{
 			case 1:
-				if(shout || heroes.hasShouted())
-				{
-					System.out.println("An intimidating shout has already used this battle!");
-					return true;
-				}
-				shoutCount = 2*getLevel();
-				heroes.shout();
 				intimidatingShout(monsters);
-				shout = true;
 				return false;
 			case 2:
 				return stunAttack(input, monsters);
 		}
-		return true;
+		return true;*/
 	}
-
+/*
 	private boolean stunAttack(Scanner input, Party monsters)
 	{
 		int toPick = -1;
@@ -67,27 +68,12 @@ public class Warrior extends A_Hero
 		stunningStrike(monsters.getCharacter(toPick));
 
 		return false;
-	}
-
-	public void resetTurn(Party monsters)
-	{
-		super.resetTurn();
-		if(shout)
-		{
-			shoutCount--;
-		}
-		if(shoutCount == 0)
-		{
-			resetShout(monsters);
-		}
-	}
+	}*/
 
 	public void resetStats()
 	{
 		super.resetStats();
-		shoutCount = 0;
 		conditions.recoverConditions();
-		shout = false;
 	}
 
 	public String getName()

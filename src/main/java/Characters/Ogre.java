@@ -4,6 +4,8 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StunningStrike;
 
 import java.util.Random;
 
@@ -13,29 +15,20 @@ import java.util.Random;
  */
 public class Ogre extends A_Monster
 {
-    private boolean exhausted;
+    private SpecialManager specialManager;
 
     public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
         super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+
+        specialManager = new SpecialManager();
+        specialManager.addSpecialAbility(new StunningStrike());
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
-        stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
-        exhausted = true;
+        specialManager.executeRandomAbility(this, monsters, heroes);
         return false;
-    }
-
-    protected boolean cannotAttack()
-    {
-        return super.cannotAttack() || exhausted;
-    }
-
-    public void resetTurn()
-    {
-        super.resetTurn();
-        exhausted = false;
     }
 
     public int getLevel()

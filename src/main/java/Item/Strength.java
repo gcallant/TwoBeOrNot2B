@@ -9,22 +9,18 @@ public class Strength extends Consumable
 {
     public Strength(int power)
     {
-        super(power*2);
+        super(power);
     }
 
     public void use(A_Character character)
     {
         character.imbibe(this);
-        character.giveTempStrength(getPower());
-    }
-
-    public void debibe(A_Character character)
-    {
-        character.removeTempStrength(getPower());
+        double damageBuff = 1.0 + .25*((double)getPower());
+        character.getConditions().giveDamageBuff(damageBuff, 4);
     }
 
     public String toString()
     {
-        return super.toString() + "Strength (" + getPower() + ")";
+        return super.toString() + "damage (" + getPower() + ")";
     }
 }

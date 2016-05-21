@@ -28,20 +28,28 @@ public abstract class A_Monster extends A_Character
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
-		boolean noTurn;
+		boolean noTurn, noSpecial, useSpecial;
 
-		noTurn = cannotAttack();
+		noTurn = conditions.cannotAttack();
+		noSpecial = conditions.cannotUseSpecial();
 		resetTurn();
 
+		useSpecial = rand.nextBoolean();
 		if(noTurn)
 		{
-			System.out.println(getName() + " is incapacitated and can't act!");
+			System.out.println(getName() + " is stunned and can't act!");
+			endTurn();
 			return false;
 		}
+		if(noSpecial)
+		{
+			useSpecial = false;
+		}
+
 
 		int choiceToAttack = rand.nextInt(heroes.size());
 
-		if(rand.nextBoolean())
+		if(useSpecial)
 		{
 			specialAbility(rand, heroes, monsters);
 		}
@@ -50,12 +58,8 @@ public abstract class A_Monster extends A_Character
 			A_Character toAttack = heroes.getCharacter(choiceToAttack);
 			attack(toAttack);
 		}
+		endTurn();
 		return false;
-	}
-
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack();
 	}
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);

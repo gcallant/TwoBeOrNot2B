@@ -22,7 +22,7 @@ public class ExitGame implements A_State
         return "Thanks for playing!";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
         return null;
     }

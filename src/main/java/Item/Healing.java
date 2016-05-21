@@ -6,16 +6,18 @@ public class Healing extends Consumable
 {
 	public Healing(int power)
 	{
-		super(power);
+		super(power*5);
 	}
 
 	public void use(A_Character character)
 	{
-		character.heal(getPower()*10);
+		character.heal(getPower());
 	}
+
+	public void debibe(A_Character character){}
 
 	public String toString()
 	{
-		return super.toString() + "Healing";
+		return super.toString() + "Healing(" + getPower() + ")";
 	}
 }

@@ -33,7 +33,7 @@ public class Mage extends A_Hero
 		switch(specialAttack)
 		{
 			case 1:
-				buffed = Math.min(3,2*getLevel());
+				buffed = Math.max(3,2*getLevel());
 				magicBuff();
 				break;
 			case 2:
@@ -43,9 +43,9 @@ public class Mage extends A_Hero
 		return false;
 	}
 
-	public void resetTurn()
+	public void resetTurn(Party enemies)
 	{
-		super.resetTurn();
+		super.resetTurn(enemies);
 		buffed = Math.max(-1, buffed - 1);
 		if(buffed == 0)
 		{
@@ -56,6 +56,11 @@ public class Mage extends A_Hero
 	public static String Information()
 	{
 		return "Mage: Mages may be slow and easy to hit, but their meteor swarm which attacks all enemies is a sight to behold. They can also buff themselves with magic";
+	}
+
+	public String getName()
+	{
+		return super.getName() + " the mage";
 	}
 
 	public int strengthIncrease()

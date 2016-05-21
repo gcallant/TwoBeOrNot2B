@@ -21,22 +21,27 @@ public class InGameMenu implements A_State
 
     public String display()
     {
-       return "Choose an option\nResume\nInventory\nQuit\n";
+       return "Choose an option\n1) Resume\n2) Inventory\n3) View Stats\n4) Quit";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
+        int command = TestString.ensureInt(4);
         switch(command)
         {
-            case "quit":
-                return new QuitGame(mediator);
-            case "resume":
+            case 1:
                 return new MapExploration(mediator);
-            case "inventory":
+            case 2:
                 return new PartyInventory(mediator);
+            case 3:
+                mediator.giveParty().displayStats();
+                break;
+            case 4:
+                return new QuitGame(mediator);
             default:
                 return new InGameMenu(mediator);
         }
+        return new InGameMenu(mediator);
     }
 
 }

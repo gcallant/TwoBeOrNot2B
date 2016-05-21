@@ -21,12 +21,13 @@ public abstract class A_Character
 	private Armor      armor;
 	private Weapon     weapon;
 	private boolean    isDefeated;
-	private boolean    defending;
 	private int        initiative;
 	private boolean	   isStunned;
 	private ArmorType  armorType;
 	private WeaponType weaponType;
 	private boolean    protection;
+	private Consumable imbibed;
+	protected Conditions conditions;
 
 	protected Random   rand;
 
@@ -40,7 +41,7 @@ public abstract class A_Character
 		this.weapon    = newWeapon;
 		this.maxHealth = health;
 		this.armorType = armorType;
-		this.armorType = armorType;
+		this.weaponType = weaponType;
 
 		this.tempDexterity = 0;
 		this.tempStrength  = 0;
@@ -48,10 +49,10 @@ public abstract class A_Character
 		this.experience    = 0;
 
 		isDefeated = false;
-		isStunned  = false;
 		protection = false;
 
 		rand = new Random();
+		conditions = new Conditions(getName());
 	}
 
 
@@ -91,19 +92,14 @@ public abstract class A_Character
 		for(int x = 0; x < allies.size(); x++)
 		{
 			allies.getCharacter(x).heal(2*strength);
-			allies.getCharacter(x).removeStun();
+			allies.getCharacter(x).conditions.recoverConditions();
 		}
 
 	}
 
 	protected void protect(A_Character character)
 	{
-		character.protection();
-	}
-
-	protected void protection()
-	{
-		protection = true;
+		character.conditions.setProtected();
 	}
 
 	protected void sneakAttack(A_Character character)
@@ -125,7 +121,8 @@ public abstract class A_Character
 	protected void meteorShower(Party enemies)
 	{
 		System.out.println(getName() + " used meteor shower!");
-		for(int x = 0; x < enemies.size(); x++)
+		int totalEnemies = enemies.size();
+		for(int x = 0; x < totalEnemies; x++)
 		{
 			preformAttack(enemies.getCharacter(x));
 		}
@@ -133,7 +130,7 @@ public abstract class A_Character
 
 	protected void stunningStrike(A_Character character)
 	{
-		int tempBoost = getStrength()*2;
+		int tempBoost = level*3;
 		giveTempStrength(tempBoost);
 
 		System.out.println(getName() + " used stunning strike on " + character.getName());
@@ -143,7 +140,7 @@ public abstract class A_Character
 			if(rand.nextBoolean())
 			{
 				System.out.println(character.getName() + " was stunned!");
-				character.setStun();
+				character.conditions.stunned(level);
 			}
 		}
 		else
@@ -227,10 +224,8 @@ public abstract class A_Character
 		totalDamage += weapon.getPower();
 		totalDamage += getStrength();
 		totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
-		if(toAttack.isDefending())
-		{
-			totalDamage = totalDamage/2;
-		}
+		totalDamage = conditions.addDamage(totalDamage);
+		totalDamage = toAttack.conditions.reduceDamage(totalDamage);
 		toAttack.takeDamage(totalDamage);
 
 		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
@@ -262,6 +257,7 @@ public abstract class A_Character
 		dexterity += dexterityIncrease();
 		maxHealth += healthIncrease();
 		health = maxHealth;
+		level++;
 		experience = 0;
 	}
 
@@ -348,6 +344,33 @@ public abstract class A_Character
 		removeDefeated();
 	}
 
+	protected void decrementRounds()
+	{
+		if(imbibed != null)
+		{
+			if(imbibed.decrementRounds())
+			{
+				removePotion();
+			}
+		}
+	}
+
+	protected void removePotion()
+	{
+		if(imbibed != null)
+		{
+			System.out.println(getName() + "'s " + imbibed + "has ended!");
+			imbibed.debibe(this);
+			imbibed = null;
+		}
+	}
+
+	public void imbibe(Consumable consumable)
+	{
+		System.out.println(getName() + " imbibed a " + consumable + "!");
+		this.imbibed = consumable;
+	}
+
 	public void giveTempStrength(int tempStrength)
 	{
 		this.tempStrength += tempStrength;
@@ -355,14 +378,7 @@ public abstract class A_Character
 
 	public void removeTempStrength(int tempStrength)
 	{
-		if(tempStrength - this.tempStrength > strength)
-		{
-			this.tempStrength = -strength + 1;
-		}
-		else
-		{
-			this.tempStrength -= tempStrength;
-		}
+		this.tempStrength -= tempStrength;
 	}
 
 	public void giveTempDexterity(int tempDexterity)
@@ -372,14 +388,7 @@ public abstract class A_Character
 
 	public void removeTempDexterity(int tempDexterity)
 	{
-		if(tempDexterity - this.tempDexterity > dexterity)
-		{
-			this.tempDexterity = -dexterity + 1;
-		}
-		else
-		{
-			this.tempDexterity -= tempDexterity;
-		}
+		this.tempDexterity -= tempDexterity;
 	}
 
 	/*
@@ -401,15 +410,20 @@ public abstract class A_Character
 
 	public String inventoryDisplay()
 	{
-		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tArmor: " + getArmor() + "\tWeapon: " + getWeapon();
+		return "Name: " + getName() + " Health: " + getHealth() + " Armor: " + getArmor() + " Weapon: " + getWeapon();
+	}
+
+	public String displayStats()
+	{
+		return "Name: " + getName() + " Level: " + getLevel() + " Health: " + getHealth() + " Strength: " + getStrength() + (strength != getStrength() ? ("(" + strength + ")"):"") + " Dexterity: " + getDexterity() + (dexterity != getDexterity() ? ("(" + dexterity + ")"):"") + " " + getArmor() + " " + getWeapon();
 	}
 
 	public String battleDisplay()
 	{
-		String retString = "Name: " + getName() + "\tHealth: " + getHealth();
-		if(cannotAttack())
+		String retString = "Name: " + getName() + " Health: " + getHealth();
+		if(conditions.hasBadCondition())
 		{
-			retString += " Incapacitated";
+			retString += " bad condition";
 		}
 		return retString;
 	}
@@ -441,8 +455,8 @@ public abstract class A_Character
 
 	public void resetTurn()
 	{
-		this.defending = false;
-		this.isStunned = false;
+		conditions.endTurn();
+		decrementRounds();
 	}
 
 	protected void removeStun()
@@ -459,11 +473,8 @@ public abstract class A_Character
 	{
 		this.tempDexterity = 0;
 		this.tempStrength  = 0;
-	}
-
-	protected void defend()
-	{
-		defending = true;
+		removePotion();
+		conditions.recoverConditions();
 	}
 
 	/*
@@ -475,6 +486,11 @@ public abstract class A_Character
 	*  * * * *   * * *     *       * * *  *
 	* * * * * * * * * * * * * * * * * * * *
 	*/
+
+	public Conditions getConditions()
+	{
+		return conditions;
+	}
 
 	public boolean getDefeated()
 	{
@@ -508,12 +524,7 @@ public abstract class A_Character
 
 	private int getDexterity()
 	{
-		return dexterity + tempDexterity;
-	}
-
-	public boolean isDefending()
-	{
-		return defending || protection;
+		return Math.max(1,dexterity + tempDexterity);
 	}
 
 	private boolean isStunned()

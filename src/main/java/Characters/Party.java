@@ -177,7 +177,7 @@ public class Party
 
         if(choice == -1)
         {
-            return false;
+            return true;
         }
 
         A_Character character = characterParty.get(choice);
@@ -188,11 +188,11 @@ public class Party
         if(choice == -1)
         {
             System.out.println("There is nothing for " + character.getName() + " to use!");
-            return false;
+            return true;
         }
 
         inventory.useConsumable(character, choice);
-        return true;
+        return false;
     }
 
     public boolean equip()
@@ -234,5 +234,13 @@ public class Party
                 break;
         }
         return true;
+    }
+
+    public void displayStats()
+    {
+        for(A_Character character : characterParty)
+        {
+            System.out.println(character.displayStats());
+        }
     }
 }

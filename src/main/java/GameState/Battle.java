@@ -6,6 +6,7 @@ import Characters.InitiativeSort;
 import Characters.Party;
 import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,8 +48,9 @@ public class Battle implements A_State
 		return false;
 	}
 
-	public A_State execute(String command)
+	public A_State execute()
 	{
+		TestString.enterInput();
 		boolean heroesDefeated = true;
 		boolean enemiesDefeated = true;
 

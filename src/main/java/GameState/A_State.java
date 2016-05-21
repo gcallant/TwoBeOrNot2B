@@ -7,7 +7,7 @@ public interface A_State
 {
     public String display();
 
-    public A_State execute(String command);
+    public A_State execute();
 
     public boolean isEndOfGame();
 }

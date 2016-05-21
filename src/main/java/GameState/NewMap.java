@@ -26,7 +26,7 @@ public class NewMap implements A_State
         return "";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
         GenerateDungeon dungeon = new GenerateDungeon(5,5);
         dungeon.generatePath();

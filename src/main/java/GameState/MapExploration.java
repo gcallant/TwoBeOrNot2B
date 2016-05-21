@@ -29,7 +29,7 @@ public class MapExploration implements A_State
     public String display()
     {
         myMap = mediator.giveMap();
-        return myMap.printCharacter() + "\nSelect a direction (up, down, right, left) or select the Menu";
+        return myMap.printCharacter() + "\nSelect a direction\nu (Up)\nd (Down)\nr (Right)\nl (Left)\nOr m for the Menu";
     }
 
     public A_State moveDirection(String command)
@@ -52,16 +52,26 @@ public class MapExploration implements A_State
         return new MapExploration(mediator);
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
+        char[] validInputs = new char[5];
+        validInputs[0] = 'u';
+        validInputs[1] = 'd';
+        validInputs[2] = 'r';
+        validInputs[3] = 'l';
+        validInputs[4] = 'm';
+        char command = TestString.ensureChar(validInputs);
         switch(command)
         {
-            case "up":
-            case "right":
-            case "left":
-            case "down":
-                return moveDirection(command);
-            case "menu":
+            case 'u':
+                return moveDirection("up");
+            case 'd':
+                return moveDirection("down");
+            case 'r':
+                return moveDirection("right");
+            case 'l':
+                return moveDirection("left");
+            case 'm':
                 return new InGameMenu(mediator);
             default:
                 return new MapExploration(mediator);

@@ -26,11 +26,9 @@ public class EndOfMap implements A_State
         return "You beat the level. Progress saved! Press enter to continue.";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
-        /*System.out.println(this.display());
-        GenerateDungeon dungeon = new GenerateDungeon(mediator.dungeonSize(), mediator.dungeonSize());
-        mediator.recieveMap(dungeon);*/
+        TestString.enterInput();
         return new NewMap(mediator);
     }
 }

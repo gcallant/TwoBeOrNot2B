@@ -4,6 +4,7 @@ import Characters.*;
 import Factories.HeroFactory;
 import Item.*;
 import Mediator.Mediator;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class CharacterCreation implements A_State
     {
         this.mediator = mediator;
         party = new ArrayList<A_Character>();
-        this.mediator.receiveCurrentLevel(1);
+        this.mediator.receiveCurrentLevel(0);
     }
 
     public boolean isEndOfGame()
@@ -30,14 +31,15 @@ public class CharacterCreation implements A_State
 
     public String display()
     {
-        return "Select 'party' to create your party\nOr 'cancel' to Cancel";
+        return "Choose an option\n1) Create your party\n2) Cancel";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
+        int command = TestString.ensureInt(2);
         switch(command)
         {
-            case "party":
+            case 1:
                 if(createNewParty())
                 {
                     mediator.recieveParty(new Party(party));
@@ -45,7 +47,7 @@ public class CharacterCreation implements A_State
                 }
                 return new MainMenu(mediator);
 
-            case "cancel":
+            case 2:
                 return new MainMenu(mediator);
 
             default:
@@ -56,8 +58,10 @@ public class CharacterCreation implements A_State
     private boolean createNewParty()
     {
         String input = "";
+        System.out.println("You can choose four heroes! Choose wisely.");
         while(party.size() < 4)
         {
+            System.out.println("Choose character number " + (party.size() + 1) + ":");
             A_Character toAdd = CreateMember.createMember();
             if(toAdd != null)
             {

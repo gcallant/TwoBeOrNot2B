@@ -87,14 +87,34 @@ public class TestString
         String validInput;
         int choice = 0;
         boolean badInput;
+
+        choice = loop(itemIndex,kb);
+        if(choice == itemIndex)
+        {
+            return -1;
+        }
+        return choice - 1;
+    }
+
+    public static void enterInput()
+    {
+        Scanner kb = new Scanner(System.in);
+        kb.nextLine();
+    }
+
+    private static int loop(int max, Scanner kb)
+    {
+        boolean badInput;
+        String input;
+        int choice = 0;
         do
         {
             badInput = false;
-            validInput = kb.nextLine();
+            input = kb.nextLine();
             try
             {
-                choice = Integer.parseInt(validInput);
-                if(choice > itemIndex || choice < 1)
+                choice = Integer.parseInt(input);
+                if(choice > max || choice < 1)
                 {
                     badInput = true;
                 }
@@ -103,11 +123,78 @@ public class TestString
             {
                 badInput = true;
             }
+            if(badInput)
+            {
+                System.out.println("Bad input. Try a number between 1 and " + max);
+            }
         }while(badInput);
-        if(choice == itemIndex)
+        return choice;
+    }
+
+    public static int ensureInt(int max)
+    {
+        Scanner kb = new Scanner(System.in);
+        String input;
+        boolean badInput;
+        int choice = -1;
+
+        return loop(max,kb);
+    }
+
+    public static char ensureChar(char[] validInputs)
+    {
+        Scanner kb = new Scanner(System.in);
+        String input;
+        char letter = '@';
+        boolean badInput;
+
+        do
         {
-            return -1;
+            badInput = false;
+            input = kb.nextLine();
+            if(input.length() == 1)
+            {
+                letter = input.charAt(0);
+                if(checkValidChar(letter, validInputs))
+                {
+                    return letter;
+                }
+                else
+                {
+                    badInput = true;
+                }
+            }
+            else
+            {
+                badInput = true;
+            }
+            if(badInput)
+            {
+                System.out.print("Bad input try: ");
+                printChars(validInputs);
+                System.out.println();
+            }
+        }while(badInput);
+        return letter;
+    }
+
+    private static void printChars(char[] validInputs)
+    {
+        for(int x = 0; x < validInputs.length; x++)
+        {
+            System.out.print(validInputs[x] + " ");
         }
-        return choice - 1;
+    }
+
+    private static boolean checkValidChar(char input, char[] validInputs)
+    {
+        for(int x = 0; x < validInputs.length; x++)
+        {
+            if(input == validInputs[x])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

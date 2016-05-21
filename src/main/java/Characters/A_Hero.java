@@ -17,10 +17,6 @@ public abstract class A_Hero extends A_Character
 
 	public abstract boolean specialAbility(Party heroes, Party monsters);
 
-	public void resetTurn(Party monsters)
-	{
-		super.resetTurn();
-	}
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
@@ -28,13 +24,13 @@ public abstract class A_Hero extends A_Character
 		int choice;
 		boolean cancel, noTurn, noSpecial;
 
-		noTurn = !conditions.canAttack();
-		noSpecial = !conditions.useSpecial();
-
-		resetTurn(monsters);
+		noTurn = conditions.cannotAttack();
+		noSpecial = conditions.cannotUseSpecial();
+		resetTurn();
 		if(noTurn)
 		{
-			System.out.println(getName() + " is incapacitated and can't act!");
+			System.out.println(getName() + " is stunned and can't act!");
+			endTurn();
 			return false;
 		}
 
@@ -79,6 +75,7 @@ public abstract class A_Hero extends A_Character
 
 		}
 		while(choice < 1 || choice > 5 || cancel);
+		endTurn();
 		return false;
 	}
 
@@ -149,11 +146,6 @@ public abstract class A_Hero extends A_Character
 			monsters.sortDefeated();
 		}
 		return false;
-	}
-
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack();
 	}
 
 	public void gainExperience(int experience)

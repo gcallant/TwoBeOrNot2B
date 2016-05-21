@@ -4,6 +4,9 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import SpecialAbilities.MagicBuff;
+import SpecialAbilities.MeteorShower;
+import SpecialAbilities.SpecialManager;
 
 import java.util.Scanner;
 
@@ -12,45 +15,19 @@ import java.util.Scanner;
  */
 public class Mage extends A_Hero
 {
-	private int buffed;
-
+	SpecialManager specialManager;
 	public Mage(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
 		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon);
-		buffed = 0;
+
+		specialManager = new SpecialManager();
+		specialManager.addSpecialAbility(new MagicBuff());
+		specialManager.addSpecialAbility(new MeteorShower());
 	}
 
 	public boolean specialAbility(Party heroes, Party monsters)
 	{
-		Scanner input = new Scanner(System.in);
-		int toPick = -1;
-		int specialAttack = -1;
-
-		System.out.println("Choose which special attack to use:\n1) Magic Buff: increase your magic attack for a few turns\n2) Meteor Strike: An attack which hits all enemies\n3) Cancel");
-
-		specialAttack = ensureInput(input, 3);
-
-		switch(specialAttack)
-		{
-			case 1:
-				buffed = Math.max(3,2*getLevel());
-				magicBuff();
-				break;
-			case 2:
-				meteorShower(monsters);
-				break;
-		}
-		return false;
-	}
-
-	public void resetTurn(Party enemies)
-	{
-		super.resetTurn(enemies);
-		buffed = Math.max(-1, buffed - 1);
-		if(buffed == 0)
-		{
-			removeMagicBuff();
-		}
+		return specialManager.chooseSpecialAbility(this, heroes, monsters);
 	}
 
 	public static String Information()

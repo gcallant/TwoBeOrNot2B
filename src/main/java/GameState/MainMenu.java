@@ -21,17 +21,18 @@ public class MainMenu implements A_State
 
     public String display()
     {
-        return "Choose an option\nStart\nQuit";
+        return "Choose an option\n1) Start\n2) Quit";
     }
 
-    public A_State execute(String command)
+    public A_State execute()
     {
+        int command = TestString.ensureInt(2);
         switch(command)
         {
-            case "quit":
-                return new ExitGame(mediator);
-            case "start":
+            case 1:
                 return new CharacterCreation(mediator);
+            case 2:
+                return new ExitGame(mediator);
             default:
                 return new MainMenu(mediator);
         }

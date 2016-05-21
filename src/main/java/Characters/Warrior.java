@@ -12,14 +12,12 @@ import java.util.Scanner;
  */
 public class Warrior extends A_Hero
 {
-	private boolean exhausted;
 	private int shoutCount;
 	private boolean shout;
 
 	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
 		super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon);
-		exhausted = false;
 		shoutCount = -1;
 		shout = false;
 	}
@@ -67,14 +65,8 @@ public class Warrior extends A_Hero
 		}
 
 		stunningStrike(monsters.getCharacter(toPick));
-		exhausted = true;
 
 		return false;
-	}
-
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack() || exhausted;
 	}
 
 	public void resetTurn(Party monsters)
@@ -88,14 +80,19 @@ public class Warrior extends A_Hero
 		{
 			resetShout(monsters);
 		}
-		exhausted = false;
 	}
 
 	public void resetStats()
 	{
 		super.resetStats();
 		shoutCount = 0;
+		conditions.recoverConditions();
 		shout = false;
+	}
+
+	public String getName()
+	{
+		return super.getName() + " the Warrior";
 	}
 
 	public static String Information()

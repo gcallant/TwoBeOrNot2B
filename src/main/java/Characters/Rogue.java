@@ -25,7 +25,7 @@ public class Rogue extends A_Hero
         int toPick = -1;
         int specialAttack = -1;
 
-        System.out.println("Choose which special attack to use:\n1) Sneak Attack: deal immense damage to an enemy who is full health or incapacitated\n2) Cancel");
+        System.out.println("Choose which special attack to use:\n1) Sneak Attack: deal immense damage to an enemy who is full health or has a bad condition\n2) Cancel");
 
         specialAttack = ensureInput(input, 2);
 
@@ -59,6 +59,11 @@ public class Rogue extends A_Hero
         sneakAttack(monsters.getCharacter(toPick));
 
         return false;
+    }
+
+    public String getName()
+    {
+        return super.getName() + " the Rogue";
     }
 
     public int strengthIncrease()

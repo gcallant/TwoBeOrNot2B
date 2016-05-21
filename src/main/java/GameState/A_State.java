@@ -1,16 +1,13 @@
 package GameState;
 
-import com.google.inject.Inject;
-
 /**
  * Created by Michael on 5/6/2016.
  */
-
 public interface A_State
 {
-    public abstract String display();
+    public String display();
 
-    public abstract A_State execute(String command);
+    public A_State execute();
 
-    public abstract boolean isEndOfGame();
+    public boolean isEndOfGame();
 }

@@ -1,6 +1,7 @@
 package Characters;
 
 import Factories.HeroFactory;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,35 +13,24 @@ public class CreateMember
 {
     public static A_Character createMember()
     {
-        String type, name = "";
+        String name = "";
         ArrayList<String> names = new ArrayList<String>();
 
-        names.add("Rogue");
-        names.add("Paladin");
         names.add("Warrior");
         names.add("Mage");
+        names.add("Rogue");
+        names.add("Paladin");
 
         Scanner kb = new Scanner(System.in);
 
         System.out.println("Select the class of hero you want: ");
-        System.out.println(Warrior.Information());
-        System.out.println(Mage.Information());
-        System.out.println(Rogue.Information());
-        System.out.println(Paladin.Information());
+        System.out.println("1) " + Warrior.Information());
+        System.out.println("2) " + Mage.Information());
+        System.out.println("3) " + Rogue.Information());
+        System.out.println("4) " + Paladin.Information());
 
-        type = kb.nextLine();
-        if(type.length() < 3)
-        {
-            return null;
-        }
-
-        String part1 = type.substring(0,1);
-        String part2 = type.substring(1);
-        type = part1.toUpperCase() + part2.toLowerCase();
-        if(!names.contains(type))
-        {
-            return null;
-        }
+        int choice = TestString.ensureInt(4);
+        String type = names.get(choice - 1);
 
         System.out.println("You chose a " + type);
         System.out.println("Enter the name for your character or 'cancel' to cancel: ");
@@ -60,16 +50,12 @@ public class CreateMember
 
     public static boolean confirm()
     {
-        String input;
+        int input;
         Scanner kb = new Scanner(System.in);
 
-        System.out.println("Are you satisfied with your selection? (yes or no)");
+        System.out.println("Are you satisfied with your selection?\n1) Yes\n2) No");
 
-        do
-        {
-            input = kb.nextLine();
-        }while(!input.toLowerCase().equals("yes") && !input.toLowerCase().equals("no"));
-
-        return input.toLowerCase().equals("yes");
+        input = TestString.ensureInt(2);
+        return input == 1;
     }
 }

@@ -1,10 +1,14 @@
 package GameState;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import Mediator.Mediator;
 /**
  * Created by Michael on 5/6/2016.
  */
-public class StateBase
+public class
+StateBase
 {
     private A_State currentState;
     private Mediator mediator;
@@ -21,9 +25,9 @@ public class StateBase
         return currentState.display();
     }
 
-    public void executeCurrentState(String command)
+    public void executeCurrentState()
     {
-        currentState = currentState.execute(command);
+        currentState = currentState.execute();
     }
 
     public boolean isNotEnd()

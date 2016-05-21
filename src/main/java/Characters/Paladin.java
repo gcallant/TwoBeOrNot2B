@@ -17,7 +17,7 @@ public class Paladin extends A_Hero
 
     public Paladin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+        super(name, health, strength, dexterity, ArmorType.Heavy, armor, WeaponType.Medium, weapon);
         protecting = null;
         healingLight = 0;
     }
@@ -70,7 +70,7 @@ public class Paladin extends A_Hero
         return super.cannotAttack() || healingLight > 0;
     }
 
-    public void resetTurn()
+    public void resetTurn(Party monsters)
     {
         super.resetTurn();
         if(protecting != null)
@@ -90,6 +90,11 @@ public class Paladin extends A_Hero
         resetTurn();
         healingLight = 0;
         
+    }
+
+    public String getName()
+    {
+        return super.getName() + " the Paladin";
     }
 
     public static String Information()

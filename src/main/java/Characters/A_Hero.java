@@ -26,9 +26,11 @@ public abstract class A_Hero extends A_Character
 	{
 		Scanner input = new Scanner(System.in);
 		int choice;
-		boolean cancel, noTurn;
+		boolean cancel, noTurn, noSpecial;
 
-		noTurn = cannotAttack();
+		noTurn = !conditions.canAttack();
+		noSpecial = !conditions.useSpecial();
+
 		resetTurn(monsters);
 		if(noTurn)
 		{
@@ -55,10 +57,18 @@ public abstract class A_Hero extends A_Character
 					cancel = doAttack(heroes, monsters, input);
 					break;
 				case 2:
-					this.defend();
+					conditions.defend();
 					break;
 				case 3:
-					cancel = specialAbility(heroes, monsters);
+					if(noSpecial)
+					{
+						System.out.println(getName() + " is exhausted and can't use their special abilities!");
+						cancel = true;
+					}
+					else
+					{
+						cancel = specialAbility(heroes, monsters);
+					}
 					break;
 				case 4:
 					cancel = heroes.consumePotion();

@@ -43,4 +43,21 @@ public class PartyInventory implements A_State
                 return new PartyInventory(mediator);
         }
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof PartyInventory))
+        {
+            return false;
+        }
+
+        PartyInventory partyInvent = (PartyInventory) obj;
+
+        return this.mediator.equals(partyInvent.mediator) && this.heroes.equals(partyInvent.heroes);
+    }
 }

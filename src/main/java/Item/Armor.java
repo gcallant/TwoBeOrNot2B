@@ -33,4 +33,20 @@ public abstract class Armor
    protected abstract int getBase();
 
    public abstract ArmorType getArmorType();
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == null)
+      {
+         return false;
+      }
+      if (!(obj instanceof Armor))
+      {
+         return false;
+      }
+      Armor newArmor = (Armor)obj;
+
+      return power == newArmor.power && enchantment.equals(newArmor.enchantment);
+   }
 }

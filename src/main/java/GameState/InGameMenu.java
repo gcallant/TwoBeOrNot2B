@@ -1,6 +1,5 @@
 package GameState;
 
-import StringTester.TestString;
 import Mediator.*;
 /**
  * Created by Michael on 5/8/2016.
@@ -37,6 +36,23 @@ public class InGameMenu implements A_State
             default:
                 return new InGameMenu(mediator);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof InGameMenu))
+        {
+            return false;
+        }
+
+        InGameMenu menu = (InGameMenu)obj;
+
+        return this.mediator.equals(menu.mediator);
     }
 
 }

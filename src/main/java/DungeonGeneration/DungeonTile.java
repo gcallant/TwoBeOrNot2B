@@ -46,4 +46,36 @@ public class DungeonTile
 	{
 		return used;
 	}
+
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof DungeonTile))
+		{
+			return false;
+		}
+
+		DungeonTile thatTile = (DungeonTile)obj;
+
+		//This will test if the arrays for direction are the same
+		if (this.direction.length != thatTile.direction.length)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < this.direction.length; i++)
+		{
+			if (this.direction[i] != thatTile.direction[i])
+			{
+				return false;
+			}
+		}
+		boolean equalDirection = true;
+
+		return equalDirection && this.used == thatTile.used;
+
+	}
 }

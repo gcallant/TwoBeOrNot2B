@@ -546,4 +546,28 @@ public abstract class A_Character
 		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
 		initiative = randomValue + dexterity;
 	}
+
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof A_Character))
+		{
+			return false;
+		}
+		A_Character newChar = (A_Character)obj;
+
+		boolean equalName = name.equals(newChar.name);
+		boolean equalInts1 = health == newChar.health && maxHealth == newChar.maxHealth && strength == newChar.strength && dexterity == newChar.dexterity && level == newChar.level;
+		boolean equalInts2 = experience == newChar.experience && initiative == newChar.initiative;
+		boolean equalBooleans = isDefeated == newChar.isDefeated && defending == newChar.defending && isStunned == newChar.isStunned && protection == newChar.protection;
+		boolean equalEnums = armorType == newChar.armorType && weaponType == newChar.weaponType;
+		boolean equalItems = armor.equals(newChar.armor) && weapon.equals(newChar.weapon);
+
+		return equalName && equalInts1 && equalInts2 && equalBooleans && equalEnums && equalItems;
+	}
 }

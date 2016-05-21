@@ -1,12 +1,10 @@
 package GameState;
 
-import java.util.ArrayList;
 import Mediator.Mediator;
 /**
  * Created by Michael on 5/6/2016.
  */
-public class
-StateBase
+public class StateBase
 {
     private A_State currentState;
     private Mediator mediator;

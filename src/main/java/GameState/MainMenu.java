@@ -1,6 +1,5 @@
 package GameState;
 
-import StringTester.TestString;
 import Mediator.*;
 
 /**
@@ -38,4 +37,20 @@ public class MainMenu implements A_State
         }
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof MainMenu))
+        {
+            return false;
+        }
+
+        MainMenu menu = (MainMenu)obj;
+
+        return this.mediator.equals(menu.mediator);
+    }
 }

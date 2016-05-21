@@ -1,7 +1,6 @@
 package GameState;
 
 import Characters.Party;
-import StringTester.TestString;
 import Mediator.*;
 
 /**
@@ -34,6 +33,23 @@ public class Victory implements A_State
         heroes.gainExperience(enemies.calculatePartyLevel());
 
         return new MapExploration(mediator);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof Victory))
+        {
+            return false;
+        }
+
+        Victory thatVictory = (Victory) obj;
+
+        return this.mediator.equals(thatVictory.mediator);
     }
 
 }

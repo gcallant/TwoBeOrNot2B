@@ -1,7 +1,6 @@
 package GameState;
 
 import DungeonGeneration.GenerateDungeon;
-import StringTester.TestString;
 
 import java.util.Random;
 import Mediator.*;
@@ -66,5 +65,22 @@ public class MapExploration implements A_State
             default:
                 return new MapExploration(mediator);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof MapExploration))
+        {
+            return false;
+        }
+
+        MapExploration map = (MapExploration) obj;
+
+        return this.mediator.equals(map.mediator) && this.myMap.equals(map.myMap);
     }
 }

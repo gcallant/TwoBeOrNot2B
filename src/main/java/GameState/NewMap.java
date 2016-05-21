@@ -33,4 +33,21 @@ public class NewMap implements A_State
         mediator.receiveMap(dungeon);
         return new MapExploration(mediator);
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof NewMap))
+        {
+            return false;
+        }
+
+        NewMap thatMap = (NewMap) obj;
+
+        return this.mediator.equals(thatMap.mediator);
+    }
 }

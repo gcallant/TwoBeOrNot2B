@@ -26,4 +26,18 @@ public class ExitGame implements A_State
     {
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof ExitGame))
+        {
+            return false;
+        }
+        return true;
+    }
 }

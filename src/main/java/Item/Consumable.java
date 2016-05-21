@@ -37,4 +37,19 @@ public abstract class Consumable
    {
       return "Potion of ";
    }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == null)
+      {
+         return false;
+      }
+      if (!(obj instanceof Consumable))
+      {
+         return false;
+      }
+      Consumable newConsume = (Consumable)obj;
+      return power == newConsume.power;
+   }
 }

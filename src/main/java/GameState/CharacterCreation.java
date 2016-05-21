@@ -1,9 +1,8 @@
 package GameState;
 
 import Characters.*;
-import Factories.HeroFactory;
-import Item.*;
 import Mediator.Mediator;
+import com.google.inject.Inject;
 
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ public class CharacterCreation implements A_State
     private Mediator mediator;
     private ArrayList<A_Character> party;
 
+    @Inject
     public CharacterCreation(Mediator mediator)
     {
         this.mediator = mediator;
@@ -65,5 +65,22 @@ public class CharacterCreation implements A_State
             }
         }
         return CreateMember.confirm();
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof CharacterCreation))
+        {
+            return false;
+        }
+
+        CharacterCreation thatCharacter = (CharacterCreation)obj;
+
+        return this.party.equals(thatCharacter.party) && this.mediator.equals(thatCharacter.mediator);
     }
 }

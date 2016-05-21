@@ -582,4 +582,36 @@ public class GenerateDungeon
       return this.characterY == this.dungeon.length - 1 && this.characterX == this.dungeon[0].length - 1;
 
    }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (obj == null)
+      {
+         return false;
+      }
+      if (!(obj instanceof GenerateDungeon))
+      {
+         return false;
+      }
+
+      GenerateDungeon thatDungeon = (GenerateDungeon) obj;
+
+      //This will test if the dungeons are equal
+      if (this.maxSearch != thatDungeon.maxSearch)
+      {
+         return false;
+      }
+      for (int i = 0; i < this.dungeon.length; i++)
+      {
+         for (int j = 0; j < this.dungeon[i].length; j++)
+         {
+            if (this.dungeon[i][j] != thatDungeon.dungeon[i][j])
+            {
+               return false;
+            }
+         }
+      }
+      return true;
+   }
 }

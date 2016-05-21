@@ -4,6 +4,7 @@ import Characters.A_Character;
 import Characters.Party;
 import DungeonGeneration.GenerateDungeon;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 
 /**
@@ -100,5 +101,24 @@ public class Mediator
     public int giveCurrentLevel()
     {
         return this.floorLevel;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof Mediator))
+        {
+            return false;
+        }
+
+        Mediator thatMediator = (Mediator) obj;
+
+        boolean equalParties = this.characterParty.equals(thatMediator.characterParty) && this.enemies.equals(thatMediator.enemies);
+        boolean equalInts = this.dungeonSize == thatMediator.dungeonSize && this.currentTurn == thatMediator.currentTurn && this.floorLevel == thatMediator.floorLevel;
+        return equalParties && equalInts && this.map.equals(thatMediator.map) && this.turnOrder.equals(thatMediator.turnOrder) && this.newBattle == thatMediator.newBattle;
     }
 }

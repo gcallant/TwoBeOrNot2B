@@ -118,4 +118,23 @@ public class Battle implements A_State
 
 		return new Battle(mediator);
 	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof Battle))
+		{
+			return false;
+		}
+
+		Battle thatBat = (Battle)obj;
+
+		boolean partiesEqual = this.heroParty.equals(thatBat.heroParty) && this.enemyParty.equals(thatBat.enemyParty);
+		boolean intsEqual = this.floorLevel == thatBat.floorLevel && this.nextToAttack == thatBat.nextToAttack;
+		return  partiesEqual && intsEqual && this.newBattle == thatBat.newBattle && this.mediator.equals(thatBat.mediator);
+	}
 }

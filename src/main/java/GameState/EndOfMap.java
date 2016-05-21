@@ -1,7 +1,5 @@
 package GameState;
 
-import DungeonGeneration.GenerateDungeon;
-import StringTester.TestString;
 import Mediator.*;
 
 /**
@@ -32,5 +30,22 @@ public class EndOfMap implements A_State
         GenerateDungeon dungeon = new GenerateDungeon(mediator.dungeonSize(), mediator.dungeonSize());
         mediator.recieveMap(dungeon);*/
         return new NewMap(mediator);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof EndOfMap))
+        {
+            return false;
+        }
+
+        EndOfMap thatMap = (EndOfMap) obj;
+
+        return this.mediator.equals(thatMap.mediator);
     }
 }

@@ -40,4 +40,19 @@ public abstract class Weapon
    public abstract WeaponType getWeaponType();
 
    public abstract int getBase();
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if(obj == null)
+      {
+         return false;
+      }
+      if(!(obj instanceof Weapon))
+      {
+         return false;
+      }
+      Weapon newWeapon = (Weapon)obj;
+      return power == newWeapon.power && enchantment == newWeapon.enchantment && attackType.equals(newWeapon.attackType);
+   }
 }

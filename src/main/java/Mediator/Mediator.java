@@ -104,21 +104,22 @@ public class Mediator
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object o)
     {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (!(obj instanceof Mediator))
-        {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Mediator thatMediator = (Mediator) obj;
+        Mediator mediator = (Mediator) o;
 
-        boolean equalParties = this.characterParty.equals(thatMediator.characterParty) && this.enemies.equals(thatMediator.enemies);
-        boolean equalInts = this.dungeonSize == thatMediator.dungeonSize && this.currentTurn == thatMediator.currentTurn && this.floorLevel == thatMediator.floorLevel;
-        return equalParties && equalInts && this.map.equals(thatMediator.map) && this.turnOrder.equals(thatMediator.turnOrder) && this.newBattle == thatMediator.newBattle;
+        if (dungeonSize != mediator.dungeonSize) return false;
+        if (newBattle != mediator.newBattle) return false;
+        if (currentTurn != mediator.currentTurn) return false;
+        if (floorLevel != mediator.floorLevel) return false;
+        if (!characterParty.equals(mediator.characterParty)) return false;
+        if (!enemies.equals(mediator.enemies)) return false;
+        if (!map.equals(mediator.map)) return false;
+        if (!turnOrder.equals(mediator.turnOrder)) return false;
+
+        return true;
     }
 }

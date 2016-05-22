@@ -29,4 +29,19 @@ public class Leather extends Armor
     {
         return super.toString() + "Leather(" + (getPower()) + ")";
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Leather leather = (Leather) o;
+
+        if (base != leather.base) return false;
+        if (armorType != leather.armorType) return false;
+
+        return true;
+    }
 }

@@ -39,17 +39,15 @@ public abstract class Consumable
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(Object o)
    {
-      if (obj == null)
-      {
-         return false;
-      }
-      if (!(obj instanceof Consumable))
-      {
-         return false;
-      }
-      Consumable newConsume = (Consumable)obj;
-      return power == newConsume.power;
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      Consumable that = (Consumable) o;
+
+      if (power != that.power) return false;
+
+      return true;
    }
 }

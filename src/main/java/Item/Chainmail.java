@@ -26,4 +26,19 @@ public class Chainmail extends Armor
 	{
 		return super.toString() + "Chainmail(" + (getPower()) + ")" ;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Chainmail chainmail = (Chainmail) o;
+
+		if (base != chainmail.base) return false;
+		if (armorType != chainmail.armorType) return false;
+
+		return true;
+	}
 }

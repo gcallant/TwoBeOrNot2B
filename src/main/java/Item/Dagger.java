@@ -28,4 +28,20 @@ public class Dagger extends Weapon
 	{
 		return this.base;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Dagger dagger = (Dagger) o;
+
+		if (base != dagger.base) return false;
+		if (damageType != dagger.damageType) return false;
+		if (weaponType != dagger.weaponType) return false;
+
+		return true;
+	}
 }

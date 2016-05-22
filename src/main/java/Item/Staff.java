@@ -28,4 +28,19 @@ public class Staff extends Weapon
 	{
 		return this.base;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Staff staff = (Staff) o;
+
+		if (base != staff.base) return false;
+		if (damageType != staff.damageType) return false;
+		if (weaponType != staff.weaponType) return false;
+
+		return true;
+	}
 }

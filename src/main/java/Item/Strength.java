@@ -21,4 +21,5 @@ public class Strength extends Consumable
     {
         return super.toString() + "Strength";
     }
+
 }

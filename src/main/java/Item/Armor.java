@@ -35,18 +35,16 @@ public abstract class Armor
    public abstract ArmorType getArmorType();
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(Object o)
    {
-      if (obj == null)
-      {
-         return false;
-      }
-      if (!(obj instanceof Armor))
-      {
-         return false;
-      }
-      Armor newArmor = (Armor)obj;
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
 
-      return power == newArmor.power && enchantment.equals(newArmor.enchantment);
+      Armor armor = (Armor) o;
+
+      if (power != armor.power) return false;
+      if (!enchantment.equals(armor.enchantment)) return false;
+
+      return true;
    }
 }

@@ -127,7 +127,7 @@ public class BuffsManager
 
     public void clearBad()
     {
-        while(poison.size() > 0 || stunned.size() > 0)
+        while(poison.size() > 0  || stunned.size() > 0)
         {
             decrementBad();
         }

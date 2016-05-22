@@ -338,12 +338,12 @@ public abstract class A_Character
 		return isDefeated;
 	}
 
-	private Weapon getWeapon()
+	public Weapon getWeapon()
 	{
 		return weapon;
 	}
 
-	private Armor getArmor()
+	public Armor getArmor()
 	{
 		return armor;
 	}

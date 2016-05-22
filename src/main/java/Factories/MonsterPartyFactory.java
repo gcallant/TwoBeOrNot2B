@@ -2,6 +2,7 @@ package Factories;
 import java.util.*;
 import Characters.*;
 import Item.*;
+import PartyManagement.Party;
 
 public class MonsterPartyFactory
 {
@@ -21,13 +22,6 @@ public class MonsterPartyFactory
         monsters.add(ogre);
         return new Party(monsters);
     }
-
-    public MonsterParty randomMonsterParty(int diff)//Will generate a random party of monsters
-    {
-        return null;
-    }
-
-
 
 
 }

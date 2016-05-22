@@ -4,6 +4,7 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.SpecialManager;

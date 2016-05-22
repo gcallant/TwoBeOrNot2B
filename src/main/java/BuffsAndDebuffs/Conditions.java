@@ -1,4 +1,4 @@
-package Characters;
+package BuffsAndDebuffs;
 
 import BuffsAndDebuffs.BuffsManager;
 
@@ -33,8 +33,6 @@ public class Conditions
         return damage;
     }
 
-
-
     private int additionalDamage;
     private int additionalAttack;
 
@@ -60,8 +58,15 @@ public class Conditions
         additionalAttack = tempAttack;
     }
 
+    /*
+    * BUFFS MANAGER
+     */
 
     private BuffsManager buffsManager;
+
+    /*
+    * Give Buffs
+     */
 
     public void giveDamageBuff(double percentage, int rounds, String source)
     {
@@ -82,6 +87,20 @@ public class Conditions
     {
         buffsManager.addPoisonDebuff(percentage, rounds, source);
     }
+
+    public void giveExhaustedDebuff(int rounds, String source)
+    {
+        buffsManager.addExhaustedDebuff(rounds, source);
+    }
+
+    public void giveStunnedDebuff(int rounds, String source)
+    {
+        buffsManager.addStunnedDebuff(rounds, source);
+    }
+
+    /*
+    * Retrieve Buffs
+     */
 
     public int calculateRegen(int health)
     {
@@ -105,80 +124,39 @@ public class Conditions
         return attack;
     }
 
-
-
-    private boolean stunned;
-    private int stunnedCount;
-
-    public void stunned(int count)
-    {
-        if(stunnedCount <= 0)
-        {
-            stunnedCount = count;
-        }
-        else
-        {
-            stunnedCount += count;
-        }
-        stunned = true;
-    }
-
     public boolean cannotAttack()
     {
-        return stunned;
-    }
-
-
-
-    private boolean exhausted;
-    private int exhaustedCount;
-
-    public void exhausted(int count)
-    {
-        if(exhaustedCount <= 0)
-        {
-            exhaustedCount = count;
-        }
-        else
-        {
-            exhaustedCount += count;
-        }
-        exhausted = true;
+        return buffsManager.isStunned();
     }
 
     public boolean cannotUseSpecial()
     {
-        return exhausted;
+        return buffsManager.isExhausted();
     }
 
     public boolean hasBadCondition()
     {
-        return stunned || exhausted || buffsManager.badCondition();
+        return buffsManager.badCondition();
     }
 
     public void recoverConditions()
     {
-        endExhaustion();
-        endStunned();
+        buffsManager.clearBad();
     }
 
     public void resetConditions()
     {
-        recoverConditions();
-        endBuffs();
+        buffsManager.cleanBuffs();
     }
 
     public void startTurn()
     {
 
-        endDefending();
-        buffRound();
     }
 
     public void endTurn()
     {
-        exhaustedRound();
-        stunnedRound();
+        buffsManager.decrement();
         additionalDamage = 0;
         additionalAttack = 0;
     }
@@ -186,58 +164,10 @@ public class Conditions
     public void decrementBadConditions()
     {
         buffsManager.decrementBad();
-        stunnedRound();
-        exhaustedRound();
-    }
-
-    private void endExhaustion()
-    {
-        if(exhausted)
-        {
-            System.out.println(name + "'s exhaustion has ended");
-        }
-        exhausted = false;
     }
 
     private void endDefending()
     {
         defended = false;
-    }
-
-    private void endStunned()
-    {
-        if(stunned)
-        {
-            System.out.println(name + " is no longer stunned");
-        }
-        stunned = false;
-    }
-
-    private void endBuffs()
-    {
-        buffsManager.cleanBuffs();
-    }
-
-    private void buffRound()
-    {
-        buffsManager.decrement();
-    }
-
-    private void stunnedRound()
-    {
-        stunnedCount -= 1;
-        if(stunnedCount == 0)
-        {
-            endStunned();
-        }
-    }
-
-    private void exhaustedRound()
-    {
-        exhaustedCount -= 1;
-        if(exhaustedCount == 0)
-        {
-            endExhaustion();
-        }
     }
 }

@@ -1,6 +1,7 @@
 package Characters;
 
 import Item.*;
+import PartyManagement.Party;
 
 import java.util.Scanner;
 

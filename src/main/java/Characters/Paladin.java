@@ -4,10 +4,9 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
 import SpecialAbilities.SpecialManager;
-
-import java.util.Scanner;
 
 /**
  * Created by Michael on 5/18/2016.

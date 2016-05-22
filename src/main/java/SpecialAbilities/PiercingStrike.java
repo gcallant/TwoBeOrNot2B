@@ -1,9 +1,7 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.Party;
-
-import java.util.ArrayList;
+import PartyManagement.Party;
 
 /**
  * Created by Michael on 5/22/2016.

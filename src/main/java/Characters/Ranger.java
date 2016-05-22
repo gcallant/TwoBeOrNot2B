@@ -4,9 +4,9 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.NaturalRemedy;
 import SpecialAbilities.PiercingStrike;
-import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 
 /**

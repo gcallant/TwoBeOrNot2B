@@ -1,7 +1,7 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 
 /**
  * Created by Michael on 5/22/2016.
@@ -31,7 +31,7 @@ public class PoisonStrike extends SpecialAbility
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
         System.out.println(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
-        choiceToStrike.getConditions().givePoisonDebuff(character.getDexterity()*.01, 5, "poison Strike");
+        choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getDexterity()*.01), 5, "poison Strike");
     }
 
     public String toString()

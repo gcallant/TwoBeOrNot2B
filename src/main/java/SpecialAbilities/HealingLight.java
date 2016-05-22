@@ -1,7 +1,7 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -28,7 +28,7 @@ public class HealingLight extends SpecialAbility
             allies.getCharacter(x).heal(2*character.getStrength());
             allies.getCharacter(x).getConditions().recoverConditions();
         }
-        character.getConditions().exhausted(2);
+        character.getConditions().giveExhaustedDebuff(2,"Healing Light");
     }
 
     public String toString()

@@ -1,5 +1,6 @@
-package Characters;
+package PartyManagement;
 
+import Characters.*;
 import Factories.HeroFactory;
 import StringTester.TestString;
 

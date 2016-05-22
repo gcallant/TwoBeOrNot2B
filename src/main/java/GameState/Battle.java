@@ -1,9 +1,9 @@
 package GameState;
 
 import Characters.A_Character;
-import Characters.GenerateMonsterParty;
-import Characters.InitiativeSort;
-import Characters.Party;
+import PartyManagement.GenerateMonsterParty;
+import PartyManagement.InitiativeSort;
+import PartyManagement.Party;
 import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
 import StringTester.TestString;

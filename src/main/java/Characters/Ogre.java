@@ -1,9 +1,9 @@
 package Characters;
-import AttackAndDefendBehavior.*;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StunningStrike;
 

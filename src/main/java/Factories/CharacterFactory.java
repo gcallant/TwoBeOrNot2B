@@ -1,5 +1,6 @@
-package Characters;
+package Factories;
 
+import Characters.*;
 import Item.*;
 
 /**

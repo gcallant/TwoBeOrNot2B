@@ -1,15 +1,13 @@
 package Characters;
 
-import AttackAndDefendBehavior.*;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.PoisonStrike;
 import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
-
-import java.util.Scanner;
 
 /**
  * Created by gm14793 on 5/9/16.

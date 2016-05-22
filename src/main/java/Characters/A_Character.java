@@ -1,11 +1,10 @@
 package Characters;
 
-import AttackAndDefendBehavior.*;
-
 import java.util.*;
 
+import BuffsAndDebuffs.Conditions;
 import Item.*;
-import Inventory.*;
+import PartyManagement.Party;
 
 public abstract class A_Character
 {
@@ -394,7 +393,7 @@ public abstract class A_Character
 		return defense;
 	}
 
-	protected int getInitiative()
+	public int getInitiative()
 	{
 		return this.initiative;
 	}

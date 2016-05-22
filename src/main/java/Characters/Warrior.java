@@ -4,10 +4,8 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.*;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.

@@ -8,136 +8,140 @@ import java.util.List;
  */
 public class BuffsManager
 {
-    List<Buffs> attack;
-    List<Buffs> damage;
-    List<Buffs> regen;
-    List<Buffs> poison;
-    String name;
+    private BuffList attack;
+    private BuffList damage;
+    private BuffList regen;
+    private BuffList poison;
+    private BooleanBuffList exhausted;
+    private BooleanBuffList stunned;
+    private String name;
 
     public BuffsManager(String name)
     {
-        attack = new ArrayList<Buffs>();
-        damage = new ArrayList<Buffs>();
-        regen = new ArrayList<Buffs>();
-        poison = new ArrayList<Buffs>();
+        attack = new AttackBuffs(name);
+        damage = new DamageBuffs(name);
+        regen = new RegenBuffs(name);
+        poison = new PoisonBuffs(name);
+        exhausted = new ExhaustedBuffs(name);
+        stunned = new StunnedDebuff(name);
         this.name = name;
     }
 
+    //One for every BuffList
     public void addAttackBuff(double buff, int rounds, String source)
     {
-        searchList(buff, rounds, source, attack);
+        attack.addBuff(buff, rounds, source);
     }
 
     public void addDamageBuff(double buff, int rounds, String source)
     {
-        searchList(buff, rounds, source, damage);
+        damage.addBuff(buff, rounds, source);
     }
 
     public void addRegenBuff(double buff, int rounds, String source)
     {
-        searchList(buff, rounds, source, regen);
+        regen.addBuff(buff, rounds, source);
     }
 
     public void addPoisonDebuff(double debuff, int rounds, String source)
     {
-        searchList(debuff, rounds, source, poison);
+        poison.addBuff(debuff, rounds, source);
     }
 
-    private void searchList(double buff, int rounds, String source, List<Buffs> list)
+    public void addExhaustedDebuff(int rounds, String source)
     {
-        boolean found = false;
-
-        for(Buffs aBuff : list)
-        {
-            if(aBuff.getSource().equals(source))
-            {
-                System.out.println(source + " has been refreshed on " + name);
-                aBuff.replace(buff, rounds);
-                found = true;
-            }
-        }
-        if(!found)
-        {
-            list.add(new Buffs(buff, rounds, source));
-        }
+        exhausted.addBuff(rounds, source);
     }
+
+    public void addStunnedDebuff(int rounds, String source)
+    {
+        stunned.addBuff(rounds, source);
+    }
+    //
 
     public void decrement()
     {
-        decrementList(attack);
+        //One for every BuffList
+        attack.decrementList();
 
-        decrementList(damage);
+        damage.decrementList();
 
-        decrementList(regen);
+        regen.decrementList();
 
-        decrementList(poison);
+        poison.decrementList();
+
+        exhausted.decrementList();
+
+        stunned.decrementList();
     }
 
     public void decrementBad()
     {
-        decrementList(poison);
+        //All negative buffs
+        poison.decrementList();
+        exhausted.decrementList();
+        stunned.decrementList();
     }
 
-    private void decrementList(List<Buffs> list)
-    {
-        List<Buffs> checks = new ArrayList<Buffs>();
-
-        for(Buffs aBuff : list)
-        {
-            if(aBuff.decrement())
-            {
-                System.out.println(name + "'s buff/debuff has ended from " + aBuff.getSource());
-                checks.add(aBuff);
-            }
-        }
-
-        for(Buffs aBuff : checks)
-        {
-            list.remove(aBuff);
-        }
-    }
-
+    //One for every BuffList
     public double getDamageBuffAmount()
     {
-        return getAmount(damage,1.0);
+        return damage.getAmount();
     }
 
     public double getAttackBuffAmount()
     {
-        return getAmount(attack,1.0);
+        return attack.getAmount();
     }
 
     public double getRegenAmount()
     {
-        double total = getAmount(regen, 0.0);
-        return total;
+        return regen.getAmount();
     }
 
     public double getPoisonAmount()
     {
-        double total = getAmount(poison, 0.0);
-        return total;
+        return poison.getAmount();
     }
 
-    private double getAmount(List<Buffs> list, double total)
+    public boolean isExhausted()
     {
-        for(Buffs aBuff : list)
-        {
-            total += 1.0 + aBuff.buffAmount();
-        }
-        return total;
+        return exhausted.isInEffect();
     }
+
+    public boolean isStunned()
+    {
+        return stunned.isInEffect();
+    }
+    //
 
     public boolean badCondition()
     {
-        return poison.size() > 0;
+        boolean badCondition = false;
+
+        badCondition = poison.size() > 0 || badCondition;
+        badCondition = exhausted.isInEffect() || badCondition;
+        badCondition = stunned.isInEffect() || badCondition;
+
+        return badCondition;
+    }
+
+    public void clearBad()
+    {
+        while(poison.size() > 0 || exhausted.size() > 0 || stunned.size() > 0)
+        {
+            decrementBad();
+        }
     }
 
     public void cleanBuffs()
     {
+        //One for each buff
         attack.clear();
         damage.clear();
         regen.clear();
         poison.clear();
+        exhausted.clear();
+        stunned.clear();
     }
 }

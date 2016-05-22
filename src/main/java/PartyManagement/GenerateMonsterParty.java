@@ -1,6 +1,8 @@
-package Characters;
+package PartyManagement;
 
+import Characters.A_Character;
 import Factories.MonsterFactory;
+import PartyManagement.Party;
 
 import java.util.ArrayList;
 import java.util.Random;

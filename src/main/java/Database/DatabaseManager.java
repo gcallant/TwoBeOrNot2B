@@ -1,7 +1,7 @@
 package Database;
 
 import Characters.A_Character;
-import Inventory.Inventory;
+import PartyManagement.Inventory;
 import Mediator.Mediator;
 import org.jetbrains.annotations.Contract;
 import org.sqlite.SQLiteConfig;

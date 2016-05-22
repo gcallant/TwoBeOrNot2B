@@ -1,10 +1,10 @@
-package Characters;
+package PartyManagement;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import Inventory.Inventory;
+import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;

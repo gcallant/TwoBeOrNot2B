@@ -1,6 +1,6 @@
 package GameState;
 
-import Characters.Party;
+import PartyManagement.Party;
 import Mediator.Mediator;
 import StringTester.TestString;
 

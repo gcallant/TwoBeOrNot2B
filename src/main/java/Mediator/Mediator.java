@@ -1,7 +1,7 @@
 package Mediator;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
 
 import java.util.ArrayList;

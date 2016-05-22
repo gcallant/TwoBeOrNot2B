@@ -77,9 +77,8 @@ public class BuffsManager
 
     public void decrementBad()
     {
-        //All negative buffs
+        //All negative buffs except Exhaustion.
         poison.decrementList();
-        exhausted.decrementList();
         stunned.decrementList();
     }
 
@@ -128,7 +127,7 @@ public class BuffsManager
 
     public void clearBad()
     {
-        while(poison.size() > 0 || exhausted.size() > 0 || stunned.size() > 0)
+        while(poison.size() > 0 || stunned.size() > 0)
         {
             decrementBad();
         }

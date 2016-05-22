@@ -54,12 +54,13 @@ public class MapExploration implements A_State
 
     public A_State execute()
     {
-        char[] validInputs = new char[5];
+        char[] validInputs = new char[6];
         validInputs[0] = 'u';
         validInputs[1] = 'd';
         validInputs[2] = 'r';
         validInputs[3] = 'l';
         validInputs[4] = 'm';
+        validInputs[5] = 'n';
         char command = TestString.ensureChar(validInputs);
         switch(command)
         {
@@ -73,6 +74,8 @@ public class MapExploration implements A_State
                 return moveDirection("left");
             case 'm':
                 return new InGameMenu(mediator);
+            case 'n':
+                return new NewMap(mediator);
             default:
                 return new MapExploration(mediator);
         }

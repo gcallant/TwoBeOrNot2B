@@ -30,11 +30,13 @@ public class GenerateMonsterParty
         int[] numberOfGoblins = {10,2,0};
         int[] numberOfOrcs = {5, 5, 3};
         int[] numberOfOgres = {2, 4, 5};
+        int[] numberOfUndeadClerics = {5, 10, 3};
 
         //Manually add one monster to each of the lists
         addInValues("Goblin",numberOfGoblins);
         addInValues("Orc", numberOfOrcs);
         addInValues("Ogre", numberOfOgres);
+        addInValues("Undead Cleric", numberOfUndeadClerics);
     }
 
     private void addInValues(String name, int[] numToAdd)

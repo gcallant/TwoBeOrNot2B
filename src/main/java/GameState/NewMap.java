@@ -28,7 +28,7 @@ public class NewMap implements A_State
 
     public A_State execute()
     {
-        GenerateDungeon dungeon = new GenerateDungeon(3,3);
+        GenerateDungeon dungeon = new GenerateDungeon(10,15);
         dungeon.generatePath();
         mediator.receiveMap(dungeon);
         return new MapExploration(mediator);

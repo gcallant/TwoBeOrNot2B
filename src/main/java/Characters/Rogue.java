@@ -5,6 +5,7 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import SpecialAbilities.PoisonStrike;
 import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 
@@ -23,6 +24,7 @@ public class Rogue extends A_Hero
         specialManager = new SpecialManager();
 
         specialManager.addSpecialAbility(new SneakAttack());
+        specialManager.addSpecialAbility(new PoisonStrike());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)

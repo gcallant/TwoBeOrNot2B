@@ -24,8 +24,6 @@ public class Conditions
         defended = true;
     }
 
-
-
     public int reduceDamage(int damage)
     {
         if(defended)
@@ -72,7 +70,27 @@ public class Conditions
 
     public void giveAttackBuff(double percentage, int rounds, String source)
     {
-        buffsManager.addAttackBuff(percentage,rounds,source);
+        buffsManager.addAttackBuff(percentage, rounds, source);
+    }
+
+    public void giveRegenBuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addRegenBuff(percentage, rounds, source);
+    }
+
+    public void givePoisonDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addPoisonDebuff(percentage, rounds, source);
+    }
+
+    public int calculateRegen(int health)
+    {
+         return (int)((double)health*buffsManager.getRegenAmount());
+    }
+
+    public int calculatePoisonDamage(int health)
+    {
+        return (int)((double)health*buffsManager.getPoisonAmount());
     }
 
     public int calculateDamage(int damage)
@@ -133,38 +151,15 @@ public class Conditions
         return exhausted;
     }
 
-
-
-    private boolean poisoned;
-    private int poisonCount;
-
-    public void poisoned(int count)
-    {
-        if(poisonCount <= 0)
-        {
-            poisonCount = count;
-        }
-        else
-        {
-            poisonCount += count;
-        }
-        poisoned = true;
-    }
-
-    public boolean isPoisoned()
-    {
-        return poisoned;
-    }
     public boolean hasBadCondition()
     {
-        return stunned || exhausted || poisoned;
+        return stunned || exhausted || buffsManager.badCondition();
     }
 
     public void recoverConditions()
     {
         endExhaustion();
         endStunned();
-        endPoisoned();
     }
 
     public void resetConditions()
@@ -175,17 +170,24 @@ public class Conditions
 
     public void startTurn()
     {
+
         endDefending();
         buffRound();
     }
 
     public void endTurn()
     {
-        poisonRound();
         exhaustedRound();
         stunnedRound();
         additionalDamage = 0;
         additionalAttack = 0;
+    }
+
+    public void decrementBadConditions()
+    {
+        buffsManager.decrementBad();
+        stunnedRound();
+        exhaustedRound();
     }
 
     private void endExhaustion()
@@ -200,16 +202,6 @@ public class Conditions
     private void endDefending()
     {
         defended = false;
-    }
-
-    private void endPoisoned()
-    {
-        if(poisoned)
-        {
-            System.out.println(name + " is no longer poisoned");
-        }
-        poisoned = false;
-        poisonCount = 0;
     }
 
     private void endStunned()
@@ -229,15 +221,6 @@ public class Conditions
     private void buffRound()
     {
         buffsManager.decrement();
-    }
-
-    private void poisonRound()
-    {
-        poisonCount -= 1;
-        if(poisonCount == 0)
-        {
-            endPoisoned();
-        }
     }
 
     private void stunnedRound()

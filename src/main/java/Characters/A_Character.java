@@ -300,6 +300,18 @@ public abstract class A_Character
 
 	public void resetTurn()
 	{
+		int toHeal = conditions.calculateRegen(getMaxHealth());
+		if(toHeal > 0)
+		{
+			heal(toHeal);
+		}
+		int poison = conditions.calculatePoisonDamage(getMaxHealth());
+		if(poison > 0)
+		{
+			System.out.println(getName() + " is poisoned and takes " + poison + " damage!");
+			takeDamage(poison);
+		}
+
 		conditions.startTurn();
 	}
 

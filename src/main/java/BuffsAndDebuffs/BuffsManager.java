@@ -10,12 +10,16 @@ public class BuffsManager
 {
     List<Buffs> attack;
     List<Buffs> damage;
+    List<Buffs> regen;
+    List<Buffs> poison;
     String name;
 
     public BuffsManager(String name)
     {
         attack = new ArrayList<Buffs>();
         damage = new ArrayList<Buffs>();
+        regen = new ArrayList<Buffs>();
+        poison = new ArrayList<Buffs>();
         this.name = name;
     }
 
@@ -29,7 +33,17 @@ public class BuffsManager
         searchList(buff, rounds, source, damage);
     }
 
-    public void searchList(double buff, int rounds, String source, List<Buffs> list)
+    public void addRegenBuff(double buff, int rounds, String source)
+    {
+        searchList(buff, rounds, source, regen);
+    }
+
+    public void addPoisonDebuff(double debuff, int rounds, String source)
+    {
+        searchList(debuff, rounds, source, poison);
+    }
+
+    private void searchList(double buff, int rounds, String source, List<Buffs> list)
     {
         boolean found = false;
 
@@ -50,63 +64,80 @@ public class BuffsManager
 
     public void decrement()
     {
+        decrementList(attack);
+
+        decrementList(damage);
+
+        decrementList(regen);
+
+        decrementList(poison);
+    }
+
+    public void decrementBad()
+    {
+        decrementList(poison);
+    }
+
+    private void decrementList(List<Buffs> list)
+    {
         List<Buffs> checks = new ArrayList<Buffs>();
 
-        for(Buffs aBuff : attack)
+        for(Buffs aBuff : list)
         {
             if(aBuff.decrement())
             {
-                System.out.println(name + "'s attack has returned to normal from " + aBuff.getSource());
+                System.out.println(name + "'s buff/debuff has ended from " + aBuff.getSource());
                 checks.add(aBuff);
             }
         }
 
         for(Buffs aBuff : checks)
         {
-            attack.remove(aBuff);
-        }
-
-        checks = new ArrayList<Buffs>();
-
-        for(Buffs aBuff : damage)
-        {
-            if(aBuff.decrement())
-            {
-                System.out.println(name + "'s damage has returned to normal from " + aBuff.getSource());
-                checks.add(aBuff);
-                //damage.remove(aBuff);
-            }
-        }
-
-        for(Buffs aBuff : checks)
-        {
-            damage.remove(aBuff);
+            list.remove(aBuff);
         }
     }
 
     public double getDamageBuffAmount()
     {
-        double total = 1.0;
-        for(Buffs aBuff : damage)
-        {
-            total += aBuff.buffAmount();
-        }
-        return total;
+        return getAmount(damage,1.0);
     }
 
     public double getAttackBuffAmount()
     {
-        double total = 1.0;
-        for(Buffs aBuff : attack)
+        return getAmount(attack,1.0);
+    }
+
+    public double getRegenAmount()
+    {
+        double total = getAmount(regen, 0.0);
+        return total;
+    }
+
+    public double getPoisonAmount()
+    {
+        double total = getAmount(poison, 0.0);
+        return total;
+    }
+
+    private double getAmount(List<Buffs> list, double total)
+    {
+        for(Buffs aBuff : list)
         {
-            total += aBuff.buffAmount();
+            total += 1.0 + aBuff.buffAmount();
         }
         return total;
+    }
+
+    public boolean badCondition()
+    {
+        return poison.size() > 0;
     }
 
     public void cleanBuffs()
     {
         attack.clear();
         damage.clear();
+        regen.clear();
+        poison.clear();
     }
 }

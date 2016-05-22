@@ -5,5 +5,5 @@ package Item;
  */
 public enum WeaponType
 {
-    Light, Medium, Heavy, Staff;
+    Light, Medium, Heavy, Staff, Ranged;
 }

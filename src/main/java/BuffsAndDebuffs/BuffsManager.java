@@ -50,22 +50,37 @@ public class BuffsManager
 
     public void decrement()
     {
+        List<Buffs> checks = new ArrayList<Buffs>();
+
         for(Buffs aBuff : attack)
         {
             if(aBuff.decrement())
             {
                 System.out.println(name + "'s attack has returned to normal from " + aBuff.getSource());
-                attack.remove(aBuff);
+                checks.add(aBuff);
             }
         }
+
+        for(Buffs aBuff : checks)
+        {
+            attack.remove(aBuff);
+        }
+
+        checks = new ArrayList<Buffs>();
 
         for(Buffs aBuff : damage)
         {
             if(aBuff.decrement())
             {
                 System.out.println(name + "'s damage has returned to normal from " + aBuff.getSource());
-                damage.remove(aBuff);
+                checks.add(aBuff);
+                //damage.remove(aBuff);
             }
+        }
+
+        for(Buffs aBuff : checks)
+        {
+            damage.remove(aBuff);
         }
     }
 
@@ -91,7 +106,7 @@ public class BuffsManager
 
     public void cleanBuffs()
     {
-        attack = new ArrayList<Buffs>();
-        damage = new ArrayList<Buffs>();
+        attack.clear();
+        damage.clear();
     }
 }

@@ -316,6 +316,7 @@ public abstract class A_Character
 	public void resetStats()
 	{
 		conditions.recoverConditions();
+		conditions.resetConditions();
 	}
 
 	/*

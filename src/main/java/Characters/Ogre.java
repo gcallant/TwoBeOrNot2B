@@ -56,4 +56,12 @@ public class Ogre extends A_Monster
 
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + (exhausted ? 1 : 0);
+        return result;
+    }
 }

@@ -74,4 +74,12 @@ public abstract class A_Monster extends A_Character
 		return true;
 	}
 
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + rand.hashCode();
+		return result;
+	}
 }

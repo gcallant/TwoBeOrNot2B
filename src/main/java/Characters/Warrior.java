@@ -133,4 +133,14 @@ public class Warrior extends A_Hero
 
 		return true;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + (exhausted ? 1 : 0);
+		result = 31 * result + shoutCount;
+		result = 31 * result + (shout ? 1 : 0);
+		return result;
+	}
 }

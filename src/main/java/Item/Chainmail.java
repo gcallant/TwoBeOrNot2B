@@ -41,4 +41,13 @@ public class Chainmail extends Armor
 
 		return true;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + base;
+		result = 31 * result + armorType.hashCode();
+		return result;
+	}
 }

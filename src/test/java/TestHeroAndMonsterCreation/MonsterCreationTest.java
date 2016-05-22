@@ -1,23 +1,23 @@
 package TestHeroAndMonsterCreation;
 
 import Characters.A_Character;
-import Factories.HeroFactory;
+import Factories.MonsterFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by SaraPage on 5/20/2016.
+ * Created by SaraPage on 5/22/2016.
  */
-public class HeroCreationTest
+public class MonsterCreationTest
 {
-    HeroFactory factory;
+    MonsterFactory factory;
     @Before
     public void setUp() throws Exception
     {
-        factory = new HeroFactory();
+        factory = new MonsterFactory();
     }
 
     @After
@@ -29,9 +29,6 @@ public class HeroCreationTest
     @Test
     public void createCharacter() throws Exception
     {
-        A_Character testCharacter = factory.createCharacter("Warrior", "HeroName");
-
-        assertNotNull(factory.createCharacter("Warrior", "HeroName"));
+        assertNotNull(factory.createMonster("Orc", "monsterName"));
     }
-
 }

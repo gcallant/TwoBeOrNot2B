@@ -50,4 +50,10 @@ public abstract class Consumable
 
       return true;
    }
+
+   @Override
+   public int hashCode()
+   {
+      return power;
+   }
 }

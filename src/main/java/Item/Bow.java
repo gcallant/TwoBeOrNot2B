@@ -44,4 +44,13 @@ public class Bow extends Weapon
 
 		return true;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = damageType.hashCode();
+		result = 31 * result + base;
+		result = 31 * result + weaponType.hashCode();
+		return result;
+	}
 }

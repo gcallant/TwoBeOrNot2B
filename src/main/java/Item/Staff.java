@@ -30,7 +30,8 @@ public class Staff extends Weapon
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o)
+	{
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
@@ -42,5 +43,14 @@ public class Staff extends Weapon
 		if (weaponType != staff.weaponType) return false;
 
 		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = damageType.hashCode();
+		result = 31 * result + base;
+		result = 31 * result + weaponType.hashCode();
+		return result;
 	}
 }

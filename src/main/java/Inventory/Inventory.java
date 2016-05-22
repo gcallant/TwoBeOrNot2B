@@ -215,4 +215,14 @@ public class Inventory
 
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = weapons.hashCode();
+        result = 31 * result + armors.hashCode();
+        result = 31 * result + consumables.hashCode();
+        result = 31 * result + totalSize;
+        return result;
+    }
 }

@@ -61,4 +61,12 @@ public class DungeonTile
 
 		return true;
 	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = Arrays.hashCode(direction);
+		result = 31 * result + (used ? 1 : 0);
+		return result;
+	}
 }

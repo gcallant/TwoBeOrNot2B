@@ -87,4 +87,11 @@ public class Mage extends A_Hero
 		return true;
 	}
 
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + buffed;
+		return result;
+	}
 }

@@ -251,4 +251,14 @@ public class Party
 
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = characterParty.hashCode();
+        result = 31 * result + inventory.hashCode();
+        result = 31 * result + partyLevel;
+        result = 31 * result + (shout ? 1 : 0);
+        return result;
+    }
 }

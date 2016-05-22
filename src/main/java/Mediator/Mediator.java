@@ -122,4 +122,18 @@ public class Mediator
 
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = characterParty.hashCode();
+        result = 31 * result + enemies.hashCode();
+        result = 31 * result + map.hashCode();
+        result = 31 * result + dungeonSize;
+        result = 31 * result + (newBattle ? 1 : 0);
+        result = 31 * result + currentTurn;
+        result = 31 * result + turnOrder.hashCode();
+        result = 31 * result + floorLevel;
+        return result;
+    }
 }

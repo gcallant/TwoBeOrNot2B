@@ -578,4 +578,28 @@ public abstract class A_Character
 		return true;
 	}
 
+	@Override
+	public int hashCode()
+	{
+		int result = name.hashCode();
+		result = 31 * result + health;
+		result = 31 * result + maxHealth;
+		result = 31 * result + strength;
+		result = 31 * result + dexterity;
+		result = 31 * result + tempStrength;
+		result = 31 * result + tempDexterity;
+		result = 31 * result + level;
+		result = 31 * result + experience;
+		result = 31 * result + armor.hashCode();
+		result = 31 * result + weapon.hashCode();
+		result = 31 * result + (isDefeated ? 1 : 0);
+		result = 31 * result + (defending ? 1 : 0);
+		result = 31 * result + initiative;
+		result = 31 * result + (isStunned ? 1 : 0);
+		result = 31 * result + armorType.hashCode();
+		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + (protection ? 1 : 0);
+		result = 31 * result + rand.hashCode();
+		return result;
+	}
 }

@@ -43,8 +43,16 @@ public abstract class Armor
       Armor armor = (Armor) o;
 
       if (power != armor.power) return false;
-      if (!enchantment.equals(armor.enchantment)) return false;
+      //if (!enchantment.equals(armor.enchantment)) return false;
 
       return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int result = power;
+      result = 31 * result + enchantment.hashCode();
+      return result;
    }
 }

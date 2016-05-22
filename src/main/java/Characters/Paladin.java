@@ -126,4 +126,13 @@ public class Paladin extends A_Hero
 
         return true;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + protecting.hashCode();
+        result = 31 * result + healingLight;
+        return result;
+    }
 }

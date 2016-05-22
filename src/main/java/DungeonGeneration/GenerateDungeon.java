@@ -604,4 +604,19 @@ public class GenerateDungeon
 
       return true;
    }
+
+   @Override
+   public int hashCode()
+   {
+      int result = Arrays.deepHashCode(dungeon);
+      result = 31 * result + size;
+      result = 31 * result + Arrays.hashCode(startEnd);
+      result = 31 * result + xStart;
+      result = 31 * result + yStart;
+      result = 31 * result + xEnd;
+      result = 31 * result + yEnd;
+      result = 31 * result + characterX;
+      result = 31 * result + characterY;
+      return result;
+   }
 }

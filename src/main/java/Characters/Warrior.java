@@ -117,4 +117,19 @@ public class Warrior extends A_Hero
 	{
 		return 25;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Warrior warrior = (Warrior) o;
+
+		if (exhausted != warrior.exhausted) return false;
+		if (shoutCount != warrior.shoutCount) return false;
+		if (shout != warrior.shout) return false;
+
+		return true;
+	}
 }

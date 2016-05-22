@@ -75,4 +75,6 @@ public class Rogue extends A_Hero
     {
         return 15;
     }
+
+
 }

@@ -59,4 +59,18 @@ public abstract class A_Monster extends A_Character
 	}
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		A_Monster a_monster = (A_Monster) o;
+
+		if (!name.equals(a_monster.name)) return false;
+
+		return true;
+	}
+
 }

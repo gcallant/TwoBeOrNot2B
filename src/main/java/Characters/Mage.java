@@ -72,4 +72,18 @@ public class Mage extends A_Hero
 	{
 		return 10;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Mage mage = (Mage) o;
+
+		if (buffed != mage.buffed) return false;
+
+		return true;
+	}
+
 }

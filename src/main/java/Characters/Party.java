@@ -235,4 +235,19 @@ public class Party
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Party party = (Party) o;
+
+        if (partyLevel != party.partyLevel) return false;
+        if (shout != party.shout) return false;
+        if (!characterParty.equals(party.characterParty)) return false;
+        if (!inventory.equals(party.inventory)) return false;
+
+        return true;
+    }
 }

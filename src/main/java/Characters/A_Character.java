@@ -547,27 +547,34 @@ public abstract class A_Character
 		initiative = randomValue + dexterity;
 	}
 
-
 	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
-			return false;
-		}
-		if (!(obj instanceof A_Character))
-		{
-			return false;
-		}
-		A_Character newChar = (A_Character)obj;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-		boolean equalName = name.equals(newChar.name);
-		boolean equalInts1 = health == newChar.health && maxHealth == newChar.maxHealth && strength == newChar.strength && dexterity == newChar.dexterity && level == newChar.level;
-		boolean equalInts2 = experience == newChar.experience && initiative == newChar.initiative;
-		boolean equalBooleans = isDefeated == newChar.isDefeated && defending == newChar.defending && isStunned == newChar.isStunned && protection == newChar.protection;
-		boolean equalEnums = armorType == newChar.armorType && weaponType == newChar.weaponType;
-		boolean equalItems = armor.equals(newChar.armor) && weapon.equals(newChar.weapon);
+		A_Character that = (A_Character) o;
 
-		return equalName && equalInts1 && equalInts2 && equalBooleans && equalEnums && equalItems;
+		if (health != that.health) return false;
+		if (maxHealth != that.maxHealth) return false;
+		if (strength != that.strength) return false;
+		if (dexterity != that.dexterity) return false;
+		if (tempStrength != that.tempStrength) return false;
+		if (tempDexterity != that.tempDexterity) return false;
+		if (level != that.level) return false;
+		if (experience != that.experience) return false;
+		if (isDefeated != that.isDefeated) return false;
+		if (defending != that.defending) return false;
+		if (initiative != that.initiative) return false;
+		if (isStunned != that.isStunned) return false;
+		if (protection != that.protection) return false;
+		if (!name.equals(that.name)) return false;
+		if (!armor.equals(that.armor)) return false;
+		if (!weapon.equals(that.weapon)) return false;
+		if (armorType != that.armorType) return false;
+		if (weaponType != that.weaponType) return false;
+		if (!rand.equals(that.rand)) return false;
+
+		return true;
 	}
+
 }

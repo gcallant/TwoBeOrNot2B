@@ -16,7 +16,7 @@ public class Strength extends Consumable
     {
         character.imbibe(this);
         double damageBuff = 1.0 + .25*((double)getPower());
-        character.getConditions().giveDamageBuff(damageBuff, 4);
+        character.getConditions().giveDamageBuff(damageBuff, 4, "Strength Potion");
     }
 
     public String toString()

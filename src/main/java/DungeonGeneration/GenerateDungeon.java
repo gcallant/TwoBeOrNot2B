@@ -146,7 +146,16 @@ public class GenerateDungeon
    private static void fixDungeon(DungeonTile[][] dungeon, int[] startEnd)
    {
       int[] fixArray = {1,1,1,1};
-      dungeon[startEnd[3]][startEnd[2]].setDirection(fixArray);
+      dungeon[dungeon.length-1][dungeon[0].length-1].setUsed();
+      if(dungeon[dungeon.length-2][dungeon.length-1].getDirection()[3] == 1)
+      {
+         dungeon[dungeon.length-1][dungeon.length-1].getDirection()[1] = 1;
+      }
+      else
+      {
+         dungeon[dungeon.length-1][dungeon.length-1].getDirection()[0] = 1;
+      }
+      //dungeon[startEnd[3]][startEnd[2]].setDirection(fixArray);
       
       for(int y = 0; y < dungeon.length; y++)
       {
@@ -363,79 +372,60 @@ public class GenerateDungeon
          {
             for(int y = 0; y < 3; y++)
             {
-               ifUsed = this.dungeon[x][z].isUsed();
-               if(y == 0)
-               {
-                  if(this.dungeon[x][z].getDirection()[1] == 0)
-                  {
-                     str1 += " - ";
-                  }
-                  else
-                  {
-                     str1 += "   ";
-                  }
-               }
-               else if(y == 1)
-               {
-                  if(x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1)
-                  {
-                     if(this.dungeon[x][z].getDirection()[0] == 0)
-                     {
-                        str2 += "[";
+                  ifUsed = this.dungeon[x][z].isUsed();
+                  if (ifUsed) {
+                     if (y == 0) {
+                        if (this.dungeon[x][z].getDirection()[1] == 0) {
+                           str1 += " - ";
+                        } else {
+                           str1 += "   ";
+                        }
+                     } else if (y == 1) {
+                        if (x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1) {
+                           if (this.dungeon[x][z].getDirection()[0] == 0) {
+                              str2 += "[";
+                           } else {
+                              str2 += " ";
+                           }
+                           str2 += "->";
+                           if (this.dungeon[x][z].getDirection()[2] == 0) {
+                              str2 += "]";
+                           } else {
+                              str2 += " ";
+                           }
+                        } else {
+                           if (this.dungeon[x][z].getDirection()[0] == 0) {
+                              str2 += "[";
+                           } else {
+                              str2 += " ";
+                           }
+                           if (x == characterX && z == characterY) {
+                              str2 += "x";
+                           } else {
+                              str2 += " ";
+                           }
+                           if (this.dungeon[x][z].getDirection()[2] == 0) {
+                              str2 += "]";
+                           } else {
+                              str2 += " ";
+                           }
+                        }
+                     } else {
+                        if (this.dungeon[x][z].getDirection()[3] == 0) {
+                           str3 += " - ";
+                        } else {
+                           str3 += "   ";
+                        }
                      }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     str2 += " ";
-                     if(this.dungeon[x][z].getDirection()[2] == 0)
-                     {
-                        str2 += "]";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                  }
-                  else
-                  {
-                     if(this.dungeon[x][z].getDirection()[0] == 0)
-                     {
-                        str2 += "[";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     if(x == characterX && z == characterY)
-                     {
-                        str2 += "x";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     if(this.dungeon[x][z].getDirection()[2] == 0)
-                     {
-                        str2 += "]";
-                     }
-                     else
-                     {
-                        str2 += " ";
+                  } else {
+                     if (y == 0) {
+                        str1 += "   ";
+                     } else if (y == 1) {
+                        str2 += "   ";
+                     } else {
+                        str3 += "   ";
                      }
                   }
-               }
-               else
-               {
-                  if(this.dungeon[x][z].getDirection()[3] == 0)
-                  {
-                     str3 += " - ";
-                  }
-                  else
-                  {
-                     str3 += "   ";
-                  }
-               }
             }
          }
          finalStr += str1 + "\n"  + str2 + "\n" + str3 + "\n";

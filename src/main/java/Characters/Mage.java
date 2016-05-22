@@ -4,11 +4,9 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
-import SpecialAbilities.MagicBuff;
+import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.SpecialManager;
-
-import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.
@@ -21,7 +19,7 @@ public class Mage extends A_Hero
 		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon);
 
 		specialManager = new SpecialManager();
-		specialManager.addSpecialAbility(new MagicBuff());
+		specialManager.addSpecialAbility(new OwlsInsight());
 		specialManager.addSpecialAbility(new MeteorShower());
 	}
 

@@ -1,5 +1,7 @@
 package Characters;
 
+import BuffsAndDebuffs.BuffsManager;
+
 import java.util.Collections;
 
 /**
@@ -12,6 +14,7 @@ public class Conditions
     public Conditions(String name)
     {
         this.name = name;
+        buffsManager = new BuffsManager(name);
     }
 
     private boolean defended;
@@ -60,32 +63,27 @@ public class Conditions
     }
 
 
-    private double damageBuff = 1;
-    private int damageBuffCount;
-    private double attackBuff = 1;
-    private int attackBuffCount;
+    private BuffsManager buffsManager;
 
-    public void giveDamageBuff(double percentage, int rounds)
+    public void giveDamageBuff(double percentage, int rounds, String source)
     {
-        damageBuff = percentage;
-        damageBuffCount = rounds;
+        buffsManager.addDamageBuff(percentage, rounds, source);
     }
 
-    public void giveAttackBuff(double percentage, int rounds)
+    public void giveAttackBuff(double percentage, int rounds, String source)
     {
-        attackBuff = percentage;
-        attackBuffCount = rounds;
+        buffsManager.addAttackBuff(percentage,rounds,source);
     }
 
     public int calculateDamage(int damage)
     {
-        damage = (int)((double)damage*damageBuff);
+        damage = (int)((double)damage*buffsManager.getDamageBuffAmount());
         return damage;
     }
 
     public int calculateAttack(int attack)
     {
-        attack = (int)((double)attack*attackBuff);
+        attack = (int)((double)attack*buffsManager.getAttackBuffAmount());
         return attack;
     }
 
@@ -157,9 +155,6 @@ public class Conditions
     {
         return poisoned;
     }
-
-
-
     public boolean hasBadCondition()
     {
         return stunned || exhausted || poisoned;
@@ -175,8 +170,7 @@ public class Conditions
     public void resetConditions()
     {
         recoverConditions();
-        endDamageBuff();
-        endAttackBuff();
+        endBuffs();
     }
 
     public void startTurn()
@@ -227,30 +221,14 @@ public class Conditions
         stunned = false;
     }
 
-    private void endDamageBuff()
+    private void endBuffs()
     {
-        damageBuff = 1;
-        System.out.println(name + "'s damage returned to normal");
-    }
-
-    private void endAttackBuff()
-    {
-        attackBuff = 1;
-        System.out.println(name + "'s attack returned to normal");
+        buffsManager.cleanBuffs();
     }
 
     private void buffRound()
     {
-        attackBuffCount -= 1;
-        if(attackBuffCount == 0)
-        {
-            endAttackBuff();
-        }
-        damageBuffCount -= 1;
-        if(damageBuffCount == 0)
-        {
-            endDamageBuff();
-        }
+        buffsManager.decrement();
     }
 
     private void poisonRound()
@@ -279,5 +257,4 @@ public class Conditions
             endExhaustion();
         }
     }
-
 }

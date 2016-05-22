@@ -4,10 +4,7 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
-import SpecialAbilities.IntimidatingShout;
-import SpecialAbilities.SpecialAbility;
-import SpecialAbilities.SpecialManager;
-import SpecialAbilities.StunningStrike;
+import SpecialAbilities.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -26,49 +23,14 @@ public class Warrior extends A_Hero
 
 		specialManager.addSpecialAbility(new StunningStrike());
 		specialManager.addSpecialAbility(new IntimidatingShout());
+		specialManager.addSpecialAbility(new WarCry());
 
 	}
 
 	public boolean specialAbility(Party heroes, Party monsters)
 	{
 		return specialManager.chooseSpecialAbility(this, heroes, monsters);
-		/*
-		Scanner input = new Scanner(System.in);
-		int toPick = -1;
-		int specialAttack = -1;
-
-		System.out.println("Choose which special attack to use:\n1) Shout: reduce all enemies strength for a few turns\n2) Stunning Strike: A strong attack with a chance to stun\n3) Cancel");
-
-		specialAttack = ensureInput(input, 3);
-
-		switch(specialAttack)
-		{
-			case 1:
-				intimidatingShout(monsters);
-				return false;
-			case 2:
-				return stunAttack(input, monsters);
-		}
-		return true;*/
 	}
-/*
-	private boolean stunAttack(Scanner input, Party monsters)
-	{
-		int toPick = -1;
-		int itemIndex = pickCharacter(monsters);
-		System.out.println("Choose someone to use your stun attack on or " + itemIndex + " to cancel:");
-
-		toPick = ensureInput(input, itemIndex) - 1;
-
-		if(toPick == itemIndex - 1)
-		{
-			return true;
-		}
-
-		stunningStrike(monsters.getCharacter(toPick));
-
-		return false;
-	}*/
 
 	public void resetStats()
 	{

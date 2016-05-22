@@ -19,14 +19,12 @@ public class Party
     private ArrayList<A_Character> characterParty;
     private Inventory inventory;
     private int partyLevel;
-    private boolean shout;
 
     public Party(ArrayList<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
-        this.shout = false;
     }
 
     public void addToInventory(Weapon item)
@@ -79,16 +77,6 @@ public class Party
         return true;
     }
 
-    public boolean hasShouted()
-    {
-        return shout;
-    }
-
-    public void shout()
-    {
-        shout = true;
-    }
-
     public int calculatePartyLevel()
     {
         int total = 0;
@@ -128,7 +116,6 @@ public class Party
                 character.heal(1);
                 character.removeDefeated();
             }
-            shout = false;
         }
     }
 

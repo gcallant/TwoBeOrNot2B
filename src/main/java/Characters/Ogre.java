@@ -1,9 +1,12 @@
 package Characters;
-import AttackAndDefendBehavior.*;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
+import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StunningStrike;
+import com.google.common.base.Objects;
 
 import java.util.Random;
 
@@ -13,33 +16,53 @@ import java.util.Random;
  */
 public class Ogre extends A_Monster
 {
-    private boolean exhausted;
+    private SpecialManager specialManager;
+    private int level;
 
-    public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+    public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 4, level);
+
+        specialManager = new SpecialManager();
+        specialManager.addSpecialAbility(new StunningStrike());
+
+        this.level = level;
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
-        stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
-        exhausted = true;
+        specialManager.executeRandomAbility(this, monsters, heroes);
         return false;
     }
 
-    protected boolean cannotAttack()
+    public void levelUp()
     {
-        return super.cannotAttack() || exhausted;
-    }
-
-    public void resetTurn()
-    {
-        super.resetTurn();
-        exhausted = false;
+        upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
+        upgradeStrength();
+        upgradeStrength();
     }
 
     public int getLevel()
     {
-        return 10;
+        return level*10;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof Ogre)) { return false; }
+        if(! super.equals(o)) { return false; }
+        Ogre ogre = (Ogre) o;
+        return level == ogre.level &&
+                       Objects.equal(specialManager, ogre.specialManager);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hashCode(super.hashCode(), specialManager, level);
     }
 }

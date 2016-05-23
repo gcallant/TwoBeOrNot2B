@@ -4,6 +4,10 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
+import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StunningStrike;
+import com.google.common.base.Objects;
 
 import java.util.Random;
 
@@ -12,34 +16,51 @@ import java.util.Random;
  */
 public class Orc extends A_Monster
 {
-	private boolean exhausted;
+	private SpecialManager specialManager;
+	private int level;
 
-	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
-		exhausted = false;
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level);
+
+		specialManager = new SpecialManager();
+		specialManager.addSpecialAbility(new StunningStrike());
+
+		this.level = level;
 	}
 
 	public boolean specialAbility(Random rand, Party heroes, Party monsters)
 	{
-		stunningStrike(heroes.getCharacter(rand.nextInt(heroes.size())));
-		exhausted = true;
+		specialManager.executeRandomAbility(this, monsters, heroes);
 		return false;
 	}
 
-	public boolean cannotAttack()
+	public void levelUp()
 	{
-		return super.cannotAttack() || exhausted;
-	}
-
-	public void resetTurn()
-	{
-		super.resetTurn();
-		exhausted = false;
+		upgradeStrength();
+		upgradeStrength();
+		upgradeHealth();
 	}
 
 	public int getLevel()
 	{
-		return 3;
+		return level*3;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o) { return true; }
+		if(! (o instanceof Orc)) { return false; }
+		if(! super.equals(o)) { return false; }
+		Orc orc = (Orc) o;
+		return level == orc.level &&
+				         Objects.equal(specialManager, orc.specialManager);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hashCode(super.hashCode(), specialManager, level);
 	}
 }

@@ -4,6 +4,7 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 
 import java.util.Random;
 
@@ -13,12 +14,21 @@ import java.util.Random;
 public abstract class A_Monster extends A_Character
 {
 	protected String name;
+	private int percentageOfSpecial;
 	protected Random rand;
 
-	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
+	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon, int percentageOfSpecial, int level)
 	{
 		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
 		rand = new Random();
+		this.percentageOfSpecial = percentageOfSpecial - 1;
+		int curLevel = 1;
+
+		while(curLevel < level)
+		{
+			levelUp();
+			curLevel++;
+		}
 	}
 
 	public void resetTurn()
@@ -28,20 +38,28 @@ public abstract class A_Monster extends A_Character
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
-		boolean noTurn;
+		boolean noTurn, noSpecial, useSpecial;
 
-		noTurn = cannotAttack();
+		noTurn = conditions.cannotAttack();
+		noSpecial = conditions.cannotUseSpecial();
 		resetTurn();
 
+		useSpecial = (rand.nextInt(10) < percentageOfSpecial);
 		if(noTurn)
 		{
-			System.out.println(getName() + " is incapacitated and can't act!");
+			System.out.println(getName() + " is stunned and can't act!");
+			endTurn();
 			return false;
 		}
+		if(noSpecial)
+		{
+			useSpecial = false;
+		}
+
 
 		int choiceToAttack = rand.nextInt(heroes.size());
 
-		if(rand.nextBoolean())
+		if(useSpecial)
 		{
 			specialAbility(rand, heroes, monsters);
 		}
@@ -50,13 +68,34 @@ public abstract class A_Monster extends A_Character
 			A_Character toAttack = heroes.getCharacter(choiceToAttack);
 			attack(toAttack);
 		}
+		endTurn();
 		return false;
 	}
 
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack();
-	}
+	protected void levelUp(){};
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		A_Monster a_monster = (A_Monster) o;
+
+		if (!name.equals(a_monster.name)) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = super.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + rand.hashCode();
+		return result;
+	}
 }

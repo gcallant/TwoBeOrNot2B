@@ -7,12 +7,13 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ItemTester
 {
-	ArrayList<Weapon> weaponList;
-	ArrayList<Armor> armorList;
-	ArrayList<Consumable> consumableList;
+	List<Weapon>     weaponList;
+	List<Armor>      armorList;
+	List<Consumable> consumableList;
 
 	@Before
 	public void setUp() throws Exception

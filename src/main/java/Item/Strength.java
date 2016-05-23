@@ -14,11 +14,14 @@ public class Strength extends Consumable
 
     public void use(A_Character character)
     {
-        character.heal(getPower());
+        character.imbibe(this);
+        double damageBuff = 1.0 + .25*((double)getPower());
+        character.getConditions().giveDamageBuff(damageBuff, 4, "Strength Potion");
     }
 
     public String toString()
     {
-        return super.toString() + "Strength";
+        return super.toString() + "damage (" + getPower() + ")";
     }
+
 }

@@ -28,4 +28,20 @@ public class Sword extends Weapon
 	{
 		return this.base;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Sword sword = (Sword) o;
+
+		if (base != sword.base) return false;
+		if (damageType != sword.damageType) return false;
+		if (weaponType != sword.weaponType) return false;
+
+		return true;
+	}
 }

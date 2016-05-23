@@ -15,7 +15,6 @@ import java.nio.file.FileSystems;
 public class OSUtil
 {
 
-
 	/**
 	 * Method to get the parent directory of where the program is currently being run from.
 	 *
@@ -23,9 +22,20 @@ public class OSUtil
 	 * @throws OSException if parent directory could not be opened
 	 */
 
-	private static final String         SEPARATOR          = FileSystems.getDefault().getSeparator();
-	private static       File           EXTERNAL_DIRECTORY = null;
-	private static       LoggingManager logger             = waitForLoggerConfiguration();
+	private static String         SEPARATOR          = setSeparator();
+	private static File           EXTERNAL_DIRECTORY = null;
+	private static LoggingManager logger             = waitForLoggerConfiguration();
+
+	private static String setSeparator()
+	{
+		String separator = FileSystems.getDefault().getSeparator();
+
+		if(separator.compareTo("\\") == 0)
+		{
+			separator = "\\\\";
+		}
+		return separator;
+	}
 
 	@Nullable
 	private static LoggingManager waitForLoggerConfiguration()

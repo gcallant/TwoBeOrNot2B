@@ -1,14 +1,15 @@
 package GameState;
 
 import DungeonGeneration.GenerateDungeon;
-import StringTester.TestString;
 
 import java.util.Random;
 import Mediator.*;
+import StringTester.TestString;
+
 /**
  * Created by Michael on 5/6/2016.
  */
-public class MapExploration implements A_State
+public class MapExploration implements I_State
 {
     private Random rand;
     private GenerateDungeon myMap = new GenerateDungeon(3, 3);
@@ -17,6 +18,8 @@ public class MapExploration implements A_State
     public MapExploration(Mediator mediator)
     {
         this.mediator = mediator;
+
+        this.mediator.receivePartyLevel(mediator.giveParty().getCharacter(0).getLevel());
 
         rand = new Random();
     }
@@ -29,10 +32,10 @@ public class MapExploration implements A_State
     public String display()
     {
         myMap = mediator.giveMap();
-        return myMap.printCharacter() + "\nSelect a direction (up, down, right, left) or select the Menu";
+        return myMap.printCharacter() + "\nSelect a direction\nu (Up)\nd (Down)\nr (Right)\nl (Left)\nOr m for the Menu";
     }
 
-    public A_State moveDirection(String command)
+    public I_State moveDirection(String command)
     {
         if(!myMap.isValidDirection(command))
         {
@@ -52,19 +55,49 @@ public class MapExploration implements A_State
         return new MapExploration(mediator);
     }
 
-    public A_State execute(String command)
+    public I_State execute()
     {
+        char[] validInputs = new char[6];
+        validInputs[0] = 'u';
+        validInputs[1] = 'd';
+        validInputs[2] = 'r';
+        validInputs[3] = 'l';
+        validInputs[4] = 'm';
+        validInputs[5] = 'n';
+        char command = TestString.ensureChar(validInputs);
         switch(command)
         {
-            case "up":
-            case "right":
-            case "left":
-            case "down":
-                return moveDirection(command);
-            case "menu":
+            case 'u':
+                return moveDirection("up");
+            case 'd':
+                return moveDirection("down");
+            case 'r':
+                return moveDirection("right");
+            case 'l':
+                return moveDirection("left");
+            case 'm':
                 return new InGameMenu(mediator);
+            case 'n':
+                return new NewMap(mediator);
             default:
                 return new MapExploration(mediator);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof MapExploration))
+        {
+            return false;
+        }
+
+        MapExploration map = (MapExploration) obj;
+
+        return this.mediator.equals(map.mediator) && this.myMap.equals(map.myMap);
     }
 }

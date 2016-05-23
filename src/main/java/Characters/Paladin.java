@@ -4,92 +4,34 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
-
-import java.util.Scanner;
+import PartyManagement.Party;
+import SpecialAbilities.HealingLight;
+import SpecialAbilities.SpecialManager;
+import com.google.common.base.Objects;
 
 /**
  * Created by Michael on 5/18/2016.
  */
 public class Paladin extends A_Hero
 {
-    private A_Character protecting;
-    private int healingLight;
+    private SpecialManager specialManager;
 
     public Paladin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
-        protecting = null;
-        healingLight = 0;
+        super(name, health, strength, dexterity, ArmorType.Heavy, armor, WeaponType.Medium, weapon);
+
+        specialManager = new SpecialManager();
+        specialManager.addSpecialAbility(new HealingLight());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
     {
-        Scanner input = new Scanner(System.in);
-        int toPick = -1;
-        int specialAttack = -1;
-
-        System.out.println("Choose which special attack to use:\n1) Protect: defends an ally from damage\n2) Healing Light: heals all allies and removes the stun status\n3) Cancel");
-
-        specialAttack = ensureInput(input, 3);
-
-        switch(specialAttack)
-        {
-            case 1:
-                return chooseProtect(input, heroes);
-            case 2:
-                healingLight(heroes);
-                healingLight = 1;
-                return false;
-        }
-
-        return true;
+       return specialManager.chooseSpecialAbility(this, heroes, monsters);
     }
 
-    private boolean chooseProtect(Scanner input, Party heroes)
+    public String getName()
     {
-        int toPick = -1;
-
-        System.out.println("Choose an ally to defend");
-
-        int itemIndex = pickCharacter(heroes);
-
-        toPick = ensureInput(input, itemIndex);
-
-        if(toPick == itemIndex - 1)
-        {
-            return true;
-        }
-
-        protecting = heroes.getCharacter(toPick);
-        protect(heroes.getCharacter(toPick));
-        return false;
-    }
-
-    public boolean cannotAttack()
-    {
-        return super.cannotAttack() || healingLight > 0;
-    }
-
-    public void resetTurn()
-    {
-        super.resetTurn();
-        if(protecting != null)
-        {
-            protecting.removeProtection();
-        }
-        if(healingLight > 0)
-        {
-            healingLight--;
-        }
-        protecting = null;
-    }
-
-    public void resetStats()
-    {
-        super.resetStats();
-        resetTurn();
-        healingLight = 0;
-        
+        return super.getName() + " the Paladin";
     }
 
     public static String Information()
@@ -110,5 +52,21 @@ public class Paladin extends A_Hero
     public int healthIncrease()
     {
         return 30;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof Paladin)) { return false; }
+        if(! super.equals(o)) { return false; }
+        Paladin paladin = (Paladin) o;
+        return Objects.equal(specialManager, paladin.specialManager);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hashCode(super.hashCode(), specialManager);
     }
 }

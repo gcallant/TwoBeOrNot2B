@@ -1,28 +1,30 @@
 package GameState;
 
 import Characters.A_Character;
-import Characters.GenerateMonsterParty;
-import Characters.InitiativeSort;
-import Characters.Party;
+import PartyManagement.GenerateMonsterParty;
+import PartyManagement.InitiativeSort;
+import PartyManagement.Party;
 import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
+import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Michael on 5/11/2016.
  */
-public class Battle implements A_State
+public class Battle implements I_State
 {
-	private Party                  heroParty;
-	private Party                  enemyParty;
-	private ArrayList<A_Character> wholeBattle;
-	private int                    nextToAttack;
-	private boolean                newBattle;
-	private Mediator               mediator;
-	private MonsterPartyFactory    monsterPartyFactory;
-	private int					   floorLevel;
+	private Party               heroParty;
+	private Party               enemyParty;
+	private List<A_Character>   wholeBattle;
+	private int                 nextToAttack;
+	private boolean             newBattle;
+	private Mediator            mediator;
+	private MonsterPartyFactory monsterPartyFactory;
+	private int                 floorLevel;
 
 	public Battle(Mediator mediator)
 	{
@@ -47,15 +49,16 @@ public class Battle implements A_State
 		return false;
 	}
 
-	public A_State execute(String command)
+	public I_State execute()
 	{
+		TestString.enterInput();
 		boolean heroesDefeated = true;
 		boolean enemiesDefeated = true;
 
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
-			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel);
+			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel, mediator.givePartyLevel());
 			wholeBattle = new ArrayList<A_Character>();
 
 			mediator.receiveEnemies(enemyParty);
@@ -117,5 +120,24 @@ public class Battle implements A_State
 		}
 
 		return new Battle(mediator);
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof Battle))
+		{
+			return false;
+		}
+
+		Battle thatBat = (Battle)obj;
+
+		boolean partiesEqual = this.heroParty.equals(thatBat.heroParty) && this.enemyParty.equals(thatBat.enemyParty);
+		boolean intsEqual = this.floorLevel == thatBat.floorLevel && this.nextToAttack == thatBat.nextToAttack;
+		return  partiesEqual && intsEqual && this.newBattle == thatBat.newBattle && this.mediator.equals(thatBat.mediator);
 	}
 }

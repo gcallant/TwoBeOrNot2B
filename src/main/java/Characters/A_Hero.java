@@ -1,6 +1,7 @@
 package Characters;
 
 import Item.*;
+import PartyManagement.Party;
 
 import java.util.Scanner;
 
@@ -17,22 +18,20 @@ public abstract class A_Hero extends A_Character
 
 	public abstract boolean specialAbility(Party heroes, Party monsters);
 
-	public void resetTurn(Party monsters)
-	{
-		super.resetTurn();
-	}
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
 		Scanner input = new Scanner(System.in);
 		int choice;
-		boolean cancel, noTurn;
+		boolean cancel, noTurn, noSpecial;
 
-		noTurn = cannotAttack();
-		resetTurn(monsters);
+		noTurn = conditions.cannotAttack();
+		noSpecial = conditions.cannotUseSpecial();
+		resetTurn();
 		if(noTurn)
 		{
-			System.out.println(getName() + " is incapacitated and can't act!");
+			System.out.println(getName() + " is stunned and can't act!");
+			endTurn();
 			return false;
 		}
 
@@ -55,10 +54,18 @@ public abstract class A_Hero extends A_Character
 					cancel = doAttack(heroes, monsters, input);
 					break;
 				case 2:
-					this.defend();
+					conditions.defend();
 					break;
 				case 3:
-					cancel = specialAbility(heroes, monsters);
+					if(noSpecial)
+					{
+						System.out.println(getName() + " is exhausted and can't use their special abilities!");
+						cancel = true;
+					}
+					else
+					{
+						cancel = specialAbility(heroes, monsters);
+					}
 					break;
 				case 4:
 					cancel = heroes.consumePotion();
@@ -69,6 +76,7 @@ public abstract class A_Hero extends A_Character
 
 		}
 		while(choice < 1 || choice > 5 || cancel);
+		endTurn();
 		return false;
 	}
 
@@ -139,11 +147,6 @@ public abstract class A_Hero extends A_Character
 			monsters.sortDefeated();
 		}
 		return false;
-	}
-
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack();
 	}
 
 	public void gainExperience(int experience)

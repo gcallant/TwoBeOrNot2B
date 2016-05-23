@@ -1,24 +1,27 @@
 package Mediator;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
+import com.google.common.base.Objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 5/12/2016.
  */
 public class Mediator
 {
-    private Party characterParty;
-    private Party enemies;
-    private GenerateDungeon map;
-    private int dungeonSize;
-    private boolean newBattle;
-    private int currentTurn;
-    private ArrayList<A_Character> turnOrder;
-    private int floorLevel;
+    private Party             characterParty;
+    private Party             enemies;
+    private GenerateDungeon   map;
+    private int               dungeonSize;
+    private boolean           newBattle;
+    private int               currentTurn;
+    private List<A_Character> turnOrder;
+    private int               floorLevel;
+    private int partyLevel;
 
     public Mediator()
     {
@@ -27,7 +30,7 @@ public class Mediator
         this.dungeonSize = 10;
     }
 
-    public void recieveParty(Party party)
+    public void receiveParty(Party party)
     {
         this.characterParty = party;
     }
@@ -72,12 +75,12 @@ public class Mediator
         return enemies;
     }
 
-    public void receiveTurnOrder(ArrayList<A_Character> turnOrder)
+    public void receiveTurnOrder(List<A_Character> turnOrder)
     {
         this.turnOrder = turnOrder;
     }
 
-    public ArrayList<A_Character>  giveTurnOrder()
+    public List<A_Character>  giveTurnOrder()
     {
         return turnOrder;
     }
@@ -100,5 +103,44 @@ public class Mediator
     public int giveCurrentLevel()
     {
         return this.floorLevel;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof Mediator)) { return false; }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Mediator mediator = (Mediator) o;
+
+        if(dungeonSize != mediator.dungeonSize) { return false; }
+        if(newBattle != mediator.newBattle) { return false; }
+        if(currentTurn != mediator.currentTurn) { return false; }
+        if(floorLevel != mediator.floorLevel) { return false; }
+        if(characterParty != null ? ! characterParty.equals(mediator.characterParty) : mediator.characterParty != null)
+        { return false; }
+        if(enemies != null ? ! enemies.equals(mediator.enemies) : mediator.enemies != null) { return false; }
+        if(map != null ? ! map.equals(mediator.map) : mediator.map != null) { return false; }
+        if(turnOrder != null ? ! turnOrder.equals(mediator.turnOrder) : mediator.turnOrder != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hashCode(characterParty, enemies, map, dungeonSize, newBattle, currentTurn, turnOrder, floorLevel, partyLevel);
+    }
+
+    public void receivePartyLevel(int partyLevel)
+    {
+        this.partyLevel = partyLevel;
+    }
+
+    public int givePartyLevel()
+    {
+        return this.partyLevel;
     }
 }

@@ -23,6 +23,8 @@ public class HeroFactory
 				return new Rogue(name, 200, 6, 10, new Leather(1), new Dagger(1));
 			case "Paladin":
 				return new Paladin(name, 300, 8, 4, new Chainmail(1), new Sword(1));
+			case "Ranger":
+				return new Ranger(name, 200, 8, 8, new Leather(1), new Bow(1));
 		}
 		return createCharacter("Warrior", "Bob");
 	}

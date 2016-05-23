@@ -1,4 +1,4 @@
-package Inventory;
+package PartyManagement;
 
 import Characters.A_Character;
 import Item.*;
@@ -6,16 +6,17 @@ import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Michael on 5/7/2016.
  */
 public class Inventory
 {
-    private ArrayList<Weapon> weapons;
-    private ArrayList<Armor> armors;
-    private ArrayList<Consumable> consumables;
-    private int totalSize;
+    private List<Weapon>          weapons;
+    private List<Armor>      armors;
+    private List<Consumable> consumables;
+    private int                   totalSize;
 
     public Inventory()
     {
@@ -134,12 +135,12 @@ public class Inventory
         return TestString.getConsumableChoice(consumables);
     }
 
-    public ArrayList<Weapon> getWeapons()
+    public List<Weapon> getWeapons()
     {
         return weapons;
     }
 
-    public ArrayList<Armor> getArmor()
+    public List<Armor> getArmor()
     {
         return armors;
     }
@@ -198,5 +199,31 @@ public class Inventory
     public String getConsumable(int index)
     {
         return consumables.get(index).toString();
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Inventory inventory = (Inventory) o;
+
+        if (totalSize != inventory.totalSize) return false;
+        if (!weapons.equals(inventory.weapons)) return false;
+        if (!armors.equals(inventory.armors)) return false;
+        if (!consumables.equals(inventory.consumables)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = weapons.hashCode();
+        result = 31 * result + armors.hashCode();
+        result = 31 * result + consumables.hashCode();
+        result = 31 * result + totalSize;
+        return result;
     }
 }

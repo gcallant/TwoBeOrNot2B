@@ -1,13 +1,12 @@
 package GameState;
 
-import DungeonGeneration.GenerateDungeon;
-import StringTester.TestString;
 import Mediator.*;
+import StringTester.TestString;
 
 /**
  * Created by Michael on 5/12/2016.
  */
-public class EndOfMap implements A_State
+public class EndOfMap implements I_State
 {
     Mediator mediator;
 
@@ -26,11 +25,26 @@ public class EndOfMap implements A_State
         return "You beat the level. Progress saved! Press enter to continue.";
     }
 
-    public A_State execute(String command)
+    public I_State execute()
     {
-        /*System.out.println(this.display());
-        GenerateDungeon dungeon = new GenerateDungeon(mediator.dungeonSize(), mediator.dungeonSize());
-        mediator.recieveMap(dungeon);*/
+        TestString.enterInput();
         return new NewMap(mediator);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+        if (!(obj instanceof EndOfMap))
+        {
+            return false;
+        }
+
+        EndOfMap thatMap = (EndOfMap) obj;
+
+        return this.mediator.equals(thatMap.mediator);
     }
 }

@@ -8,7 +8,7 @@ public abstract class Weapon
    
    public Weapon(int power, String attackType)
    {
-      if(power > 3 || power < 0)
+      if(power < 0)
       {
          throw new IllegalArgumentException(power + " is an invalid value for weapon power.");
       }
@@ -40,4 +40,18 @@ public abstract class Weapon
    public abstract WeaponType getWeaponType();
 
    public abstract int getBase();
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      Weapon weapon = (Weapon) o;
+
+      if (power != weapon.power) return false;
+      //if (!enchantment.equals(weapon.enchantment)) return false;
+      if (!attackType.equals(weapon.attackType)) return false;
+
+      return true;
+   }
 }

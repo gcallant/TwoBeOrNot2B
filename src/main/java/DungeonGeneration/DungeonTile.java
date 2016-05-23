@@ -1,5 +1,6 @@
 package DungeonGeneration;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class DungeonTile
@@ -11,6 +12,11 @@ public class DungeonTile
 	{
 		this.used = false;
 		this.direction = new int[4];
+	}
+
+	public void setUsed()
+	{
+		used = true;
 	}
 
 	public void generateDirection(int[] limit)
@@ -45,5 +51,27 @@ public class DungeonTile
 	public boolean isUsed()
 	{
 		return used;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DungeonTile that = (DungeonTile) o;
+
+		if (used != that.used) return false;
+		if (!Arrays.equals(direction, that.direction)) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = Arrays.hashCode(direction);
+		result = 31 * result + (used ? 1 : 0);
+		return result;
 	}
 }

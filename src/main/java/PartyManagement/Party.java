@@ -1,10 +1,11 @@
-package Characters;
+package PartyManagement;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
-import Inventory.Inventory;
+import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
@@ -16,17 +17,16 @@ import StringTester.TestString;
 
 public class Party
 {
-    private ArrayList<A_Character> characterParty;
-    private Inventory inventory;
-    private int partyLevel;
-    private boolean shout;
+    private List<A_Character> characterParty;
+    private Inventory         inventory;
+    private int               partyLevel;
+    private boolean           shout;
 
-    public Party(ArrayList<A_Character> characterParty)
+    public Party(List<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
-        this.shout = false;
     }
 
     public void addToInventory(Weapon item)
@@ -79,16 +79,6 @@ public class Party
         return true;
     }
 
-    public boolean hasShouted()
-    {
-        return shout;
-    }
-
-    public void shout()
-    {
-        shout = true;
-    }
-
     public int calculatePartyLevel()
     {
         int total = 0;
@@ -128,7 +118,6 @@ public class Party
                 character.heal(1);
                 character.removeDefeated();
             }
-            shout = false;
         }
     }
 
@@ -177,7 +166,7 @@ public class Party
 
         if(choice == -1)
         {
-            return false;
+            return true;
         }
 
         A_Character character = characterParty.get(choice);
@@ -188,11 +177,11 @@ public class Party
         if(choice == -1)
         {
             System.out.println("There is nothing for " + character.getName() + " to use!");
-            return false;
+            return true;
         }
 
         inventory.useConsumable(character, choice);
-        return true;
+        return false;
     }
 
     public boolean equip()
@@ -234,5 +223,39 @@ public class Party
                 break;
         }
         return true;
+    }
+
+    public void displayStats()
+    {
+        for(A_Character character : characterParty)
+        {
+            System.out.println(character.displayStats());
+        }
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Party party = (Party) o;
+
+        if (partyLevel != party.partyLevel) return false;
+        if (shout != party.shout) return false;
+        if (!characterParty.equals(party.characterParty)) return false;
+        if (!inventory.equals(party.inventory)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = characterParty.hashCode();
+        result = 31 * result + inventory.hashCode();
+        result = 31 * result + partyLevel;
+        result = 31 * result + (shout ? 1 : 0);
+        return result;
     }
 }

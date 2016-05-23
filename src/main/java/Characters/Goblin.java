@@ -4,49 +4,47 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
+import SpecialAbilities.SneakAttack;
+import SpecialAbilities.SpecialManager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.
  */
 public class Goblin extends A_Monster
 {
-	public Goblin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+	private SpecialManager specialManager;
+	private int level;
+
+	public Goblin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level);
+
+		specialManager = new SpecialManager();
+
+		specialManager.addSpecialAbility(new SneakAttack());
+
+		this.level = level;
 	}
 
 	public boolean specialAbility(Random rand, Party heroes, Party monsters)
 	{
-		ArrayList<Integer> possibleChoices = new ArrayList<Integer>();
-		int count = 0;
-		for(int x = 0; x < heroes.size(); x++)
-		{
-			A_Character character = heroes.getCharacter(x);
-			if(character.getHealth() == character.getMaxHealth() || character.cannotAttack())
-			{
-				possibleChoices.add(count);
-			}
-			count++;
-		}
-		int choice;
-		if(possibleChoices.size() > 0)
-		{
-			choice = possibleChoices.get(rand.nextInt(possibleChoices.size()));
-			sneakAttack(heroes.getCharacter(choice));
-		}
-		else
-		{
-			sneakAttack(heroes.getCharacter(rand.nextInt(heroes.size())));
-		}
-		return false;
+		return specialManager.executeRandomAbility(this, monsters, heroes);
+	}
+
+	public void levelUp()
+	{
+		upgradeDexterity();
+		upgradeHealth();
+		upgradeStrength();
 	}
 
 	public int getLevel()
 	{
-		return 2;
+		return level*2;
 	}
 }

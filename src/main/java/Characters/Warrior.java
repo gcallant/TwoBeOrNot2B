@@ -4,98 +4,44 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
-
-import java.util.Scanner;
+import PartyManagement.Party;
+import SpecialAbilities.*;
+import com.google.common.base.Objects;
 
 /**
  * Created by SaraPage on 4/29/2016.
  */
 public class Warrior extends A_Hero
 {
-	private boolean exhausted;
-	private int shoutCount;
-	private boolean shout;
+	private SpecialManager specialManager;
+	private int level;
 
 	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
 		super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon);
-		exhausted = false;
-		shoutCount = -1;
-		shout = false;
+
+		specialManager = new SpecialManager();
+
+		specialManager.addSpecialAbility(new StunningStrike());
+		specialManager.addSpecialAbility(new IntimidatingShout());
+		specialManager.addSpecialAbility(new WarCry());
+
 	}
 
 	public boolean specialAbility(Party heroes, Party monsters)
 	{
-		Scanner input = new Scanner(System.in);
-		int toPick = -1;
-		int specialAttack = -1;
-
-		System.out.println("Choose which special attack to use:\n1) Shout: reduce all enemies strength for a few turns\n2) Stunning Strike: A strong attack with a chance to stun\n3) Cancel");
-
-		specialAttack = ensureInput(input, 3);
-
-		switch(specialAttack)
-		{
-			case 1:
-				if(shout || heroes.hasShouted())
-				{
-					System.out.println("An intimidating shout has already used this battle!");
-					return true;
-				}
-				shoutCount = 2*getLevel();
-				heroes.shout();
-				intimidatingShout(monsters);
-				shout = true;
-				return false;
-			case 2:
-				return stunAttack(input, monsters);
-		}
-		return true;
-	}
-
-	private boolean stunAttack(Scanner input, Party monsters)
-	{
-		int toPick = -1;
-		int itemIndex = pickCharacter(monsters);
-		System.out.println("Choose someone to use your stun attack on or " + itemIndex + " to cancel:");
-
-		toPick = ensureInput(input, itemIndex) - 1;
-
-		if(toPick == itemIndex - 1)
-		{
-			return true;
-		}
-
-		stunningStrike(monsters.getCharacter(toPick));
-		exhausted = true;
-
-		return false;
-	}
-
-	protected boolean cannotAttack()
-	{
-		return super.cannotAttack() || exhausted;
-	}
-
-	public void resetTurn(Party monsters)
-	{
-		super.resetTurn();
-		if(shout)
-		{
-			shoutCount--;
-		}
-		if(shoutCount == 0)
-		{
-			resetShout(monsters);
-		}
-		exhausted = false;
+		return specialManager.chooseSpecialAbility(this, heroes, monsters);
 	}
 
 	public void resetStats()
 	{
 		super.resetStats();
-		shoutCount = 0;
-		shout = false;
+		conditions.recoverConditions();
+	}
+
+	public String getName()
+	{
+		return super.getName() + " the Warrior";
 	}
 
 	public static String Information()
@@ -116,5 +62,22 @@ public class Warrior extends A_Hero
 	public int healthIncrease()
 	{
 		return 25;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o) { return true; }
+		if(! (o instanceof Warrior)) { return false; }
+		if(! super.equals(o)) { return false; }
+		Warrior warrior = (Warrior) o;
+		return level == warrior.level &&
+				         Objects.equal(specialManager, warrior.specialManager);
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return Objects.hashCode(super.hashCode(), specialManager, level);
 	}
 }

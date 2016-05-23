@@ -200,4 +200,30 @@ public class Inventory
     {
         return consumables.get(index).toString();
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Inventory inventory = (Inventory) o;
+
+        if (totalSize != inventory.totalSize) return false;
+        if (!weapons.equals(inventory.weapons)) return false;
+        if (!armors.equals(inventory.armors)) return false;
+        if (!consumables.equals(inventory.consumables)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = weapons.hashCode();
+        result = 31 * result + armors.hashCode();
+        result = 31 * result + consumables.hashCode();
+        result = 31 * result + totalSize;
+        return result;
+    }
 }

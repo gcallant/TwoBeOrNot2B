@@ -42,17 +42,16 @@ public abstract class Weapon
    public abstract int getBase();
 
    @Override
-   public boolean equals(Object obj)
-   {
-      if(obj == null)
-      {
-         return false;
-      }
-      if(!(obj instanceof Weapon))
-      {
-         return false;
-      }
-      Weapon newWeapon = (Weapon)obj;
-      return power == newWeapon.power && enchantment == newWeapon.enchantment && attackType.equals(newWeapon.attackType);
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      Weapon weapon = (Weapon) o;
+
+      if (power != weapon.power) return false;
+      //if (!enchantment.equals(weapon.enchantment)) return false;
+      if (!attackType.equals(weapon.attackType)) return false;
+
+      return true;
    }
 }

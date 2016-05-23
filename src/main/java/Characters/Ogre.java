@@ -35,4 +35,26 @@ public class Ogre extends A_Monster
     {
         return 10;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Ogre ogre = (Ogre) o;
+
+        if (exhausted != ogre.exhausted) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + (exhausted ? 1 : 0);
+        return result;
+    }
 }

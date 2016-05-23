@@ -29,4 +29,28 @@ public class Cloth extends Armor
     {
         return super.toString() + "Cloth(" + (getPower()) + ")";
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Cloth cloth = (Cloth) o;
+
+        if (base != cloth.base) return false;
+        if (armorType != cloth.armorType) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + base;
+        result = 31 * result + armorType.hashCode();
+        return result;
+    }
 }

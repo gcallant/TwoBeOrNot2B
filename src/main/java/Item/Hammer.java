@@ -28,4 +28,29 @@ public class Hammer extends Weapon
 	{
 		return this.base;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Hammer hammer = (Hammer) o;
+
+		if (base != hammer.base) return false;
+		if (damageType != hammer.damageType) return false;
+		if (weaponType != hammer.weaponType) return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = damageType.hashCode();
+		result = 31 * result + base;
+		result = 31 * result + weaponType.hashCode();
+		return result;
+	}
 }

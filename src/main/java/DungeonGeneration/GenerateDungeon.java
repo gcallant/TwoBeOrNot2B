@@ -1,5 +1,6 @@
 package DungeonGeneration;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class GenerateDungeon
@@ -584,34 +585,38 @@ public class GenerateDungeon
    }
 
    @Override
-   public boolean equals(Object obj)
+   public boolean equals(Object o)
    {
-      if (obj == null)
-      {
-         return false;
-      }
-      if (!(obj instanceof GenerateDungeon))
-      {
-         return false;
-      }
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
 
-      GenerateDungeon thatDungeon = (GenerateDungeon) obj;
+      GenerateDungeon that = (GenerateDungeon) o;
 
-      //This will test if the dungeons are equal
-      if (this.maxSearch != thatDungeon.maxSearch)
-      {
-         return false;
-      }
-      for (int i = 0; i < this.dungeon.length; i++)
-      {
-         for (int j = 0; j < this.dungeon[i].length; j++)
-         {
-            if (this.dungeon[i][j] != thatDungeon.dungeon[i][j])
-            {
-               return false;
-            }
-         }
-      }
+      if (size != that.size) return false;
+      if (xStart != that.xStart) return false;
+      if (yStart != that.yStart) return false;
+      if (xEnd != that.xEnd) return false;
+      if (yEnd != that.yEnd) return false;
+      if (characterX != that.characterX) return false;
+      if (characterY != that.characterY) return false;
+      if (!Arrays.deepEquals(dungeon, that.dungeon)) return false;
+      if (!Arrays.equals(startEnd, that.startEnd)) return false;
+
       return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int result = Arrays.deepHashCode(dungeon);
+      result = 31 * result + size;
+      result = 31 * result + Arrays.hashCode(startEnd);
+      result = 31 * result + xStart;
+      result = 31 * result + yStart;
+      result = 31 * result + xEnd;
+      result = 31 * result + yEnd;
+      result = 31 * result + characterX;
+      result = 31 * result + characterY;
+      return result;
    }
 }

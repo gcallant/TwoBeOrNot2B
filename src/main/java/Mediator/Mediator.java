@@ -109,6 +109,8 @@ public class Mediator
     {
         if(this == o) { return true; }
         if(! (o instanceof Mediator)) { return false; }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Mediator mediator = (Mediator) o;
 
@@ -135,6 +137,30 @@ public class Mediator
         result = 31 * result + (newBattle ? 1 : 0);
         result = 31 * result + currentTurn;
         result = 31 * result + (turnOrder != null ? turnOrder.hashCode() : 0);
+        result = 31 * result + floorLevel;
+        return result;
+        if (dungeonSize != mediator.dungeonSize) return false;
+        if (newBattle != mediator.newBattle) return false;
+        if (currentTurn != mediator.currentTurn) return false;
+        if (floorLevel != mediator.floorLevel) return false;
+        if (!characterParty.equals(mediator.characterParty)) return false;
+        if (!enemies.equals(mediator.enemies)) return false;
+        if (!map.equals(mediator.map)) return false;
+        if (!turnOrder.equals(mediator.turnOrder)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = characterParty.hashCode();
+        result = 31 * result + enemies.hashCode();
+        result = 31 * result + map.hashCode();
+        result = 31 * result + dungeonSize;
+        result = 31 * result + (newBattle ? 1 : 0);
+        result = 31 * result + currentTurn;
+        result = 31 * result + turnOrder.hashCode();
         result = 31 * result + floorLevel;
         return result;
     }

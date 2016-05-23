@@ -53,4 +53,28 @@ public class Paladin extends A_Hero
     {
         return 30;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Paladin paladin = (Paladin) o;
+
+        if (healingLight != paladin.healingLight) return false;
+        if (!protecting.equals(paladin.protecting)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + protecting.hashCode();
+        result = 31 * result + healingLight;
+        return result;
+    }
 }

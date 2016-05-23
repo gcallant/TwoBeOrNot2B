@@ -12,14 +12,14 @@ import java.util.Scanner;
  */
 public class RunGameSample
 {
-    private static final String GAME_NAME          = "Dungeon Crawler";
+    private static final String GAME_NAME          = "DungeonCrawler";
     private static       File   EXTERNAL_DIRECTORY = null;
 
     public static void main(String[] args)
     {
         createExternalDirectory();
         LoggingManager loggingManager = new LoggingManager("RunGameSample");
-        DatabaseManager database = DatabaseManager.getInstance();
+
 
 
 
@@ -31,6 +31,7 @@ public class RunGameSample
             System.out.println(gameState.displayCurrentState());
             gameState.executeCurrentState();
         }
+        DatabaseManager database = new DatabaseManager();
         database.closeConnection();
     }
 

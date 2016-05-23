@@ -4,6 +4,7 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,9 +15,9 @@ import java.util.Scanner;
  */
 public class DireWolf extends A_Monster
 {
-        public DireWolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+        public DireWolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int percentageSpecial, int level)
         {
-            super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Medium, weapon);
+            super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Medium, weapon, percentageSpecial, level);
         }
 
         public boolean specialAbility(Random rand, Party heroes, Party monsters)

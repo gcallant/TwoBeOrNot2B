@@ -2,7 +2,7 @@ package Database;
 
 import Characters.A_Character;
 import Characters.A_Hero;
-import Characters.Party;
+import PartyManagement.Party;
 import Mediator.Mediator;
 
 import java.util.List;

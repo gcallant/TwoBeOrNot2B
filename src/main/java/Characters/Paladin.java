@@ -7,6 +7,7 @@ import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
 import SpecialAbilities.SpecialManager;
+import com.google.common.base.Objects;
 
 /**
  * Created by Michael on 5/18/2016.
@@ -56,24 +57,16 @@ public class Paladin extends A_Hero
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
+        if(this == o) { return true; }
+        if(! (o instanceof Paladin)) { return false; }
+        if(! super.equals(o)) { return false; }
         Paladin paladin = (Paladin) o;
-
-        if (healingLight != paladin.healingLight) return false;
-        if (!protecting.equals(paladin.protecting)) return false;
-
-        return true;
+        return Objects.equal(specialManager, paladin.specialManager);
     }
 
     @Override
     public int hashCode()
     {
-        int result = super.hashCode();
-        result = 31 * result + protecting.hashCode();
-        result = 31 * result + healingLight;
-        return result;
+        return Objects.hashCode(super.hashCode(), specialManager);
     }
 }

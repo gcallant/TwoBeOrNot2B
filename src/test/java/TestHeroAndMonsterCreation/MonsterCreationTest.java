@@ -29,6 +29,7 @@ public class MonsterCreationTest
     @Test
     public void createCharacter() throws Exception
     {
-        assertNotNull(factory.createMonster("Orc", "monsterName"));
+        int level = 2;
+        assertNotNull(factory.createMonster("Orc", "monsterName", level));
     }
 }

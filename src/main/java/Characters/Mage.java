@@ -8,6 +8,7 @@ import PartyManagement.Party;
 import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.SpecialManager;
+import com.google.common.base.Objects;
 
 /**
  * Created by SaraPage on 4/29/2016.
@@ -57,22 +58,16 @@ public class Mage extends A_Hero
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-
+		if(this == o) { return true; }
+		if(! (o instanceof Mage)) { return false; }
+		if(! super.equals(o)) { return false; }
 		Mage mage = (Mage) o;
-
-		if (buffed != mage.buffed) return false;
-
-		return true;
+		return Objects.equal(specialManager, mage.specialManager);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		int result = super.hashCode();
-		result = 31 * result + buffed;
-		return result;
+		return Objects.hashCode(super.hashCode(), specialManager);
 	}
 }

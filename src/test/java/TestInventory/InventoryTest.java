@@ -1,6 +1,6 @@
 package TestInventory;
 
-import Inventory.Inventory;
+import PartyManagement.Inventory;
 import Item.*;
 import org.junit.After;
 import org.junit.Before;

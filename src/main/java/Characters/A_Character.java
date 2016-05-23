@@ -5,6 +5,8 @@ import java.util.*;
 import BuffsAndDebuffs.Conditions;
 import Item.*;
 import PartyManagement.Party;
+import com.google.common.base.*;
+import com.google.common.base.Objects;
 
 public abstract class A_Character
 {
@@ -431,56 +433,31 @@ public abstract class A_Character
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
+		if(this == o) { return true; }
+		if(! (o instanceof A_Character)) { return false; }
 		A_Character that = (A_Character) o;
-
-		if (health != that.health) return false;
-		if (maxHealth != that.maxHealth) return false;
-		if (strength != that.strength) return false;
-		if (dexterity != that.dexterity) return false;
-		if (tempStrength != that.tempStrength) return false;
-		if (tempDexterity != that.tempDexterity) return false;
-		if (level != that.level) return false;
-		if (experience != that.experience) return false;
-		if (isDefeated != that.isDefeated) return false;
-		if (defending != that.defending) return false;
-		if (initiative != that.initiative) return false;
-		if (isStunned != that.isStunned) return false;
-		if (protection != that.protection) return false;
-		if (!name.equals(that.name)) return false;
-		if (!armor.equals(that.armor)) return false;
-		if (!weapon.equals(that.weapon)) return false;
-		if (armorType != that.armorType) return false;
-		if (weaponType != that.weaponType) return false;
-		if (!rand.equals(that.rand)) return false;
-
-		return true;
+		return health == that.health &&
+				         maxHealth == that.maxHealth &&
+				         strength == that.strength &&
+				         dexterity == that.dexterity &&
+				         level == that.level &&
+				         experience == that.experience &&
+				         isDefeated == that.isDefeated &&
+				         initiative == that.initiative &&
+				         bleedDuration == that.bleedDuration &&
+				         com.google.common.base.Objects.equal(name, that.name) &&
+				         Objects.equal(armor, that.armor) &&
+				         Objects.equal(weapon, that.weapon) &&
+				         armorType == that.armorType &&
+				         weaponType == that.weaponType &&
+				         Objects.equal(conditions, that.conditions) &&
+				         Objects.equal(rand, that.rand);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		int result = name.hashCode();
-		result = 31 * result + health;
-		result = 31 * result + maxHealth;
-		result = 31 * result + strength;
-		result = 31 * result + dexterity;
-		result = 31 * result + tempStrength;
-		result = 31 * result + tempDexterity;
-		result = 31 * result + level;
-		result = 31 * result + experience;
-		result = 31 * result + armor.hashCode();
-		result = 31 * result + weapon.hashCode();
-		result = 31 * result + (isDefeated ? 1 : 0);
-		result = 31 * result + (defending ? 1 : 0);
-		result = 31 * result + initiative;
-		result = 31 * result + (isStunned ? 1 : 0);
-		result = 31 * result + armorType.hashCode();
-		result = 31 * result + weaponType.hashCode();
-		result = 31 * result + (protection ? 1 : 0);
-		result = 31 * result + rand.hashCode();
-		return result;
+		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
+		                        isDefeated, initiative, armorType, weaponType, conditions, bleedDuration, rand);
 	}
 }

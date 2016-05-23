@@ -3,6 +3,7 @@ package Mediator;
 import Characters.A_Character;
 import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
+import com.google.common.base.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,39 +131,7 @@ public class Mediator
     @Override
     public int hashCode()
     {
-        int result = characterParty != null ? characterParty.hashCode() : 0;
-        result = 31 * result + (enemies != null ? enemies.hashCode() : 0);
-        result = 31 * result + (map != null ? map.hashCode() : 0);
-        result = 31 * result + dungeonSize;
-        result = 31 * result + (newBattle ? 1 : 0);
-        result = 31 * result + currentTurn;
-        result = 31 * result + (turnOrder != null ? turnOrder.hashCode() : 0);
-        result = 31 * result + floorLevel;
-        return result;
-        if (dungeonSize != mediator.dungeonSize) return false;
-        if (newBattle != mediator.newBattle) return false;
-        if (currentTurn != mediator.currentTurn) return false;
-        if (floorLevel != mediator.floorLevel) return false;
-        if (!characterParty.equals(mediator.characterParty)) return false;
-        if (!enemies.equals(mediator.enemies)) return false;
-        if (!map.equals(mediator.map)) return false;
-        if (!turnOrder.equals(mediator.turnOrder)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        int result = characterParty.hashCode();
-        result = 31 * result + enemies.hashCode();
-        result = 31 * result + map.hashCode();
-        result = 31 * result + dungeonSize;
-        result = 31 * result + (newBattle ? 1 : 0);
-        result = 31 * result + currentTurn;
-        result = 31 * result + turnOrder.hashCode();
-        result = 31 * result + floorLevel;
-        return result;
+        return Objects.hashCode(characterParty, enemies, map, dungeonSize, newBattle, currentTurn, turnOrder, floorLevel, partyLevel);
     }
 
     public void receivePartyLevel(int partyLevel)

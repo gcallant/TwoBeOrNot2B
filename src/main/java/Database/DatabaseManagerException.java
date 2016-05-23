@@ -1,7 +1,8 @@
 package Database;
 
 import Characters.A_Character;
-import Inventory.Inventory;
+import PartyManagement.Inventory;
+import PartyManagement.Inventory;
 
 /**
  * Created by Grant Callant on 5/21/2016.

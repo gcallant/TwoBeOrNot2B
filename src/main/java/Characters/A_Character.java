@@ -148,9 +148,10 @@ public abstract class A_Character
 		totalDamage = conditions.addDamage(totalDamage);
 		totalDamage = conditions.calculateDamage(totalDamage);
 		totalDamage = toAttack.conditions.reduceDamage(totalDamage);
-		toAttack.takeDamage(Math.max(totalDamage, 1));
 
-		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
+		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
+
+		toAttack.takeDamage(Math.max(totalDamage, 1));
 	}
 
 	/*

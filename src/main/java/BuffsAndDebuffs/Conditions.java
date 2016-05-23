@@ -3,6 +3,7 @@ package BuffsAndDebuffs;
 import BuffsAndDebuffs.BuffsManager;
 
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by Michael on 5/20/2016.
@@ -73,7 +74,17 @@ public class Conditions
         buffsManager.addDamageBuff(percentage, rounds, source);
     }
 
+    public void giveDamageDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addDamageDebuff(percentage, rounds, source);
+    }
+
     public void giveAttackBuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addAttackBuff(percentage, rounds, source);
+    }
+
+    public void giveAttackDebuff(double percentage, int rounds, String source)
     {
         buffsManager.addAttackBuff(percentage, rounds, source);
     }
@@ -103,14 +114,9 @@ public class Conditions
         buffsManager.addStunnedDebuff(rounds, source);
     }
 
-    public void giveAttackDebuff(double percentage, int rounds, String source)
+    public void giveFearedDebuff(int rounds, String source)
     {
-        buffsManager.addAttackBuff(percentage, rounds, source);
-    }
-
-    public void giveDamageDebuff(double percentage, int rounds, String source)
-    {
-        buffsManager.addDamageDebuff(percentage, rounds, source);
+        buffsManager.addFearedDebuff(rounds, source);
     }
 
     /*
@@ -146,7 +152,24 @@ public class Conditions
 
     public boolean cannotAttack()
     {
-        return buffsManager.isStunned();
+        boolean cannotAttack = false;
+
+        if( buffsManager.isStunned())
+        {
+            System.out.println(name + " is stunned and cannot attack!");
+            return true;
+        }
+
+        if(buffsManager.isFeared())
+        {
+            if(new Random().nextBoolean())
+            {
+                System.out.println(name + " is feared and cannot attack!");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean cannotUseSpecial()

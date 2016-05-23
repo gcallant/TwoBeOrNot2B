@@ -45,12 +45,16 @@ public abstract class A_Monster extends A_Character
 		resetTurn();
 
 		useSpecial = (rand.nextInt(10) < percentageOfSpecial);
+
 		if(noTurn)
 		{
-			System.out.println(getName() + " is stunned and can't act!");
 			endTurn();
 			return false;
 		}
+
+		heroes.sortDefeated();
+		monsters.sortDefeated();
+
 		if(noSpecial)
 		{
 			useSpecial = false;
@@ -72,7 +76,7 @@ public abstract class A_Monster extends A_Character
 		return false;
 	}
 
-	protected void levelUp(){};
+	protected abstract void levelUp();
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 

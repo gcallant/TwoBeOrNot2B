@@ -280,7 +280,7 @@ public abstract class A_Character
 	public String toString()
 	{
 		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
-				         "\tDexterity: " + getDexterity() + "\tArmor: ";
+				         "\tDexterity: " + getDexterity() + "\t" + getArmor() + "\t" + getWeapon();
 	}
 
 	public String inventoryDisplay()

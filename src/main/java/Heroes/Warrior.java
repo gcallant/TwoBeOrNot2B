@@ -1,5 +1,6 @@
-package Characters;
+package Heroes;
 
+import Characters.A_Hero;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;

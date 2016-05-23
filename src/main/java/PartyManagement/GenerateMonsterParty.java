@@ -33,6 +33,9 @@ public class GenerateMonsterParty
         int[] numberOfOgres = {2, 4, 5};
         int[] numberOfUndeadClerics = {5, 10, 3};
         int[] numberOfWarChiefs = {1, 3, 4};
+        int[] numberOfAssasins = {1, 5, 6};
+        int[] numberOfDireWolfs = {2, 4, 8};
+        int[] numberOfSkeletons = {0, 5, 7};
 
         //Manually add one monster to each of the lists
         addInValues("Goblin",numberOfGoblins);
@@ -40,6 +43,9 @@ public class GenerateMonsterParty
         addInValues("Ogre", numberOfOgres);
         addInValues("Undead Cleric", numberOfUndeadClerics);
         addInValues("War Chief", numberOfWarChiefs);
+        addInValues("Assassin", numberOfAssasins);
+        addInValues("Dire Wolf", numberOfDireWolfs);
+        addInValues("Skeleton", numberOfSkeletons);
     }
 
     private void addInValues(String name, int[] numToAdd)
@@ -53,7 +59,7 @@ public class GenerateMonsterParty
         }
     }
 
-    public Party generateEnemyParty(int indexForDifficulty, int level)
+    public Party generateEnemyParty(int indexForDifficulty, int level, boolean normal)
     {
         //This is the ArrayList that we will eventually return - a party of 4 monsters
         int numOfEnemies = 4;
@@ -85,7 +91,7 @@ public class GenerateMonsterParty
                     monsterCount++;
                 }
             }
-            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level);
+            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level, normal);
 
             listOfParty.add(monster);
         }

@@ -28,7 +28,7 @@ public class NewMap implements I_State
 
     public I_State execute()
     {
-        GenerateDungeon dungeon = new GenerateDungeon(10,15);
+        GenerateDungeon dungeon = new GenerateDungeon(10,10);
         dungeon.generatePath();
         mediator.receiveMap(dungeon);
         return new MapExploration(mediator);

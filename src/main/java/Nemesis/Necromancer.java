@@ -1,5 +1,6 @@
-package Characters;
+package Nemesis;
 
+import Characters.A_Nemesis;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -27,6 +28,11 @@ public class Necromancer extends A_Nemesis
 	{
 		//take action procedure for nemesis still to be determined.
 		return false;
+	}
+
+	public boolean specialAbility(Random rand, Party allies, Party enemies)
+	{
+		return true;
 	}
 
 }

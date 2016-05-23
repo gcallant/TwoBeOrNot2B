@@ -28,9 +28,9 @@ public abstract class A_Hero extends A_Character
 		noTurn = conditions.cannotAttack();
 		noSpecial = conditions.cannotUseSpecial();
 		resetTurn();
+
 		if(noTurn)
 		{
-			System.out.println(getName() + " is stunned and can't act!");
 			endTurn();
 			return false;
 		}

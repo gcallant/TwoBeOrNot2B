@@ -47,10 +47,15 @@ public class MapExploration implements I_State
         {
             return new EndOfMap(mediator);
         }
-        battleChance = rand.nextBoolean();
+        battleChance = rand.nextInt(mediator.giveMonsterChance()) == 0;
         if(battleChance && !mediator.giveNoEnemies())
         {
+            mediator.receiveMonsterChance(10);
             return new Battle(mediator);
+        }
+        else
+        {
+            mediator.receiveMonsterChance(mediator.giveMonsterChance() - 1);
         }
         return new MapExploration(mediator);
     }
@@ -65,7 +70,7 @@ public class MapExploration implements I_State
         validInputs[4] = 'm';
         validInputs[5] = 'n';
         validInputs[6] = 'e';
-        validInputs[7] = 't';
+        validInputs[7] = 'f';
         char command = TestString.ensureChar(validInputs);
         switch(command)
         {
@@ -84,8 +89,8 @@ public class MapExploration implements I_State
             case 'e':
                 mediator.receiveNoEnemies();
                 return new MapExploration(mediator);
-            case 't':
-                mediator.receiveFreeTravel();
+            case 'f':
+                mediator.receiveNormal();
                 return new MapExploration(mediator);
             default:
                 return new MapExploration(mediator);

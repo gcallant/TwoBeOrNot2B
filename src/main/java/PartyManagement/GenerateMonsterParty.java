@@ -85,7 +85,7 @@ public class GenerateMonsterParty
                     monsterCount++;
                 }
             }
-            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level);
+            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level, true);
 
             listOfParty.add(monster);
         }

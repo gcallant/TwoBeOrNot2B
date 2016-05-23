@@ -8,13 +8,13 @@ import Item.*;
 public class MonsterFactory
 {
 
-    public A_Character createMonster(String monsterType, String monsterName, int level)
+    public A_Character createMonster(String monsterType, String monsterName, int level, boolean normal)
     {
         switch(monsterType)
         {
             case "Goblin":
                 return new Goblin(monsterName, 50, 5, 10, new Cloth(1), new Dagger(1), level);
-                return new Goblin(monsterName, 1, 3, 10, new Cloth(1), new Dagger(1), level);
+                //return new Goblin(monsterName, 1, 3, 10, new Cloth(1), new Dagger(1), level);
             case "Orc":
                 return new Orc(monsterName, 100, 7, 5, new Leather(1), new Sword(1), level);
 //                return new Orc(monsterName, 1, 5, 5, new Leather(1), new Sword(1), level);
@@ -28,6 +28,7 @@ public class MonsterFactory
                 return new WarChief(monsterName, 300, 10, 5, new Chainmail(1), new Hammer(1), level);
 //                return new WarChief(monsterName, 1, 10, 5, new Chainmail(1), new Hammer(1), level);
         }
+        return null;
     }
 
 }

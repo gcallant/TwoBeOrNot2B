@@ -4,7 +4,6 @@ import Characters.A_Character;
 import PartyManagement.GenerateMonsterParty;
 import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
-import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
 import StringTester.TestString;
 
@@ -23,7 +22,6 @@ public class Battle implements I_State
 	private int                 nextToAttack;
 	private boolean             newBattle;
 	private Mediator            mediator;
-	private MonsterPartyFactory monsterPartyFactory;
 	private int                 floorLevel;
 
 	public Battle(Mediator mediator)
@@ -31,7 +29,6 @@ public class Battle implements I_State
 		nextToAttack = 0;
 		newBattle = true;
 		this.mediator = mediator;
-		monsterPartyFactory = new MonsterPartyFactory();
 		floorLevel = this.mediator.giveCurrentLevel();
 	}
 

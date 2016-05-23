@@ -278,7 +278,7 @@ public abstract class A_Character
 	public String toString()
 	{
 		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
-				         "\tDexterity: " + getDexterity() + "\tArmor: ";
+				         "\tDexterity: " + getDexterity() +  "\t" + getArmor() + "\t" + getWeapon();
 	}
 
 	public String inventoryDisplay()
@@ -435,20 +435,17 @@ public abstract class A_Character
 				         experience == that.experience &&
 				         isDefeated == that.isDefeated &&
 				         initiative == that.initiative &&
-				         bleedDuration == that.bleedDuration &&
-				         com.google.common.base.Objects.equal(name, that.name) &&
-				         Objects.equal(armor, that.armor) &&
-				         Objects.equal(weapon, that.weapon) &&
+				         name.equals(that.getName()) &&
+				         armor.equals(that.armor) &&
+				         weapon.equals(that.weapon) &&
 				         armorType == that.armorType &&
-				         weaponType == that.weaponType &&
-				         Objects.equal(conditions, that.conditions) &&
-				         Objects.equal(rand, that.rand);
+				         weaponType == that.weaponType;
 	}
 
 	@Override
 	public int hashCode()
 	{
 		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType, conditions, bleedDuration, rand);
+		                        isDefeated, initiative, armorType, weaponType);
 	}
 }

@@ -9,6 +9,15 @@ public class ArmorFactory
 {
     public Armor generate(String type, int power)
     {
+        if (type == null)
+        {
+            throw new NullPointerException("Type of armor is invalid. Cannot create it.");
+        }
+        if (power < 0)
+        {
+            throw new IllegalArgumentException("Invalid power. Cannot create armor.");
+        }
+
         switch(type)
         {
             case "Chainmail":
@@ -17,7 +26,8 @@ public class ArmorFactory
                 return new Cloth(power);
             case "Leather":
                 return new Leather(power);
+            default:
+                throw new IllegalArgumentException("Invalid type of armor. Cannot create it.");
         }
-        return new Cloth(power);
     }
 }

@@ -22,7 +22,7 @@ public class HealingLight extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies)
     {
-        System.out.println(character.getName() + " used healing light!");
+        System.out.println(character.getName() + " used healing light and healed his whole party for " + 2*character.getStrength());
         for(int x = 0; x < allies.size(); x++)
         {
             allies.getCharacter(x).heal(2*character.getStrength());

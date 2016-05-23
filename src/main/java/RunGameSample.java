@@ -12,13 +12,13 @@ import java.util.Scanner;
  */
 public class RunGameSample
 {
-    private static final String GAME_NAME          = "DungeonCrawler";
-    private static       File   EXTERNAL_DIRECTORY = null;
+//    private static final String GAME_NAME          = "DungeonCrawler";
+ //   private static       File   EXTERNAL_DIRECTORY = null;
 
     public static void main(String[] args)
     {
-        createExternalDirectory();
-        LoggingManager loggingManager = new LoggingManager("RunGameSample");
+   //     createExternalDirectory();
+     //   LoggingManager loggingManager = new LoggingManager("RunGameSample");
 
 
 
@@ -32,12 +32,12 @@ public class RunGameSample
             gameState.executeCurrentState();
         }
         DatabaseManager database = new DatabaseManager();
-        database.closeConnection();
+      //  database.closeConnection();
     }
 
     private static void createExternalDirectory()
     {
-        try
+       /* try
         {
             File parent = OSUtil.getParentDirectory();
             EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
@@ -49,6 +49,6 @@ public class RunGameSample
             e.printStackTrace();
             System.out.println("Could not make new directory- program must exit");
             System.exit(- 1);
-        }
+        }*/
     }
 }

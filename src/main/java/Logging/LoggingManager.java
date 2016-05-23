@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class LoggingManager
 {
-	private static final String  SEPARATOR          = OSUtil.getSeparator();
+/*	private static final String  SEPARATOR          = OSUtil.getSeparator();
 	private static final String  LOGGER_PROPERTIES  = SEPARATOR + "src" + SEPARATOR + "main" +
 			                                                    SEPARATOR + "resources" + SEPARATOR + "log4j.properties";
 	private static       Logger  logger             = null;
@@ -129,5 +129,5 @@ public class LoggingManager
 		line = line.substring(0, location);
 		line += directoryToSave;
 		loggerProperties.add(1, line);
-	}
+	}*/
 }

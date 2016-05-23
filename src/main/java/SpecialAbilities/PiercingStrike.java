@@ -41,6 +41,7 @@ public class PiercingStrike extends SpecialAbility
         character.attack(choiceToStrike);
         if(secondaryStrike != null)
         {
+            character.getConditions().tempDamage(2*character.getDexterity());
             character.attack(secondaryStrike);
         }
     }

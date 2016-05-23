@@ -112,12 +112,12 @@ public class Conditions
     * Retrieve Buffs
      */
 
-    public int calculateRegen(int health)
+    private int calculateRegen(int health)
     {
          return (int)((double)health*buffsManager.getRegenAmount());
     }
 
-    public int calculatePoisonDamage(int health)
+    private int calculatePoisonDamage(int health)
     {
         return (int)((double)health*buffsManager.getPoisonAmount());
     }
@@ -159,9 +159,30 @@ public class Conditions
         buffsManager.cleanBuffs();
     }
 
-    public void startTurn()
+    public int takeTurnDamage(int health)
     {
+        int poison;
 
+        poison = calculatePoisonDamage(health);
+        if(poison > 0)
+        {
+            System.out.println(name + " is poisoned and takes " + poison + " damage!");
+        }
+
+        return poison;
+    }
+
+    public int takeTurnHealing(int health)
+    {
+        int regen;
+
+        regen = calculateRegen(health);
+        if(regen > 0)
+        {
+            System.out.println(name + " has regen and recovers " + regen + " health!");
+        }
+
+        return regen;
     }
 
     public void endTurn()

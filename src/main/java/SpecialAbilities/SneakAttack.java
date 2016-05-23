@@ -59,7 +59,7 @@ public class SneakAttack extends SpecialAbility
 
         if((choiceToStrike.getHealth() == choiceToStrike.getMaxHealth()) || choiceToStrike.getConditions().hasBadCondition())
         {
-            character.getConditions().tempDamage(character.getStrength()*10);
+            character.getConditions().tempDamage(character.getStrength()*5);
             character.getConditions().tempAttack(character.getDexterity());
         }
 

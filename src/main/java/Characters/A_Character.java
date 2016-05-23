@@ -146,7 +146,7 @@ public abstract class A_Character
 		totalDamage = conditions.addDamage(totalDamage);
 		totalDamage = conditions.calculateDamage(totalDamage);
 		totalDamage = toAttack.conditions.reduceDamage(totalDamage);
-		toAttack.takeDamage(totalDamage);
+		toAttack.takeDamage(Math.max(totalDamage, 1));
 
 		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
 	}
@@ -252,9 +252,11 @@ public abstract class A_Character
 
 	public void heal(int amount)
 	{
-		System.out.println(getName() + " was healed for " + amount + " HP!");
-		health = Math.min(health + amount, maxHealth);
-		removeDefeated();
+		if(amount > 0)
+		{
+			health = Math.min(health + amount, maxHealth);
+			removeDefeated();
+		}
 	}
 
 	public void imbibe(Consumable consumable)
@@ -317,25 +319,15 @@ public abstract class A_Character
 
 	public void resetTurn()
 	{
-		int toHeal = conditions.calculateRegen(getMaxHealth());
-		if(toHeal > 0)
-		{
-			heal(toHeal);
-		}
-		int poison = conditions.calculatePoisonDamage(getMaxHealth());
-		if(poison > 0)
-		{
-			System.out.println(getName() + " is poisoned and takes " + poison + " damage!");
-			takeDamage(poison);
-		}
-
-		conditions.startTurn();
+		int toHeal = conditions.takeTurnHealing(getMaxHealth());
+		heal(toHeal);
+		int damage = conditions.takeTurnDamage(getMaxHealth());
+		takeDamage(damage);
 	}
 
 	public void endTurn()
 	{
 		conditions.endTurn();
-//		decrementRounds();
 	}
 
 	protected void setBleed(int duration)
@@ -350,7 +342,6 @@ public abstract class A_Character
 
 	public void resetStats()
 	{
-		conditions.recoverConditions();
 		conditions.resetConditions();
 	}
 

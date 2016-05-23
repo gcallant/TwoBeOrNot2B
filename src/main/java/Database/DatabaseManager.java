@@ -19,10 +19,11 @@ import java.sql.*;
  */
 public class DatabaseManager
 {
+	/*
 	private static final String         DRIVER            = "org.sqlite.JDBC";
 	private static final String         DATABASE          = "jdbc:sqlite:" +
-			                                                          OSUtil.getExternalDirectory().toString() +
-			                                                          OSUtil.getSeparator() + "DungeonCrawler.db";
+	//		                                                          OSUtil.getExternalDirectory().toString() +
+	//		                                                          OSUtil.getSeparator() + "DungeonCrawler.db";
 	private              Connection     databaseConnector = null;
 	private              Statement      sqlStatement      = null;
 	private final        LoggingManager loggingManager    = new LoggingManager(this.getClass());
@@ -217,7 +218,7 @@ public class DatabaseManager
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML) statements
 	 *         or (2) 0 for SQL statements that return nothing
 	 * @throws SQLException
-	 */
+	 *//*
 	private int insertIntoCharacters(A_Character hero) throws SQLException
 	{
 		String name = hero.getName();
@@ -264,5 +265,5 @@ public class DatabaseManager
 //	private static class DatabaseSingle
 //	{
 //		private static final DatabaseManager INSTANCE = new DatabaseManager();
-//	}
+//	}*/
 }

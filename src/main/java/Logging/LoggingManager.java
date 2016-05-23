@@ -84,11 +84,11 @@ public class LoggingManager
 			List<String> loggerProperties = readLoggerProperties(cwd);
 			if(SEPARATOR.compareTo("\\\\") == 0)
 			{
-				directoryToSave = convertSeparators(cwd.getAbsolutePath().split("\\\\"));
+				directoryToSave = convertSeparators(EXTERNAL_DIRECTORY.getAbsolutePath().split("\\\\"));
 			}
 			else
 			{
-				directoryToSave = cwd.getAbsolutePath();
+				directoryToSave = EXTERNAL_DIRECTORY.getAbsolutePath();
 			}
 			injectExternalDirectoryIntoProperties(loggerProperties, directoryToSave);
 			writePropertiesToFile(loggerProperties, cwd);

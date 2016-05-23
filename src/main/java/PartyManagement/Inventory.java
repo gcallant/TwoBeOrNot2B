@@ -1,4 +1,4 @@
-package Inventory;
+package PartyManagement;
 
 import Characters.A_Character;
 import Item.*;

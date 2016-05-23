@@ -1,10 +1,6 @@
 package Factories;
 
-import Characters.Party;
-import Factories.ArmorFactory;
-import Factories.ConsumableFactory;
-import Factories.WeaponFactory;
-import Inventory.Inventory;
+import PartyManagement.Party;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;

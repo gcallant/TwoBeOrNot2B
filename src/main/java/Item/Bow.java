@@ -11,7 +11,7 @@ public class Bow extends Weapon
 		super(power, "dexterity");
 		this.damageType = DamageType.Piercing;
 		this.base = 2;
-		this.weaponType = WeaponType.Light;
+		this.weaponType = WeaponType.Ranged;
 	}
 
 	public String toString()

@@ -147,40 +147,48 @@ public class GenerateDungeon
    private static void fixDungeon(DungeonTile[][] dungeon, int[] startEnd)
    {
       int[] fixArray = {1,1,1,1};
-      dungeon[startEnd[3]][startEnd[2]].setDirection(fixArray);
+      dungeon[dungeon.length-1][dungeon[0].length-1].setUsed();
+      dungeon[dungeon.length-1][dungeon[0].length-1].setDirection(fixArray);
+      if(dungeon[dungeon.length-2][dungeon.length-1].getDirection()[3] == 0)
+      {
+         dungeon[dungeon.length-1][dungeon.length-1].getDirection()[1] = 0;
+      }
+      else
+      {
+         dungeon[dungeon.length-1][dungeon.length-1].getDirection()[0] = 0;
+      }
+      //dungeon[startEnd[3]][startEnd[2]].setDirection(fixArray);*/
       
       for(int y = 0; y < dungeon.length; y++)
       {
          for(int x = 0; x < dungeon[0].length; x++)
          {
-            fixArray = dungeon[y][x].getDirection();
-            if(y != 0 && dungeon[y-1][x].getDirection()[3] == 0)
-            {
-               fixArray[1] = 0;
+            if(x != dungeon[0].length -1 || y != dungeon.length - 1) {
+               fixArray = dungeon[y][x].getDirection();
+               if (y != 0 && dungeon[y - 1][x].getDirection()[3] == 0) {
+                  fixArray[1] = 0;
+               }
+               if (y != startEnd[3] && dungeon[y + 1][x].getDirection()[1] == 0) {
+                  fixArray[3] = 0;
+               }
+               if (x != 0 && dungeon[y][x - 1].getDirection()[2] == 0) {
+                  fixArray[0] = 0;
+               }
+               if (x != startEnd[2] && dungeon[y][x + 1].getDirection()[0] == 0) {
+                  fixArray[2] = 0;
+               }
+               if (x == 0 && y != 0)
+                  fixArray[0] = 0;
+               if (x == dungeon[0].length - 1)
+                  fixArray[2] = 0;
+               if (y == 0)
+                  fixArray[1] = 0;
+               if (y == startEnd[3])
+                  fixArray[3] = 0;
+               if (x == startEnd[2] && y == startEnd[3])
+                  fixArray[2] = 1;
+               dungeon[y][x].setDirection(fixArray);
             }
-            if(y != startEnd[3] && dungeon[y+1][x].getDirection()[1] == 0)
-            {
-               fixArray[3] = 0;
-            }
-            if(x != 0 && dungeon[y][x-1].getDirection()[2] == 0)
-            {
-               fixArray[0] = 0;
-            }
-            if(x != startEnd[2] && dungeon[y][x+1].getDirection()[0] == 0)
-            {
-               fixArray[2] = 0;
-            }
-            if(x == 0 && y != 0)
-               fixArray[0] = 0;
-            if(x == dungeon[0].length - 1 )
-               fixArray[2] = 0;
-            if(y == 0)
-               fixArray[1] = 0;
-            if(y == startEnd[3])
-               fixArray[3] = 0; 
-            if(x == startEnd[2] && y == startEnd[3])
-               fixArray[2] = 1;
-            dungeon[y][x].setDirection(fixArray);
          }
       }
    }
@@ -364,79 +372,73 @@ public class GenerateDungeon
          {
             for(int y = 0; y < 3; y++)
             {
-               ifUsed = this.dungeon[x][z].isUsed();
-               if(y == 0)
-               {
-                  if(this.dungeon[x][z].getDirection()[1] == 0)
-                  {
-                     str1 += " - ";
+                  ifUsed = this.dungeon[x][z].isUsed();
+                  if (ifUsed) {
+                     if (y == 0) {
+                        if(x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1)
+                        {
+                           if(!this.dungeon[x - 1][z].isUsed())
+                           {
+                              str1 += " - ";
+                           }
+                           else
+                           {
+                              str1 += "   ";
+                           }
+                        }
+                        else {
+                           if (this.dungeon[x][z].getDirection()[1] == 0) {
+                              str1 += " - ";
+                           } else {
+                              str1 += "   ";
+                           }
+                        }
+                     } else if (y == 1) {
+                        if (x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1) {
+                           if (!this.dungeon[x][z-1].isUsed()) {
+                              str2 += "[";
+                           } else {
+                              str2 += " ";
+                           }
+                           str2 += "->";
+                           if (this.dungeon[x][z].getDirection()[2] == 0) {
+                              str2 += "]";
+                           } else {
+                              str2 += " ";
+                           }
+                        } else {
+                           if (this.dungeon[x][z].getDirection()[0] == 0) {
+                              str2 += "[";
+                           } else {
+                              str2 += " ";
+                           }
+                           if (x == characterX && z == characterY) {
+                              str2 += "x";
+                           } else {
+                              str2 += " ";
+                           }
+                           if (this.dungeon[x][z].getDirection()[2] == 0) {
+                              str2 += "]";
+                           } else {
+                              str2 += " ";
+                           }
+                        }
+                     } else {
+                        if (this.dungeon[x][z].getDirection()[3] == 0) {
+                           str3 += " - ";
+                        } else {
+                           str3 += "   ";
+                        }
+                     }
+                  } else {
+                     if (y == 0) {
+                        str1 += "   ";
+                     } else if (y == 1) {
+                        str2 += "   ";
+                     } else {
+                        str3 += "   ";
+                     }
                   }
-                  else
-                  {
-                     str1 += "   ";
-                  }
-               }
-               else if(y == 1)
-               {
-                  if(x == this.dungeon.length - 1 && z == this.dungeon[x].length - 1)
-                  {
-                     if(this.dungeon[x][z].getDirection()[0] == 0)
-                     {
-                        str2 += "[";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     str2 += " ";
-                     if(this.dungeon[x][z].getDirection()[2] == 0)
-                     {
-                        str2 += "]";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                  }
-                  else
-                  {
-                     if(this.dungeon[x][z].getDirection()[0] == 0)
-                     {
-                        str2 += "[";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     if(x == characterX && z == characterY)
-                     {
-                        str2 += "x";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                     if(this.dungeon[x][z].getDirection()[2] == 0)
-                     {
-                        str2 += "]";
-                     }
-                     else
-                     {
-                        str2 += " ";
-                     }
-                  }
-               }
-               else
-               {
-                  if(this.dungeon[x][z].getDirection()[3] == 0)
-                  {
-                     str3 += " - ";
-                  }
-                  else
-                  {
-                     str3 += "   ";
-                  }
-               }
             }
          }
          finalStr += str1 + "\n"  + str2 + "\n" + str3 + "\n";

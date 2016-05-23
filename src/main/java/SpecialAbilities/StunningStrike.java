@@ -1,7 +1,7 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -40,14 +40,14 @@ public class StunningStrike extends SpecialAbility
             if(rand.nextBoolean())
             {
                 System.out.println(choiceToStrike.getName() + " was stunned!");
-                choiceToStrike.getConditions().stunned(1);
+                choiceToStrike.getConditions().giveStunnedDebuff(1,"Stunning Strike");
             }
         }
         else
         {
             System.out.println("But missed!");
         }
-        character.getConditions().exhausted(2);
+        character.getConditions().giveExhaustedDebuff(2, "Stunning Strike");
     }
 
     public String toString()

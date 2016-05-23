@@ -1,11 +1,11 @@
-package Characters;
+package PartyManagement;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Inventory.Inventory;
+import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
@@ -27,7 +27,6 @@ public class Party
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
-        this.shout = false;
     }
 
     public void addToInventory(Weapon item)
@@ -80,16 +79,6 @@ public class Party
         return true;
     }
 
-    public boolean hasShouted()
-    {
-        return shout;
-    }
-
-    public void shout()
-    {
-        shout = true;
-    }
-
     public int calculatePartyLevel()
     {
         int total = 0;
@@ -129,7 +118,6 @@ public class Party
                 character.heal(1);
                 character.removeDefeated();
             }
-            shout = false;
         }
     }
 

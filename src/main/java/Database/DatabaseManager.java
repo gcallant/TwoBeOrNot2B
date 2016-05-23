@@ -2,6 +2,7 @@ package Database;
 
 import Characters.A_Character;
 import Logging.LoggingManager;
+import PartyManagement.Inventory;
 import Mediator.Mediator;
 import Utilities.OSUtil;
 import org.jetbrains.annotations.Contract;

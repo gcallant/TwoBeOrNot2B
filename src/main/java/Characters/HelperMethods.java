@@ -1,6 +1,6 @@
 package Characters;
 
-import Factories.HeroFactory;
+import Factories.CharacterFactory;
 
 import java.util.ArrayList;
 import java.util.List;

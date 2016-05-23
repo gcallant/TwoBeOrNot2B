@@ -4,17 +4,16 @@ import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
 import SpecialAbilities.SpecialManager;
-
-import java.util.Scanner;
 
 /**
  * Created by Michael on 5/18/2016.
  */
 public class Paladin extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
 
     public Paladin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {

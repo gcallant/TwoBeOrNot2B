@@ -1,4 +1,6 @@
-package Characters;
+package PartyManagement;
+
+import Characters.A_Character;
 
 import java.util.Comparator;
 

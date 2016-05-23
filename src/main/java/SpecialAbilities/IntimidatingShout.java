@@ -1,7 +1,7 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -30,7 +30,7 @@ public class IntimidatingShout extends  SpecialAbility
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            enemies.getCharacter(x).getConditions().giveDamageBuff(debuff, 3);
+            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, 3, "Intimidating Shout");
         }
     }
 

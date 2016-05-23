@@ -1,10 +1,9 @@
 package Mediator;
 
 import Characters.A_Character;
-import Characters.Party;
+import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ public class Mediator
     private int               currentTurn;
     private List<A_Character> turnOrder;
     private int               floorLevel;
+    private int partyLevel;
 
     public Mediator()
     {
@@ -163,5 +163,15 @@ public class Mediator
         result = 31 * result + turnOrder.hashCode();
         result = 31 * result + floorLevel;
         return result;
+    }
+
+    public void receivePartyLevel(int partyLevel)
+    {
+        this.partyLevel = partyLevel;
+    }
+
+    public int givePartyLevel()
+    {
+        return this.partyLevel;
     }
 }

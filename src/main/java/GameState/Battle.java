@@ -1,9 +1,9 @@
 package GameState;
 
 import Characters.A_Character;
-import Characters.GenerateMonsterParty;
-import Characters.InitiativeSort;
-import Characters.Party;
+import PartyManagement.GenerateMonsterParty;
+import PartyManagement.InitiativeSort;
+import PartyManagement.Party;
 import Factories.MonsterPartyFactory;
 import Mediator.Mediator;
 import StringTester.TestString;
@@ -58,7 +58,7 @@ public class Battle implements I_State
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
-			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel);
+			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel, mediator.givePartyLevel());
 			wholeBattle = new ArrayList<A_Character>();
 
 			mediator.receiveEnemies(enemyParty);

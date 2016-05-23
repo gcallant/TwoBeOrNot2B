@@ -14,6 +14,11 @@ public class DungeonTile
 		this.direction = new int[4];
 	}
 
+	public void setUsed()
+	{
+		used = true;
+	}
+
 	public void generateDirection(int[] limit)
 	{
 		boolean valid = false;

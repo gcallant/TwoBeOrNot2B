@@ -1,5 +1,6 @@
-package Characters;
+package Factories;
 
+import Characters.*;
 import Item.*;
 
 /**
@@ -25,12 +26,12 @@ public class CharacterFactory
 
 		else if(name.equals("Goblin"))
 		{
-			return new Goblin(name, health, strength, dexterity, new Chainmail(1), new Dagger(1));
+			return new Goblin(name, health, strength, dexterity, new Chainmail(1), new Dagger(1), 1);
 		}
 
 		else
 		{
-			return new Orc(name, health, strength, dexterity, new Chainmail(1), new Hammer(1));
+			return new Orc(name, health, strength, dexterity, new Chainmail(1), new Hammer(1), 1);
 		}
 	}
 }

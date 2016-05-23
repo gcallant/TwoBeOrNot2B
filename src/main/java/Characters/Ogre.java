@@ -17,7 +17,7 @@ public class Ogre extends A_Monster
 
     public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+        super(name, health, strength, dexterity, ArmorType.Heavy, armor, WeaponType.Heavy, weapon);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)

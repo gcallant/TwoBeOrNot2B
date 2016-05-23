@@ -14,7 +14,7 @@ public class Skeleton extends A_Monster
 {
     public Skeleton(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Medium, weapon);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)

@@ -1,9 +1,6 @@
 package Characters;
 
-import Item.Armor;
-import Item.ArmorType;
-import Item.Weapon;
-import Item.WeaponType;
+import Item.*;
 
 import java.util.Random;
 
@@ -29,6 +26,7 @@ public abstract class A_Character
 	private   WeaponType weaponType;
 	private	  boolean    protection;
 	private   int 		 bleedDuration;
+	protected int 		 cooldown;
 
 	public A_Character(String name, int health, int strength, int dexterity, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
 	{
@@ -179,10 +177,31 @@ public abstract class A_Character
 		}
 	}
 
-	protected A_Monster summonSkeleton()
+	protected A_Monster summonSkeleton(int summonerLevel)
 	{
-		//will return a Skeleton to join the summoner in battle. Need to work out implementation details.
-		return null;
+		System.out.println(getName() + "summoned a skeleton to fight by their side!");
+		return new Skeleton("Skeleton", (level*5) + 30, level+2, level+2, new Cloth(level), new Sword(level));
+	}
+
+	protected void doubleAttack(A_Character character)
+	{
+		System.out.println(getName() + "used Double Attack!");
+		attack(character);
+		attack(character);
+	}
+
+	protected void poisonBomb(Party heroes)
+	{
+		System.out.println(getName() + "used Poison Bomb!");
+		for(A_Character hero : heroes.getCharacterParty())
+		{
+			preformAttack(hero);
+			if(rand.nextInt(10) < 6)
+			{
+				System.out.println(hero.getName() + "is poisoned!");
+				//implement poison here
+			}
+		}
 	}
 
 	/*
@@ -522,6 +541,7 @@ public abstract class A_Character
 	{
 		return isDefeated;
 	}
+
 
 	/*
 	* * * * * * * * * * * * * * * * * * * *

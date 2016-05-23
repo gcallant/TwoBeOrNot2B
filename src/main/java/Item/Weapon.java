@@ -8,7 +8,7 @@ public abstract class Weapon
    
    public Weapon(int power, String attackType)
    {
-      if(power > 3 || power < 0)
+      if(power > 10 || power < 0)
       {
          throw new IllegalArgumentException(power + " is an invalid value for weapon power.");
       }

@@ -170,6 +170,11 @@ public class Party
         return characterParty.get(index);
     }
 
+    public ArrayList<A_Character> getCharacterParty()
+    {
+        return characterParty;
+    }
+
     public boolean consumePotion()
     {
         System.out.println("Select who you want to use a potion");

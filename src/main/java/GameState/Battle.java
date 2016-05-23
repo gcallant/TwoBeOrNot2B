@@ -23,6 +23,7 @@ public class Battle implements A_State
 	private Mediator               mediator;
 	private MonsterPartyFactory    monsterPartyFactory;
 	private int					   floorLevel;
+	private boolean				   bossBattle;
 
 	public Battle(Mediator mediator)
 	{

@@ -8,6 +8,10 @@ import java.util.Scanner;
  * Created by SaraPage on 4/29/2016.
  */
 
+
+/*
+Druid class with pet
+ */
 public abstract class A_Hero extends A_Character
 {
 	public A_Hero(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)

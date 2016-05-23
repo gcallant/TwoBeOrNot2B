@@ -37,7 +37,7 @@ public class MapExploration implements I_State
 
     public I_State moveDirection(String command)
     {
-        if(!myMap.isValidDirection(command))
+        if(!myMap.isValidDirection(command) || mediator.giveFreeTravel())
         {
             return new MapExploration(mediator);
         }
@@ -48,7 +48,7 @@ public class MapExploration implements I_State
             return new EndOfMap(mediator);
         }
         battleChance = rand.nextBoolean();
-        if(battleChance)
+        if(battleChance && !mediator.giveNoEnemies())
         {
             return new Battle(mediator);
         }
@@ -57,13 +57,15 @@ public class MapExploration implements I_State
 
     public I_State execute()
     {
-        char[] validInputs = new char[6];
+        char[] validInputs = new char[8];
         validInputs[0] = 'u';
         validInputs[1] = 'd';
         validInputs[2] = 'r';
         validInputs[3] = 'l';
         validInputs[4] = 'm';
         validInputs[5] = 'n';
+        validInputs[6] = 'e';
+        validInputs[7] = 't';
         char command = TestString.ensureChar(validInputs);
         switch(command)
         {
@@ -79,6 +81,12 @@ public class MapExploration implements I_State
                 return new InGameMenu(mediator);
             case 'n':
                 return new NewMap(mediator);
+            case 'e':
+                mediator.receiveNoEnemies();
+                return new MapExploration(mediator);
+            case 't':
+                mediator.receiveFreeTravel();
+                return new MapExploration(mediator);
             default:
                 return new MapExploration(mediator);
         }

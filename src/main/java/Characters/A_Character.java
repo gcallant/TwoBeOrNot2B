@@ -72,7 +72,7 @@ public abstract class A_Character
 			if(rand.nextBoolean())
 			{
 				System.out.println(character.getName() + " is bleeding from the attack!");
-				character.setBleed(3);
+				//character.setBleed(3);
 			}
 		}
 	}
@@ -124,15 +124,17 @@ public abstract class A_Character
 		return attackBonus >= toAttack.totalDefense();
 	}
 
-	public void attack(A_Character toAttack)
+	public boolean attack(A_Character toAttack)
 	{
 		if(canAttack(toAttack))
 		{
 			preformAttack(toAttack);
+			return true;
 		}
 		else
 		{
 			System.out.println(this.getName() + " attacked " + toAttack.getName() + " but missed!");
+			return false;
 		}
 	}
 
@@ -328,11 +330,6 @@ public abstract class A_Character
 	public void endTurn()
 	{
 		conditions.endTurn();
-	}
-
-	protected void setBleed(int duration)
-	{
-		this.bleedDuration = duration;
 	}
 
 	public void removeDefeated()

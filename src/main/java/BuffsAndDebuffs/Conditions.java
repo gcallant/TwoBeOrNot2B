@@ -88,6 +88,11 @@ public class Conditions
         buffsManager.addPoisonDebuff(percentage, rounds, source);
     }
 
+    public void giveBleedDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addBleedDebuff(percentage, rounds, source);
+    }
+
     public void giveExhaustedDebuff(int rounds, String source)
     {
         buffsManager.addExhaustedDebuff(rounds, source);
@@ -120,6 +125,11 @@ public class Conditions
     private int calculatePoisonDamage(int health)
     {
         return (int)((double)health*buffsManager.getPoisonAmount());
+    }
+
+    private int calculateBleedDamage(int health)
+    {
+        return (int)((double)health*buffsManager.getBleedAmount());
     }
 
     public int calculateDamage(int damage)
@@ -161,15 +171,20 @@ public class Conditions
 
     public int takeTurnDamage(int health)
     {
-        int poison;
+        int poison, bleed;
 
         poison = calculatePoisonDamage(health);
+        bleed = calculateBleedDamage(health);
         if(poison > 0)
         {
             System.out.println(name + " is poisoned and takes " + poison + " damage!");
         }
+        if(bleed > 0)
+        {
+            System.out.println(name + " is bleeding and takes " + bleed + " damage!");
+        }
 
-        return poison;
+        return poison + bleed;
     }
 
     public int takeTurnHealing(int health)

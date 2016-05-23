@@ -21,7 +21,7 @@ public class OSUtil
 	 * @return parent directory as a File
 	 * @throws OSException if parent directory could not be opened
 	 */
-/*
+
 	private static String         SEPARATOR          = setSeparator();
 	private static File           EXTERNAL_DIRECTORY = null;
 	private static LoggingManager logger             = waitForLoggerConfiguration();
@@ -148,5 +148,5 @@ public class OSUtil
 		{
 			throw new OSException(new Throwable("Access Denied: Cannot write to this directory!")).writeException();
 		}
-	}*/
+	}
 }

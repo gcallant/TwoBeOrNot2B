@@ -14,6 +14,7 @@ public class BuffsManager
     private BuffList damageDebuff;
     private BuffList regen;
     private BuffList poison;
+    private BuffList bleed;
     private BooleanBuffList exhausted;
     private BooleanBuffList stunned;
     private String name;
@@ -28,6 +29,7 @@ public class BuffsManager
         poison = new PoisonBuffs(name);
         exhausted = new ExhaustedBuffs(name);
         stunned = new StunnedDebuff(name);
+        bleed = new BleedDebuff(name);
         this.name = name;
     }
 
@@ -71,6 +73,11 @@ public class BuffsManager
     {
         stunned.addBuff(rounds, source);
     }
+
+    public void addBleedDebuff(double buff, int rounds, String source)
+    {
+        bleed.addBuff(buff, rounds, source);
+    }
     //
 
     public void decrement()
@@ -91,6 +98,8 @@ public class BuffsManager
         exhausted.decrementList();
 
         stunned.decrementList();
+
+        bleed.decrementList();
     }
 
     public void decrementBad()
@@ -100,6 +109,7 @@ public class BuffsManager
         stunned.decrementList();
         attackDebuff.decrementList();
         damageDebuff.decrementList();
+        bleed.decrementList();
     }
 
     //One for every BuffList
@@ -132,6 +142,11 @@ public class BuffsManager
     {
         return stunned.isInEffect();
     }
+
+    public double getBleedAmount()
+    {
+        return bleed.getAmount();
+    }
     //
 
     public boolean badCondition()
@@ -141,6 +156,7 @@ public class BuffsManager
         badCondition = poison.size() > 0 || badCondition;
         badCondition = exhausted.isInEffect() || badCondition;
         badCondition = stunned.isInEffect() || badCondition;
+        badCondition = bleed.size() > 0 || badCondition;
 
         return badCondition;
     }
@@ -164,5 +180,6 @@ public class BuffsManager
         poison.clear();
         exhausted.clear();
         stunned.clear();
+        bleed.clear();
     }
 }

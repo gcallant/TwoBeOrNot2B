@@ -22,12 +22,16 @@ public class Mediator
     private List<A_Character> turnOrder;
     private int               floorLevel;
     private int partyLevel;
+    private boolean noEnemies;
+    private boolean freeTravel;
 
     public Mediator()
     {
         this.characterParty = null;
         this.map = null;
         this.dungeonSize = 10;
+        noEnemies = false;
+        freeTravel = false;
     }
 
     public void receiveParty(Party party)
@@ -103,6 +107,26 @@ public class Mediator
     public int giveCurrentLevel()
     {
         return this.floorLevel;
+    }
+
+    public void receiveNoEnemies()
+    {
+        noEnemies = !noEnemies;
+    }
+
+    public boolean giveNoEnemies()
+    {
+        return noEnemies;
+    }
+
+    public void receiveFreeTravel()
+    {
+        freeTravel = !freeTravel;
+    }
+
+    public boolean giveFreeTravel()
+    {
+        return freeTravel;
     }
 
     @Override

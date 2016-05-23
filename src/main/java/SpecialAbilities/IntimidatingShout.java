@@ -30,7 +30,7 @@ public class IntimidatingShout extends  SpecialAbility
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            enemies.getCharacter(x).getConditions().giveDamageBuff(debuff, 3, "Intimidating Shout");
+            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, 3, "Intimidating Shout");
         }
     }
 

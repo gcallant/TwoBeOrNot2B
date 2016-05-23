@@ -14,7 +14,7 @@ import SpecialAbilities.SpecialManager;
  */
 public class Rogue extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
 
     public Rogue(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {

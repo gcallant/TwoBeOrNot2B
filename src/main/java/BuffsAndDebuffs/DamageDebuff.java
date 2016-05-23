@@ -1,13 +1,11 @@
 package BuffsAndDebuffs;
 
-import java.util.List;
-
 /**
  * Created by Michael on 5/22/2016.
  */
-public class DamageBuffs extends BuffList
+public class DamageDebuff extends BuffList
 {
-    public DamageBuffs(String name)
+    public DamageDebuff(String name)
     {
         super(name);
     }
@@ -24,6 +22,6 @@ public class DamageBuffs extends BuffList
 
     public String toString()
     {
-        return "Damage buff";
+        return "Damage debuff";
     }
 }

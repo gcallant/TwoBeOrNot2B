@@ -9,7 +9,9 @@ import java.util.List;
 public class BuffsManager
 {
     private BuffList attack;
+    private BuffList attackDebuff;
     private BuffList damage;
+    private BuffList damageDebuff;
     private BuffList regen;
     private BuffList poison;
     private BooleanBuffList exhausted;
@@ -19,7 +21,9 @@ public class BuffsManager
     public BuffsManager(String name)
     {
         attack = new AttackBuffs(name);
+        attackDebuff = new AttackDebuffs(name);
         damage = new DamageBuffs(name);
+        damageDebuff = new DamageDebuff(name);
         regen = new RegenBuffs(name);
         poison = new PoisonBuffs(name);
         exhausted = new ExhaustedBuffs(name);
@@ -33,9 +37,19 @@ public class BuffsManager
         attack.addBuff(buff, rounds, source);
     }
 
+    public void addAttackDebuff(double buff, int rounds, String source)
+    {
+        attackDebuff.addBuff(buff, rounds, source);
+    }
+
     public void addDamageBuff(double buff, int rounds, String source)
     {
         damage.addBuff(buff, rounds, source);
+    }
+
+    public void addDamageDebuff(double buff, int rounds, String source)
+    {
+        damageDebuff.addBuff(buff, rounds, source);
     }
 
     public void addRegenBuff(double buff, int rounds, String source)
@@ -64,7 +78,11 @@ public class BuffsManager
         //One for every BuffList
         attack.decrementList();
 
+        attackDebuff.decrementList();
+
         damage.decrementList();
+
+        damageDebuff.decrementList();
 
         regen.decrementList();
 
@@ -80,17 +98,19 @@ public class BuffsManager
         //All negative buffs except Exhaustion.
         poison.decrementList();
         stunned.decrementList();
+        attackDebuff.decrementList();
+        damageDebuff.decrementList();
     }
 
     //One for every BuffList
     public double getDamageBuffAmount()
     {
-        return damage.getAmount();
+        return 1.0 + damage.getAmount() + damageDebuff.getAmount();
     }
 
     public double getAttackBuffAmount()
     {
-        return attack.getAmount();
+        return 1.0 + attack.getAmount() + attackDebuff.getAmount();
     }
 
     public double getRegenAmount()
@@ -137,7 +157,9 @@ public class BuffsManager
     {
         //One for each buff
         attack.clear();
+        attackDebuff.clear();
         damage.clear();
+        damageDebuff.clear();
         regen.clear();
         poison.clear();
         exhausted.clear();

@@ -19,6 +19,7 @@ public class Mediator
     private int currentTurn;
     private ArrayList<A_Character> turnOrder;
     private int floorLevel;
+    private int partyLevel;
 
     public Mediator()
     {
@@ -100,5 +101,15 @@ public class Mediator
     public int giveCurrentLevel()
     {
         return this.floorLevel;
+    }
+
+    public void receivePartyLevel(int partyLevel)
+    {
+        this.partyLevel = partyLevel;
+    }
+
+    public int givePartyLevel()
+    {
+        return this.partyLevel;
     }
 }

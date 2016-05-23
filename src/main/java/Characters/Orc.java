@@ -15,13 +15,17 @@ import java.util.Random;
  */
 public class Orc extends A_Monster
 {
-	SpecialManager specialManager;
-	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+	private SpecialManager specialManager;
+	private int level;
+
+	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new StunningStrike());
+
+		this.level = level;
 	}
 
 	public boolean specialAbility(Random rand, Party heroes, Party monsters)
@@ -30,8 +34,15 @@ public class Orc extends A_Monster
 		return false;
 	}
 
+	public void levelUp()
+	{
+		upgradeStrength();
+		upgradeStrength();
+		upgradeHealth();
+	}
+
 	public int getLevel()
 	{
-		return 3;
+		return level*3;
 	}
 }

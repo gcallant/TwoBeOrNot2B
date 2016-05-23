@@ -77,6 +77,7 @@ public abstract class A_Character
 		{
 			health = 0;
 			this.isDefeated = true;
+			System.out.println(getName() + " has died!");
 		}
 	}
 
@@ -125,11 +126,6 @@ public abstract class A_Character
 		toAttack.takeDamage(totalDamage);
 
 		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + totalDamage + " damage!");
-
-		if(toAttack.getDefeated())
-		{
-			System.out.println(this.getName() + " killed " + toAttack.getName() + "!");
-		}
 	}
 
 	/*
@@ -147,14 +143,12 @@ public abstract class A_Character
 		return this.level;
 	}
 
-	private void levelUp()
+	protected void levelUp()
 	{
-		strength += strengthIncrease();
-		dexterity += dexterityIncrease();
-		maxHealth += healthIncrease();
 		health = maxHealth;
 		level++;
 		experience = 0;
+		LevelUp.levelUp(this);
 	}
 
 	protected boolean canLevel()
@@ -174,19 +168,19 @@ public abstract class A_Character
 		}
 	}
 
-	public int strengthIncrease()
+	public void upgradeStrength()
 	{
-		return 0;
+		this.strength += 2;
 	}
 
-	public int dexterityIncrease()
+	public void upgradeDexterity()
 	{
-		return 0;
+		this.dexterity += 2;
 	}
 
-	public int healthIncrease()
+	public void upgradeHealth()
 	{
-		return 0;
+		this.health += 25;
 	}
 
 	/*
@@ -275,9 +269,10 @@ public abstract class A_Character
 	public String battleDisplay()
 	{
 		String retString = "Name: " + getName() + " Health: " + getHealth();
+		retString += conditions.displayStats();
 		if(conditions.hasBadCondition())
 		{
-			retString += " bad condition";
+			retString += " X";
 		}
 		return retString;
 	}

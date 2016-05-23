@@ -98,6 +98,16 @@ public class Conditions
         buffsManager.addStunnedDebuff(rounds, source);
     }
 
+    public void giveAttackDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addAttackBuff(percentage, rounds, source);
+    }
+
+    public void giveDamageDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addDamageDebuff(percentage, rounds, source);
+    }
+
     /*
     * Retrieve Buffs
      */
@@ -169,5 +179,17 @@ public class Conditions
     private void endDefending()
     {
         defended = false;
+    }
+
+    public String displayStats()
+    {
+        String str = "";
+        str += (calculateAttack(100) != 100) ? " Attack " + calculateAttack(100) + "%": "";
+        str += (calculateDamage(100) != 100) ? " Damage " + calculateDamage(100) + "%": "";
+        str += (buffsManager.isExhausted()) ? " Exhausted": "";
+        str += (buffsManager.isStunned()) ? " Stunned": "";
+        str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";
+        str += (buffsManager.getRegenAmount() != 0) ? " Regen" : "";
+        return str;
     }
 }

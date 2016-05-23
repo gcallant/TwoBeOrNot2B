@@ -1,31 +1,35 @@
 package Characters;
+
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.IntimidatingShout;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StunningStrike;
+import SpecialAbilities.WarCry;
 
 import java.util.Random;
 
-
 /**
- * Created by gm14793 on 5/9/16.
+ * Created by Michael on 5/22/2016.
  */
-public class Ogre extends A_Monster
+public class WarChief extends A_Monster
 {
     private SpecialManager specialManager;
     private int level;
 
-    public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+    public WarChief(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 4, level);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new StunningStrike());
+        specialManager.addSpecialAbility(new WarCry());
+        specialManager.addSpecialAbility(new IntimidatingShout());
 
         this.level = level;
+
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
@@ -36,15 +40,16 @@ public class Ogre extends A_Monster
 
     public void levelUp()
     {
-        upgradeHealth();
-        upgradeHealth();
-        upgradeHealth();
         upgradeStrength();
         upgradeStrength();
+        upgradeStrength();
+        upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
     }
 
     public int getLevel()
     {
-        return level*10;
+        return level*15;
     }
 }

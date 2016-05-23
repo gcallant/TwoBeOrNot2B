@@ -57,7 +57,7 @@ public class Battle implements A_State
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
-			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel);
+			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel, mediator.givePartyLevel());
 			wholeBattle = new ArrayList<A_Character>();
 
 			mediator.receiveEnemies(enemyParty);

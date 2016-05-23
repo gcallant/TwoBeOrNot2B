@@ -13,7 +13,7 @@ import SpecialAbilities.SpecialManager;
  */
 public class Paladin extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
 
     public Paladin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {

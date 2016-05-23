@@ -14,7 +14,7 @@ public class AttackBuffs extends BuffList
 
     public double getAmount()
     {
-        double total = 1.0;
+        double total = 0.0;
         for (Buffs buffs : getList())
         {
             total += buffs.buffAmount();
@@ -24,6 +24,6 @@ public class AttackBuffs extends BuffList
 
     public String toString()
     {
-        return "Attack buff/debuff";
+        return "Attack buff";
     }
 }

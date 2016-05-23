@@ -14,12 +14,21 @@ import java.util.Random;
 public abstract class A_Monster extends A_Character
 {
 	protected String name;
+	private int percentageOfSpecial;
 	protected Random rand;
 
-	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
+	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon, int percentageOfSpecial, int level)
 	{
 		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
 		rand = new Random();
+		this.percentageOfSpecial = percentageOfSpecial - 1;
+		int curLevel = 1;
+
+		while(curLevel < level)
+		{
+			levelUp();
+			curLevel++;
+		}
 	}
 
 	public void resetTurn()
@@ -35,7 +44,7 @@ public abstract class A_Monster extends A_Character
 		noSpecial = conditions.cannotUseSpecial();
 		resetTurn();
 
-		useSpecial = rand.nextBoolean();
+		useSpecial = (rand.nextInt(10) < percentageOfSpecial);
 		if(noTurn)
 		{
 			System.out.println(getName() + " is stunned and can't act!");
@@ -62,6 +71,8 @@ public abstract class A_Monster extends A_Character
 		endTurn();
 		return false;
 	}
+
+	protected void levelUp(){};
 
 	public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 }

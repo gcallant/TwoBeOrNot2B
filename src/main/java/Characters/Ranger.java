@@ -14,7 +14,7 @@ import SpecialAbilities.SpecialManager;
  */
 public class Ranger extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
 
     public Ranger(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {

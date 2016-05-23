@@ -18,6 +18,8 @@ public class MapExploration implements A_State
     {
         this.mediator = mediator;
 
+        this.mediator.receivePartyLevel(mediator.giveParty().getCharacter(0).getLevel());
+
         rand = new Random();
     }
 

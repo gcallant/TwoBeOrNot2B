@@ -12,7 +12,9 @@ import SpecialAbilities.*;
  */
 public class Warrior extends A_Hero
 {
-	SpecialManager specialManager;
+	private SpecialManager specialManager;
+	private int level;
+
 	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
 	{
 		super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon);

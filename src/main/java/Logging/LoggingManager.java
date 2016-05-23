@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -58,11 +59,11 @@ public class LoggingManager
 		return logger;
 	}
 
-	public ArrayList<String> readLoggerProperties(File cwd) throws FileNotFoundException
+	public List<String> readLoggerProperties(File cwd) throws FileNotFoundException
 	{
 		File loggerFile = new File(cwd.getAbsolutePath() + LOGGER_PROPERTIES);
 		Scanner input = new Scanner(loggerFile);
-		ArrayList<String> loggerProperties = new ArrayList<>(9);
+		List<String> loggerProperties = new ArrayList<>(9);
 		String line = "";
 
 		while(input.hasNext())
@@ -77,10 +78,19 @@ public class LoggingManager
 	private void configureLogger()
 	{
 		File cwd = OSUtil.getCurrentDirectory();
+		String directoryToSave = "";
 		try
 		{
-			ArrayList<String> loggerProperties = readLoggerProperties(cwd);
-			injectExternalDirectoryIntoProperties(loggerProperties);
+			List<String> loggerProperties = readLoggerProperties(cwd);
+			if(SEPARATOR.compareTo("\\\\") == 0)
+			{
+				directoryToSave = convertSeparators(cwd.getAbsolutePath().split("\\\\"));
+			}
+			else
+			{
+				directoryToSave = cwd.getAbsolutePath();
+			}
+			injectExternalDirectoryIntoProperties(loggerProperties, directoryToSave);
 			writePropertiesToFile(loggerProperties, cwd);
 		}
 		catch(FileNotFoundException e)
@@ -90,7 +100,17 @@ public class LoggingManager
 		isLoggerConfigured = true;
 	}
 
-	private void writePropertiesToFile(ArrayList<String> loggerProperties, File cwd) throws FileNotFoundException
+	private String convertSeparators(String[] cwd)
+	{
+		String directory = "";
+		for(int i = 0; i < cwd.length; i++)
+		{
+			directory += cwd[i] + "\\\\";
+		}
+		return directory;
+	}
+
+	private void writePropertiesToFile(List<String> loggerProperties, File cwd) throws FileNotFoundException
 	{
 		PrintStream printStream = new PrintStream(cwd.getAbsolutePath() + LOGGER_PROPERTIES);
 
@@ -101,13 +121,13 @@ public class LoggingManager
 		printStream.close();
 	}
 
-	private void injectExternalDirectoryIntoProperties(ArrayList<String> loggerProperties)
+	private void injectExternalDirectoryIntoProperties(List<String> loggerProperties, String directoryToSave)
 	{
 		String line = loggerProperties.get(1);
 		loggerProperties.remove(1);
 		int location = line.indexOf('=') + 1;
 		line = line.substring(0, location);
-		line += EXTERNAL_DIRECTORY;
+		line += directoryToSave;
 		loggerProperties.add(1, line);
 	}
 }

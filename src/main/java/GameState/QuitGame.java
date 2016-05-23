@@ -1,10 +1,12 @@
 package GameState;
 
 import Mediator.*;
+import StringTester.TestString;
+
 /**
  * Created by Michael on 5/8/2016.
  */
-public class QuitGame implements A_State
+public class QuitGame implements I_State
 {
     private Mediator mediator;
 
@@ -23,7 +25,7 @@ public class QuitGame implements A_State
         return "Are you sure you want to quit?\n1) Yes\n2) No";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         int command = TestString.ensureInt(2);
         switch(command)

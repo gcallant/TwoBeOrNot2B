@@ -6,6 +6,7 @@ import Item.Consumable;
 import Item.Weapon;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,7 +26,7 @@ public class TestString
         return "";
     }
 
-    public static int getCharacterChoice(ArrayList<A_Character> list)
+    public static int getCharacterChoice(List<A_Character> list)
     {
         Scanner kb = new Scanner(System.in);
         String validInput;
@@ -38,7 +39,7 @@ public class TestString
         return getInput(itemIndex);
     }
 
-    public static int getConsumableChoice(ArrayList<Consumable> list)
+    public static int getConsumableChoice(List<Consumable> list)
     {
         Scanner kb = new Scanner(System.in);
         String validInput;
@@ -51,7 +52,7 @@ public class TestString
         return getInput(itemIndex);
     }
 
-    public static int getArmorChoice(ArrayList<Armor> list)
+    public static int getArmorChoice(List<Armor> list)
     {
         Scanner kb = new Scanner(System.in);
         String validInput;
@@ -64,7 +65,7 @@ public class TestString
         return getInput(itemIndex);
     }
 
-    public static int getWeaponChoice(ArrayList<Weapon> list)
+    public static int getWeaponChoice(List<Weapon> list)
     {
         Scanner kb = new Scanner(System.in);
         String validInput;

@@ -3,6 +3,7 @@ package Characters;
 import Factories.MonsterFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,15 +12,15 @@ import java.util.Random;
 public class GenerateMonsterParty
 {
     MonsterFactory factory;
-    private int numOfDifficultyLevels;
-    private ArrayList<ArrayList<String>> listsOfMonsters;
+    private int                numOfDifficultyLevels;
+    private List<List<String>> listsOfMonsters;
 
     public GenerateMonsterParty()
     {
         factory = new MonsterFactory();
 
         numOfDifficultyLevels = 3;
-        listsOfMonsters = new ArrayList<ArrayList<String>>(numOfDifficultyLevels);
+        listsOfMonsters = new ArrayList<List<String>>(numOfDifficultyLevels);
         for(int i = 0; i < numOfDifficultyLevels; i++)
         {
             listsOfMonsters.add(new ArrayList<String>());
@@ -50,14 +51,14 @@ public class GenerateMonsterParty
     {
         //This is the ArrayList that we will eventually return - a party of 4 monsters
         int numOfEnemies = 4;
-        ArrayList<A_Character> listOfParty = new ArrayList<A_Character>(numOfEnemies);
+        List<A_Character> listOfParty = new ArrayList<A_Character>(numOfEnemies);
 
         //Obtain the ArrayList of the Monsters that we want to create our party
         if(indexForDifficulty >= listsOfMonsters.size())
         {
             indexForDifficulty = listsOfMonsters.size() - 1;
         }
-        ArrayList<String> listToPullFrom = listsOfMonsters.get(indexForDifficulty - 1);
+        List<String> listToPullFrom = listsOfMonsters.get(indexForDifficulty - 1);
 
         //We are randomly choosing the names of monsters from listToPullFrom
         //We create the monster first and then add it to the listOfParty

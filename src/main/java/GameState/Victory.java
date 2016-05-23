@@ -5,12 +5,11 @@ import Factories.GenerateItems;
 import StringTester.TestString;
 import Mediator.*;
 import java.util.Random;
-import java.util.Random;
 
 /**
  * Created by Michael on 5/12/2016.
  */
-public class Victory implements A_State
+public class Victory implements I_State
 {
     private Mediator mediator;
 
@@ -29,7 +28,7 @@ public class Victory implements A_State
         return "You won! Press enter to continue!";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         TestString.enterInput();
 

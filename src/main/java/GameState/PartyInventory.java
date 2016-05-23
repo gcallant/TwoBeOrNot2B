@@ -7,7 +7,7 @@ import StringTester.TestString;
 /**
  * Created by Michael on 5/18/2016.
  */
-public class PartyInventory implements A_State
+public class PartyInventory implements I_State
 {
     private Mediator mediator;
     private Party heroes;
@@ -28,7 +28,7 @@ public class PartyInventory implements A_State
         return "Choose an option\n1) Equip\n2) Use Potion\n3) Back";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         int command = TestString.ensureInt(3);
         switch(command)

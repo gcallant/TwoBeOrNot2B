@@ -10,6 +10,7 @@ import Item.Consumable;
 import Item.Weapon;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -31,7 +32,7 @@ public class GenerateItems {
 
     public void generateItem(Party inventory, int floor)
     {
-        ArrayList<ArrayList<String>> largeList = new ArrayList<ArrayList<String>>();
+        List<List<String>> largeList = new ArrayList<List<String>>();
 
         int[] floor1 = new int[5];
         int[] floor2 = new int[4];
@@ -87,7 +88,7 @@ public class GenerateItems {
         }
     }
 
-    public void grabItem(Party inventory, int generate, ArrayList<String> largeList, int power)
+    public void grabItem(Party inventory, int generate, List<String> largeList, int power)
     {
         switch(generate)
         {

@@ -10,20 +10,21 @@ import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Michael on 5/11/2016.
  */
-public class Battle implements A_State
+public class Battle implements I_State
 {
-	private Party                  heroParty;
-	private Party                  enemyParty;
-	private ArrayList<A_Character> wholeBattle;
-	private int                    nextToAttack;
-	private boolean                newBattle;
-	private Mediator               mediator;
-	private MonsterPartyFactory    monsterPartyFactory;
-	private int					   floorLevel;
+	private Party               heroParty;
+	private Party               enemyParty;
+	private List<A_Character>   wholeBattle;
+	private int                 nextToAttack;
+	private boolean             newBattle;
+	private Mediator            mediator;
+	private MonsterPartyFactory monsterPartyFactory;
+	private int                 floorLevel;
 
 	public Battle(Mediator mediator)
 	{
@@ -48,7 +49,7 @@ public class Battle implements A_State
 		return false;
 	}
 
-	public A_State execute()
+	public I_State execute()
 	{
 		TestString.enterInput();
 		boolean heroesDefeated = true;

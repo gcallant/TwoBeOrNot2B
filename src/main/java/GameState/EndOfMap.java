@@ -1,11 +1,12 @@
 package GameState;
 
 import Mediator.*;
+import StringTester.TestString;
 
 /**
  * Created by Michael on 5/12/2016.
  */
-public class EndOfMap implements A_State
+public class EndOfMap implements I_State
 {
     Mediator mediator;
 
@@ -24,7 +25,7 @@ public class EndOfMap implements A_State
         return "You beat the level. Progress saved! Press enter to continue.";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         TestString.enterInput();
         return new NewMap(mediator);

@@ -6,16 +6,17 @@ import StringTester.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Michael on 5/7/2016.
  */
 public class Inventory
 {
-    private ArrayList<Weapon> weapons;
-    private ArrayList<Armor> armors;
-    private ArrayList<Consumable> consumables;
-    private int totalSize;
+    private List<Weapon>          weapons;
+    private List<Armor>      armors;
+    private List<Consumable> consumables;
+    private int                   totalSize;
 
     public Inventory()
     {
@@ -134,12 +135,12 @@ public class Inventory
         return TestString.getConsumableChoice(consumables);
     }
 
-    public ArrayList<Weapon> getWeapons()
+    public List<Weapon> getWeapons()
     {
         return weapons;
     }
 
-    public ArrayList<Armor> getArmor()
+    public List<Armor> getArmor()
     {
         return armors;
     }

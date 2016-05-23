@@ -4,6 +4,7 @@ import Factories.HeroFactory;
 import StringTester.TestString;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -14,7 +15,7 @@ public class CreateMember
     public static A_Character createMember()
     {
         String name = "";
-        ArrayList<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<String>();
 
         names.add("Warrior");
         names.add("Mage");

@@ -10,7 +10,7 @@ public class MonsterPartyFactory
 
     public Party defaultMonsterParty(int difficulty)//generates a party using default settings
     {
-        ArrayList<A_Character> monsters = new ArrayList<A_Character>();
+        List<A_Character> monsters = new ArrayList<A_Character>();
         Goblin goblin1 = new Goblin("Goblin",(int)(50*difficulty), (int)(3*difficulty), (int)(4*difficulty), new Cloth(difficulty), new Dagger(difficulty));
         monsters.add(goblin1);
         Goblin goblin2 = new Goblin("Goblin",(int)(50*difficulty), (int)(3*difficulty), (int)(4*difficulty), new Cloth(difficulty), new Dagger(difficulty));

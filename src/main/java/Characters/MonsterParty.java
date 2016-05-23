@@ -7,9 +7,9 @@ import java.util.*;
  */
 public class MonsterParty
 {
-    private ArrayList<A_Monster> monsters;
+    private List<A_Monster> monsters;
 
-    public MonsterParty(ArrayList<A_Monster> monsterParty)
+    public MonsterParty(List<A_Monster> monsterParty)
     {
         monsters = monsterParty;
     }

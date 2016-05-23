@@ -23,6 +23,7 @@ public abstract class A_Character
 	private ArmorType  armorType;
 	private WeaponType weaponType;
 	protected Conditions conditions;
+	private int bleedDuration;
 
 	protected Random   rand;
 
@@ -53,13 +54,33 @@ public abstract class A_Character
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	*  * * *   * * *   * * *     * * *   * * *      *      *      *
-	*  *       *   *   *        *          *       * *     *      *
+	*  *      *   *   *        *          *       * *     *      *
 	*  * * *   * * *   * * *   *           *      * * *    *      *
 	*      *   *       *        *          *     *     *   *      *
 	*  * * *   *       * * *     * * *   * * *   *     *   * * *  *
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	*/
 
+
+	protected void viciousBite(A_Character character)
+	{
+		if(canAttack(character))
+		{
+			System.out.println(getName() + "used Vicious Bite on " + character.getName() + "!");
+			preformAttack(character);
+			if(rand.nextBoolean())
+			{
+				System.out.println(character.getName() + " is bleeding from the attack!");
+				character.setBleed(3);
+			}
+		}
+	}
+
+	protected A_Monster summonSkeleton()
+	{
+		//will return a Skeleton to join the summoner in battle. Need to work out implementation details.
+		return null;
+	}
 
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -306,6 +327,12 @@ public abstract class A_Character
 	public void endTurn()
 	{
 		conditions.endTurn();
+//		decrementRounds();
+	}
+
+	protected void setBleed(int duration)
+	{
+		this.bleedDuration = duration;
 	}
 
 	public void removeDefeated()
@@ -338,12 +365,12 @@ public abstract class A_Character
 		return isDefeated;
 	}
 
-	private Weapon getWeapon()
+	public Weapon getWeapon()
 	{
 		return weapon;
 	}
 
-	private Armor getArmor()
+	public Armor getArmor()
 	{
 		return armor;
 	}
@@ -395,26 +422,4 @@ public abstract class A_Character
 	}
 
 
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
-			return false;
-		}
-		if (!(obj instanceof A_Character))
-		{
-			return false;
-		}
-		A_Character newChar = (A_Character)obj;
-
-		boolean equalName = name.equals(newChar.name);
-		boolean equalInts1 = health == newChar.health && maxHealth == newChar.maxHealth && strength == newChar.strength && dexterity == newChar.dexterity && level == newChar.level;
-		boolean equalInts2 = experience == newChar.experience && initiative == newChar.initiative;
-		boolean equalBooleans = isDefeated == newChar.isDefeated && defending == newChar.defending && isStunned == newChar.isStunned && protection == newChar.protection;
-		boolean equalEnums = armorType == newChar.armorType && weaponType == newChar.weaponType;
-		boolean equalItems = armor.equals(newChar.armor) && weapon.equals(newChar.weapon);
-
-		return equalName && equalInts1 && equalInts2 && equalBooleans && equalEnums && equalItems;
-	}
 }

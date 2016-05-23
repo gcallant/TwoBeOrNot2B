@@ -6,7 +6,7 @@ import Mediator.Mediator;
 /**
  * Created by Michael on 5/15/2016.
  */
-public class NewMap implements A_State
+public class NewMap implements I_State
 {
     private Mediator mediator;
 
@@ -26,7 +26,7 @@ public class NewMap implements A_State
         return "";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         GenerateDungeon dungeon = new GenerateDungeon(5,5);
         dungeon.generatePath();

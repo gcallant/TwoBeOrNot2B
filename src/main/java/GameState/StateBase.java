@@ -1,8 +1,5 @@
 package GameState;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import Mediator.Mediator;
 /**
  * Created by Michael on 5/6/2016.
@@ -10,7 +7,7 @@ import Mediator.Mediator;
 public class
 StateBase
 {
-    private A_State currentState;
+    private I_State  currentState;
     private Mediator mediator;
 
     public StateBase()

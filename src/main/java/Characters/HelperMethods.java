@@ -3,6 +3,7 @@ package Characters;
 import Factories.HeroFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -96,7 +97,7 @@ public class HelperMethods
 	public static void executePartyMenuChoice(Scanner kb, int choice, CharacterFactory factory)
 	{
 		int numberOfHeros, numberOfMonsters;
-		ArrayList<A_Character> listOfHeroes, listOfMonsters;
+		List<A_Character> listOfHeroes, listOfMonsters;
 		switch(choice)
 		{
 			case 1:
@@ -116,10 +117,10 @@ public class HelperMethods
 		}//end switch statement
 	}//end executePartyMenuChoice
 
-	private static ArrayList<A_Character> createListOfCharacters(CharacterFactory factory, int numberInParty, Scanner
+	private static List<A_Character> createListOfCharacters(CharacterFactory factory, int numberInParty, Scanner
 			                                                                                                            kb)
 	{
-		ArrayList<A_Character> list = new ArrayList<A_Character>(numberInParty);
+		List<A_Character> list = new ArrayList<A_Character>(numberInParty);
 		String name;
 		int health, strength, dexterity, speed, armor;
 

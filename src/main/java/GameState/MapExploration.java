@@ -4,10 +4,12 @@ import DungeonGeneration.GenerateDungeon;
 
 import java.util.Random;
 import Mediator.*;
+import StringTester.TestString;
+
 /**
  * Created by Michael on 5/6/2016.
  */
-public class MapExploration implements A_State
+public class MapExploration implements I_State
 {
     private Random rand;
     private GenerateDungeon myMap = new GenerateDungeon(3, 3);
@@ -31,7 +33,7 @@ public class MapExploration implements A_State
         return myMap.printCharacter() + "\nSelect a direction\nu (Up)\nd (Down)\nr (Right)\nl (Left)\nOr m for the Menu";
     }
 
-    public A_State moveDirection(String command)
+    public I_State moveDirection(String command)
     {
         if(!myMap.isValidDirection(command))
         {
@@ -51,7 +53,7 @@ public class MapExploration implements A_State
         return new MapExploration(mediator);
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         char[] validInputs = new char[5];
         validInputs[0] = 'u';

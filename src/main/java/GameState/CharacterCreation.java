@@ -5,15 +5,16 @@ import Mediator.Mediator;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Created by Michael on 5/12/2016.
  */
 
-public class CharacterCreation implements A_State
+public class CharacterCreation implements I_State
 {
-    private Mediator mediator;
-    private ArrayList<A_Character> party;
+    private Mediator          mediator;
+    private List<A_Character> party;
 
     @Inject
     public CharacterCreation(Mediator mediator)
@@ -33,14 +34,20 @@ public class CharacterCreation implements A_State
         return "Select 'party' to create your party\nOr 'cancel' to Cancel";
     }
 
-    public A_State execute(String command)
+    @Override
+    public I_State execute()
+    {
+        return null;
+    }
+
+    public I_State execute(String command)
     {
         switch(command)
         {
             case "party":
                 if(createNewParty())
                 {
-                    mediator.recieveParty(new Party(party));
+                    mediator.receiveParty(new Party(party));
                     return new NewMap(mediator);
                 }
                 return new MainMenu(mediator);

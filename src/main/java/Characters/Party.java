@@ -3,6 +3,7 @@ package Characters;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import Inventory.Inventory;
 import Item.Armor;
@@ -16,12 +17,12 @@ import StringTester.TestString;
 
 public class Party
 {
-    private ArrayList<A_Character> characterParty;
-    private Inventory inventory;
-    private int partyLevel;
-    private boolean shout;
+    private List<A_Character> characterParty;
+    private Inventory         inventory;
+    private int               partyLevel;
+    private boolean           shout;
 
-    public Party(ArrayList<A_Character> characterParty)
+    public Party(List<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();

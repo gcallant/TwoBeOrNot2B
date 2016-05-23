@@ -1,10 +1,12 @@
 package GameState;
 
 import Mediator.*;
+import StringTester.TestString;
+
 /**
  * Created by Michael on 5/8/2016.
  */
-public class InGameMenu implements A_State
+public class InGameMenu implements I_State
 {
     private Mediator mediator;
 
@@ -23,7 +25,7 @@ public class InGameMenu implements A_State
        return "Choose an option\n1) Resume\n2) Inventory\n3) View Stats\n4) Quit";
     }
 
-    public A_State execute()
+    public I_State execute()
     {
         int command = TestString.ensureInt(4);
         switch(command)

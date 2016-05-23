@@ -6,20 +6,21 @@ import DungeonGeneration.GenerateDungeon;
 
 import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 5/12/2016.
  */
 public class Mediator
 {
-    private Party characterParty;
-    private Party enemies;
-    private GenerateDungeon map;
-    private int dungeonSize;
-    private boolean newBattle;
-    private int currentTurn;
-    private ArrayList<A_Character> turnOrder;
-    private int floorLevel;
+    private Party             characterParty;
+    private Party             enemies;
+    private GenerateDungeon   map;
+    private int               dungeonSize;
+    private boolean           newBattle;
+    private int               currentTurn;
+    private List<A_Character> turnOrder;
+    private int               floorLevel;
 
     public Mediator()
     {
@@ -28,7 +29,7 @@ public class Mediator
         this.dungeonSize = 10;
     }
 
-    public void recieveParty(Party party)
+    public void receiveParty(Party party)
     {
         this.characterParty = party;
     }
@@ -73,12 +74,12 @@ public class Mediator
         return enemies;
     }
 
-    public void receiveTurnOrder(ArrayList<A_Character> turnOrder)
+    public void receiveTurnOrder(List<A_Character> turnOrder)
     {
         this.turnOrder = turnOrder;
     }
 
-    public ArrayList<A_Character>  giveTurnOrder()
+    public List<A_Character>  giveTurnOrder()
     {
         return turnOrder;
     }
@@ -104,21 +105,37 @@ public class Mediator
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object o)
     {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (!(obj instanceof Mediator))
-        {
-            return false;
-        }
+        if(this == o) { return true; }
+        if(! (o instanceof Mediator)) { return false; }
 
-        Mediator thatMediator = (Mediator) obj;
+        Mediator mediator = (Mediator) o;
 
-        boolean equalParties = this.characterParty.equals(thatMediator.characterParty) && this.enemies.equals(thatMediator.enemies);
-        boolean equalInts = this.dungeonSize == thatMediator.dungeonSize && this.currentTurn == thatMediator.currentTurn && this.floorLevel == thatMediator.floorLevel;
-        return equalParties && equalInts && this.map.equals(thatMediator.map) && this.turnOrder.equals(thatMediator.turnOrder) && this.newBattle == thatMediator.newBattle;
+        if(dungeonSize != mediator.dungeonSize) { return false; }
+        if(newBattle != mediator.newBattle) { return false; }
+        if(currentTurn != mediator.currentTurn) { return false; }
+        if(floorLevel != mediator.floorLevel) { return false; }
+        if(characterParty != null ? ! characterParty.equals(mediator.characterParty) : mediator.characterParty != null)
+        { return false; }
+        if(enemies != null ? ! enemies.equals(mediator.enemies) : mediator.enemies != null) { return false; }
+        if(map != null ? ! map.equals(mediator.map) : mediator.map != null) { return false; }
+        if(turnOrder != null ? ! turnOrder.equals(mediator.turnOrder) : mediator.turnOrder != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = characterParty != null ? characterParty.hashCode() : 0;
+        result = 31 * result + (enemies != null ? enemies.hashCode() : 0);
+        result = 31 * result + (map != null ? map.hashCode() : 0);
+        result = 31 * result + dungeonSize;
+        result = 31 * result + (newBattle ? 1 : 0);
+        result = 31 * result + currentTurn;
+        result = 31 * result + (turnOrder != null ? turnOrder.hashCode() : 0);
+        result = 31 * result + floorLevel;
+        return result;
     }
 }

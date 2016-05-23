@@ -20,7 +20,7 @@ public class RunGameSample
         createExternalDirectory();
         LoggingManager loggingManager = new LoggingManager("RunGameSample");
         DatabaseManager database = DatabaseManager.getInstance();
-        database.closeConnection();
+
 
 
         StateBase gameState = new StateBase();
@@ -31,6 +31,7 @@ public class RunGameSample
             System.out.println(gameState.displayCurrentState());
             gameState.executeCurrentState();
         }
+        database.closeConnection();
     }
 
     private static void createExternalDirectory()

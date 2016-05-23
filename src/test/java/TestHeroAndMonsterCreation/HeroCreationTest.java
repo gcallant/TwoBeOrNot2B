@@ -28,10 +28,10 @@ public class HeroCreationTest
         assertEquals(testCharacter, factory.createCharacter("Goblin", "name"));
     }
 
-    @Test
-    public void createCharacter() throws Exception
-    {
-
-    }
+//    @Test
+//    public void createCharacter() throws Exception
+//    {
+//
+//    }
 
 }

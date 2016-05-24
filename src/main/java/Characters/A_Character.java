@@ -191,7 +191,7 @@ public abstract class A_Character
 
 	public void upgradecunning()
 	{
-		this.cunning += 2;
+		this.cunning += 1;
 	}
 
 	public void upgradeHealth()

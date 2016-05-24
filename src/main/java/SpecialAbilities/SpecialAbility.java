@@ -42,7 +42,7 @@ public abstract class SpecialAbility
 
     protected int calculateRounds(A_Character character)
     {
-        return Math.max(1, character.getCunning()/4);
+        return Math.max(1, character.getCunning()/3);
     }
 
     protected A_Character randomTarget(Party party)

@@ -153,9 +153,13 @@ public class BuffsManager
         total += buffList1.getAmount();
         total += buffList2.getAmount();
 
-        if(total < .25)
+        if(total < .50)
         {
-            total = .25;
+            total = .50;
+        }
+        if(total > 2.0)
+        {
+            total = 2.0;
         }
 
         return total;

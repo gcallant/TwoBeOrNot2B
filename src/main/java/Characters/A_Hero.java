@@ -75,7 +75,7 @@ public abstract class A_Hero extends A_Character
 					}
 					break;
 				case 4:
-					cancel = heroes.consumePotion();
+					//cancel = heroes.consumePotion();
 					break;
 				case 5:
 					return tryToRun(heroes, monsters);

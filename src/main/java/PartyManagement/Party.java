@@ -159,7 +159,31 @@ public class Party
         return characterParty.get(index);
     }
 
-    public boolean consumePotion()
+    public boolean useInventory()
+    {
+        System.out.println("Select an item from your inventory");
+        int choice;
+        int total = inventory.displayInventory();
+        choice = TestString.ensureInt(total);
+
+        int[] translation = inventory.translateChoice(choice);
+        switch(translation[1])
+        {
+            case 0:
+                consumePotion(translation[0]);
+                return true;
+            case 1:
+                equip(translation[0],"weapon");
+                return true;
+            case 2:
+                equip(translation[0],"armor");
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public boolean consumePotion(int potion)
     {
         System.out.println("Select who you want to use a potion");
         int choice = TestString.getCharacterChoice(characterParty);
@@ -171,20 +195,11 @@ public class Party
 
         A_Character character = characterParty.get(choice);
 
-        System.out.println("Enter an item to use");
-        choice = inventory.chooseConsumable();
-
-        if(choice == -1)
-        {
-            System.out.println("There is nothing for " + character.getName() + " to use!");
-            return true;
-        }
-
         inventory.useConsumable(character, choice);
         return false;
     }
 
-    public boolean equip()
+    public boolean equip(int equip, String str)
     {
         System.out.println("Select who you want to equip");
         int choice = TestString.getCharacterChoice(characterParty);
@@ -196,30 +211,13 @@ public class Party
 
         A_Character character = characterParty.get(choice);
 
-        System.out.println("Do you want to equip:\n1) Armor\n2) Weapons\n");
-
-        choice = TestString.getInput(3);
-
-        switch(choice)
+        switch(str)
         {
-            case 0:
-                System.out.println("Enter an Armor to equip");
-                choice = TestString.getArmorChoice(inventory.getArmor());
-                if(choice == -1)
-                {
-                    System.out.println("There is no Armor for " + character.getName() + " to equip!");
-                    return false;
-                }
-                inventory.equipArmor(character, choice);
+            case "weapon":
+                inventory.equipWeapon(character,equip - 1);
                 break;
-            case 1:
-                choice = TestString.getWeaponChoice(inventory.getWeapons());
-                if(choice == -1)
-                {
-                    System.out.println("There is no weapon for " + character.getName() + " to equip!");
-                    return false;
-                }
-                inventory.equipWeapon(character, choice);
+            case "armor":
+                inventory.equipArmor(character, equip - 1);
                 break;
         }
         return true;

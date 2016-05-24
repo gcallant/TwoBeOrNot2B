@@ -26,7 +26,7 @@ public class BossBattle implements I_State
     private List<A_Character> wholeBattle;
     private int                 nextToAttack;
     private boolean             newBattle;
-    private Mediator mediator;
+    private Mediator            mediator;
     private int                 floorLevel;
 
     public BossBattle(Mediator mediator)
@@ -62,7 +62,8 @@ public class BossBattle implements I_State
             heroParty = mediator.giveParty();
             List<A_Character> boss = new ArrayList<A_Character>();
 
-            A_Character bigBoss = new Necromancer("Necromancer", 1000, 20, 10, new Cloth(3), new Hammer(5), heroParty.getCharacter(0).getLevel());
+            A_Nemesis bigBoss = new Necromancer("Necromancer", 1000, 20, 10, new Cloth(3), new Hammer(5), heroParty.getCharacter(0).getLevel());
+            mediator.receiveBigBoss(bigBoss);
             boss.add(bigBoss);
             boss.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", heroParty.getCharacter(0).getLevel(), true));
             boss.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", heroParty.getCharacter(0).getLevel(), true));
@@ -112,9 +113,19 @@ public class BossBattle implements I_State
             }
         }
 
-        while(wholeBattle.get(this.nextToAttack).getDefeated())
+        A_Nemesis bigBoss = mediator.giveBigBoss();
+
+        if(bigBoss.isRaged())
         {
-            this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
+            this.nextToAttack = wholeBattle.indexOf(bigBoss);
+        }
+        else
+        {
+            while (wholeBattle.get(this.nextToAttack).getDefeated())
+            {
+                this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
+            }
+            mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
         }
 
         if(wholeBattle.get(this.nextToAttack).takeAction(heroParty, enemyParty))
@@ -122,9 +133,6 @@ public class BossBattle implements I_State
             mediator.receiveNewBattle(true);
             return new MapExploration(mediator);
         }
-
-        mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
-        this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
 
         if(heroParty.isDefeated())
         {

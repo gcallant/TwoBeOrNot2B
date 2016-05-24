@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 public abstract class A_Hero extends A_Character
 {
-	public A_Hero(String name, int health, int strength, int dexterity, ArmorType armorType,
+	public A_Hero(String name, int health, int power, int cunning, ArmorType armorType,
 				  Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon, CreatureType.Humanoid);
+		super(name, health, power, cunning, armorType, armor, weaponType, weapon, CreatureType.Humanoid);
 	}
 
 	public abstract boolean specialAbility(Party heroes, Party monsters);
@@ -28,6 +28,12 @@ public abstract class A_Hero extends A_Character
 
 		noTurn = conditions.cannotAttack();
 		noSpecial = conditions.cannotUseSpecial();
+
+		if(conditions.confusedEffect(this, heroes, monsters))
+		{
+			noTurn = true;
+		}
+
 		resetTurn();
 
 		if(noTurn)

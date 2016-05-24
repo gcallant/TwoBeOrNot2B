@@ -17,11 +17,11 @@ public abstract class A_Monster extends A_Character
 	private int percentageOfSpecial;
 	protected Random rand;
 
-	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType,
+	public A_Monster(String name, int health, int power, int cunning, ArmorType armorType,
 					 Armor armor, WeaponType weaponType, Weapon weapon, int percentageOfSpecial,
 					 int level, CreatureType creatureType)
 	{
-		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon, creatureType);
+		super(name, health, power, cunning, armorType, armor, weaponType, weapon, creatureType);
 		rand = new Random();
 		this.percentageOfSpecial = percentageOfSpecial - 1;
 		int curLevel = 1;
@@ -44,6 +44,12 @@ public abstract class A_Monster extends A_Character
 
 		noTurn = conditions.cannotAttack();
 		noSpecial = conditions.cannotUseSpecial();
+
+		if(conditions.confusedEffect(this, heroes, monsters))
+		{
+			noTurn = true;
+		}
+
 		resetTurn();
 
 		useSpecial = (rand.nextInt(10) < percentageOfSpecial);

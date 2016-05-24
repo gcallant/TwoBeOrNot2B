@@ -22,11 +22,16 @@ public class NaturalRemedy extends SpecialAbility
 
     private void abilityExecution(A_Character character)
     {
-        character.getConditions().giveRegenBuff(1.1, 5, "Natural Remedy");
+        character.getConditions().giveRegenBuff(1.1, calculateRounds(character), "Natural Remedy");
     }
 
     public String toString()
 {
     return "Natural Remedy";
 }
+
+    public static String description()
+    {
+        return "     - Natural Remedy: Grants the caster regeneration for a few rounds";
+    }
 }

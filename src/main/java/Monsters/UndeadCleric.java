@@ -21,9 +21,9 @@ public class UndeadCleric extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public UndeadCleric(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+    public UndeadCleric(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon, 8, level, CreatureType.Undead);
+        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, 8, level, CreatureType.Undead);
 
         specialManager = new SpecialManager();
 
@@ -39,9 +39,9 @@ public class UndeadCleric extends A_Monster
 
     public void levelUp()
     {
-        upgradeStrength();
-        upgradeStrength();
-        upgradeStrength();
+        upgradepower();
+        upgradepower();
+        upgradepower();
         upgradeHealth();
         upgradeHealth();
     }

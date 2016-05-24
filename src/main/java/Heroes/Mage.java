@@ -17,9 +17,9 @@ import com.google.common.base.Objects;
 public class Mage extends A_Hero
 {
 	SpecialManager specialManager;
-	public Mage(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+	public Mage(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon);
+		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new OwlsInsight());
@@ -33,8 +33,7 @@ public class Mage extends A_Hero
 
 	public static String Information()
 	{
-		return "Mage:\n     - Owl's Insight: buffs the casters power\n" +
-				"     - Meteor Swarm: Attacks all enemies for a small amount of damage but has no chance to miss";
+		return "Mage:\n" + OwlsInsight.description() + "\n" + MeteorShower.description();
 	}
 
 	public String getName()
@@ -42,12 +41,12 @@ public class Mage extends A_Hero
 		return super.getName() + " the mage";
 	}
 
-	public int strengthIncrease()
+	public int powerIncrease()
 	{
 		return 2;
 	}
 
-	public int dexterityIncrease()
+	public int cunningIncrease()
 	{
 		return 1;
 	}

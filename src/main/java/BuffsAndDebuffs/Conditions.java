@@ -1,6 +1,8 @@
 package BuffsAndDebuffs;
 
 import BuffsAndDebuffs.BuffsManager;
+import Characters.A_Character;
+import PartyManagement.Party;
 
 import java.util.Collections;
 import java.util.Random;
@@ -119,6 +121,11 @@ public class Conditions
         buffsManager.addFearedDebuff(rounds, source);
     }
 
+    public void giveConfusedDebuff(int rounds, String source)
+    {
+        buffsManager.addConfusedDebuff(rounds, source);
+    }
+
     /*
     * Retrieve Buffs
      */
@@ -136,6 +143,11 @@ public class Conditions
     private int calculateBleedDamage(int health)
     {
         return (int)((double)health*buffsManager.getBleedAmount());
+    }
+
+    private boolean isConfused()
+    {
+        return buffsManager.isConfused();
     }
 
     public int calculateDamage(int damage)
@@ -175,6 +187,32 @@ public class Conditions
     public boolean cannotUseSpecial()
     {
         return buffsManager.isExhausted();
+    }
+
+    public boolean confusedEffect(A_Character person, Party allies, Party enemies)
+    {
+        if(!isConfused())
+        {
+            return false;
+        }
+        Random rand = new Random();
+        A_Character newTarget;
+        Party toChooseFrom;
+
+        if(rand.nextBoolean())
+        {
+            toChooseFrom = allies;
+        }
+        else
+        {
+            toChooseFrom = enemies;
+        }
+
+        newTarget = toChooseFrom.getCharacter(rand.nextInt(toChooseFrom.size()));
+
+        person.attack(newTarget);
+
+        return true;
     }
 
     public boolean hasBadCondition()
@@ -249,6 +287,7 @@ public class Conditions
         str += (buffsManager.isStunned()) ? " Stunned": "";
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";
         str += (buffsManager.getRegenAmount() != 0) ? " Regen" : "";
+        str += (buffsManager.isConfused()) ? " Confused" : "";
         return str;
     }
 }

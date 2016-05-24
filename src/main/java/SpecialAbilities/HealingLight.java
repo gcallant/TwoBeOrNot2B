@@ -22,10 +22,10 @@ public class HealingLight extends SpecialAbility
 
     public void abilityExecution(A_Character character, Party allies, Party enemies)
     {
-        System.out.println(character.getName() + " used healing light and healed his whole party for " + 2*character.getStrength());
+        System.out.println(character.getName() + " used healing light and healed his whole party for " + 2*character.getPower());
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).heal(2*character.getStrength());
+            allies.getCharacter(x).heal(2*character.getPower());
             allies.getCharacter(x).getConditions().recoverConditions();
         }
         character.getConditions().giveExhaustedDebuff(2,"Healing Light");
@@ -34,6 +34,11 @@ public class HealingLight extends SpecialAbility
     public String toString()
     {
         return "Healing Light";
+    }
+
+    public static String description()
+    {
+        return "     - ";
     }
 
 }

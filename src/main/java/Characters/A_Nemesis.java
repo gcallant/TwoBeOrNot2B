@@ -26,10 +26,10 @@ public abstract class A_Nemesis extends A_Character
     private boolean rageUsed;
     protected int rageCount;
 
-    public A_Nemesis(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor,
+    public A_Nemesis(String name, int health, int power, int cunning, ArmorType armorType, Armor armor,
                      WeaponType weaponType, Weapon weapon, int level, CreatureType creatureType)
     {
-        super(name, health, strength, dexterity, armorType,armor, weaponType, weapon, creatureType);
+        super(name, health, power, cunning, armorType,armor, weaponType, weapon, creatureType);
         potions = new ArrayList<Consumable>();
         potions.add(new Healing(5));
         potions.add(new Healing(5));
@@ -59,9 +59,15 @@ public abstract class A_Nemesis extends A_Character
         }
         noTurn = conditions.cannotAttack();
         noSpecial = conditions.cannotUseSpecial();
+
+        if(conditions.confusedEffect(this, heroes, monsters))
+        {
+            noTurn = true;
+        }
+
         resetTurn();
 
-        if(noTurn&& !rage)
+        if(noTurn && !rage)
         {
             endTurn();
             return false;
@@ -85,7 +91,7 @@ public abstract class A_Nemesis extends A_Character
                 potions.remove(0);
             }
         }
-        if(cooldown == 0 && monsters.size() < 6)
+        if((cooldown == 0 && monsters.size() < 6) || (cooldown == 0 && rage))
         {
             specialAbility(rand, heroes, monsters);
             if(!rage || rageCount == 0)
@@ -107,6 +113,11 @@ public abstract class A_Nemesis extends A_Character
         return false;
     }
 
+    public boolean isRaged()
+    {
+        return getHealth() < (getMaxHealth()/4) && !rageUsed;
+    }
+
     public void endTurn()
     {
         cooldown--;
@@ -115,6 +126,8 @@ public abstract class A_Nemesis extends A_Character
 
     public void startRage(Random rand, Party heroes, Party monsters)
     {}
+
+    public void levelUp(){}
 
     public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 

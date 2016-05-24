@@ -24,9 +24,9 @@ public class Necromancer extends A_Nemesis
 {
 	SpecialManager specialManager;
 
-	public Necromancer(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+	public Necromancer(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon, level, CreatureType.Undead);
+		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, level, CreatureType.Humanoid);
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new SummonSkeleton());
 		reassignConditons(new NecromancerConditions("Necromancer"));
@@ -53,9 +53,9 @@ public class Necromancer extends A_Nemesis
 		upgradeHealth();
 		upgradeHealth();
 		upgradeHealth();
-		upgradeStrength();
-		upgradeStrength();
-		upgradeDexterity();
-		upgradeDexterity();
+		upgradepower();
+		upgradepower();
+		upgradecunning();
+		upgradecunning();
 	}
 }

@@ -5,9 +5,9 @@ import java.util.List;
 /**
  * Created by Michael on 5/22/2016.
  */
-public class PoisonBuffs extends BuffList
+public class PoisonDebuffs extends BuffList
 {
-    public PoisonBuffs(String name)
+    public PoisonDebuffs(String name)
     {
         super(name);
     }

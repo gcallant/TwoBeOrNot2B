@@ -28,7 +28,7 @@ public class FearsomeGaze extends SpecialAbility
         {
             if(rand.nextInt(5) > 2)
             {
-                enemies.getCharacter(x).getConditions().giveFearedDebuff(4, "Fearsome Gaze");
+                enemies.getCharacter(x).getConditions().giveFearedDebuff(calculateRounds(character), "Fearsome Gaze");
             }
         }
     }
@@ -36,6 +36,11 @@ public class FearsomeGaze extends SpecialAbility
     public String toString()
     {
         return "Fearsome Gaze";
+    }
+
+    public static String description()
+    {
+        return "     - ";
     }
 }
 

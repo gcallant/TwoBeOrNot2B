@@ -8,7 +8,7 @@ public class Sword extends Weapon
 
 	public Sword(int power)
 	{
-		super(power, "strength");
+		super(power, "power");
 		this.damageType = DamageType.Slashing;
 		this.weaponType = WeaponType.Medium;
 		base = 2;

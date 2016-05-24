@@ -15,9 +15,9 @@ public class Rogue extends A_Hero
 {
     private SpecialManager specialManager;
 
-    public Rogue(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+    public Rogue(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon);
+        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon);
         specialManager = new SpecialManager();
 
         specialManager.addSpecialAbility(new SneakAttack());
@@ -31,8 +31,7 @@ public class Rogue extends A_Hero
 
     public static String Information()
     {
-        return "Rogue:\n     - Sneak Attack: Deals immense damage to foes who are at full health or who have bad conditions\n" +
-                "     - Poison Strike: Deals no damage but puts a poison debuff on the target for a few rounds";
+        return "Rogue:\n" + SneakAttack.description() + "\n" + PoisonStrike.description();
     }
 
     public String getName()
@@ -40,12 +39,12 @@ public class Rogue extends A_Hero
         return super.getName() + " the Rogue";
     }
 
-    public int strengthIncrease()
+    public int powerIncrease()
     {
         return 2;
     }
 
-    public int dexterityIncrease()
+    public int cunningIncrease()
     {
         return 3;
     }

@@ -16,9 +16,9 @@ import java.util.*;
  */
 public class Werewolf extends A_Nemesis
 {
-    public Werewolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+    public Werewolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Medium, weapon, 1, CreatureType.Animal);
+        super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Medium, weapon, 1, CreatureType.Animal);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)

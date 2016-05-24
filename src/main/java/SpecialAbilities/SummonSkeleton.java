@@ -42,4 +42,9 @@ public class SummonSkeleton extends SpecialAbility
         return "Summon Skeleton";
     }
 
+    public static String description()
+    {
+        return "     - ";
+    }
+
 }

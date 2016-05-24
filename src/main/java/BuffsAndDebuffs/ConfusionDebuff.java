@@ -1,11 +1,11 @@
 package BuffsAndDebuffs;
 
 /**
- * Created by Michael on 5/22/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class ExhaustedBuffs extends BooleanBuffList
+public class ConfusionDebuff extends BooleanBuffList
 {
-    public ExhaustedBuffs(String name)
+    public ConfusionDebuff(String name)
     {
         super(name);
     }
@@ -17,6 +17,6 @@ public class ExhaustedBuffs extends BooleanBuffList
 
     public String toString()
     {
-        return "Exhaustion";
+        return "Confused";
     }
 }

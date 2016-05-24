@@ -37,7 +37,7 @@ public class ViciousBite extends SpecialAbility
             if(rand.nextBoolean())
             {
                 System.out.println(choiceToStrike.getName() + " is now bleeding!");
-                choiceToStrike.getConditions().giveBleedDebuff(1.15, 5, "Vicious Bite");
+                choiceToStrike.getConditions().giveBleedDebuff(1.15, calculateRounds(character), "Vicious Bite");
             }
         }
     }
@@ -45,5 +45,10 @@ public class ViciousBite extends SpecialAbility
     public String toString()
     {
         return "Vicious Bite";
+    }
+
+    public static String description()
+    {
+        return "     - ";
     }
 }

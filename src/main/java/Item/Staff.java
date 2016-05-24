@@ -8,7 +8,7 @@ public class Staff extends Weapon
 
 	public Staff(int power)
 	{
-		super(power, "strength");
+		super(power, "power");
 		this.damageType = DamageType.Bludgeoning;
 		this.weaponType = WeaponType.Staff;
 		this.base = 0;

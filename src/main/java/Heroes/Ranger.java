@@ -6,6 +6,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.EagleEye;
 import SpecialAbilities.NaturalRemedy;
 import SpecialAbilities.PiercingStrike;
 import SpecialAbilities.SpecialManager;
@@ -17,13 +18,14 @@ public class Ranger extends A_Hero
 {
     private SpecialManager specialManager;
 
-    public Ranger(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+    public Ranger(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Ranged, weapon);
+        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Ranged, weapon);
         specialManager = new SpecialManager();
 
         specialManager.addSpecialAbility(new PiercingStrike());
         specialManager.addSpecialAbility(new NaturalRemedy());
+        specialManager.addSpecialAbility(new EagleEye());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -33,8 +35,7 @@ public class Ranger extends A_Hero
 
     public static String Information()
     {
-        return "Ranger:\n     - Piercing Strike: Hits the first target and then hits a random second target for increased damage\n" +
-                "     - Natural Remedy: Grants the caster regeneration for a few rounds";
+        return "Ranger:\n" + PiercingStrike.description() + "\n" + NaturalRemedy.description() + "\n" + EagleEye.description();
     }
 
     public String getName()
@@ -46,20 +47,5 @@ public class Ranger extends A_Hero
     {
         conditions.decrementBadConditions();
         super.endTurn();
-    }
-
-    public int strengthIncrease()
-    {
-        return 3;
-    }
-
-    public int dexterityIncrease()
-    {
-        return 3;
-    }
-
-    public int healthIncrease()
-    {
-        return 25;
     }
 }

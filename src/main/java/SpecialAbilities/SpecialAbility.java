@@ -40,6 +40,11 @@ public abstract class SpecialAbility
         return party.getCharacter(choice - 1);
     }
 
+    protected int calculateRounds(A_Character character)
+    {
+        return Math.max(1, character.getCunning()/4);
+    }
+
     protected A_Character randomTarget(Party party)
     {
         return party.getCharacter(rand.nextInt(party.size()));

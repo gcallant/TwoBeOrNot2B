@@ -17,16 +17,15 @@ public class Warrior extends A_Hero
 	private SpecialManager specialManager;
 	private int level;
 
-	public Warrior(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
+	public Warrior(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
 	{
-		super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon);
+		super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Heavy, weapon);
 
 		specialManager = new SpecialManager();
 
 		specialManager.addSpecialAbility(new StunningStrike());
 		specialManager.addSpecialAbility(new IntimidatingShout());
 		specialManager.addSpecialAbility(new WarCry());
-
 	}
 
 	public boolean specialAbility(Party heroes, Party monsters)
@@ -47,24 +46,7 @@ public class Warrior extends A_Hero
 
 	public static String Information()
 	{
-		return "Warrior:\n     - Stunning Strike: Hits for increased damage and has a chance to stun\n" +
-				"     - Intimidating Shout: Causes all enemies to less damage. Debuff amount based off of cunning\n" +
-				"     - War Cry: Causes all allies to deal increased damage. Buff amount based off of cunning";
-	}
-
-	public int strengthIncrease()
-	{
-		return 4;
-	}
-
-	public int dexterityIncrease()
-	{
-		return 1;
-	}
-
-	public int healthIncrease()
-	{
-		return 25;
+		return "Warrior:\n" + StunningStrike.description() + "\n" + IntimidatingShout.description() + "\n" + WarCry.description();
 	}
 
 	@Override

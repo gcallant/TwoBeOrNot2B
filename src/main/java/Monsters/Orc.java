@@ -21,9 +21,9 @@ public class Orc extends A_Monster
 	private SpecialManager specialManager;
 	private int level;
 
-	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+	public Orc(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
+		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new StunningStrike());
@@ -39,8 +39,8 @@ public class Orc extends A_Monster
 
 	public void levelUp()
 	{
-		upgradeStrength();
-		upgradeStrength();
+		upgradepower();
+		upgradepower();
 		upgradeHealth();
 	}
 

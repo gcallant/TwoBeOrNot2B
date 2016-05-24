@@ -22,9 +22,9 @@ public class Goblin extends A_Monster
 	private SpecialManager specialManager;
 	private int level;
 
-	public Goblin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+	public Goblin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level, CreatureType.Humanoid);
+		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 
@@ -40,9 +40,9 @@ public class Goblin extends A_Monster
 
 	public void levelUp()
 	{
-		upgradeDexterity();
+		upgradecunning();
 		upgradeHealth();
-		upgradeStrength();
+		upgradepower();
 	}
 
 	public int getLevel()

@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class WarCry extends SpecialAbility
+public class EagleEye extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,22 +22,22 @@ public class WarCry extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies)
     {
-        System.out.println(character.getName() + " used war cry!");
-        double buff = 1.0 + ((double)character.getCunning()*.025);
+        System.out.println(character.getName() + " used eagle eye!");
+        double buff = 1.0 + ((double)character.getPower()*.025);
 
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).getConditions().giveDamageBuff(buff, calculateRounds(character), "War Cry");
+            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character)*2, "War Cry");
         }
     }
 
     public String toString()
     {
-        return "War Cry";
+        return "Eagle Eye";
     }
 
     public static String description()
     {
-        return "     - War Cry: Causes all allies to deal increased damage. Buff amount based off of cunning";
+        return "     - Increase the whole parties attack chance for many rounds";
     }
 }

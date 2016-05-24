@@ -8,7 +8,7 @@ public class Dagger extends Weapon
 
 	public Dagger(int power)
 	{
-		super(power, "dexterity");
+		super(power, "cunning");
 		this.damageType = DamageType.Piercing;
 		this.base = 1;
 		this.weaponType = WeaponType.Light;

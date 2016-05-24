@@ -23,9 +23,9 @@ public class DireWolf extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public DireWolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+    public DireWolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level, CreatureType.Animal);
+        super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level, CreatureType.Animal);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new ViciousBite());
@@ -41,8 +41,8 @@ public class DireWolf extends A_Monster
 
     public void levelUp()
     {
-        upgradeStrength();
-        upgradeStrength();
+        upgradepower();
+        upgradepower();
         upgradeHealth();
         upgradeHealth();
     }

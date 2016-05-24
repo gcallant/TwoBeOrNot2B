@@ -19,9 +19,9 @@ public class Assassin extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public Assassin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
+    public Assassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
+        super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new SneakAttack());
@@ -38,9 +38,9 @@ public class Assassin extends A_Monster
 
     public void levelUp()
     {
-        upgradeDexterity();
-        upgradeDexterity();
-        upgradeStrength();
+        upgradecunning();
+        upgradecunning();
+        upgradepower();
         upgradeHealth();
     }
 

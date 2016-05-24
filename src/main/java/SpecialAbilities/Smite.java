@@ -32,12 +32,12 @@ public class Smite extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        character.getConditions().tempDamage(character.getStrength());
+        character.getConditions().tempDamage(character.getPower());
 
         System.out.println(character.getName() + " used smite on " + choiceToStrike.getName());
         if(choiceToStrike.getCreatureType() == CreatureType.Undead)
         {
-            character.getConditions().tempDamage(character.getStrength()*4);
+            character.getConditions().tempDamage(character.getPower()*4);
             character.preformAttack(choiceToStrike);
         }
         else
@@ -49,5 +49,10 @@ public class Smite extends SpecialAbility
     public String toString()
     {
         return "Smite";
+    }
+
+    public static String description()
+    {
+        return "     - Smite: Does strong damage to all undead but has little effect on others";
     }
 }

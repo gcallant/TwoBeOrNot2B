@@ -59,8 +59,8 @@ public class SneakAttack extends SpecialAbility
 
         if((choiceToStrike.getHealth() == choiceToStrike.getMaxHealth()) || choiceToStrike.getConditions().hasBadCondition())
         {
-            character.getConditions().tempDamage(character.getStrength()*5);
-            character.getConditions().tempAttack(character.getDexterity());
+            character.getConditions().tempDamage(character.getPower()*5);
+            character.getConditions().tempAttack(character.getCunning());
         }
 
         character.attack(choiceToStrike);
@@ -69,5 +69,10 @@ public class SneakAttack extends SpecialAbility
     public String toString()
     {
         return "Sneak Attack";
+    }
+
+    public static String description()
+    {
+        return "     - Sneak Attack: Deals immense damage to foes who are at full health or who have bad conditions";
     }
 }

@@ -21,8 +21,8 @@ public class Skeleton extends A_Monster
 	private SpecialManager specialManager;
 	private int level;
 
-	public Skeleton(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level) {
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Medium, weapon, 3, level, CreatureType.Undead);
+	public Skeleton(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level) {
+		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Medium, weapon, 3, level, CreatureType.Undead);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new FearsomeGaze());;
@@ -36,9 +36,9 @@ public class Skeleton extends A_Monster
 	}
 
 	public void levelUp() {
-		upgradeStrength();
-		upgradeStrength();
-		upgradeStrength();
+		upgradepower();
+		upgradepower();
+		upgradepower();
 		upgradeHealth();
 		upgradeHealth();
 	}

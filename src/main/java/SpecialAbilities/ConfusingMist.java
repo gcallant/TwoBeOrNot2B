@@ -4,9 +4,10 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class MeteorShower extends SpecialAbility
+
+public class ConfusingMist extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,21 +23,24 @@ public class MeteorShower extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used meteor shower!");
+        System.out.println(character.getName() + " used confusing mist!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
-            character.preformAttack(enemies.getCharacter(x));
+            if(rand.nextInt(4) > 2)
+            {
+                enemies.getCharacter(x).getConditions().giveConfusedDebuff(calculateRounds(character), "Confusing Mist");
+            }
         }
     }
 
     public String toString()
     {
-        return "Meteor Shower";
+        return "Confusing Mist";
     }
 
     public static String description()
     {
-        return "     - Meteor Shower: Attacks all enemies for a small amount of damage but has no chance to miss";
+        return "     - ";
     }
 }

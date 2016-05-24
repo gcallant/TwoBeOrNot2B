@@ -1,8 +1,5 @@
 package BuffsAndDebuffs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Michael on 5/21/2016.
  */
@@ -18,6 +15,7 @@ public class BuffsManager
     private BooleanBuffList exhausted;
     private BooleanBuffList stunned;
     private BooleanBuffList feared;
+    private BooleanBuffList confused;
     private String name;
 
     public BuffsManager(String name)
@@ -27,11 +25,12 @@ public class BuffsManager
         damage = new DamageBuffs(name);
         damageDebuff = new DamageDebuff(name);
         regen = new RegenBuffs(name);
-        poison = new PoisonBuffs(name);
+        poison = new PoisonDebuffs(name);
         bleed = new BleedDebuff(name);
-        exhausted = new ExhaustedBuffs(name);
+        exhausted = new ExhaustedDebuffs(name);
         stunned = new StunnedDebuff(name);
         feared = new FearDebuff(name);
+        confused = new ConfusionDebuff(name);
         this.name = name;
     }
 
@@ -85,6 +84,11 @@ public class BuffsManager
     {
         feared.addBuff(rounds, source);
     }
+
+    public void addConfusedDebuff(int rounds, String source)
+    {
+        confused.addBuff(rounds, source);
+    }
     //
 
     public void decrement()
@@ -109,6 +113,8 @@ public class BuffsManager
         bleed.decrementList();
 
         feared.decrementList();
+
+        confused.decrementList();
     }
 
     public void decrementBad()
@@ -116,10 +122,9 @@ public class BuffsManager
         //All negative buffs except Exhaustion.
         poison.decrementList();
         stunned.decrementList();
-        attackDebuff.decrementList();
-        damageDebuff.decrementList();
         bleed.decrementList();
         feared.decrementList();
+        confused.decrementList();
     }
 
     //One for every BuffList
@@ -176,6 +181,11 @@ public class BuffsManager
     {
         return feared.isInEffect();
     }
+
+    public boolean isConfused()
+    {
+        return confused.isInEffect();
+    }
     //
 
     public boolean badCondition()
@@ -187,13 +197,14 @@ public class BuffsManager
         badCondition = exhausted.isInEffect() || badCondition;
         badCondition = stunned.isInEffect() || badCondition;
         badCondition = feared.isInEffect() || badCondition;
+        badCondition = confused.isInEffect() || badCondition;
 
         return badCondition;
     }
 
     public void clearBad()
     {
-        while(poison.size() > 0  || stunned.size() > 0 || bleed.size() > 0 || feared.size() > 0)
+        while(poison.size() > 0  || stunned.size() > 0 || bleed.size() > 0 || feared.size() > 0 || confused.size() > 0)
         {
             decrementBad();
         }
@@ -212,5 +223,6 @@ public class BuffsManager
         stunned.clear();
         bleed.clear();
         feared.clear();
+        confused.clear();
     }
 }

@@ -34,6 +34,7 @@ public class LoggingManager
 		else
 		{
 			configureLogger();
+			logger = LoggerFactory.getLogger(callingClass);
 		}
 	}
 
@@ -46,6 +47,7 @@ public class LoggingManager
 		else
 		{
 			configureLogger();
+			logger = LoggerFactory.getLogger(callingClass);
 		}
 	}
 
@@ -103,7 +105,7 @@ public class LoggingManager
 	private String convertSeparators(String[] cwd)
 	{
 		String directory = "";
-		for(int i = 0; i < cwd.length; i++)
+		for(int i = 0; i < cwd.length -1; i++)
 		{
 			directory += cwd[i] + "\\\\";
 		}
@@ -129,5 +131,46 @@ public class LoggingManager
 		line = line.substring(0, location);
 		line += directoryToSave;
 		loggerProperties.add(1, line);
+
+		line = loggerProperties.get(5);
+		loggerProperties.remove(5);
+		location = line.indexOf('=') + 1;
+		line = line.substring(0, location);
+		line += "${log}" + SEPARATOR +"game.log";
+		loggerProperties.add(5, line);
 	}
+
+	public void cleanLoggerProperties()
+    {
+        File cwd = OSUtil.getCurrentDirectory();
+        String directoryToSave = "";
+        try
+        {
+            List<String> loggerProperties = readLoggerProperties(cwd);
+
+            injectGenericIntoProperties(loggerProperties);
+            writePropertiesToFile(loggerProperties, cwd);
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+	}
+
+    private void injectGenericIntoProperties(List<String> loggerProperties)
+    {
+        String line = loggerProperties.get(1);
+        loggerProperties.remove(1);
+        int location = line.indexOf('=') + 1;
+        line = line.substring(0, location);
+        line += "null";
+        loggerProperties.add(1, line);
+
+        line = loggerProperties.get(5);
+        loggerProperties.remove(5);
+        location = line.indexOf('=') + 1;
+        line = line.substring(0, location);
+        line += "prelog.ignore";
+        loggerProperties.add(5, line);
+    }
 }

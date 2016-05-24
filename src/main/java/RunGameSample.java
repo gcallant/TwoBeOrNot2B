@@ -33,6 +33,7 @@ public class RunGameSample
         }
         DatabaseManager database = new DatabaseManager();
         database.closeConnection();
+        loggingManager.cleanLoggerProperties();
     }
 
     private static void createExternalDirectory()

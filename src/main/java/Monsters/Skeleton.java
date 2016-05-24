@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -21,10 +22,10 @@ public class Skeleton extends A_Monster
 	private int level;
 
 	public Skeleton(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level) {
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Medium, weapon, 4, level);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Medium, weapon, 3, level, CreatureType.Undead);
 
 		specialManager = new SpecialManager();
-		specialManager.addSpecialAbility(new FearsomeGaze());
+		specialManager.addSpecialAbility(new FearsomeGaze());;
 
 		this.level = level;
 	}
@@ -35,6 +36,7 @@ public class Skeleton extends A_Monster
 	}
 
 	public void levelUp() {
+		upgradeStrength();
 		upgradeStrength();
 		upgradeStrength();
 		upgradeHealth();

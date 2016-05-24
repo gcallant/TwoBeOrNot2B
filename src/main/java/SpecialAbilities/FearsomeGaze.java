@@ -26,7 +26,7 @@ public class FearsomeGaze extends SpecialAbility
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
-            if(rand.nextBoolean())
+            if(rand.nextInt(5) > 2)
             {
                 enemies.getCharacter(x).getConditions().giveFearedDebuff(4, "Fearsome Gaze");
             }

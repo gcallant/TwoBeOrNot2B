@@ -30,7 +30,7 @@ public class PoisonBomb extends SpecialAbility
             {
                 if(rand.nextBoolean())
                 {
-                    System.out.println(enemies.getCharacter(x).getName() + " is poison!");
+                    System.out.println(enemies.getCharacter(x).getName() + " is poisoned!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(1.2, 4, "Poison Bomb");
                 }
             }

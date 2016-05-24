@@ -33,7 +33,8 @@ public class Mage extends A_Hero
 
 	public static String Information()
 	{
-		return "Mage: Mages may be slow and easy to hit, but their meteor swarm which attacks all enemies is a sight to behold. They can also buff themselves with magic";
+		return "Mage:\n     - Owl's Insight: buffs the casters power\n" +
+				"     - Meteor Swarm: Attacks all enemies for a small amount of damage but has no chance to miss";
 	}
 
 	public String getName()

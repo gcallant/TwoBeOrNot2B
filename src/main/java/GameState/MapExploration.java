@@ -37,7 +37,7 @@ public class MapExploration implements I_State
 
     public I_State moveDirection(String command)
     {
-        if(!myMap.isValidDirection(command) || mediator.giveFreeTravel())
+        if(!myMap.isValidDirection(command))
         {
             return new MapExploration(mediator);
         }
@@ -45,7 +45,7 @@ public class MapExploration implements I_State
         myMap.updateCharacter(command);
         if(myMap.endOfMap())
         {
-            return new EndOfMap(mediator);
+            return new BossBattle(mediator);
         }
         battleChance = rand.nextInt(mediator.giveMonsterChance()) == 0;
         if(battleChance && !mediator.giveNoEnemies())
@@ -55,14 +55,17 @@ public class MapExploration implements I_State
         }
         else
         {
-            mediator.receiveMonsterChance(mediator.giveMonsterChance() - 1);
+            if(!mediator.giveNoEnemies())
+            {
+                mediator.receiveMonsterChance(mediator.giveMonsterChance() - 1);
+            }
         }
         return new MapExploration(mediator);
     }
 
     public I_State execute()
     {
-        char[] validInputs = new char[8];
+        char[] validInputs = new char[10];
         validInputs[0] = 'u';
         validInputs[1] = 'd';
         validInputs[2] = 'r';
@@ -71,6 +74,8 @@ public class MapExploration implements I_State
         validInputs[5] = 'n';
         validInputs[6] = 'e';
         validInputs[7] = 'f';
+        validInputs[8] = 'b';
+        validInputs[9] = 'z';
         char command = TestString.ensureChar(validInputs);
         switch(command)
         {
@@ -91,6 +96,11 @@ public class MapExploration implements I_State
                 return new MapExploration(mediator);
             case 'f':
                 mediator.receiveNormal();
+                return new MapExploration(mediator);
+            case 'b':
+                return new BossBattle(mediator);
+            case 'z':
+                mediator.giveParty().gainExperience(500);
                 return new MapExploration(mediator);
             default:
                 return new MapExploration(mediator);

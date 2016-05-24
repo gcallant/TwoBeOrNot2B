@@ -233,6 +233,14 @@ public class Party
         }
     }
 
+    public void addCharacter(A_Character character)
+    {
+        if(character != null)
+        {
+            characterParty.add(character);
+        }
+    }
+
     @Override
     public boolean equals(Object o)
     {

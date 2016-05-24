@@ -7,6 +7,8 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
+import SpecialAbilities.HealingLightHero;
+import SpecialAbilities.Smite;
 import SpecialAbilities.SpecialManager;
 import com.google.common.base.Objects;
 
@@ -22,7 +24,8 @@ public class Paladin extends A_Hero
         super(name, health, strength, dexterity, ArmorType.Heavy, armor, WeaponType.Medium, weapon);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new HealingLight());
+        specialManager.addSpecialAbility(new HealingLightHero());
+        specialManager.addSpecialAbility(new Smite());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -37,7 +40,8 @@ public class Paladin extends A_Hero
 
     public static String Information()
     {
-        return "Paladin: Paladins are hard to hit and can provide cover for their weaker allies. They can also heal and removes stun from their allies, but this leaves them weary for a few rounds";
+        return "Paladin:\n     - Healing Light: Heals all allies for a small amount and hurts enemies for half of that. It cures many bad conditions\n" +
+                "     - Smite: Does strong damage to all undead but has little effect on others";
     }
 
     public int strengthIncrease()

@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -23,7 +24,7 @@ public class Goblin extends A_Monster
 
 	public Goblin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 

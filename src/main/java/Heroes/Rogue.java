@@ -22,7 +22,6 @@ public class Rogue extends A_Hero
 
         specialManager.addSpecialAbility(new SneakAttack());
         specialManager.addSpecialAbility(new PoisonStrike());
-        specialManager.addSpecialAbility(new PoisonBomb());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -32,7 +31,8 @@ public class Rogue extends A_Hero
 
     public static String Information()
     {
-        return "Rogue: Rogues are fast and hard to hit. They excel at striking their enemies when they are at full health or incapacitated";
+        return "Rogue:\n     - Sneak Attack: Deals immense damage to foes who are at full health or who have bad conditions\n" +
+                "     - Poison Strike: Deals no damage but puts a poison debuff on the target for a few rounds";
     }
 
     public String getName()

@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -22,7 +23,7 @@ public class UndeadCleric extends A_Monster
 
     public UndeadCleric(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon, 8, level);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Staff, weapon, 8, level, CreatureType.Undead);
 
         specialManager = new SpecialManager();
 
@@ -41,6 +42,8 @@ public class UndeadCleric extends A_Monster
         upgradeStrength();
         upgradeStrength();
         upgradeStrength();
+        upgradeHealth();
+        upgradeHealth();
     }
     public int getLevel()
     {

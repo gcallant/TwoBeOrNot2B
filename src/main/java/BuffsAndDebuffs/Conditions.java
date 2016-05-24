@@ -196,8 +196,8 @@ public class Conditions
     {
         int poison, bleed;
 
-        poison = calculatePoisonDamage(health);
-        bleed = calculateBleedDamage(health);
+        poison = Math.min(50,calculatePoisonDamage(health));
+        bleed = Math.min(50,calculateBleedDamage(health));
         if(poison > 0)
         {
             System.out.println(name + " is poisoned and takes " + poison + " damage!");

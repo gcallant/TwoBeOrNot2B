@@ -23,9 +23,9 @@ public class Mediator
     private int               floorLevel;
     private int partyLevel;
     private boolean noEnemies;
-    private boolean freeTravel;
     private boolean normal;
     private int monsterChance;
+    private int monsterCount;
 
     public Mediator()
     {
@@ -33,7 +33,6 @@ public class Mediator
         this.map = null;
         this.dungeonSize = 10;
         noEnemies = false;
-        freeTravel = false;
         normal = true;
         monsterChance = 10;
     }
@@ -123,16 +122,6 @@ public class Mediator
         return noEnemies;
     }
 
-    public void receiveFreeTravel()
-    {
-        freeTravel = !freeTravel;
-    }
-
-    public boolean giveFreeTravel()
-    {
-        return freeTravel;
-    }
-
     public void receiveNormal()
     {
         normal = !normal;
@@ -151,6 +140,16 @@ public class Mediator
     public int giveMonsterChance()
     {
         return monsterChance;
+    }
+
+    public void receiveMonsterCount(int count)
+    {
+        monsterCount = count;
+    }
+
+    public int giveMonsterCount()
+    {
+        return monsterCount;
     }
 
     @Override

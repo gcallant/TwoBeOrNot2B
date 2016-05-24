@@ -24,11 +24,13 @@ public abstract class A_Character
 	private ArmorType  armorType;
 	private WeaponType weaponType;
 	protected Conditions conditions;
-	private int bleedDuration;
+	private CreatureType creatureType;
 
 	protected Random   rand;
 
-	public A_Character(String name, int health, int strength, int dexterity, ArmorType armorType, Armor newArmor, WeaponType weaponType, Weapon newWeapon)
+	public A_Character(String name, int health, int strength, int dexterity,
+					   ArmorType armorType, Armor newArmor, WeaponType weaponType,
+					   Weapon newWeapon, CreatureType creatureType)
 	{
 		this.name      = name;
 		this.health    = health;
@@ -39,6 +41,7 @@ public abstract class A_Character
 		this.maxHealth = health;
 		this.armorType = armorType;
 		this.weaponType = weaponType;
+		this.creatureType = creatureType;
 
 		this.level         = 1;
 		this.experience    = 0;
@@ -63,25 +66,6 @@ public abstract class A_Character
 	*/
 
 
-	protected void viciousBite(A_Character character)
-	{
-		if(canAttack(character))
-		{
-			System.out.println(getName() + "used Vicious Bite on " + character.getName() + "!");
-			preformAttack(character);
-			if(rand.nextBoolean())
-			{
-				System.out.println(character.getName() + " is bleeding from the attack!");
-				//character.setBleed(3);
-			}
-		}
-	}
-
-	protected A_Monster summonSkeleton()
-	{
-		//will return a Skeleton to join the summoner in battle. Need to work out implementation details.
-		return null;
-	}
 
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -280,23 +264,23 @@ public abstract class A_Character
 	@Override
 	public String toString()
 	{
-		return "Name: " + getName() + "\tHealth: " + getHealth() + "\tStrength: " + getStrength() +
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "/" + getMaxHealth() + "\tStrength: " + getStrength() +
 				         "\tDexterity: " + getDexterity() + "\t" + getArmor() + "\t" + getWeapon();
 	}
 
 	public String inventoryDisplay()
 	{
-		return "Name: " + getName() + " Health: " + getHealth() + " Armor: " + getArmor() + " Weapon: " + getWeapon();
+		return "Name: " + getName() + " Health: " + getHealth() + "/" + getMaxHealth() + " Armor: " + getArmor() + " Weapon: " + getWeapon();
 	}
 
 	public String displayStats()
 	{
-		return "Name: " + getName() + " Level: " + getLevel() + " Health: " + getHealth() + " Strength: " + getStrength() + (strength != getStrength() ? ("(" + strength + ")"):"") + " Dexterity: " + getDexterity() + (dexterity != getDexterity() ? ("(" + dexterity + ")"):"") + " " + getArmor() + " " + getWeapon();
+		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level*100) + " Health: " + getHealth() + "/" + getMaxHealth() + " Strength: " + getStrength() + (strength != getStrength() ? ("(" + strength + ")"):"") + " Dexterity: " + getDexterity() + (dexterity != getDexterity() ? ("(" + dexterity + ")"):"") + " " + getArmor() + " " + getWeapon();
 	}
 
 	public String battleDisplay()
 	{
-		String retString = "Name: " + getName() + " Health: " + getHealth();
+		String retString = "Name: " + getName() + " Health: " + getHealth() + "/" + getMaxHealth();
 		retString += conditions.displayStats();
 		if(conditions.hasBadCondition())
 		{
@@ -398,6 +382,11 @@ public abstract class A_Character
 		return maxHealth;
 	}
 
+	public CreatureType getCreatureType()
+	{
+		return creatureType;
+	}
+
 	private int totalDefense()
 	{
 		int defense = armor.getPower();
@@ -419,6 +408,11 @@ public abstract class A_Character
 		initiative = randomValue + dexterity;
 	}
 
+	protected void reassignConditons(Conditions conditions)
+	{
+		this.conditions = conditions;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -433,7 +427,6 @@ public abstract class A_Character
 				         experience == that.experience &&
 				         isDefeated == that.isDefeated &&
 				         initiative == that.initiative &&
-				         bleedDuration == that.bleedDuration &&
 				         com.google.common.base.Objects.equal(name, that.name) &&
 				         Objects.equal(armor, that.armor) &&
 				         Objects.equal(weapon, that.weapon) &&
@@ -447,6 +440,6 @@ public abstract class A_Character
 	public int hashCode()
 	{
 		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType, conditions, bleedDuration, rand);
+		                        isDefeated, initiative, armorType, weaponType, conditions, rand);
 	}
 }

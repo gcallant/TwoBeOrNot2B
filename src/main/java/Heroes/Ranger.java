@@ -33,7 +33,8 @@ public class Ranger extends A_Hero
 
     public static String Information()
     {
-        return "Ranger: Rangers can put regen on themselves, recover twice as fast as other heroes, and their attacks pierce through their enemies";
+        return "Ranger:\n     - Piercing Strike: Hits the first target and then hits a random second target for increased damage\n" +
+                "     - Natural Remedy: Grants the caster regeneration for a few rounds";
     }
 
     public String getName()

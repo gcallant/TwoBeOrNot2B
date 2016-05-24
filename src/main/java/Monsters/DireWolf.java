@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -24,7 +25,7 @@ public class DireWolf extends A_Monster
 
     public DireWolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level);
+        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level, CreatureType.Animal);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new ViciousBite());

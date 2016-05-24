@@ -25,19 +25,21 @@ public class SummonSkeleton extends SpecialAbility
     private void abilityExecution(A_Character character, Party allies, Party enemies)
     {
         System.out.println(character.getName() + " summoned a skeleton!");
+        A_Character monster;
         if(rand.nextBoolean())
         {
-            A_Character monster = new MonsterFactory().createMonster("Skeleton", "Skeleton", enemies.getCharacter(0).getLevel(), true);
+            monster = new MonsterFactory().createMonster("Skeleton", "Skeleton", enemies.getCharacter(0).getLevel(), true);
         }
         else
         {
-            A_Character monster = new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", enemies.getCharacter(0).getLevel(), true);
+            monster = new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", enemies.getCharacter(0).getLevel(), true);
         }
+        allies.addCharacter(monster);
     }
 
     public String toString()
     {
-        return "Owl's Insight";
+        return "Summon Skeleton";
     }
 
 }

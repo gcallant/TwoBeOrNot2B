@@ -1,5 +1,6 @@
 package Monsters;
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -22,7 +23,7 @@ public class Ogre extends A_Monster
 
     public Ogre(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 4, level);
+        super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 4, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new StunningStrike());
@@ -40,7 +41,7 @@ public class Ogre extends A_Monster
     {
         upgradeHealth();
         upgradeHealth();
-        upgradeHealth();
+        upgradeStrength();
         upgradeStrength();
         upgradeStrength();
     }

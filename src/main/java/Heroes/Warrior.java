@@ -47,7 +47,9 @@ public class Warrior extends A_Hero
 
 	public static String Information()
 	{
-		return "Warrior: Warriors hit hard and can stun their opponents with their mighty swings but doing so tires them out. They can also intimidate their foes once per a battle";
+		return "Warrior:\n     - Stunning Strike: Hits for increased damage and has a chance to stun\n" +
+				"     - Intimidating Shout: Causes all enemies to less damage. Debuff amount based off of cunning\n" +
+				"     - War Cry: Causes all allies to deal increased damage. Buff amount based off of cunning";
 	}
 
 	public int strengthIncrease()

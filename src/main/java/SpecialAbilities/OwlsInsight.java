@@ -24,7 +24,7 @@ public class OwlsInsight extends SpecialAbility
     {
         System.out.println(character.getName() + " used owl's insight!");
         double calculateBuff = 1.0 + .05*((double)character.getStrength());
-        character.getConditions().giveDamageBuff(calculateBuff, character.getStrength()/2, "Owl's Insight");
+        character.getConditions().giveDamageBuff(calculateBuff, (character.getStrength()/2) + 1, "Owl's Insight");
     }
 
     public String toString()

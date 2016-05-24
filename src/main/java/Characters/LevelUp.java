@@ -16,6 +16,9 @@ public class LevelUp
         int num = 3;
         int choice = 0;
 
+        character.upgradeStrength();
+        character.upgradeHealth();
+        character.upgradeDexterity();
         while(num > 0)
         {
             System.out.println("You have " + num + " points to spend!");

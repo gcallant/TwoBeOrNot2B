@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -20,7 +21,7 @@ public class Assassin extends A_Monster
 
     public Assassin(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Light, weapon, 6, level);
+        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new SneakAttack());

@@ -35,7 +35,7 @@ public class GenerateMonsterParty
         int[] numberOfWarChiefs = {1, 3, 4};
         int[] numberOfAssasins = {1, 5, 6};
         int[] numberOfDireWolfs = {2, 4, 8};
-        int[] numberOfSkeletons = {0, 5, 7};
+        int[] numberOfSkeletons = {3, 5, 7};
 
         //Manually add one monster to each of the lists
         addInValues("Goblin",numberOfGoblins);

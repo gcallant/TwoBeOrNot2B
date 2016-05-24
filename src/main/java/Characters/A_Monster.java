@@ -17,9 +17,11 @@ public abstract class A_Monster extends A_Character
 	private int percentageOfSpecial;
 	protected Random rand;
 
-	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon, int percentageOfSpecial, int level)
+	public A_Monster(String name, int health, int strength, int dexterity, ArmorType armorType,
+					 Armor armor, WeaponType weaponType, Weapon weapon, int percentageOfSpecial,
+					 int level, CreatureType creatureType)
 	{
-		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
+		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon, creatureType);
 		rand = new Random();
 		this.percentageOfSpecial = percentageOfSpecial - 1;
 		int curLevel = 1;

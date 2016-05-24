@@ -10,17 +10,17 @@ public class HealingLight extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character, allies);
+        abilityExecution(character, allies, enemies);
         return false;
     }
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character, allies);
+        abilityExecution(character, allies, enemies);
         return false;
     }
 
-    private void abilityExecution(A_Character character, Party allies)
+    public void abilityExecution(A_Character character, Party allies, Party enemies)
     {
         System.out.println(character.getName() + " used healing light and healed his whole party for " + 2*character.getStrength());
         for(int x = 0; x < allies.size(); x++)

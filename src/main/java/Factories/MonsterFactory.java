@@ -52,7 +52,7 @@ public class MonsterFactory
             case "Skeleton":
                 if(normal)
                 {
-                    return new Skeleton(monsterName, 80, 9, 4, new Cloth(level), new Sword(level), level);
+                    return new Skeleton(monsterName, 80, 14, 4, new Cloth(level), new Sword(level), level);
                 }
                 return new Skeleton(monsterName, 1, 9, 4, new Cloth(1), new Sword(1), 1);
             case "Dire Wolf":

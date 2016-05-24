@@ -1,6 +1,7 @@
 package Monsters;
 
 import Characters.A_Monster;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
@@ -22,7 +23,7 @@ public class Orc extends A_Monster
 
 	public Orc(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon, int level)
 	{
-		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level);
+		super(name, health, strength, dexterity, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new StunningStrike());

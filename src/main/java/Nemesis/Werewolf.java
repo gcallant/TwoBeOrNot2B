@@ -1,10 +1,12 @@
 package Nemesis;
 
 import Characters.A_Nemesis;
+import Characters.CreatureType;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
+import Mediator.Mediator;
 import PartyManagement.Party;
 
 import java.util.*;
@@ -16,7 +18,7 @@ public class Werewolf extends A_Nemesis
 {
     public Werewolf(String name, int health, int strength, int dexterity, Armor armor, Weapon weapon)
     {
-        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Medium, weapon);
+        super(name, health, strength, dexterity, ArmorType.Medium, armor, WeaponType.Medium, weapon, 1, CreatureType.Animal);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)

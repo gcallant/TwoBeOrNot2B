@@ -9,6 +9,7 @@ import PartyManagement.Party;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StealLife;
 import com.google.common.base.Objects;
 
 /**
@@ -22,6 +23,7 @@ public class LifeThief extends A_Hero
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Light, weapon);
 
         specialManager = new SpecialManager();
+        specialManager.addSpecialAbility(new StealLife());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -31,7 +33,7 @@ public class LifeThief extends A_Hero
 
     public static String Information()
     {
-        return "Life Thief:\n";
+        return "Life Thief:\n" + StealLife.description() + "\n";
     }
 
     public String getName()

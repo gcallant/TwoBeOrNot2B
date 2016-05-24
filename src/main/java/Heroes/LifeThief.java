@@ -45,10 +45,10 @@ public class LifeThief extends A_Hero
     public boolean equals(Object o)
     {
         if(this == o) { return true; }
-        if(! (o instanceof Mage)) { return false; }
+        if(! (o instanceof LifeThief)) { return false; }
         if(! super.equals(o)) { return false; }
-        Mage mage = (Mage) o;
-        return Objects.equal(specialManager, mage.specialManager);
+        LifeThief lifeThief = (LifeThief) o;
+        return Objects.equal(specialManager, lifeThief.specialManager);
     }
 
     @Override

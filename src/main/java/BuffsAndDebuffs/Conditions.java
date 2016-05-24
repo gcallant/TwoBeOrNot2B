@@ -106,6 +106,11 @@ public class Conditions
         buffsManager.addBleedDebuff(percentage, rounds, source);
     }
 
+    public void giveRegenStaticBuff(double value, int rounds, String source)
+    {
+        buffsManager.addRegenStaticBuff(value, rounds, source);
+    }
+
     public void giveExhaustedDebuff(int rounds, String source)
     {
         buffsManager.addExhaustedDebuff(rounds, source);
@@ -133,6 +138,11 @@ public class Conditions
     private int calculateRegen(int health)
     {
          return (int)((double)health*buffsManager.getRegenAmount());
+    }
+
+    private int calculateRegenStatic()
+    {
+        return (int)buffsManager.getRegenStaticAmount();
     }
 
     private int calculatePoisonDamage(int health)
@@ -252,7 +262,7 @@ public class Conditions
     {
         int regen;
 
-        regen = calculateRegen(health);
+        regen = calculateRegen(health) + calculateRegenStatic();
         if(regen > 0)
         {
             System.out.println(name + " has regen and recovers " + regen + " health!");

@@ -12,6 +12,7 @@ public class BuffsManager
     private BuffList regen;
     private BuffList poison;
     private BuffList bleed;
+    private BuffList regenStatic;
     private BooleanBuffList exhausted;
     private BooleanBuffList stunned;
     private BooleanBuffList feared;
@@ -27,6 +28,7 @@ public class BuffsManager
         regen = new RegenBuffs(name);
         poison = new PoisonDebuffs(name);
         bleed = new BleedDebuff(name);
+        regenStatic = new RegenStaticBuff(name);
         exhausted = new ExhaustedDebuffs(name);
         stunned = new StunnedDebuff(name);
         feared = new FearDebuff(name);
@@ -89,6 +91,11 @@ public class BuffsManager
     {
         confused.addBuff(rounds, source);
     }
+
+    public void addRegenStaticBuff(double buff, int rounds, String source)
+    {
+        regenStatic.addBuff(buff, rounds, source);
+    }
     //
 
     public void decrement()
@@ -115,6 +122,8 @@ public class BuffsManager
         feared.decrementList();
 
         confused.decrementList();
+
+        regenStatic.decrementList();
     }
 
     public void decrementBad()
@@ -165,6 +174,11 @@ public class BuffsManager
     public double getBleedAmount()
     {
         return bleed.getAmount();
+    }
+
+    public double getRegenStaticAmount()
+    {
+        return regenStatic.getAmount();
     }
 
     public boolean isExhausted()
@@ -224,5 +238,6 @@ public class BuffsManager
         bleed.clear();
         feared.clear();
         confused.clear();
+        regenStatic.clear();
     }
 }

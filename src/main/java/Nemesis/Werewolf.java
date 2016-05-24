@@ -21,6 +21,21 @@ public class Werewolf extends A_Nemesis
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Medium, weapon, 1, CreatureType.Animal);
     }
 
+    public boolean takeAction(Party heroes, Party monsters)
+    {
+        return false;
+    }
+
+    public void levelUp()
+    {
+
+    }
+
+    public void startRage(Random rand, Party heroes, Party enemeis)
+    {
+
+    }
+
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
         //doubleAttack(heroes.getCharacter(rand.nextInt(heroes.size())));

@@ -20,10 +20,10 @@ Warlord:
 public abstract class A_Nemesis extends A_Character
 {
 
-    private List<Consumable> potions;
+    protected List<Consumable> potions;
     protected int cooldown;
-    private boolean rage;
-    private boolean rageUsed;
+    protected boolean rage;
+    protected boolean rageUsed;
     protected int rageCount;
 
     public A_Nemesis(String name, int health, int power, int cunning, ArmorType armorType, Armor armor,
@@ -43,79 +43,11 @@ public abstract class A_Nemesis extends A_Character
         }
     }
 
-    public boolean takeAction(Party heroes, Party monsters)
-    {
-        boolean noTurn, noSpecial, useSpecial;
-
-        if(!rage && !rageUsed)
-        {
-            rage = getHealth() < (getMaxHealth() / 4);
-            if(rage)
-            {
-                startRage(rand, heroes, monsters);
-                rageUsed = true;
-                rageCount = 5;
-            }
-        }
-        noTurn = conditions.cannotAttack();
-        noSpecial = conditions.cannotUseSpecial();
-
-        if(conditions.confusedEffect(this, heroes, monsters))
-        {
-            noTurn = true;
-        }
-
-        resetTurn();
-
-        if(noTurn && !rage)
-        {
-            endTurn();
-            return false;
-        }
-
-        if(noSpecial && !rage)
-        {
-            useSpecial = false;
-        }
-
-        heroes.sortDefeated();
-        monsters.sortDefeated();
-
-        int choiceToAttack = rand.nextInt(heroes.size());
-
-        if(getHealth() < getMaxHealth()/2 && potions.size() > 0)
-        {
-            if(rand.nextBoolean())
-            {
-                potions.get(0).use(this);
-                potions.remove(0);
-            }
-        }
-        if((cooldown == 0 && monsters.size() < 6) || (cooldown == 0 && rage))
-        {
-            specialAbility(rand, heroes, monsters);
-            if(!rage || rageCount == 0)
-            {
-                cooldown = 2;
-            }
-            else
-            {
-                rageCount--;
-                cooldown = 1;
-            }
-        }
-        else
-        {
-            A_Character toAttack = heroes.getCharacter(choiceToAttack);
-            attack(toAttack);
-        }
-        endTurn();
-        return false;
-    }
+    public abstract boolean takeAction(Party heroes, Party monsters);
 
     public boolean isRaged()
     {
-        return getHealth() < (getMaxHealth()/4) && !rageUsed;
+        return (getHealth() < (getMaxHealth()/4)) && !rageUsed;
     }
 
     public void endTurn()
@@ -124,10 +56,9 @@ public abstract class A_Nemesis extends A_Character
         super.endTurn();
     }
 
-    public void startRage(Random rand, Party heroes, Party monsters)
-    {}
+    public abstract void startRage(Random rand, Party heroes, Party monsters);
 
-    public void levelUp(){}
+    public abstract void levelUp();
 
     public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 

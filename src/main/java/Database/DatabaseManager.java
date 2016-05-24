@@ -2,10 +2,8 @@ package Database;
 
 import Characters.A_Character;
 import Logging.LoggingManager;
-import PartyManagement.Inventory;
 import Mediator.Mediator;
 import Utilities.OSUtil;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.sqlite.SQLiteConfig;
 
@@ -23,10 +21,10 @@ public class DatabaseManager
 	private static final String         DATABASE          = "jdbc:sqlite:" +
 			                                                          OSUtil.getExternalDirectory().toString() +
 			                                                          OSUtil.getSeparator() + "DungeonCrawler.db";
+	private final        LoggingManager loggingManager    = LoggingManager.getInstance();
+	private final        Logger         logger            = loggingManager.getLogger();
 	private              Connection     databaseConnector = null;
 	private              Statement      sqlStatement      = null;
-	private final        LoggingManager loggingManager    = new LoggingManager(this.getClass());
-	private final        Logger         logger            = loggingManager.getLogger();
 
 
 
@@ -95,7 +93,6 @@ public class DatabaseManager
 
 		String statement = "";
 
-		//if(! tableIsPresent("CHARACTERS"))
 		{
 			statement = "CREATE TABLE IF NOT EXISTS CHARACTERS(" +
 					              "NAME TEXT PRIMARY KEY NOT NULL," +
@@ -118,7 +115,6 @@ public class DatabaseManager
 				logger.info("CHARACTERS table created successfully");
 		}
 
-		//if(! tableIsPresent("INVENTORY"))
 		{
 			statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
 					              "ITEMID INT PRIMARY KEY NOT NULL," +

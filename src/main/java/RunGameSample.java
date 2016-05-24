@@ -1,8 +1,9 @@
 import Database.DatabaseManager;
 import GameState.StateBase;
-import Logging.LoggingManager;
+import Logging.LoggerSetup;
 import Utilities.OSException;
 import Utilities.OSUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Scanner;
@@ -17,13 +18,7 @@ public class RunGameSample
 
     public static void main(String[] args)
     {
-        createExternalDirectory();
-        LoggingManager loggingManager = new LoggingManager("RunGameSample");
-
-
-
-
-        StateBase gameState = new StateBase();
+        StateBase gameState = initialSetup();
         Scanner kb = new Scanner(System.in);
 
         while(gameState.isNotEnd())
@@ -32,8 +27,20 @@ public class RunGameSample
             gameState.executeCurrentState();
         }
         DatabaseManager database = new DatabaseManager();
+        cleanUp(database);
+    }
+
+    @NotNull
+    private static StateBase initialSetup()
+    {
+        createExternalDirectory();
+        LoggerSetup.configureLogger();
+        return new StateBase();
+    }
+
+    private static void cleanUp(DatabaseManager database)
+    {
         database.closeConnection();
-        loggingManager.cleanLoggerProperties();
     }
 
     private static void createExternalDirectory()

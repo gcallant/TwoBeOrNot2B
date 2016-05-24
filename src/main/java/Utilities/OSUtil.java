@@ -42,7 +42,7 @@ public class OSUtil
 	{
 		if(logger.isConfigured())
 		{
-			return logger = new LoggingManager("OSUtil");
+			return logger = LoggingManager.getInstance();
 		}
 		return null;
 	}

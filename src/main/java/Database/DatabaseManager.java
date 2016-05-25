@@ -98,7 +98,7 @@ public class DatabaseManager
 					              "NAME TEXT PRIMARY KEY NOT NULL," +
 					              " HEALTH INT NOT NULL," +
 					              " STRENGTH INT NOT NULL," +
-					              " DEXTERITY INT NOT NULL," +
+					              " CUNNING INT NOT NULL," +
 					              " ARMOR INT NOT NULL," +
 					              " WEAPON INT NOT NULL);";
 
@@ -219,12 +219,12 @@ public class DatabaseManager
 		String name = hero.getName();
 		int health = hero.getHealth();
 		int strength = hero.getHealth();
-		int dexterity = hero.getDexterity();
+		int cunning = hero.getCunning();
 		int armorPower = hero.getArmor().getPower();
 		int weaponPower = hero.getWeapon().getPower();
-		String concatValue = "'" + name + "'" + ", " + health + ", " + strength + ", " + dexterity +
+		String concatValue = "'" + name + "'" + ", " + health + ", " + strength + ", " + cunning +
 				                       ", " + armorPower + ", " + weaponPower;
-		String statement = "REPLACE INTO CHARACTERS(NAME, HEALTH, STRENGTH, DEXTERITY, ARMOR, WEAPON)" +
+		String statement = "REPLACE INTO CHARACTERS(NAME, HEALTH, STRENGTH, CUNNING, ARMOR, WEAPON)" +
 				  "VALUES (" + concatValue + ");";
 		logger.info("Attempting to insert hero {} into db", hero.getName());
 		return sqlStatement.executeUpdate(statement);

@@ -41,6 +41,11 @@ public class Paladin extends A_Hero
         return "Paladin:\n" + HealingLightHero.description() + "\n" + Smite.description();
     }
 
+    public void upgradeAbilities()
+    {
+        specialManager.upgradeAbilities();
+    }
+
     @Override
     public boolean equals(Object o)
     {

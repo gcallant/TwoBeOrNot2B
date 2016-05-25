@@ -6,9 +6,9 @@ import PartyManagement.Party;
 import java.util.ArrayList;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class SneakAttack extends SpecialAbility
+public class BladedFlurry extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -20,6 +20,7 @@ public class SneakAttack extends SpecialAbility
         }
 
         abilityExecution(character, choiceToStrike);
+        abilityExecution(character, enemies.getCharacter(rand.nextInt(enemies.size())));
 
         return false;
     }
@@ -44,6 +45,7 @@ public class SneakAttack extends SpecialAbility
         {
             choice = possibleChoices.get(rand.nextInt(possibleChoices.size()));
             abilityExecution(character, enemies.getCharacter(choice));
+            abilityExecution(character, enemies.getCharacter(choice));
         }
         else
         {
@@ -55,7 +57,7 @@ public class SneakAttack extends SpecialAbility
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
         int tempBoost = 0;
-        System.out.println(character.getName() + " used sneak attack on " + choiceToStrike.getName());
+        System.out.println(character.getName() + " used bladed flurry on " + choiceToStrike.getName());
 
         if((choiceToStrike.getHealth() == choiceToStrike.getMaxHealth()) || choiceToStrike.getConditions().hasBadCondition())
         {
@@ -66,23 +68,13 @@ public class SneakAttack extends SpecialAbility
         character.attack(choiceToStrike);
     }
 
-    public boolean canUpgrade()
-    {
-        return true;
-    }
-
-    public SpecialAbility upgrade()
-    {
-        return new BladedFlurry();
-    }
-
     public String toString()
     {
-        return "Sneak Attack";
+        return "Bladed Flurry";
     }
 
     public static String description()
     {
-        return "     - Sneak Attack: Deals immense damage to foes who are at full health or who have bad conditions";
+        return "     - Bladed Flurry: Deals immense damage to foes who are at full health or who have bad conditions... Why do assassins do so much damage...";
     }
 }

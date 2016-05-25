@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/23/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class FearsomeGaze extends SpecialAbility
+public class FireBall extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,25 +22,26 @@ public class FearsomeGaze extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used fearsome gaze!");
+        System.out.println(character.getName() + " used fireball!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
-            if(getAffectedChance(character, "cunning", enemies.getCharacter(x)))
+            character.preformAttack(enemies.getCharacter(x));
+            if(getAffectedChance(character, "power", enemies.getCharacter(x)))
             {
-                enemies.getCharacter(x).getConditions().giveFearedDebuff(calculateRounds(character), "Fearsome Gaze");
+                System.out.println(enemies.getCharacter(x).getName() + " is burning!");
+                enemies.getCharacter(x).getConditions().giveBurnDebuff(character.getPower(), calculateRounds(character), "Fireball");
             }
         }
     }
 
     public String toString()
     {
-        return "Fearsome Gaze";
+        return "Fireball";
     }
 
     public static String description()
     {
-        return "     - ";
+        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns them";
     }
 }
-

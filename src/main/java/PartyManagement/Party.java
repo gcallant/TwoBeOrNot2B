@@ -21,12 +21,14 @@ public class Party
     private Inventory         inventory;
     private int               partyLevel;
     private boolean           shout;
+    private int               floorLevel;
 
     public Party(List<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
+        this.floorLevel = 1;
     }
 
     public void addToInventory(Weapon item)
@@ -109,8 +111,14 @@ public class Party
 
     public void fixParty()
     {
+        List<A_Character> toRemove = new ArrayList<A_Character>();
+
         for(A_Character character : characterParty)
         {
+            if(character.isSummon())
+            {
+                toRemove.add(character);
+            }
             character.resetTurn();
             character.resetStats();
             if(character.getDefeated())
@@ -118,6 +126,12 @@ public class Party
                 character.heal(1);
                 character.removeDefeated();
             }
+        }
+
+        for(A_Character character : toRemove)
+        {
+            characterParty.remove(character);
+            character.getOwner().getConditions().unsummon();
         }
     }
 
@@ -157,6 +171,11 @@ public class Party
     public A_Character getCharacter(int index)
     {
         return characterParty.get(index);
+    }
+
+    public List<A_Character> getCharacterParty()
+    {
+        return characterParty;
     }
 
     public boolean useInventory()
@@ -237,6 +256,36 @@ public class Party
         {
             characterParty.add(character);
         }
+    }
+
+    public void levelAbilities()
+    {
+        for(A_Character character : characterParty)
+        {
+            character.upgradeAbilities();
+        }
+    }
+
+    public void setFloorLevel(int floorLevel)
+    {
+        this.floorLevel = floorLevel;
+    }
+
+    public int getFloorLevel()
+    {
+        return floorLevel;
+    }
+
+    public boolean contains(A_Character character)
+    {
+        for(A_Character partyMember : characterParty)
+        {
+            if(partyMember == character)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

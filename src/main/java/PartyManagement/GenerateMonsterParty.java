@@ -28,12 +28,12 @@ public class GenerateMonsterParty
             listsOfMonsters.add(new ArrayList<String>());
         }
 
-        int[] numberOfGoblins = {10,2,0};
+        int[] numberOfGoblins = {10,2,2};
         int[] numberOfOrcs = {5, 5, 3};
         int[] numberOfOgres = {2, 4, 5};
         int[] numberOfUndeadClerics = {5, 10, 3};
         int[] numberOfWarChiefs = {1, 3, 4};
-        int[] numberOfAssasins = {1, 5, 6};
+        int[] numberOfAssassins = {1, 5, 6};
         int[] numberOfDireWolfs = {2, 4, 8};
         int[] numberOfSkeletons = {3, 5, 7};
 
@@ -43,7 +43,7 @@ public class GenerateMonsterParty
         addInValues("Ogre", numberOfOgres);
         addInValues("Undead Cleric", numberOfUndeadClerics);
         addInValues("War Chief", numberOfWarChiefs);
-        addInValues("Assassin", numberOfAssasins);
+        addInValues("Assassin", numberOfAssassins);
         addInValues("Dire Wolf", numberOfDireWolfs);
         addInValues("Skeleton", numberOfSkeletons);
     }
@@ -66,9 +66,9 @@ public class GenerateMonsterParty
         List<A_Character> listOfParty = new ArrayList<A_Character>(numOfEnemies);
 
         //Obtain the ArrayList of the Monsters that we want to create our party
-        if(indexForDifficulty >= listsOfMonsters.size())
+        if(indexForDifficulty > listsOfMonsters.size())
         {
-            indexForDifficulty = listsOfMonsters.size() - 1;
+            indexForDifficulty = listsOfMonsters.size();
         }
         List<String> listToPullFrom = listsOfMonsters.get(indexForDifficulty - 1);
 
@@ -91,10 +91,13 @@ public class GenerateMonsterParty
                     monsterCount++;
                 }
             }
-            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level, normal);
+            monster = factory.createMonster(monsterType, listToPullFrom.get(randomNum) + " " + monsterCount, level, normal, indexForDifficulty);
 
             listOfParty.add(monster);
         }
+
+        Party party = new Party(listOfParty);
+        party.setFloorLevel(indexForDifficulty);
 
         return new Party(listOfParty);
     }

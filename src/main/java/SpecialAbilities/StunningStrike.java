@@ -37,7 +37,7 @@ public class StunningStrike extends SpecialAbility
         if(character.canAttack(choiceToStrike))
         {
             character.preformAttack(choiceToStrike);
-            if(rand.nextBoolean())
+            if(getAffectedChance(character, "power", choiceToStrike))
             {
                 System.out.println(choiceToStrike.getName() + " was stunned!");
                 choiceToStrike.getConditions().giveStunnedDebuff(calculateRounds(character),"Stunning Strike");
@@ -48,6 +48,16 @@ public class StunningStrike extends SpecialAbility
             System.out.println("But missed!");
         }
         character.getConditions().giveExhaustedDebuff(2, "Stunning Strike");
+    }
+
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new ConfusingStrike();
     }
 
     public String toString()

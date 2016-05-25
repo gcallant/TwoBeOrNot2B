@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class WarCry extends SpecialAbility
+public class BolsteringCry extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,32 +22,28 @@ public class WarCry extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies)
     {
-        System.out.println(character.getName() + " used war cry!");
+        System.out.println(character.getName() + " used bolstering cry!");
         double buff = 1.0 + ((double)character.getCunning()*.025);
 
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).getConditions().giveDamageBuff(buff, calculateRounds(character), "War Cry");
+            allies.getCharacter(x).getConditions().giveDamageBuff(buff, calculateRounds(character), "Bolstering Cry");
+            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character), "Bolstering Cry");
         }
-    }
-
-    public boolean canUpgrade()
-    {
-        return true;
-    }
-
-    public SpecialAbility upgrade()
-    {
-        return new BolsteringCry();
     }
 
     public String toString()
     {
-        return "War Cry";
+        return "Bolstering Cry";
+    }
+
+    public boolean canUpgrage()
+    {
+        return false;
     }
 
     public static String description()
     {
-        return "     - War Cry: Causes all allies to deal increased damage. Buff amount based off of cunning";
+        return "     - Bolstering Cry: Causes all allies to deal increased damage and have increased attack. Buff amount based off of cunning";
     }
 }

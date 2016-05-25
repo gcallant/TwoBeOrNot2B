@@ -30,6 +30,16 @@ public class MeteorShower extends SpecialAbility
         }
     }
 
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new FireBall();
+    }
+
     public String toString()
     {
         return "Meteor Shower";

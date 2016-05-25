@@ -6,6 +6,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.NaturalRemedy;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StunningStrike;
 import com.google.common.base.Objects;
@@ -21,12 +22,17 @@ public class Ogre extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public Ogre(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+    public Ogre(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
     {
         super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 4, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new StunningStrike());
+
+        if(floor >= 3)
+        {
+            specialManager.addSpecialAbility(new NaturalRemedy());
+        }
 
         this.level = level;
     }
@@ -41,9 +47,13 @@ public class Ogre extends A_Monster
     {
         upgradeHealth();
         upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
         upgradepower();
         upgradepower();
         upgradepower();
+        upgradecunning();
+        upgradecunning();
     }
 
     public int getLevel()

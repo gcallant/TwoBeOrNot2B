@@ -47,7 +47,7 @@ public class BossVictory implements I_State
             generateItems.generateItem(heroes, mediator.giveCurrentLevel());
         }
 
-        return new NewMap(mediator);
+        return new SaveGame(mediator);
     }
 
     @Override

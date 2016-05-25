@@ -14,6 +14,10 @@ public class NewMap implements I_State
     {
         this.mediator = mediator;
         this.mediator.receiveCurrentLevel(this.mediator.giveCurrentLevel() + 1);
+        if(this.mediator.giveCurrentLevel() == 3)
+        {
+            this.mediator.giveParty().levelAbilities();
+        }
     }
 
     public boolean isEndOfGame()

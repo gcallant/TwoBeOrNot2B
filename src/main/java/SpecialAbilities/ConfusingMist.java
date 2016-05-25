@@ -27,7 +27,7 @@ public class ConfusingMist extends SpecialAbility
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
-            if(rand.nextInt(4) > 2)
+            if(getAffectedChance(character, "cunning", enemies.getCharacter(x)))
             {
                 enemies.getCharacter(x).getConditions().giveConfusedDebuff(calculateRounds(character), "Confusing Mist");
             }

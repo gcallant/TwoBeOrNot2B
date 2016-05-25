@@ -24,6 +24,7 @@ public class CreateMember
         names.add("Rogue");
         names.add("Paladin");
         names.add("Ranger");
+        names.add("Summoner");
 
         Scanner kb = new Scanner(System.in);
 
@@ -33,8 +34,9 @@ public class CreateMember
         System.out.println("3) " + Rogue.Information());
         System.out.println("4) " + Paladin.Information());
         System.out.println("5) " + Ranger.Information());
+        System.out.println("6) " + Summoner.Information());
 
-        int choice = TestString.ensureInt(5);
+        int choice = TestString.ensureInt(names.size());
         String type = names.get(choice - 1);
 
         System.out.println("You chose a " + type);

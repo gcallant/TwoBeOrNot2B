@@ -65,9 +65,10 @@ public class BossBattle implements I_State
             A_Nemesis bigBoss = new Necromancer("Necromancer", 1000, 20, 10, new Cloth(3), new Hammer(5), heroParty.getCharacter(0).getLevel());
             mediator.receiveBigBoss(bigBoss);
             boss.add(bigBoss);
-            boss.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", heroParty.getCharacter(0).getLevel(), true));
-            boss.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", heroParty.getCharacter(0).getLevel(), true));
+            boss.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", heroParty.getCharacter(0).getLevel(), true, mediator.giveCurrentLevel()));
+            boss.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", heroParty.getCharacter(0).getLevel(), true, mediator.giveCurrentLevel()));
             enemyParty = new Party(boss);
+            enemyParty.setFloorLevel(mediator.giveCurrentLevel());
             wholeBattle = new ArrayList<A_Character>();
 
             mediator.receiveEnemies(enemyParty);
@@ -103,15 +104,8 @@ public class BossBattle implements I_State
             enemyParty.sortDefeated();
         }
 
-        for(int x = 0; x < enemyParty.size(); x++)
-        {
-            if(!wholeBattle.contains(enemyParty.getCharacter(x)))
-            {
-                enemyParty.getCharacter(x).generateInitiative();
-                wholeBattle.add(enemyParty.getCharacter(x));
-                Collections.sort(wholeBattle, new InitiativeSort());
-            }
-        }
+        addCharacters(heroParty);
+        addCharacters(enemyParty);
 
         A_Nemesis bigBoss = mediator.giveBigBoss();
 
@@ -128,16 +122,29 @@ public class BossBattle implements I_State
             mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
         }
 
-        if(wholeBattle.get(this.nextToAttack).takeAction(heroParty, enemyParty))
+        A_Character currentTurn = wholeBattle.get(this.nextToAttack);
+
+        if(heroParty.contains(currentTurn) && currentTurn.isSummon())
         {
-            mediator.receiveNewBattle(true);
-            return new MapExploration(mediator);
+            if(currentTurn.takeAction(enemyParty, heroParty))
+            {
+                mediator.receiveNewBattle(true);
+                return new MapExploration(mediator);
+            }
+        }
+        else
+        {
+            if(currentTurn.takeAction(heroParty, enemyParty))
+            {
+                mediator.receiveNewBattle(true);
+                return new MapExploration(mediator);
+            }
         }
 
         if(heroParty.isDefeated())
         {
             mediator.receiveNewBattle(true);
-            //return new Defeated(mediator);
+            return new MainMenu(mediator);
         }
         if(enemyParty.isDefeated())
         {
@@ -147,6 +154,17 @@ public class BossBattle implements I_State
         }
 
         return new BossBattle(mediator);
+    }
+
+    private void addCharacters(Party party)
+    {
+        for(int x = 0; x < party.size(); x++)
+        {
+            if(!wholeBattle.contains(party.getCharacter(x)))
+            {
+                wholeBattle.add(party.getCharacter(x));
+            }
+        }
     }
 
    /* @Override

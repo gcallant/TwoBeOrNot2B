@@ -11,9 +11,10 @@ import java.util.Scanner;
 
 public abstract class A_Hero extends A_Character
 {
-	public A_Hero(String name, int health, int strength, int dexterity, ArmorType armorType, Armor armor, WeaponType weaponType, Weapon weapon)
+	public A_Hero(String name, int health, int power, int cunning, ArmorType armorType,
+				  Armor armor, WeaponType weaponType, Weapon weapon)
 	{
-		super(name, health, strength, dexterity, armorType, armor, weaponType, weapon);
+		super(name, health, power, cunning, armorType, armor, weaponType, weapon, CreatureType.Humanoid);
 	}
 
 	public abstract boolean specialAbility(Party heroes, Party monsters);
@@ -27,10 +28,16 @@ public abstract class A_Hero extends A_Character
 
 		noTurn = conditions.cannotAttack();
 		noSpecial = conditions.cannotUseSpecial();
+
+		if(conditions.confusedEffect(this, heroes, monsters))
+		{
+			noTurn = true;
+		}
+
 		resetTurn();
+
 		if(noTurn)
 		{
-			System.out.println(getName() + " is stunned and can't act!");
 			endTurn();
 			return false;
 		}
@@ -41,7 +48,7 @@ public abstract class A_Hero extends A_Character
 		do
 		{
 			cancel = false;
-			System.out.println("It's " + getName() + "'s turn!\nYou have " + getHealth() + " HP\nChoose an action:");
+			System.out.println("It's " + getName() + "'s turn!\n" + battleDisplay());
 			System.out.print("1.) Attack\n" +
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
@@ -68,7 +75,7 @@ public abstract class A_Hero extends A_Character
 					}
 					break;
 				case 4:
-					cancel = heroes.consumePotion();
+					//cancel = heroes.consumePotion();
 					break;
 				case 5:
 					return tryToRun(heroes, monsters);

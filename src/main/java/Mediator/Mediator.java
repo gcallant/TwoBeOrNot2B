@@ -1,6 +1,7 @@
 package Mediator;
 
 import Characters.A_Character;
+import Characters.A_Nemesis;
 import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
 import com.google.common.base.Objects;
@@ -22,12 +23,20 @@ public class Mediator
     private List<A_Character> turnOrder;
     private int               floorLevel;
     private int partyLevel;
+    private boolean noEnemies;
+    private boolean normal;
+    private int monsterChance;
+    private int monsterCount;
+    private A_Nemesis bigBoss;
 
     public Mediator()
     {
         this.characterParty = null;
         this.map = null;
         this.dungeonSize = 10;
+        noEnemies = false;
+        normal = true;
+        monsterChance = 10;
     }
 
     public void receiveParty(Party party)
@@ -103,6 +112,56 @@ public class Mediator
     public int giveCurrentLevel()
     {
         return this.floorLevel;
+    }
+
+    public void receiveNoEnemies()
+    {
+        noEnemies = !noEnemies;
+    }
+
+    public boolean giveNoEnemies()
+    {
+        return noEnemies;
+    }
+
+    public void receiveNormal()
+    {
+        normal = !normal;
+    }
+
+    public boolean giveNormal()
+    {
+        return normal;
+    }
+
+    public void receiveMonsterChance(int chance)
+    {
+        monsterChance = chance;
+    }
+
+    public int giveMonsterChance()
+    {
+        return monsterChance;
+    }
+
+    public void receiveMonsterCount(int count)
+    {
+        monsterCount = count;
+    }
+
+    public int giveMonsterCount()
+    {
+        return monsterCount;
+    }
+
+    public void receiveBigBoss(A_Nemesis nemesis)
+    {
+        bigBoss = nemesis;
+    }
+
+    public A_Nemesis giveBigBoss()
+    {
+        return bigBoss;
     }
 
     @Override

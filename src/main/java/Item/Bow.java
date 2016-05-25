@@ -8,7 +8,7 @@ public class Bow extends Weapon
 
 	public Bow(int power)
 	{
-		super(power, "dexterity");
+		super(power, "cunning");
 		this.damageType = DamageType.Piercing;
 		this.base = 2;
 		this.weaponType = WeaponType.Ranged;

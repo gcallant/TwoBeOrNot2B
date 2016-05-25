@@ -23,19 +23,24 @@ public class IntimidatingShout extends  SpecialAbility
     private void abilityExecution(A_Character character, Party enemies)
     {
         System.out.println(character.getName() + " used intimidating shout!");
-        double debuff = 1.0 - ((double)character.getStrength()*.025);
+        double debuff = 1.0 - ((double)character.getCunning()*.025);
         if(debuff < .25)
         {
             debuff = .25;
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, 3, "Intimidating Shout");
+            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, calculateRounds(character), "Intimidating Shout");
         }
     }
 
     public String toString()
     {
         return "Intimidating Shout";
+    }
+
+    public static String description()
+    {
+        return "     - Intimidating Shout: Causes all enemies to less damage. Debuff amount based off of cunning";
     }
 }

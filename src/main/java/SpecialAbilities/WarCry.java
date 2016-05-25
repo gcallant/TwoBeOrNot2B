@@ -23,16 +23,21 @@ public class WarCry extends SpecialAbility
     private void abilityExecution(A_Character character, Party allies)
     {
         System.out.println(character.getName() + " used war cry!");
-        double buff = 1.0 + ((double)character.getStrength()*.025);
+        double buff = 1.0 + ((double)character.getCunning()*.025);
 
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).getConditions().giveDamageBuff(buff, 3, "War Cry");
+            allies.getCharacter(x).getConditions().giveDamageBuff(buff, calculateRounds(character), "War Cry");
         }
     }
 
     public String toString()
     {
         return "War Cry";
+    }
+
+    public static String description()
+    {
+        return "     - War Cry: Causes all allies to deal increased damage. Buff amount based off of cunning";
     }
 }

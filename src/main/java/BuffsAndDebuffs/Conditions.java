@@ -1,8 +1,11 @@
 package BuffsAndDebuffs;
 
 import BuffsAndDebuffs.BuffsManager;
+import Characters.A_Character;
+import PartyManagement.Party;
 
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by Michael on 5/20/2016.
@@ -73,7 +76,17 @@ public class Conditions
         buffsManager.addDamageBuff(percentage, rounds, source);
     }
 
+    public void giveDamageDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addDamageDebuff(percentage, rounds, source);
+    }
+
     public void giveAttackBuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addAttackBuff(percentage, rounds, source);
+    }
+
+    public void giveAttackDebuff(double percentage, int rounds, String source)
     {
         buffsManager.addAttackBuff(percentage, rounds, source);
     }
@@ -88,6 +101,16 @@ public class Conditions
         buffsManager.addPoisonDebuff(percentage, rounds, source);
     }
 
+    public void giveBleedDebuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addBleedDebuff(percentage, rounds, source);
+    }
+
+    public void giveRegenStaticBuff(double value, int rounds, String source)
+    {
+        buffsManager.addRegenStaticBuff(value, rounds, source);
+    }
+
     public void giveExhaustedDebuff(int rounds, String source)
     {
         buffsManager.addExhaustedDebuff(rounds, source);
@@ -98,28 +121,43 @@ public class Conditions
         buffsManager.addStunnedDebuff(rounds, source);
     }
 
-    public void giveAttackDebuff(double percentage, int rounds, String source)
+    public void giveFearedDebuff(int rounds, String source)
     {
-        buffsManager.addAttackBuff(percentage, rounds, source);
+        buffsManager.addFearedDebuff(rounds, source);
     }
 
-    public void giveDamageDebuff(double percentage, int rounds, String source)
+    public void giveConfusedDebuff(int rounds, String source)
     {
-        buffsManager.addDamageDebuff(percentage, rounds, source);
+        buffsManager.addConfusedDebuff(rounds, source);
     }
 
     /*
     * Retrieve Buffs
      */
 
-    public int calculateRegen(int health)
+    private int calculateRegen(int health)
     {
          return (int)((double)health*buffsManager.getRegenAmount());
     }
 
-    public int calculatePoisonDamage(int health)
+    private int calculateRegenStatic()
+    {
+        return (int)buffsManager.getRegenStaticAmount();
+    }
+
+    private int calculatePoisonDamage(int health)
     {
         return (int)((double)health*buffsManager.getPoisonAmount());
+    }
+
+    private int calculateBleedDamage(int health)
+    {
+        return (int)((double)health*buffsManager.getBleedAmount());
+    }
+
+    private boolean isConfused()
+    {
+        return buffsManager.isConfused();
     }
 
     public int calculateDamage(int damage)
@@ -136,12 +174,55 @@ public class Conditions
 
     public boolean cannotAttack()
     {
-        return buffsManager.isStunned();
+        boolean cannotAttack = false;
+
+        if( buffsManager.isStunned())
+        {
+            System.out.println(name + " is stunned and cannot attack!");
+            return true;
+        }
+
+        if(buffsManager.isFeared())
+        {
+            if(new Random().nextBoolean())
+            {
+                System.out.println(name + " is feared and cannot attack!");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public boolean cannotUseSpecial()
     {
         return buffsManager.isExhausted();
+    }
+
+    public boolean confusedEffect(A_Character person, Party allies, Party enemies)
+    {
+        if(!isConfused())
+        {
+            return false;
+        }
+        Random rand = new Random();
+        A_Character newTarget;
+        Party toChooseFrom;
+
+        if(rand.nextBoolean())
+        {
+            toChooseFrom = allies;
+        }
+        else
+        {
+            toChooseFrom = enemies;
+        }
+
+        newTarget = toChooseFrom.getCharacter(rand.nextInt(toChooseFrom.size()));
+
+        person.attack(newTarget);
+
+        return true;
     }
 
     public boolean hasBadCondition()
@@ -159,9 +240,35 @@ public class Conditions
         buffsManager.cleanBuffs();
     }
 
-    public void startTurn()
+    public int takeTurnDamage(int health)
     {
+        int poison, bleed;
 
+        poison = Math.min(50,calculatePoisonDamage(health));
+        bleed = Math.min(50,calculateBleedDamage(health));
+        if(poison > 0)
+        {
+            System.out.println(name + " is poisoned and takes " + poison + " damage!");
+        }
+        if(bleed > 0)
+        {
+            System.out.println(name + " is bleeding and takes " + bleed + " damage!");
+        }
+
+        return poison + bleed;
+    }
+
+    public int takeTurnHealing(int health)
+    {
+        int regen;
+
+        regen = calculateRegen(health) + calculateRegenStatic();
+        if(regen > 0)
+        {
+            System.out.println(name + " has regen and recovers " + regen + " health!");
+        }
+
+        return regen;
     }
 
     public void endTurn()
@@ -190,6 +297,7 @@ public class Conditions
         str += (buffsManager.isStunned()) ? " Stunned": "";
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";
         str += (buffsManager.getRegenAmount() != 0) ? " Regen" : "";
+        str += (buffsManager.isConfused()) ? " Confused" : "";
         return str;
     }
 }

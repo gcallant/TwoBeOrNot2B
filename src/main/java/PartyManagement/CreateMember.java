@@ -2,6 +2,7 @@ package PartyManagement;
 
 import Characters.*;
 import Factories.HeroFactory;
+import Heroes.*;
 import StringTester.TestString;
 
 import java.util.ArrayList;

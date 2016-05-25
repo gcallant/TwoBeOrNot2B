@@ -54,7 +54,7 @@ public class GenerateItems {
         largeList.add(new ArrayList<String>());
 
         largeList.get(0).add("Healing");
-        largeList.get(0).add("Strength");
+        largeList.get(0).add("power");
 
         largeList.get(1).add("Sword");
         largeList.get(1).add("Hammer");

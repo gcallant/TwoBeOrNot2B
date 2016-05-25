@@ -23,8 +23,8 @@ public class OwlsInsight extends SpecialAbility
     private void abilityExecution(A_Character character)
     {
         System.out.println(character.getName() + " used owl's insight!");
-        double calculateBuff = 1.0 + .05*((double)character.getStrength());
-        character.getConditions().giveDamageBuff(calculateBuff, character.getStrength()/2, "Owl's Insight");
+        double calculateBuff = 1.0 + .05*((double)character.getPower());
+        character.getConditions().giveDamageBuff(calculateBuff, calculateRounds(character), "Owl's Insight");
     }
 
     public String toString()
@@ -32,4 +32,8 @@ public class OwlsInsight extends SpecialAbility
         return "Owl's Insight";
     }
 
+    public static String description()
+    {
+        return "     - Owl's Insight: buffs the casters power";
+    }
 }

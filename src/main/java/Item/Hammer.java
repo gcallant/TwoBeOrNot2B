@@ -8,7 +8,7 @@ public class Hammer extends Weapon
 
 	public Hammer(int power)
 	{
-		super(power, "strength");
+		super(power, "power");
 		this.damageType = DamageType.Bludgeoning;
 		this.base = 3;
 		this.weaponType = WeaponType.Heavy;

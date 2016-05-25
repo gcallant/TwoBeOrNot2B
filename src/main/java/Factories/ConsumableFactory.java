@@ -2,7 +2,7 @@ package Factories;
 
 import Item.Consumable;
 import Item.Healing;
-import Item.Strength;
+import Item.power;
 
 /**
  * Created by Michael on 5/19/2016.
@@ -15,8 +15,8 @@ public class ConsumableFactory
         {
             case "Healing":
                 return new Healing(power);
-            case "Strength":
-                return new Strength(power);
+            case "power":
+                return new power(power);
         }
         return new Healing(power);
     }

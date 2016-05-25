@@ -26,10 +26,10 @@ public class MonsterCreationTest
 
     }
 
-    @Test
-    public void createCharacter() throws Exception
+    //@Test
+    /*public void createCharacter() throws Exception
     {
         int level = 2;
         assertNotNull(factory.createMonster("Orc", "monsterName", level));
-    }
+    }*/
 }

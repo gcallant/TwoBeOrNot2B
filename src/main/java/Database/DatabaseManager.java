@@ -1,10 +1,10 @@
 package Database;
 
 import Characters.A_Character;
-import Logging.LoggingManager;
 import Mediator.Mediator;
 import Utilities.OSUtil;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
 
 import java.sql.*;
@@ -18,11 +18,8 @@ import java.sql.*;
 public class DatabaseManager
 {
 	private static final String         DRIVER            = "org.sqlite.JDBC";
-	private static final String         DATABASE          = "jdbc:sqlite:" +
-			                                                          OSUtil.getExternalDirectory().toString() +
-			                                                          OSUtil.getSeparator() + "DungeonCrawler.db";
-	private final        LoggingManager loggingManager    = LoggingManager.getInstance();
-	private final        Logger         logger            = loggingManager.getLogger();
+	private static final String         DATABASE          = "jdbc:sqlite:DungeonCrawler.db";
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private              Connection     databaseConnector = null;
 	private              Statement      sqlStatement      = null;
 

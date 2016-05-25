@@ -5,6 +5,7 @@ import PartyManagement.Party;
 import StringTester.TestString;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Random;
  */
 public class SpecialManager
 {
-    private ArrayList<SpecialAbility> specialAbilities;
+    private List<SpecialAbility> specialAbilities;
     Random rand;
 
     public SpecialManager()

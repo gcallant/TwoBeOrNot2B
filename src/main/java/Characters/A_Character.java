@@ -24,7 +24,8 @@ public abstract class A_Character
 	private WeaponType weaponType;
 	protected Conditions conditions;
 	private CreatureType creatureType;
-
+	private boolean isInvincible = false;
+	private boolean hasMaxPower = false;
 	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
@@ -56,6 +57,10 @@ public abstract class A_Character
 	{
 		if(conditions.confusedEffect(this, heroes, monsters))
 		{
+			if(isInvincible)
+			{
+				return true;
+			}
 			return false;
 		}
 		return true;
@@ -85,6 +90,11 @@ public abstract class A_Character
 
 	public void takeDamage(int total)
 	{
+		if(isInvincible)
+		{
+			return;
+		}
+
 		this.health -= total;
 		if(health <= 0)
 		{
@@ -97,6 +107,10 @@ public abstract class A_Character
 	public boolean canAttack(A_Character toAttack)
 	{
 		int attackBonus = 0;
+		if(hasMaxPower)
+		{
+			return true;
+		}
 		switch(weapon.getAttackType())
 		{
 			case "cunning":
@@ -132,12 +146,19 @@ public abstract class A_Character
 	{
 		int totalDamage = 0;
 
-		totalDamage += weapon.getPower();
-		totalDamage += getPower();
-		totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
-		totalDamage = conditions.addDamage(totalDamage);
-		totalDamage = conditions.calculateDamage(totalDamage);
-		totalDamage = toAttack.conditions.reduceDamage(totalDamage);
+		if(! hasMaxPower)
+		{
+			totalDamage += weapon.getPower();
+			totalDamage += getPower();
+			totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
+			totalDamage = conditions.addDamage(totalDamage);
+			totalDamage = conditions.calculateDamage(totalDamage);
+			totalDamage = toAttack.conditions.reduceDamage(totalDamage);
+		}
+		else
+		{
+			totalDamage = Integer.MAX_VALUE;
+		}
 
 		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
 
@@ -332,6 +353,18 @@ public abstract class A_Character
 	public void resetStats()
 	{
 		conditions.resetConditions();
+	}
+
+	public void setGodMod()
+	{
+		isInvincible = true;
+		health = Integer.MAX_VALUE;
+		maxHealth = Integer.MAX_VALUE;
+	}
+
+	public void setHasMaxPower()
+	{
+		hasMaxPower = true;
 	}
 
 	/*

@@ -1,7 +1,8 @@
 package Utilities;
 
-import Logging.LoggingManager;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -24,7 +25,7 @@ public class OSUtil
 
 	private static String         SEPARATOR          = setSeparator();
 	private static File           EXTERNAL_DIRECTORY = null;
-	private static LoggingManager logger             = waitForLoggerConfiguration();
+	private static final Logger logger = LoggerFactory.getLogger("OSUtil");
 
 	private static String setSeparator()
 	{
@@ -36,34 +37,33 @@ public class OSUtil
 		}
 		return separator;
 	}
-
-	@Nullable
-	private static LoggingManager waitForLoggerConfiguration()
-	{
-		if(logger.isConfigured())
-		{
-			return logger = LoggingManager.getInstance();
-		}
-		return null;
-	}
+//
+//	@Nullable
+//	private static LoggingManager waitForLoggerConfiguration()
+//	{
+//		if(logger.isConfigured())
+//		{
+//			return logger = LoggingManager.getInstance();
+//		}
+//		return null;
+//	}
 
 	public static File getParentDirectory() throws OSException
 	{
 		File cwd = new File(System.getProperty("user.dir"));
 
-		if(logger.isConfigured())
-		{
-			logger.getLogger().info("Got Current directory {}", cwd);
-		}
+
+			logger.info("Got Current directory {}", cwd);
+
 		File parent = new File(cwd.getParent());
 		if(parent == null || parent.isFile())
 		{
 			throw new OSException("Couldn't get parent directory");
 		}
-		if(logger.isConfigured())
-		{
-			logger.getLogger().info("Got Parent directory {}", parent);
-		}
+
+
+			logger.info("Got Parent directory {}", parent);
+
 		return parent;
 	}
 
@@ -103,21 +103,19 @@ public class OSUtil
 	public static File createNewDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);
-		if(logger.isConfigured())
-		{
-			logger.getLogger().info("Attempting to create new directory {} in {}",
+
+			logger.info("Attempting to create new directory {} in {}",
 			                        newDirectoryName, parentDirectory);
-		}
+
 		File newDirectory = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newDirectoryName);
 		newDirectory.mkdir();
 		if(! newDirectory.exists())
 		{
 			throw new OSException(new Throwable("Could not create new directory"));
 		}
-		if(logger.isConfigured())
-		{
-			logger.getLogger().info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
-		}
+
+			logger.info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
+
 		return newDirectory;
 	}
 
@@ -139,10 +137,11 @@ public class OSUtil
 		}
 
 		File newDirectory = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newDirectoryName);
-		//		if(newDirectory.exists())
-		//		{
-		//			throw new OSException(new Throwable("Folder already exists!")).writeException();
-		//		}
+				if(newDirectory.exists())
+				{
+					logger.info("Tried to create directory {}, but it already exists", newDirectory.getAbsolutePath());
+					return;
+				}
 
 		if(! parentDirectory.canWrite())
 		{

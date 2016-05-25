@@ -65,7 +65,7 @@ public class MapExploration implements I_State
 
     public I_State execute()
     {
-        char[] validInputs = new char[10];
+        char[] validInputs = new char[11];
         validInputs[0] = 'u';
         validInputs[1] = 'd';
         validInputs[2] = 'r';
@@ -76,6 +76,7 @@ public class MapExploration implements I_State
         validInputs[7] = 'f';
         validInputs[8] = 'b';
         validInputs[9] = 'z';
+        validInputs[10] = '|';
         char command = TestString.ensureChar(validInputs);
         switch(command)
         {
@@ -102,6 +103,8 @@ public class MapExploration implements I_State
             case 'z':
                 mediator.giveParty().gainExperience(500);
                 return new MapExploration(mediator);
+            case '|':
+                 return new CheatMenu(mediator);
             default:
                 return new MapExploration(mediator);
         }

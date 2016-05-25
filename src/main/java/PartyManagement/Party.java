@@ -159,6 +159,11 @@ public class Party
         return characterParty.get(index);
     }
 
+    public List<A_Character> getCharacterParty()
+    {
+        return characterParty;
+    }
+
     public boolean useInventory()
     {
         System.out.println("Select an item from your inventory");

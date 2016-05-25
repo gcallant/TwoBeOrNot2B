@@ -49,7 +49,7 @@ public class UndeadCleric extends A_Monster
     {
         upgradepower();
         upgradepower();
-        upgradepower();
+        upgradecunning();
         upgradeHealth();
         upgradeHealth();
     }

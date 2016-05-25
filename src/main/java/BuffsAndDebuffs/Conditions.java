@@ -13,11 +13,32 @@ import java.util.Random;
 public class Conditions
 {
     private String name;
+    private boolean summoningSickness;
+    private int maxSummoning;
+    private int currentSummoning;
 
     public Conditions(String name)
     {
         this.name = name;
         buffsManager = new BuffsManager(name);
+        summoningSickness = false;
+        maxSummoning = 1;
+        currentSummoning = 0;
+    }
+
+    public void summon()
+    {
+        currentSummoning++;
+    }
+
+    public void unsummon()
+    {
+        currentSummoning--;
+    }
+
+    public boolean summoningSickness()
+    {
+        return currentSummoning >= maxSummoning;
     }
 
     private boolean defended;
@@ -111,6 +132,11 @@ public class Conditions
         buffsManager.addRegenStaticBuff(value, rounds, source);
     }
 
+    public void giveBurnDebuff(double value, int rounds, String source)
+    {
+        buffsManager.addBurnDebuff(value, rounds, source);
+    }
+
     public void giveExhaustedDebuff(int rounds, String source)
     {
         buffsManager.addExhaustedDebuff(rounds, source);
@@ -153,6 +179,11 @@ public class Conditions
     private int calculateBleedDamage(int health)
     {
         return (int)((double)health*buffsManager.getBleedAmount());
+    }
+
+    private int calculateBurnDamage()
+    {
+        return (int)buffsManager.getBurnAmount();
     }
 
     private boolean isConfused()
@@ -242,10 +273,11 @@ public class Conditions
 
     public int takeTurnDamage(int health)
     {
-        int poison, bleed;
+        int poison, bleed, burn;
 
         poison = Math.min(50,calculatePoisonDamage(health));
         bleed = Math.min(50,calculateBleedDamage(health));
+        burn = calculateBurnDamage();
         if(poison > 0)
         {
             System.out.println(name + " is poisoned and takes " + poison + " damage!");
@@ -254,8 +286,12 @@ public class Conditions
         {
             System.out.println(name + " is bleeding and takes " + bleed + " damage!");
         }
+        if(burn > 0)
+        {
+            System.out.println(name + " is burning and takes " + burn + " damage!");
+        }
 
-        return poison + bleed;
+        return poison + bleed + burn;
     }
 
     public int takeTurnHealing(int health)
@@ -298,6 +334,8 @@ public class Conditions
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";
         str += (buffsManager.getRegenAmount() != 0) ? " Regen" : "";
         str += (buffsManager.isConfused()) ? " Confused" : "";
+        str += (buffsManager.getBleedAmount() != 0) ? " Bleeding" : "";
+        str += (summoningSickness()) ? " Summoning Sickness" : "";
         return str;
     }
 }

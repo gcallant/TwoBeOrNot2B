@@ -9,6 +9,7 @@ import PartyManagement.Party;
 import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.SpecialManager;
+import SpecialAbilities.StunningStrike;
 import com.google.common.base.Objects;
 
 /**
@@ -41,19 +42,9 @@ public class Mage extends A_Hero
 		return super.getName() + " the mage";
 	}
 
-	public int powerIncrease()
+	public void upgradeAbilities()
 	{
-		return 2;
-	}
-
-	public int cunningIncrease()
-	{
-		return 1;
-	}
-
-	public int healthIncrease()
-	{
-		return 10;
+		specialManager.upgradeAbilities();
 	}
 
 	@Override

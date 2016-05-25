@@ -1,5 +1,6 @@
 package Characters;
 
+import PartyManagement.Party;
 import StringTester.TestString;
 
 import java.util.Scanner;
@@ -17,8 +18,6 @@ public class LevelUp
         int choice = 0;
 
         character.upgradepower();
-        character.upgradeHealth();
-        character.upgradeHealth();
         character.upgradecunning();
         while(num > 0)
         {
@@ -39,6 +38,14 @@ public class LevelUp
             }
 
             num--;
+        }
+    }
+
+    public static void increaseAbilities(Party party)
+    {
+        for(int x = 0; x < party.size(); x++)
+        {
+            party.getCharacter(x).upgradeAbilities();
         }
     }
 }

@@ -48,6 +48,8 @@ public class Orc extends A_Monster
 		upgradepower();
 		upgradepower();
 		upgradeHealth();
+		upgradeHealth();
+		upgradeHealth();
 	}
 
 	public int getLevel()

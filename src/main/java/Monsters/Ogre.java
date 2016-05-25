@@ -52,6 +52,8 @@ public class Ogre extends A_Monster
         upgradepower();
         upgradepower();
         upgradepower();
+        upgradecunning();
+        upgradecunning();
     }
 
     public int getLevel()

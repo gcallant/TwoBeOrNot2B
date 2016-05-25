@@ -24,6 +24,11 @@ public class Rogue extends A_Hero
         specialManager.addSpecialAbility(new PoisonStrike());
     }
 
+    public void upgradeAbilities()
+    {
+        specialManager.upgradeAbilities();
+    }
+
     public boolean specialAbility(Party heroes, Party monsters)
     {
        return specialManager.chooseSpecialAbility(this, heroes, monsters);

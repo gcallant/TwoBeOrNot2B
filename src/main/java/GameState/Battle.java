@@ -90,15 +90,31 @@ public class Battle implements I_State
 			enemyParty.sortDefeated();
 		}
 
+		addCharacters(heroParty);
+		addCharacters(enemyParty);
+
 		while(wholeBattle.get(this.nextToAttack).getDefeated())
 		{
 			this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
 		}
 
-		if(wholeBattle.get(this.nextToAttack).takeAction(heroParty, enemyParty))
+		A_Character currentTurn = wholeBattle.get(this.nextToAttack);
+
+		if(heroParty.contains(currentTurn) && currentTurn.isSummon())
 		{
-			mediator.receiveNewBattle(true);
-			return new MapExploration(mediator);
+			if(currentTurn.takeAction(enemyParty, heroParty))
+			{
+				mediator.receiveNewBattle(true);
+				return new MapExploration(mediator);
+			}
+		}
+		else
+		{
+			if(currentTurn.takeAction(heroParty, enemyParty))
+			{
+				mediator.receiveNewBattle(true);
+				return new MapExploration(mediator);
+			}
 		}
 
 		mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
@@ -107,7 +123,7 @@ public class Battle implements I_State
 		if(heroParty.isDefeated())
 		{
 			mediator.receiveNewBattle(true);
-			//return new Defeated(mediator);
+			return new MainMenu(mediator);
 		}
 		if(enemyParty.isDefeated())
 		{
@@ -136,5 +152,16 @@ public class Battle implements I_State
 		boolean partiesEqual = this.heroParty.equals(thatBat.heroParty) && this.enemyParty.equals(thatBat.enemyParty);
 		boolean intsEqual = this.floorLevel == thatBat.floorLevel && this.nextToAttack == thatBat.nextToAttack;
 		return  partiesEqual && intsEqual && this.newBattle == thatBat.newBattle && this.mediator.equals(thatBat.mediator);
+	}
+
+	private void addCharacters(Party party)
+	{
+		for(int x = 0; x < party.size(); x++)
+		{
+			if(!wholeBattle.contains(party.getCharacter(x)))
+			{
+				wholeBattle.add(party.getCharacter(x));
+			}
+		}
 	}
 }

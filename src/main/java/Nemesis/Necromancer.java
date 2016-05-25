@@ -1,20 +1,17 @@
 package Nemesis;
 
-import BuffsAndDebuffs.NecromancerConditions;
+import BuffsAndDebuffs.UndeadConditions;
 import Characters.A_Character;
 import Characters.A_Nemesis;
 import Characters.CreatureType;
-import Factories.MonsterFactory;
 import Item.Armor;
 import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
-import Mediator.Mediator;
 import PartyManagement.Party;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.SummonSkeleton;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -29,7 +26,6 @@ public class Necromancer extends A_Nemesis
 		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, level, CreatureType.Humanoid);
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new SummonSkeleton());
-		reassignConditons(new NecromancerConditions("Necromancer"));
 	}
 
 	public boolean specialAbility(Random rand, Party heroes, Party monsters)
@@ -50,6 +46,8 @@ public class Necromancer extends A_Nemesis
 				startRage(rand, heroes, monsters);
 				rageUsed = true;
 				rageCount = 5;
+				endTurn();
+				return false;
 			}
 		}
 		noTurn = conditions.cannotAttack();

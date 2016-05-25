@@ -3,8 +3,10 @@ package SpecialAbilities;
 import Characters.A_Character;
 import PartyManagement.Party;
 import StringTester.TestString;
+import junit.framework.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Random;
  */
 public class SpecialManager
 {
-    private ArrayList<SpecialAbility> specialAbilities;
+    private List<SpecialAbility> specialAbilities;
     Random rand;
 
     public SpecialManager()
@@ -52,5 +54,39 @@ public class SpecialManager
     {
         specialAbilities.get(rand.nextInt(specialAbilities.size())).executeAbilityRandom(character, allies, enemies);
         return false;
+    }
+
+    public void upgradeAbilities()
+    {
+        int choice = 0;
+        int choices = 1;
+        List<SpecialAbility> upgradeAble = new ArrayList<SpecialAbility>();
+
+        for(SpecialAbility specialAbility : specialAbilities)
+        {
+            if(specialAbility.canUpgrade())
+            {
+                upgradeAble.add(specialAbility);
+            }
+        }
+
+        System.out.println("Choose an ability to upgrade!!!!");
+        for(SpecialAbility specialAbility : upgradeAble)
+        {
+            System.out.println(choices + ") " + specialAbility.toString());
+            choices++;
+        }
+        System.out.println(choices + ") cancel");
+
+        choice = TestString.ensureInt(choices);
+
+        if(choice != choices)
+        {
+            SpecialAbility toChange;
+            toChange = upgradeAble.get(choice - 1);
+            specialAbilities.remove(toChange);
+            specialAbilities.add(toChange.upgrade());
+        }
+
     }
 }

@@ -66,6 +66,16 @@ public class SneakAttack extends SpecialAbility
         character.attack(choiceToStrike);
     }
 
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new BladedFlurry();
+    }
+
     public String toString()
     {
         return "Sneak Attack";

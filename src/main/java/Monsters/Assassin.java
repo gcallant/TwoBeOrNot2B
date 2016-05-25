@@ -48,6 +48,8 @@ public class Assassin extends A_Monster
     {
         upgradecunning();
         upgradecunning();
+        upgradecunning();
+        upgradepower();
         upgradepower();
         upgradeHealth();
     }

@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class IntimidatingShout extends  SpecialAbility
+public class OverlordsShout extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,7 +22,7 @@ public class IntimidatingShout extends  SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used intimidating shout!");
+        System.out.println(character.getName() + " used overlords shout!");
         double debuff = 1.0 - ((double)character.getCunning()*.025);
         if(debuff < .25)
         {
@@ -30,27 +30,19 @@ public class IntimidatingShout extends  SpecialAbility
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, calculateRounds(character), "Intimidating Shout");
+            System.out.println(enemies.getCharacter(x).getName() + " has their damage and attack reduced!");
+            enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, calculateRounds(character), "Overlords Shout");
+            enemies.getCharacter(x).getConditions().giveAttackDebuff(debuff, calculateRounds(character), "Overlords Shout");
         }
-    }
-
-    public boolean canUpgrade()
-    {
-        return true;
-    }
-
-    public SpecialAbility upgrade()
-    {
-        return new OverlordsShout();
     }
 
     public String toString()
     {
-        return "Intimidating Shout";
+        return "Overlords Shout";
     }
 
     public static String description()
     {
-        return "     - Intimidating Shout: Causes all enemies to less damage. Debuff amount based off of cunning";
+        return "     - Overlords Shout: Causes all enemies to less damage and hit less often. Debuff amount based off of cunning";
     }
 }

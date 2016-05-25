@@ -49,8 +49,11 @@ public class DireWolf extends A_Monster
     {
         upgradepower();
         upgradepower();
+        upgradepower();
         upgradeHealth();
         upgradeHealth();
+        upgradecunning();
+        upgradecunning();
     }
 
     public int getLevel()

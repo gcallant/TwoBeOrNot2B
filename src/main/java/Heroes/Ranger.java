@@ -6,10 +6,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.EagleEye;
-import SpecialAbilities.NaturalRemedy;
-import SpecialAbilities.PiercingStrike;
-import SpecialAbilities.SpecialManager;
+import SpecialAbilities.*;
 
 /**
  * Created by Michael on 5/22/2016.

@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class MeteorShower extends SpecialAbility
+public class FireBall extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -22,31 +22,26 @@ public class MeteorShower extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used meteor shower!");
+        System.out.println(character.getName() + " used fireball!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
             character.preformAttack(enemies.getCharacter(x));
+            if(getAffectedChance(character, "power", enemies.getCharacter(x)))
+            {
+                System.out.println(enemies.getCharacter(x).getName() + " is burning!");
+                enemies.getCharacter(x).getConditions().giveBurnDebuff(character.getPower(), calculateRounds(character), "Fireball");
+            }
         }
-    }
-
-    public boolean canUpgrade()
-    {
-        return true;
-    }
-
-    public SpecialAbility upgrade()
-    {
-        return new FireBall();
     }
 
     public String toString()
     {
-        return "Meteor Shower";
+        return "Fireball";
     }
 
     public static String description()
     {
-        return "     - Meteor Shower: Attacks all enemies for a small amount of damage but has no chance to miss";
+        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns them";
     }
 }

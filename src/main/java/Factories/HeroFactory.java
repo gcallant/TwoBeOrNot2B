@@ -24,6 +24,8 @@ public class HeroFactory
 				return new Paladin(name, 300, 8, 4, new Chainmail(1), new Sword(1));
 			case "Ranger":
 				return new Ranger(name, 200, 8, 9, new Leather(1), new Bow(1));
+			case "Summoner":
+				return new Summoner(name, 150, 3, 7, new Cloth(1), new Staff(1));
 		}
 		return createCharacter("Warrior", "Bob");
 	}

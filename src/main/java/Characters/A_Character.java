@@ -25,6 +25,8 @@ public abstract class A_Character
 	private WeaponType weaponType;
 	protected Conditions conditions;
 	private CreatureType creatureType;
+	private boolean isSummon;
+	private A_Character owner;
 
 	protected Random   rand;
 
@@ -42,11 +44,13 @@ public abstract class A_Character
 		this.armorType = armorType;
 		this.weaponType = weaponType;
 		this.creatureType = creatureType;
+		this.owner = null;
 
 		this.level         = 1;
 		this.experience    = 0;
 
 		isDefeated = false;
+		isSummon   = false;
 
 		rand = new Random();
 		if(creatureType == CreatureType.Undead)
@@ -98,7 +102,14 @@ public abstract class A_Character
 		{
 			health = 0;
 			this.isDefeated = true;
-			System.out.println(getName() + " has died!");
+			if(isSummon())
+			{
+				System.out.println(getName() + " has been banished");
+			}
+			else
+			{
+				System.out.println(getName() + " has died!");
+			}
 		}
 	}
 
@@ -204,8 +215,8 @@ public abstract class A_Character
 
 	public void upgradeHealth()
 	{
-		this.health += 25;
-		this.maxHealth += 25;
+		this.health += 35;
+		this.maxHealth += 35;
 	}
 
 	public void upgradeAbilities(){}
@@ -344,6 +355,12 @@ public abstract class A_Character
 		conditions.resetConditions();
 	}
 
+	public void setSummon(A_Character owner)
+	{
+		isSummon = true;
+		this.owner = owner;
+	}
+
 	/*
 	* * * * * * * * * * * * * * * * * * * *
 	*  * * * *   * * *   * * *     * * *  *
@@ -433,6 +450,16 @@ public abstract class A_Character
 
 		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
 		initiative = randomValue + cunning;
+	}
+
+	public boolean isSummon()
+	{
+		return isSummon;
+	}
+
+	public A_Character getOwner()
+	{
+		return this.owner;
 	}
 
 	protected void reassignConditons(Conditions conditions)

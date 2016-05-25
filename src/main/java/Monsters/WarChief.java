@@ -7,10 +7,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.IntimidatingShout;
-import SpecialAbilities.SpecialManager;
-import SpecialAbilities.StunningStrike;
-import SpecialAbilities.WarCry;
+import SpecialAbilities.*;
 
 import java.util.Random;
 
@@ -22,13 +19,22 @@ public class WarChief extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public WarChief(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+    public WarChief(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
     {
         super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new WarCry());
-        specialManager.addSpecialAbility(new IntimidatingShout());
+
+        if(floor >= 3)
+        {
+            specialManager.addSpecialAbility(new BolsteringCry());
+            specialManager.addSpecialAbility(new OverlordsShout());
+        }
+        else
+        {
+            specialManager.addSpecialAbility(new WarCry());
+            specialManager.addSpecialAbility(new IntimidatingShout());
+        }
 
         this.level = level;
 
@@ -45,6 +51,12 @@ public class WarChief extends A_Monster
         upgradepower();
         upgradepower();
         upgradepower();
+        upgradecunning();
+        upgradecunning();
+        upgradecunning();
+        upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
         upgradeHealth();
         upgradeHealth();
         upgradeHealth();

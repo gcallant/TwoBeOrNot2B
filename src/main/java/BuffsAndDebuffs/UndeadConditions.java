@@ -3,11 +3,11 @@ package BuffsAndDebuffs;
 /**
  * Created by Michael on 5/23/2016.
  */
-public class NecromancerConditions extends Conditions
+public class UndeadConditions extends Conditions
 {
     private String name;
 
-    public NecromancerConditions(String name)
+    public UndeadConditions(String name)
     {
         super(name);
         this.name = name;

@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/23/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class ViciousBite extends SpecialAbility
+public class DoubleStrike extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -24,31 +24,26 @@ public class ViciousBite extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character, enemies.getCharacter(rand.nextInt(enemies.size())));
+        A_Character choiceToStrike = enemies.getCharacter(rand.nextInt(enemies.size()));
+        abilityExecution(character, choiceToStrike);
         return false;
     }
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used vicious bite on " + choiceToStrike.getName());
+        System.out.println(character.getName() + " used double strike on " + choiceToStrike.getName());
 
-        if(character.attack(choiceToStrike));
-        {
-            if(getAffectedChance(character, "cunning", choiceToStrike))
-            {
-                System.out.println(choiceToStrike.getName() + " is now bleeding!");
-                choiceToStrike.getConditions().giveBleedDebuff(1.0 + (.05*character.getCunning()), calculateRounds(character), "Vicious Bite");
-            }
-        }
+        character.attack(choiceToStrike);
+        character.attack(choiceToStrike);
     }
 
     public String toString()
     {
-        return "Vicious Bite";
+        return "Stunning Strike";
     }
 
     public static String description()
     {
-        return "     - ";
+        return "     - Stunning Strike: Hits for increased damage and has a chance to stun";
     }
 }

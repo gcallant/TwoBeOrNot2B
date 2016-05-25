@@ -49,6 +49,11 @@ public class Warrior extends A_Hero
 		return "Warrior:\n" + StunningStrike.description() + "\n" + IntimidatingShout.description() + "\n" + WarCry.description();
 	}
 
+	public void upgradeAbilities()
+	{
+		specialManager.upgradeAbilities();
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{

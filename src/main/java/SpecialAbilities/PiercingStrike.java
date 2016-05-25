@@ -34,8 +34,8 @@ public class PiercingStrike extends SpecialAbility
         A_Character secondaryStrike = null;
         if(enemies.size() > 1)
         {
+            character.getConditions().tempAttack(character.getPower());
             do {
-                character.getConditions().addAttack(character.getPower());
                 secondaryStrike = enemies.getCharacter((rand.nextInt(enemies.size())));
             } while (choiceToStrike == secondaryStrike);
         }
@@ -45,6 +45,16 @@ public class PiercingStrike extends SpecialAbility
             character.getConditions().tempDamage(2*character.getCunning());
             character.attack(secondaryStrike);
         }
+    }
+
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new RicochetShot();
     }
 
     public String toString()

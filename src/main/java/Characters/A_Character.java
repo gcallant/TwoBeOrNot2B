@@ -3,6 +3,7 @@ package Characters;
 import java.util.*;
 
 import BuffsAndDebuffs.Conditions;
+import BuffsAndDebuffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
 import com.google.common.base.Objects;
@@ -26,6 +27,9 @@ public abstract class A_Character
 	private CreatureType creatureType;
 	private boolean isInvincible = false;
 	private boolean hasMaxPower = false;
+	private boolean isSummon;
+	private A_Character owner;
+
 	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
@@ -42,14 +46,23 @@ public abstract class A_Character
 		this.armorType = armorType;
 		this.weaponType = weaponType;
 		this.creatureType = creatureType;
+		this.owner = null;
 
 		this.level         = 1;
 		this.experience    = 0;
 
 		isDefeated = false;
+		isSummon   = false;
 
 		rand = new Random();
-		conditions = new Conditions(getName());
+		if(creatureType == CreatureType.Undead)
+		{
+			conditions = new UndeadConditions(getName());
+		}
+		else
+		{
+			conditions = new Conditions(getName());
+		}
 	}
 
 
@@ -100,7 +113,14 @@ public abstract class A_Character
 		{
 			health = 0;
 			this.isDefeated = true;
-			System.out.println(getName() + " has died!");
+			if(isSummon())
+			{
+				System.out.println(getName() + " has been banished");
+			}
+			else
+			{
+				System.out.println(getName() + " has died!");
+			}
 		}
 	}
 
@@ -125,7 +145,7 @@ public abstract class A_Character
 		attackBonus = conditions.addAttack(attackBonus);
 		attackBonus = conditions.calculateAttack(attackBonus);
 
-		return attackBonus >= toAttack.totalDefense();
+		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(20) != 0);
 	}
 
 	public boolean attack(A_Character toAttack)
@@ -149,7 +169,7 @@ public abstract class A_Character
 		if(! hasMaxPower)
 		{
 			totalDamage += weapon.getPower();
-			totalDamage += getPower();
+			totalDamage += getPower()*2;
 			totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
 			totalDamage = conditions.addDamage(totalDamage);
 			totalDamage = conditions.calculateDamage(totalDamage);
@@ -207,7 +227,7 @@ public abstract class A_Character
 
 	public void upgradepower()
 	{
-		this.power += 2;
+		this.power += 1;
 	}
 
 	public void upgradecunning()
@@ -217,9 +237,11 @@ public abstract class A_Character
 
 	public void upgradeHealth()
 	{
-		this.health += 25;
-		this.maxHealth += 25;
+		this.health += 35;
+		this.maxHealth += 35;
 	}
+
+	public void upgradeAbilities(){}
 
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * *
@@ -355,7 +377,7 @@ public abstract class A_Character
 		conditions.resetConditions();
 	}
 
-	public void setGodMod()
+	public void setGodMode()
 	{
 		isInvincible = true;
 		health = Integer.MAX_VALUE;
@@ -365,6 +387,15 @@ public abstract class A_Character
 	public void setHasMaxPower()
 	{
 		hasMaxPower = true;
+	}
+
+	public void setSummon(A_Character owner)
+	{
+		if(owner != null)
+		{
+			isSummon = true;
+			this.owner = owner;
+		}
 	}
 
 	/*
@@ -427,6 +458,16 @@ public abstract class A_Character
 		return creatureType;
 	}
 
+	public int getBonusResistance()
+	{
+		return 0;
+	}
+
+	public int getResistance()
+	{
+		return Math.min(getPower(), getCunning()) + getBonusResistance();
+	}
+
 	private int totalDefense()
 	{
 		int defense = armor.getPower();
@@ -446,6 +487,16 @@ public abstract class A_Character
 
 		randomValue = rand.nextInt(ConstantValues.RandomInitiative.getValue());
 		initiative = randomValue + cunning;
+	}
+
+	public boolean isSummon()
+	{
+		return isSummon;
+	}
+
+	public A_Character getOwner()
+	{
+		return this.owner;
 	}
 
 	protected void reassignConditons(Conditions conditions)

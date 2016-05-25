@@ -22,6 +22,8 @@ public class MapExploration implements I_State
         this.mediator.receivePartyLevel(mediator.giveParty().getCharacter(0).getLevel());
 
         rand = new Random();
+
+        this.mediator.giveParty().setFloorLevel(this.mediator.giveCurrentLevel());
     }
 
     public boolean isEndOfGame()

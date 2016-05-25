@@ -7,6 +7,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.DoubleStrike;
 import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.ViciousBite;
@@ -23,12 +24,17 @@ public class DireWolf extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public DireWolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+    public DireWolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level, CreatureType.Animal);
 
         specialManager = new SpecialManager();
         specialManager.addSpecialAbility(new ViciousBite());
+
+        if(floor >= 3)
+        {
+            specialManager.addSpecialAbility(new DoubleStrike());
+        }
 
         this.level = level;
     }
@@ -43,8 +49,11 @@ public class DireWolf extends A_Monster
     {
         upgradepower();
         upgradepower();
+        upgradepower();
         upgradeHealth();
         upgradeHealth();
+        upgradecunning();
+        upgradecunning();
     }
 
     public int getLevel()

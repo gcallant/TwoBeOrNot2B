@@ -49,4 +49,30 @@ public abstract class SpecialAbility
     {
         return party.getCharacter(rand.nextInt(party.size()));
     }
+
+    protected boolean getAffectedChance(A_Character attacker, String type, A_Character defender)
+    {
+        int value = rand.nextInt(11);
+        int total;
+        switch(type)
+        {
+            case "power":
+                total = Math.max(Math.min(10 - attacker.getPower() + defender.getResistance(), 9),1);
+                return value > total;
+            case "cunning":
+                total = Math.max(Math.min(10 - attacker.getCunning() + defender.getResistance(), 9),1);
+                return value > total;
+        }
+        return rand.nextInt(11) > 9;
+    }
+
+    public boolean canUpgrade()
+    {
+        return false;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return null;
+    }
 }

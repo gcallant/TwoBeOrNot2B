@@ -46,6 +46,16 @@ public class Smite extends SpecialAbility
         }
     }
 
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new HolyVengeance();
+    }
+
     public String toString()
     {
         return "Smite";

@@ -28,11 +28,11 @@ public class SummonSkeleton extends SpecialAbility
         A_Character monster;
         if(rand.nextBoolean())
         {
-            monster = new MonsterFactory().createMonster("Skeleton", "Skeleton", enemies.getCharacter(0).getLevel(), true);
+            monster = new MonsterFactory().createMonster("Skeleton", "Skeleton", enemies.getCharacter(0).getLevel(), true, enemies.getFloorLevel());
         }
         else
         {
-            monster = new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", enemies.getCharacter(0).getLevel(), true);
+            monster = new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", enemies.getCharacter(0).getLevel(), true, enemies.getFloorLevel());
         }
         allies.addCharacter(monster);
     }

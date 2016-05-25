@@ -7,6 +7,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.PoisonBomb;
 import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 
@@ -22,13 +23,18 @@ public class Goblin extends A_Monster
 	private SpecialManager specialManager;
 	private int level;
 
-	public Goblin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+	public Goblin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
 	{
 		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 7, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 
 		specialManager.addSpecialAbility(new SneakAttack());
+
+		if(floor >= 3)
+		{
+			specialManager.addSpecialAbility(new PoisonBomb());
+		}
 
 		this.level = level;
 	}
@@ -47,6 +53,6 @@ public class Goblin extends A_Monster
 
 	public int getLevel()
 	{
-		return level*2;
+		return level*4;
 	}
 }

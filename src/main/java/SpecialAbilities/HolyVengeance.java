@@ -1,12 +1,13 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
+import Characters.CreatureType;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/23/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class ViciousBite extends SpecialAbility
+public class HolyVengeance extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -24,31 +25,26 @@ public class ViciousBite extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character, enemies.getCharacter(rand.nextInt(enemies.size())));
+        A_Character choiceToStrike = enemies.getCharacter(rand.nextInt(enemies.size()));
+        abilityExecution(character, choiceToStrike);
         return false;
     }
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used vicious bite on " + choiceToStrike.getName());
+        System.out.println(character.getName() + " used holy vengeance on " + choiceToStrike.getName());
 
-        if(character.attack(choiceToStrike));
-        {
-            if(getAffectedChance(character, "cunning", choiceToStrike))
-            {
-                System.out.println(choiceToStrike.getName() + " is now bleeding!");
-                choiceToStrike.getConditions().giveBleedDebuff(1.0 + (.05*character.getCunning()), calculateRounds(character), "Vicious Bite");
-            }
-        }
+        choiceToStrike.takeDamage((character.getMaxHealth() - character.getHealth())/2);
+
     }
 
     public String toString()
     {
-        return "Vicious Bite";
+        return "Holy Vengeance";
     }
 
     public static String description()
     {
-        return "     - ";
+        return "     - Holy Vengeance: Does damage based on missing health to an enemy";
     }
 }

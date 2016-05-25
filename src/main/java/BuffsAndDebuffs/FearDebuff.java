@@ -1,0 +1,22 @@
+package BuffsAndDebuffs;
+
+/**
+ * Created by Michael on 5/23/2016.
+ */
+public class FearDebuff extends BooleanBuffList
+{
+    public FearDebuff(String name)
+    {
+        super(name);
+    }
+
+    public boolean isInEffect()
+    {
+        return size() > 0;
+    }
+
+    public String toString()
+    {
+        return "Fear";
+    }
+}

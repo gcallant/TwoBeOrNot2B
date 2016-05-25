@@ -2,17 +2,16 @@ package Database;
 
 import Characters.A_Character;
 import Characters.A_Hero;
-import PartyManagement.Party;
 import Mediator.Mediator;
-
-import java.util.List;
+import PartyManagement.Inventory;
+import PartyManagement.Party;
 
 /**
  * Created by Grant Callant on 5/21/2016.
  *
  * @author Grant Callant
  */
-public class SaveFactory
+class SaveFactory
 {
 	//Prevents instantiation
  	private SaveFactory()
@@ -20,7 +19,7 @@ public class SaveFactory
 
    }
 
-	public static A_Character[] getPartyToSave(Mediator mediator)
+	static A_Character[] getPartyToSave(Mediator mediator)
 	{
 		Party party = mediator.giveParty();
 		A_Character [] heroes = new A_Hero[3];
@@ -30,4 +29,12 @@ public class SaveFactory
 		}
 		return heroes;
 	}
+
+	static Inventory getInventoryToSave(Mediator mediator)
+	{
+		Party party = mediator.giveParty();
+		return null;
+	}
+
+
 }

@@ -31,7 +31,7 @@ public class StunningStrike extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        character.getConditions().tempDamage(character.getStrength());
+        character.getConditions().tempDamage(character.getPower());
 
         System.out.println(character.getName() + " used stunning strike on " + choiceToStrike.getName());
         if(character.canAttack(choiceToStrike))
@@ -40,7 +40,7 @@ public class StunningStrike extends SpecialAbility
             if(rand.nextBoolean())
             {
                 System.out.println(choiceToStrike.getName() + " was stunned!");
-                choiceToStrike.getConditions().giveStunnedDebuff(1,"Stunning Strike");
+                choiceToStrike.getConditions().giveStunnedDebuff(calculateRounds(character),"Stunning Strike");
             }
         }
         else
@@ -53,5 +53,10 @@ public class StunningStrike extends SpecialAbility
     public String toString()
     {
         return "Stunning Strike";
+    }
+
+    public static String description()
+    {
+        return "     - Stunning Strike: Hits for increased damage and has a chance to stun";
     }
 }

@@ -2,10 +2,8 @@ package Database;
 
 import Characters.A_Character;
 import Logging.LoggingManager;
-import PartyManagement.Inventory;
 import Mediator.Mediator;
 import Utilities.OSUtil;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.sqlite.SQLiteConfig;
 
@@ -23,14 +21,14 @@ public class DatabaseManager
 	private static final String         DATABASE          = "jdbc:sqlite:" +
 			                                                          OSUtil.getExternalDirectory().toString() +
 			                                                          OSUtil.getSeparator() + "DungeonCrawler.db";
+	private final        LoggingManager loggingManager    = LoggingManager.getInstance();
+	private final        Logger         logger            = loggingManager.getLogger();
 	private              Connection     databaseConnector = null;
 	private              Statement      sqlStatement      = null;
-	private final        LoggingManager loggingManager    = new LoggingManager(this.getClass());
-	private final        Logger         logger            = loggingManager.getLogger();
 
 
 
-	private DatabaseManager()
+	public DatabaseManager()
 	{
 		try
 		{
@@ -69,15 +67,16 @@ public class DatabaseManager
 				e1.printStackTrace();
 				System.out.println("Could not create necessary tables in database\n" + DATABASE +
 						                     "\nSaving (and/or) loading will be unsupported.");
+				logger.trace("Tried recreate, could not", e, e1);
 			}
 		}
 	}
 
-	@Contract(pure = true)
-	public static DatabaseManager getInstance()
-	{
-		return DatabaseSingle.INSTANCE;
-	}
+//	@Contract(pure = true)
+//	public static DatabaseManager getInstance()
+//	{
+//		return DatabaseSingle.INSTANCE;
+//	}
 
 	private void createTables() throws DatabaseManagerException
 	{
@@ -94,7 +93,6 @@ public class DatabaseManager
 
 		String statement = "";
 
-		if(! tableIsPresent("CHARACTERS"))
 		{
 			statement = "CREATE TABLE IF NOT EXISTS CHARACTERS(" +
 					              "NAME TEXT PRIMARY KEY NOT NULL," +
@@ -113,17 +111,10 @@ public class DatabaseManager
 			{
 				e.printStackTrace();
 			}
-			if(result > 0)
-			{
+
 				logger.info("CHARACTERS table created successfully");
-			}
-			else
-			{
-				throw new DatabaseManagerException("CHARACTERS table was not created");
-			}
 		}
 
-		if(! tableIsPresent("INVENTORY"))
 		{
 			statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
 					              "ITEMID INT PRIMARY KEY NOT NULL," +
@@ -142,14 +133,8 @@ public class DatabaseManager
 			{
 				e.printStackTrace();
 			}
-			if(result > 0)
-			{
+
 				logger.info("INVENTORY table created successfully");
-			}
-			else
-			{
-				throw new DatabaseManagerException("INVENTORY table was not created");
-			}
 		}
 
 		if(sqlStatement != null)
@@ -272,8 +257,8 @@ public class DatabaseManager
 
 
 
-	private static class DatabaseSingle
-	{
-		private static final DatabaseManager INSTANCE = new DatabaseManager();
-	}
+//	private static class DatabaseSingle
+//	{
+//		private static final DatabaseManager INSTANCE = new DatabaseManager();
+//	}
 }

@@ -34,4 +34,9 @@ public class MeteorShower extends SpecialAbility
     {
         return "Meteor Shower";
     }
+
+    public static String description()
+    {
+        return "     - Meteor Shower: Attacks all enemies for a small amount of damage but has no chance to miss";
+    }
 }

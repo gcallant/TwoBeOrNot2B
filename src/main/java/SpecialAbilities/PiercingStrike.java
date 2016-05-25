@@ -35,12 +35,14 @@ public class PiercingStrike extends SpecialAbility
         if(enemies.size() > 1)
         {
             do {
+                character.getConditions().addAttack(character.getPower());
                 secondaryStrike = enemies.getCharacter((rand.nextInt(enemies.size())));
             } while (choiceToStrike == secondaryStrike);
         }
         character.attack(choiceToStrike);
         if(secondaryStrike != null)
         {
+            character.getConditions().tempDamage(2*character.getCunning());
             character.attack(secondaryStrike);
         }
     }
@@ -48,5 +50,10 @@ public class PiercingStrike extends SpecialAbility
     public String toString()
     {
         return "Piercing Strike";
+    }
+
+    public static String description()
+    {
+        return "     - Piercing Strike: Hits the first target and then hits a random second target for increased damage";
     }
 }

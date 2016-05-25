@@ -1,8 +1,9 @@
 //package TestItems;
 //
 //import Characters.A_Character;
-//import Characters.CharacterFactory;
 //import Database.DatabaseManager;
+//import Factories.CharacterFactory;
+//import Logging.LoggingManager;
 //import Utilities.OSException;
 //import Utilities.OSUtil;
 //import org.junit.After;
@@ -20,10 +21,10 @@
 // * @author Grant Callant
 // */
 //
-//@DataSet({"DatabaseManagerCharacterTest.xml"})
+//@DataSet( {"DatabaseManagerCharacterTest.xml"})
 //public class DatabaseManagerTest
 //{
-//	private static final String GAME_NAME          = "Dungeon Crawler";
+//	private static final String GAME_NAME          = "DCrawler";
 //	private static       File   EXTERNAL_DIRECTORY = null;
 //	DatabaseManager databaseManager = null;
 //
@@ -31,7 +32,7 @@
 //	public void setUp() throws Exception
 //	{
 //		createExternalDirectory();
-//		databaseManager = DatabaseManager.getInstance();
+//		databaseManager = new DatabaseManager();
 //	}
 //
 //	private static void createExternalDirectory()
@@ -50,8 +51,6 @@
 //			System.exit(- 1);
 //		}
 //	}
-//
-//
 //
 //	@Test
 //	public void testCharacter()

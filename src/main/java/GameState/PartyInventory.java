@@ -25,25 +25,14 @@ public class PartyInventory implements I_State
 
     public String display()
     {
-        return "Choose an option\n1) Equip\n2) Use Potion\n3) Back";
+        return "Press enter to view inventory";
     }
 
     public I_State execute()
     {
-        int command = TestString.ensureInt(3);
-        switch(command)
-        {
-            case 1:
-                heroes.equip();
-                return new PartyInventory(mediator);
-            case 2:
-                heroes.consumePotion();
-                return new PartyInventory(mediator);
-            case 3:
-                return new InGameMenu(mediator);
-            default:
-                return new PartyInventory(mediator);
-        }
+        TestString.enterInput();
+        heroes.useInventory();
+        return new InGameMenu(mediator);
     }
 
     @Override

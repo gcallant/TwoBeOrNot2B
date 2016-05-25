@@ -105,18 +105,75 @@ public class Inventory
         Collections.sort(this.weapons, new WeaponSort());
     }
 
-    public String displayInventory()
+    public int displayInventory()
     {
         if(totalSize == 0)
         {
-            return "No items in Inventory";
+            System.out.println("1) cancel");
+            return 1;
         }
+        int total = 1;
         String returnValue = "";
         for(Consumable consumable : consumables)
         {
-            returnValue = returnValue + consumable.toString() + "\n";
+            returnValue = returnValue + total + ") " + consumable.toString() + "\n";
+            total++;
         }
-        return returnValue;
+        for(Weapon weapon : weapons)
+        {
+            returnValue = returnValue + total + ") " + weapon.toString() + "\n";
+            total++;
+        }
+        for(Armor armor : armors)
+        {
+            returnValue = returnValue + total + ") " + armor.toString() + "\n";
+            total++;
+        }
+        returnValue = returnValue + total + ") cancel";
+
+        System.out.println(returnValue);
+
+        return total;
+    }
+
+    public int[] translateChoice(int choice)
+    {
+        int[] retArray = new int[2];
+
+        if(choice > consumables.size())
+        {
+            choice = choice - consumables.size();
+        }
+        else
+        {
+            retArray[0] = choice;
+            retArray[1] = 0;
+            return retArray;
+        }
+
+        if(choice > weapons.size())
+        {
+            choice = choice - weapons.size();
+        }
+        else
+        {
+            retArray[0] = choice;
+            retArray[1] = 1;
+            return retArray;
+        }
+
+        if(choice > armors.size())
+        {
+            retArray[0] = -1;
+            retArray[1] = -1;
+            return retArray;
+        }
+        else
+        {
+            retArray[0] = choice;
+            retArray[1] = 2;
+            return retArray;
+        }
     }
 
     public int getConsumables()

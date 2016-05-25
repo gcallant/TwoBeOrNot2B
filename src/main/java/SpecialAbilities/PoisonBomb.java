@@ -28,7 +28,7 @@ public class PoisonBomb extends SpecialAbility
         {
             if(character.attack(enemies.getCharacter(x)))
             {
-                if(rand.nextBoolean())
+                if(getAffectedChance(character, "cunning", enemies.getCharacter(x)))
                 {
                     System.out.println(enemies.getCharacter(x).getName() + " is poisoned!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(1.2, calculateRounds(character), "Poison Bomb");

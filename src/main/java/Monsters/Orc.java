@@ -7,6 +7,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.ConfusingStrike;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StunningStrike;
 import com.google.common.base.Objects;
@@ -21,12 +22,17 @@ public class Orc extends A_Monster
 	private SpecialManager specialManager;
 	private int level;
 
-	public Orc(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+	public Orc(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
 	{
 		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
 		specialManager = new SpecialManager();
 		specialManager.addSpecialAbility(new StunningStrike());
+
+		if(floor >= 3)
+		{
+			specialManager.addSpecialAbility(new ConfusingStrike());
+		}
 
 		this.level = level;
 	}
@@ -46,7 +52,7 @@ public class Orc extends A_Monster
 
 	public int getLevel()
 	{
-		return level*3;
+		return level*5;
 	}
 
 	@Override

@@ -71,10 +71,7 @@ public abstract class A_Monster extends A_Character
 
 		int choiceToAttack = rand.nextInt(heroes.size());
 
-		if(useSpecial)
-		{
-			specialAbility(rand, heroes, monsters);
-		}
+		if(useSpecial && !specialAbility(rand, heroes, monsters)){}
 		else
 		{
 			A_Character toAttack = heroes.getCharacter(choiceToAttack);

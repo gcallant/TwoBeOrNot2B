@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/21/2016.
+ * Created by Michael on 5/24/2016.
  */
-public class StunningStrike extends SpecialAbility
+public class DoubleStrike extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -31,33 +31,10 @@ public class StunningStrike extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        character.getConditions().tempDamage(character.getPower());
+        System.out.println(character.getName() + " used double strike on " + choiceToStrike.getName());
 
-        System.out.println(character.getName() + " used stunning strike on " + choiceToStrike.getName());
-        if(character.canAttack(choiceToStrike))
-        {
-            character.preformAttack(choiceToStrike);
-            if(getAffectedChance(character, "power", choiceToStrike))
-            {
-                System.out.println(choiceToStrike.getName() + " was stunned!");
-                choiceToStrike.getConditions().giveStunnedDebuff(calculateRounds(character),"Stunning Strike");
-            }
-        }
-        else
-        {
-            System.out.println("But missed!");
-        }
-        character.getConditions().giveExhaustedDebuff(2, "Stunning Strike");
-    }
-
-    public boolean canUpgrade()
-    {
-        return true;
-    }
-
-    public SpecialAbility upgrade()
-    {
-        return new ConfusingStrike();
+        character.attack(choiceToStrike);
+        character.attack(choiceToStrike);
     }
 
     public String toString()

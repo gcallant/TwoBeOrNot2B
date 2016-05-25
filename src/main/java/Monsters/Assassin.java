@@ -19,13 +19,21 @@ public class Assassin extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public Assassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+    public Assassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Light, weapon, 6, level, CreatureType.Humanoid);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new SneakAttack());
-        specialManager.addSpecialAbility(new PoisonStrike());
+
+        if(floor >= 3)
+        {
+            specialManager.addSpecialAbility(new SneakAttack());
+            specialManager.addSpecialAbility(new PoisonStrike());
+        }
+        else
+        {
+            specialManager.addSpecialAbility(new BladedFlurry());
+        }
 
         this.level = level;
     }

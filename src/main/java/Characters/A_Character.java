@@ -3,6 +3,7 @@ package Characters;
 import java.util.*;
 
 import BuffsAndDebuffs.Conditions;
+import BuffsAndDebuffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
 import com.google.common.base.Objects;
@@ -48,7 +49,14 @@ public abstract class A_Character
 		isDefeated = false;
 
 		rand = new Random();
-		conditions = new Conditions(getName());
+		if(creatureType == CreatureType.Undead)
+		{
+			conditions = new UndeadConditions(getName());
+		}
+		else
+		{
+			conditions = new Conditions(getName());
+		}
 	}
 
 
@@ -111,7 +119,7 @@ public abstract class A_Character
 		attackBonus = conditions.addAttack(attackBonus);
 		attackBonus = conditions.calculateAttack(attackBonus);
 
-		return attackBonus >= toAttack.totalDefense();
+		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(20) != 0);
 	}
 
 	public boolean attack(A_Character toAttack)
@@ -133,7 +141,7 @@ public abstract class A_Character
 		int totalDamage = 0;
 
 		totalDamage += weapon.getPower();
-		totalDamage += getPower();
+		totalDamage += getPower()*2;
 		totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
 		totalDamage = conditions.addDamage(totalDamage);
 		totalDamage = conditions.calculateDamage(totalDamage);
@@ -186,7 +194,7 @@ public abstract class A_Character
 
 	public void upgradepower()
 	{
-		this.power += 2;
+		this.power += 1;
 	}
 
 	public void upgradecunning()
@@ -199,6 +207,8 @@ public abstract class A_Character
 		this.health += 25;
 		this.maxHealth += 25;
 	}
+
+	public void upgradeAbilities(){}
 
 	/*
 	* * * * * * * * * * * * * * * * * * * * * * *
@@ -392,6 +402,16 @@ public abstract class A_Character
 	public CreatureType getCreatureType()
 	{
 		return creatureType;
+	}
+
+	public int getBonusResistance()
+	{
+		return 0;
+	}
+
+	public int getResistance()
+	{
+		return Math.min(getPower(), getCunning()) + getBonusResistance();
 	}
 
 	private int totalDefense()

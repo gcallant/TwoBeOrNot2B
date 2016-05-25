@@ -8,6 +8,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
+import SpecialAbilities.HealingLightHero;
 import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 
@@ -21,13 +22,20 @@ public class UndeadCleric extends A_Monster
     private SpecialManager specialManager;
     private int level;
 
-    public UndeadCleric(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
+    public UndeadCleric(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor)
     {
         super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, 8, level, CreatureType.Undead);
 
         specialManager = new SpecialManager();
 
-        specialManager.addSpecialAbility(new HealingLight());
+        if(floor >= 3)
+        {
+            specialManager.addSpecialAbility(new HealingLightHero());
+        }
+        else
+        {
+            specialManager.addSpecialAbility(new HealingLight());
+        }
 
         this.level = level;
     }

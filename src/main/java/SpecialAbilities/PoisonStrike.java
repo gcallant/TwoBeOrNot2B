@@ -31,7 +31,21 @@ public class PoisonStrike extends SpecialAbility
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
         System.out.println(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
-        choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getCunning()*.01), calculateRounds(character), "Poison Strike");
+        if(getAffectedChance(character, "cunning", choiceToStrike))
+        {
+            System.out.println(character.getName() + " has been poisoned!");
+            choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getCunning() * .01), calculateRounds(character), "Poison Strike");
+        }
+    }
+
+    public boolean canUpgrade()
+    {
+        return true;
+    }
+
+    public SpecialAbility upgrade()
+    {
+        return new PoisonBomb();
     }
 
     public String toString()

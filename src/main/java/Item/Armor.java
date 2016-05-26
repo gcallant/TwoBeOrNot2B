@@ -43,7 +43,6 @@ public abstract class Armor
       Armor armor = (Armor) o;
 
       if (power != armor.power) return false;
-      //if (!enchantment.equals(armor.enchantment)) return false;
 
       return true;
    }

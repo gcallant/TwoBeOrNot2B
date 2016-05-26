@@ -39,7 +39,10 @@ public class InventoryTest
     @After
     public void tearDown() throws Exception
     {
-
+        inventory = null;
+        weapons = null;
+        armor = null;
+        consumable = null;
     }
 
     @Test
@@ -47,6 +50,8 @@ public class InventoryTest
     {
         inventory.addToInventory(new Hammer(2));
         assertEquals(weapons, inventory.getWeapons());
+        Weapon weapon = null;
+
     }
 
     @Test
@@ -60,7 +65,9 @@ public class InventoryTest
     public void addConsumableToInventory() throws Exception
     {
         inventory.addToInventory(new Healing(1));
-        assertEquals(2, inventory.getConsumables());
+        assertEquals(consumable.size() + 1, inventory.getConsumables());
+
+
     }
 
     @Test
@@ -68,6 +75,8 @@ public class InventoryTest
     {
         inventory.addToInventory(new Hammer(2));
         assertNotNull(inventory.removeFromInventory(weapons.get(0)));
+
+        assertNull(inventory.removeFromInventory(new Sword(1)));
     }
 
     @Test
@@ -75,6 +84,8 @@ public class InventoryTest
     {
         inventory.addToInventory(new Leather(2));
         assertNotNull(inventory.removeFromInventory(armor.get(0)));
+
+        assertNull(inventory.removeFromInventory(new Cloth(1)));
     }
 
     @Test
@@ -82,6 +93,8 @@ public class InventoryTest
     {
         inventory.addToInventory(new Healing(1));
         assertNotNull(inventory.removeFromInventory(consumable.get(0)));
+
+        assertNull(inventory.removeFromInventory(new Strength(1)));
     }
 
 }

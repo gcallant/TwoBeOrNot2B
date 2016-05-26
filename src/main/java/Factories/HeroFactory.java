@@ -8,7 +8,9 @@ import Item.*;
  */
 public class HeroFactory
 {
-
+	public HeroFactory()
+	{
+	}
 
 	public A_Character createCharacter(String type, String name)
 	{

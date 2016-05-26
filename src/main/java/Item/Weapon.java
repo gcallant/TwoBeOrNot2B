@@ -49,7 +49,6 @@ public abstract class Weapon
       Weapon weapon = (Weapon) o;
 
       if (power != weapon.power) return false;
-      //if (!enchantment.equals(weapon.enchantment)) return false;
       if (!attackType.equals(weapon.attackType)) return false;
 
       return true;

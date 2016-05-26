@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/22/2016.
+ * Created by Michael on 5/21/2016.
  */
-public class PoisonStrike extends SpecialAbility
+public class Grapple extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -24,18 +24,20 @@ public class PoisonStrike extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character, enemies.getCharacter(rand.nextInt(enemies.size())));
+        A_Character choiceToStrike = enemies.getCharacter(rand.nextInt(enemies.size()));
+        abilityExecution(character, choiceToStrike);
         return false;
     }
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
-        if(getAffectedChance(character, "cunning", choiceToStrike))
-        {
-            System.out.println(choiceToStrike.getName() + " has been poisoned!");
-            choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getCunning() * .01), calculateRounds(character), "Poison Strike");
-        }
+        character.getConditions().tempDamage(character.getPower());
+
+        System.out.println(character.getName() + " used grapple on " + choiceToStrike.getName() + ". " + choiceToStrike.getName() +
+                            " is stunned and takes " + character.getPower()*2 + " damage!");
+
+        choiceToStrike.getConditions().giveStunnedDebuff(2,"Grapple");
+        choiceToStrike.takeDamage(character.getPower()*2);
     }
 
     public boolean canUpgrade()
@@ -45,16 +47,16 @@ public class PoisonStrike extends SpecialAbility
 
     public SpecialAbility upgrade()
     {
-        return new PoisonBomb();
+        return new ConfusingStrike();
     }
 
     public String toString()
     {
-        return "Poison Strike";
+        return "Grapple";
     }
 
     public static String description()
     {
-        return "     - Poison Strike: Deals no damage but puts a poison debuff on the target for a few rounds";
+        return "     - Grapple";
     }
 }

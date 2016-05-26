@@ -50,6 +50,11 @@ public abstract class A_Monster extends A_Character
 			noTurn = true;
 		}
 
+		if(getDefeated())
+		{
+			return false;
+		}
+
 		resetTurn();
 
 		useSpecial = (rand.nextInt(10) < percentageOfSpecial);

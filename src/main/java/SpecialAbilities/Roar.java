@@ -4,9 +4,9 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 /**
- * Created by Michael on 5/24/2016.
+ * Created by Michael on 5/26/2016.
  */
-public class Heal extends SpecialAbility
+public class Roar extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
@@ -24,33 +24,24 @@ public class Heal extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        int choiceToHeal = 0, best = -1, test = 0;
-        for(int x = 0; x < allies.size(); x++)
-        {
-            test = allies.getCharacter(x).getMaxHealth() - allies.getCharacter(x).getHealth();
-            if(test > best)
-            {
-                choiceToHeal = x;
-                best = test;
-            }
-        }
-        abilityExecution(character, allies.getCharacter(choiceToHeal));
+        abilityExecution(character, allies.getCharacter(rand.nextInt((allies.size()))));
         return false;
     }
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used heal on " + choiceToStrike.getName() + " for " + character.getPower()*5);
-        choiceToStrike.heal(character.getPower()*5);
+        System.out.println(character.getName() + " roared in " + choiceToStrike.getName() + " face!");
+        choiceToStrike.getConditions().recoverConditions();
+        choiceToStrike.getConditions().giveDamageReductionBuff(1.0 + character.getCunning()*.01, calculateRounds(character), "Roar");
     }
 
     public String toString()
     {
-        return "Heal";
+        return "Roar";
     }
 
     public static String description()
     {
-        return "     - ";
+        return "     - Roar: Recovers an ally's conditions and gives a small damage reduction buff";
     }
 }

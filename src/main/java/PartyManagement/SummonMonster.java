@@ -24,6 +24,7 @@ public class SummonMonster
         names.add("Skeleton");
         names.add("Dire Wolf");
         names.add("Undead Cleric");
+        names.add("Sapling");
 
         Scanner kb = new Scanner(System.in);
 

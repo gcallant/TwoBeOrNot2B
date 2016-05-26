@@ -36,6 +36,7 @@ public class GenerateMonsterParty
         int[] numberOfAssassins = {1, 5, 6};
         int[] numberOfDireWolfs = {2, 4, 8};
         int[] numberOfSkeletons = {3, 5, 7};
+        int[] numberOfSaplings = {4, 6, 6};
 
         //Manually add one monster to each of the lists
         addInValues("Goblin",numberOfGoblins);
@@ -46,6 +47,7 @@ public class GenerateMonsterParty
         addInValues("Assassin", numberOfAssassins);
         addInValues("Dire Wolf", numberOfDireWolfs);
         addInValues("Skeleton", numberOfSkeletons);
+        addInValues("Sapling", numberOfSaplings);
     }
 
     private void addInValues(String name, int[] numToAdd)

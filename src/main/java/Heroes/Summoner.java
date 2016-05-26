@@ -21,6 +21,7 @@ public class Summoner extends A_Hero
         specialManager = new SpecialManager();
 
         specialManager.addSpecialAbility(new SummonCreature());
+        specialManager.addSpecialAbility(new StealLife());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -30,7 +31,7 @@ public class Summoner extends A_Hero
 
     public static String Information()
     {
-        return "Summoner:\n" + SummonCreature.description();
+        return "Summoner:\n" + SummonCreature.description() + "\n" + StealLife.description();
     }
 
     public String getName()

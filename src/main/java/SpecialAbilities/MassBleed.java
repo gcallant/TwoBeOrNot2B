@@ -1,0 +1,45 @@
+package SpecialAbilities;
+
+import Characters.A_Character;
+import PartyManagement.Party;
+
+/**
+ * Created by Michael on 5/25/2016.
+ */
+public class MassBleed extends SpecialAbility
+{
+    public boolean executeAbility(A_Character character, Party allies, Party enemies)
+    {
+        abilityExecution(character, enemies);
+        return false;
+    }
+
+    public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
+    {
+        abilityExecution(character, enemies);
+        return false;
+    }
+
+    private void abilityExecution(A_Character character, Party enemies)
+    {
+        System.out.println(character.getName() + " used mass bleed!");
+        int totalEnemies = enemies.size();
+        for (int x = 0; x < totalEnemies; x++)
+        {
+            if (character.attack(enemies.getCharacter(x)) && getAffectedChance(character, "cunning", enemies.getCharacter(x)))
+            {
+                System.out.println(enemies.getCharacter(x).getName() + " is bleeding!");
+                enemies.getCharacter(x).getConditions().giveBleedDebuff(1.2, calculateRounds(character), "Mass Bleed");
+            }
+        }
+    }
+
+    public String toString() {
+        return "Mass Bleed";
+    }
+
+    public static String description()
+    {
+        return "     - Mass Bleed";
+    }
+}

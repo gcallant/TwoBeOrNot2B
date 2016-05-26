@@ -50,6 +50,7 @@ public class Conditions
 
     public int reduceDamage(int damage)
     {
+        damage = (int)((double)damage/buffsManager.getDamageReductionAmount());
         if(defended)
         {
             damage = damage/2;
@@ -137,6 +138,11 @@ public class Conditions
         buffsManager.addBurnDebuff(value, rounds, source);
     }
 
+    public void giveDamageReductionBuff(double percentage, int rounds, String source)
+    {
+        buffsManager.addDamageReductionBuff(percentage, rounds, source);
+    }
+
     public void giveExhaustedDebuff(int rounds, String source)
     {
         buffsManager.addExhaustedDebuff(rounds, source);
@@ -191,9 +197,14 @@ public class Conditions
         return buffsManager.isConfused();
     }
 
+    public boolean isBleeding()
+    {
+        return buffsManager.getBleedAmount() > 0;
+    }
+
     public int calculateDamage(int damage)
     {
-        damage = (int)((double)damage*buffsManager.getDamageBuffAmount());
+        damage = (int)(((double)damage*buffsManager.getDamageBuffAmount()));
         return damage;
     }
 
@@ -271,11 +282,11 @@ public class Conditions
         buffsManager.cleanBuffs();
     }
 
-    public int takeTurnDamage(int health)
+    public int takeTurnDamage(int maxHealth, int health)
     {
         int poison, bleed, burn;
 
-        poison = Math.min(50,calculatePoisonDamage(health));
+        poison = Math.min(50,calculatePoisonDamage(maxHealth));
         bleed = Math.min(50,calculateBleedDamage(health));
         burn = calculateBurnDamage();
         if(poison > 0)
@@ -329,6 +340,7 @@ public class Conditions
         String str = "";
         str += (calculateAttack(100) != 100) ? " Attack " + calculateAttack(100) + "%": "";
         str += (calculateDamage(100) != 100) ? " Damage " + calculateDamage(100) + "%": "";
+        str += (reduceDamage(100) != 100) ? " Damage Reduction " + reduceDamage(100) + "%": "";
         str += (buffsManager.isExhausted()) ? " Exhausted": "";
         str += (buffsManager.isStunned()) ? " Stunned": "";
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";

@@ -51,7 +51,7 @@ public class CheatMenu implements I_State
 		{
 			if(cheat == 1)
 			{
-				hero.setGodMod();
+				hero.setGodMode();
 			}
 			if(cheat == 2)
 			{

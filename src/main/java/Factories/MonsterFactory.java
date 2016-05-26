@@ -61,6 +61,12 @@ public class MonsterFactory
                     return new DireWolf(monsterName, 125, 15, 8, new Leather(level), new Hammer(level), level, floor);
                 }
                 return new DireWolf(monsterName, 1, 15, 8, new Leather(1), new Hammer(1), 1, 1);
+            case "Sapling":
+                if(normal)
+                {
+                    return new Sapling(monsterName, 200, 10, 8, new Cloth(level), new Hammer(level), level, floor);
+                }
+                return new Sapling(monsterName, 1, 10, 8, new Cloth(1), new Hammer(1), level, floor);
         }
         System.out.println(monsterType + " is not a  recognized monster. You have been provided with a Goblin.");
         return new Goblin("Goblin", 50, 3, 4, new Cloth(1), new Dagger(1), level, floor);

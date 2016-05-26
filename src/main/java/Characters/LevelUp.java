@@ -17,6 +17,7 @@ public class LevelUp
         int num = 3;
         int choice = 0;
 
+        character.upgradeHealth();
         character.upgradepower();
         character.upgradecunning();
         while(num > 0)

@@ -2,6 +2,7 @@ package Mediator;
 
 import Characters.A_Character;
 import Characters.A_Nemesis;
+import Factories.NemesisPartyFactory;
 import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
 import com.google.common.base.Objects;
@@ -28,6 +29,7 @@ public class Mediator
     private int monsterChance;
     private int monsterCount;
     private A_Nemesis bigBoss;
+    private NemesisPartyFactory nemesisPartyFactory;
 
     public Mediator()
     {
@@ -37,6 +39,7 @@ public class Mediator
         noEnemies = false;
         normal = true;
         monsterChance = 10;
+        nemesisPartyFactory = new NemesisPartyFactory();
     }
 
     public void receiveParty(Party party)
@@ -162,6 +165,16 @@ public class Mediator
     public A_Nemesis giveBigBoss()
     {
         return bigBoss;
+    }
+
+    public void receiveNemesis(NemesisPartyFactory nemesisPartyFactory)
+    {
+        this.nemesisPartyFactory = nemesisPartyFactory;
+    }
+
+    public NemesisPartyFactory giveNemesis()
+    {
+        return nemesisPartyFactory;
     }
 
     @Override

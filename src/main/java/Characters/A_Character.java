@@ -108,6 +108,7 @@ public abstract class A_Character
 			return;
 		}
 
+		total = conditions.reduceDamage(total);
 		this.health -= total;
 		if(health <= 0)
 		{
@@ -358,7 +359,7 @@ public abstract class A_Character
 	{
 		int toHeal = conditions.takeTurnHealing(getMaxHealth());
 		heal(toHeal);
-		int damage = conditions.takeTurnDamage(getMaxHealth());
+		int damage = conditions.takeTurnDamage(getMaxHealth(), getHealth());
 		takeDamage(damage);
 	}
 

@@ -7,6 +7,8 @@ import Item.Cloth;
 import Item.Hammer;
 import Mediator.Mediator;
 import Nemesis.Necromancer;
+import Nemesis.Trent;
+import Nemesis.Werewolf;
 import PartyManagement.GenerateMonsterParty;
 import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
@@ -60,19 +62,20 @@ public class BossBattle implements I_State
         if(mediator.giveNewBattle())
         {
             heroParty = mediator.giveParty();
-            List<A_Character> boss = new ArrayList<A_Character>();
 
-            A_Nemesis bigBoss = new Necromancer("Necromancer", 1000, 20, 10, new Cloth(3), new Hammer(5), heroParty.getCharacter(0).getLevel());
-            mediator.receiveBigBoss(bigBoss);
-            boss.add(bigBoss);
-            boss.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", heroParty.getCharacter(0).getLevel(), true, mediator.giveCurrentLevel()));
-            boss.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", heroParty.getCharacter(0).getLevel(), true, mediator.giveCurrentLevel()));
-            enemyParty = new Party(boss);
-            enemyParty.setFloorLevel(mediator.giveCurrentLevel());
+            enemyParty = mediator.giveNemesis().getRandomNemesis(mediator.givePartyLevel(), mediator.giveCurrentLevel());
+            for(int x = 0; x < enemyParty.size(); x++)
+            {
+                if(enemyParty.getCharacter(x) instanceof A_Nemesis)
+                {
+                    mediator.receiveBigBoss((A_Nemesis)enemyParty.getCharacter(x));
+                }
+            }
+
             wholeBattle = new ArrayList<A_Character>();
 
             mediator.receiveEnemies(enemyParty);
-            mediator.receiveMonsterCount(boss.size());
+            mediator.receiveMonsterCount(enemyParty.size());
 
             for(int index = 0; index < heroParty.size(); index++)
             {

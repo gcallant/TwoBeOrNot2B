@@ -38,6 +38,11 @@ public abstract class A_Hero extends A_Character
 			noTurn = true;
 		}
 
+		if(getDefeated())
+		{
+			return false;
+		}
+
 		resetTurn();
 
 		if(noTurn)
@@ -125,7 +130,7 @@ public abstract class A_Hero extends A_Character
 	private boolean tryToRun(Party heroes, Party monsters)
 	{
 		System.out.println("You attempt to run!");
-		int chanceToRun = rand.nextInt(3*monsters.size()/heroes.size());
+		int chanceToRun = 0;//rand.nextInt(3*monsters.size()/heroes.size());
 		if(chanceToRun == 0)
 		{
 			System.out.println("You successfully escaped!");

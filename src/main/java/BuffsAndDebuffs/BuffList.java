@@ -30,7 +30,7 @@ public abstract class BuffList
         {
             if(aBuff.getSource().equals(source))
             {
-                System.out.println(source + " has been refreshed on " + name);
+                System.out.println(source + "'s " + toString() + " has been refreshed on " + name);
                 aBuff.replace(buff, rounds);
                 found = true;
             }

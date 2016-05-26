@@ -453,7 +453,7 @@ public class GenerateDungeon
          case "right":
             return dungeon[characterX][characterY].getDirection()[2] == 1;
          case "left":
-            return dungeon[characterX][characterY].getDirection()[0] == 1;
+            return dungeon[characterX][characterY].getDirection()[0] == 1 && characterY != 0;
          case "up":
             return dungeon[characterX][characterY].getDirection()[1] == 1;
          case "down":

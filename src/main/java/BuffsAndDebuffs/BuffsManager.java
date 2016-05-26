@@ -14,6 +14,7 @@ public class BuffsManager
     private BuffList bleed;
     private BuffList regenStatic;
     private BuffList burn;
+    private BuffList damageReduction;
     private BooleanBuffList exhausted;
     private BooleanBuffList stunned;
     private BooleanBuffList feared;
@@ -35,6 +36,7 @@ public class BuffsManager
         stunned = new StunnedDebuff(name);
         feared = new FearDebuff(name);
         confused = new ConfusionDebuff(name);
+        damageReduction = new DamageReductionBuff(name);
         this.name = name;
     }
 
@@ -79,6 +81,11 @@ public class BuffsManager
         burn.addBuff(buff, rounds, source);
     }
 
+    public void addDamageReductionBuff(double buff, int rounds, String source)
+    {
+        damageReduction.addBuff(buff, rounds, source);
+    }
+
     public void addExhaustedDebuff(int rounds, String source)
     {
         exhausted.addBuff(rounds, source);
@@ -103,6 +110,7 @@ public class BuffsManager
     {
         regenStatic.addBuff(buff, rounds, source);
     }
+
     //
 
     public void decrement()
@@ -133,6 +141,8 @@ public class BuffsManager
         regenStatic.decrementList();
 
         burn.decrementList();
+
+        damageReduction.decrementList();
     }
 
     public void decrementBad()
@@ -200,6 +210,11 @@ public class BuffsManager
         return burn.getAmount();
     }
 
+    public double getDamageReductionAmount()
+    {
+        return damageReduction.getAmount();
+    }
+
     public boolean isExhausted()
     {
         return exhausted.isInEffect();
@@ -260,5 +275,6 @@ public class BuffsManager
         confused.clear();
         regenStatic.clear();
         burn.clear();
+        damageReduction.clear();
     }
 }

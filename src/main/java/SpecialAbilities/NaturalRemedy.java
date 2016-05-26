@@ -10,19 +10,24 @@ public class NaturalRemedy extends SpecialAbility
 {
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character);
+        abilityExecution(character, allies);
         return false;
     }
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        abilityExecution(character);
+        abilityExecution(character, allies);
         return false;
     }
 
-    private void abilityExecution(A_Character character)
+    private void abilityExecution(A_Character character, Party allies)
     {
-        character.getConditions().giveRegenBuff(1.1, calculateRounds(character), "Natural Remedy");
+        System.out.println(character.getName() + " used natural remedy!");
+        for(int x = 0; x < allies.size(); x++)
+        {
+            System.out.println(allies.getCharacter(x).getName() + " is regenning their health!");
+            allies.getCharacter(x).getConditions().giveRegenBuff(1.06, calculateRounds(character), "Natural Remedy");
+        }
     }
 
     public String toString()

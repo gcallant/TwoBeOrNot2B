@@ -43,7 +43,86 @@ public abstract class A_Nemesis extends A_Character
         }
     }
 
-    public abstract boolean takeAction(Party heroes, Party monsters);
+    public boolean takeAction(Party heroes, Party monsters)
+    {
+        boolean noTurn, noSpecial, useSpecial;
+
+        if(!rage && !rageUsed)
+        {
+            rage = getHealth() < (getMaxHealth() / 4);
+            if(rage)
+            {
+                startRage(rand, heroes, monsters);
+                rageUsed = true;
+                rageCount = 5;
+                endTurn();
+                return false;
+            }
+        }
+        noTurn = conditions.cannotAttack();
+        noSpecial = conditions.cannotUseSpecial();
+
+        if(conditions.confusedEffect(this, heroes, monsters))
+        {
+            noTurn = true;
+        }
+
+        if(getDefeated())
+        {
+            return false;
+        }
+
+        resetTurn();
+
+        if(noTurn && !rage)
+        {
+            endTurn();
+            return false;
+        }
+
+        if(noSpecial && !rage)
+        {
+            useSpecial = false;
+        }
+
+        heroes.sortDefeated();
+        monsters.sortDefeated();
+
+        int choiceToAttack = rand.nextInt(heroes.size());
+
+        if(getHealth() < getMaxHealth()/2 && potions.size() > 0)
+        {
+            if(rand.nextBoolean())
+            {
+                potions.get(0).use(this);
+                potions.remove(0);
+            }
+        }
+        if((cooldown == 0 && monsters.size() < 6) || (cooldown == 0 && rage))
+        {
+            specialAbility(rand, heroes, monsters);
+            if(!rage || rageCount == 0)
+            {
+                cooldown = 2;
+            }
+            else
+            {
+                rageCount = Math.max(0,rageCount - 1);
+                if(rageCount == 0)
+                {
+                    rage = false;
+                }
+                cooldown = 1;
+            }
+        }
+        else
+        {
+            A_Character toAttack = heroes.getCharacter(choiceToAttack);
+            attack(toAttack);
+        }
+        endTurn();
+        return false;
+    }
 
     public boolean isRaged()
     {

@@ -134,6 +134,7 @@ public abstract class A_Hero extends A_Character
 		if(chanceToRun == 0)
 		{
 			System.out.println("You successfully escaped!");
+			heroes.fixParty();
 			return true;
 		}
 		System.out.println("But they caught you!");

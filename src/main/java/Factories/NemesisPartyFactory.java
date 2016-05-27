@@ -111,7 +111,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> assassinParty = new ArrayList<A_Character>();
 
-		assassinParty.add(new MasterAssassin("Scarlett, The Temptress", 800, 20, 25, new Leather(level), new Dagger(level), level));
+		assassinParty.add(new MasterAssassin("Scarlett, The Shadow", 800, 15, 25, new Leather(level), new Dagger(level), level));
 		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 1", level, true, floor));
 		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 2", level, true, floor));
 

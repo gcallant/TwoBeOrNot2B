@@ -39,6 +39,7 @@ public class MasterAssassin extends A_Nemesis
 
     public void startRage(Random rand, Party heroes, Party monsters)
     {
+
         new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
         new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
         specialManager.executeRandomAbility(this, monsters, heroes);
@@ -49,7 +50,7 @@ public class MasterAssassin extends A_Nemesis
         int count = 0;
         for(int x = 0; x < monsters.size(); x++)
         {
-            if(monsters.getCharacter(x).getName().equals("Scarlett, The Temptress"))
+            if(monsters.getCharacter(x).getName().equals("Scarlett, The Shadow"))
             {
                 count++;
             }

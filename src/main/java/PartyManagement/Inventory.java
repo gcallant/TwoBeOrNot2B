@@ -188,7 +188,7 @@ public class Inventory
         }
     }
 
-    public int getConsumables()
+    private int getConsumables()
     {
         int itemIndex = 1;
         for(Consumable item : consumables)
@@ -197,21 +197,6 @@ public class Inventory
             itemIndex++;
         }
         return itemIndex;
-    }
-
-    public int chooseConsumable()
-    {
-        return TestString.getConsumableChoice(consumables);
-    }
-
-    public List<Weapon> getWeapons()
-    {
-        return weapons;
-    }
-
-    public List<Armor> getArmor()
-    {
-        return armors;
     }
 
     public boolean useConsumable(A_Character character, int index)
@@ -263,11 +248,6 @@ public class Inventory
         Armor toAdd = character.equip(armor);
         addToInventory(toAdd);
         return true;
-    }
-
-    public String getConsumable(int index)
-    {
-        return consumables.get(index).toString();
     }
 
     @Override

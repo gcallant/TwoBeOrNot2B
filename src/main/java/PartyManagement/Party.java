@@ -3,6 +3,7 @@ package PartyManagement;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import Characters.A_Character;
@@ -15,13 +16,17 @@ import StringTester.TestString;
  * Created by Michael on 5/12/2016.
  */
 
-public class Party
+public class Party implements Iterable<A_Character>
 {
     private List<A_Character> characterParty;
     private Inventory         inventory;
     private int               partyLevel;
-    private boolean           shout;
     private int               floorLevel;
+
+    public Iterator<A_Character> iterator()
+    {
+        return characterParty.iterator();
+    }
 
     public Party(List<A_Character> characterParty)
     {
@@ -63,11 +68,6 @@ public class Party
     {
         return inventory.removeFromInventory(item);
     }
-
-    /*private void displayInventory()
-    {
-        System.out.println(inventory.displayInventory());
-    }*/
 
     public boolean isDefeated()
     {
@@ -140,21 +140,6 @@ public class Party
         Collections.sort(characterParty, new DefeatedSort());
     }
 
-    public int getConsumables()
-    {
-        return inventory.getConsumables();
-    }
-
-    public String getConsumable(int index)
-    {
-        return inventory.getConsumable(index);
-    }
-
-    public boolean useConsumable(A_Character character, int index)
-    {
-        return inventory.useConsumable(character,index);
-    }
-
     public int size()
     {
         int size = 0;
@@ -171,11 +156,6 @@ public class Party
     public A_Character getCharacter(int index)
     {
         return characterParty.get(index);
-    }
-
-    public List<A_Character> getCharacterParty()
-    {
-        return characterParty;
     }
 
     public boolean useInventory()
@@ -202,7 +182,7 @@ public class Party
         }
     }
 
-    public boolean consumePotion(int potion)
+    private boolean consumePotion(int potion)
     {
         System.out.println("Select who you want to use a potion");
         int choice = TestString.getCharacterChoice(characterParty);
@@ -218,7 +198,7 @@ public class Party
         return false;
     }
 
-    public boolean equip(int equip, String str)
+    private boolean equip(int equip, String str)
     {
         System.out.println("Select who you want to equip");
         int choice = TestString.getCharacterChoice(characterParty);
@@ -278,14 +258,7 @@ public class Party
 
     public boolean contains(A_Character character)
     {
-        for(A_Character partyMember : characterParty)
-        {
-            if(partyMember == character)
-            {
-                return true;
-            }
-        }
-        return false;
+        return characterParty.contains(character);
     }
 
     @Override
@@ -297,7 +270,6 @@ public class Party
         Party party = (Party) o;
 
         if (partyLevel != party.partyLevel) return false;
-        if (shout != party.shout) return false;
         if (!characterParty.equals(party.characterParty)) return false;
         if (!inventory.equals(party.inventory)) return false;
 
@@ -310,7 +282,6 @@ public class Party
         int result = characterParty.hashCode();
         result = 31 * result + inventory.hashCode();
         result = 31 * result + partyLevel;
-        result = 31 * result + (shout ? 1 : 0);
         return result;
     }
 }

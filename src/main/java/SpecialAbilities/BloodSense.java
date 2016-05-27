@@ -4,6 +4,7 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 5/25/2016.
@@ -19,7 +20,7 @@ public class BloodSense extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        ArrayList<Integer> bleeders = new ArrayList<Integer>();
+        List<Integer> bleeders = new ArrayList<Integer>();
         int count = 0;
 
         for(int x = 0; x < enemies.size(); x++)

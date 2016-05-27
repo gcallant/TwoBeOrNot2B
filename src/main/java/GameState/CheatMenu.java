@@ -47,7 +47,7 @@ public class CheatMenu implements I_State
 	private void applyCheat(int cheat)
 	{
 		Party party = mediator.giveParty();
-		for(A_Character hero: party.getCharacterParty())
+		for(A_Character hero: party)
 		{
 			if(cheat == 1)
 			{

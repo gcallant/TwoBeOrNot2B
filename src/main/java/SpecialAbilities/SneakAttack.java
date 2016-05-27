@@ -4,6 +4,7 @@ import Characters.A_Character;
 import PartyManagement.Party;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -26,7 +27,7 @@ public class SneakAttack extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        ArrayList<Integer> possibleChoices = new ArrayList<Integer>();
+        List<Integer> possibleChoices = new ArrayList<Integer>();
         int count = 0;
 
         for(int x = 0; x < enemies.size(); x++)

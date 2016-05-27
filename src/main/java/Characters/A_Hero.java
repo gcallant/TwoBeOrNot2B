@@ -167,8 +167,8 @@ public abstract class A_Hero extends A_Character
 
 	public void gainExperience(int experience)
 	{
-		super.gainExperience(experience);
 		System.out.println(getName() + " gained " + experience +" experience!");
+		super.gainExperience(experience);
 	}
 
 	public boolean canLevel()

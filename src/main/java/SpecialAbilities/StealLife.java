@@ -28,7 +28,8 @@ public class StealLife extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " stole life from " + choiceToStrike.getName());
+        System.out.println(character.getName() + " stole " + character.getCunning()*3 + " life from " + choiceToStrike.getName());
+        System.out.println(character.getName() + " healed for " + character.getCunning()*2);
         choiceToStrike.takeDamage(character.getCunning()*3);
         character.heal(character.getCunning()*2);
     }

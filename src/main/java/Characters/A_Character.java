@@ -142,9 +142,20 @@ public abstract class A_Character
 				break;
 		}
 		attackBonus += weapon.getPower();
-		attackBonus += rand.nextInt(ConstantValues.ChanceToHit.getValue());
+		int randomChance = rand.nextInt(ConstantValues.ChanceToHit.getValue());
+		attackBonus += randomChance;
 		attackBonus = conditions.addAttack(attackBonus);
 		attackBonus = conditions.calculateAttack(attackBonus);
+
+		if(randomChance == 0)
+		{
+			return false;
+		}
+
+		if(randomChance == (ConstantValues.ChanceToHit.getValue() - 1))
+		{
+			return true;
+		}
 
 		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(20) != 0);
 	}
@@ -378,6 +389,16 @@ public abstract class A_Character
 		conditions.resetConditions();
 	}
 
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
+	public void setConditions(Conditions conditions)
+	{
+		this.conditions = conditions;
+	}
+
 	public void setGodMode()
 	{
 		isInvincible = true;
@@ -532,9 +553,7 @@ public abstract class A_Character
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType);
 		return Objects.hashCode(name, health, maxHealth, power, cunning, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType, conditions, rand);
+		                        isDefeated, initiative, armorType, weaponType);
 	}
 }

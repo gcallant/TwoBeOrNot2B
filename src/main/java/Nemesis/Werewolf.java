@@ -46,6 +46,7 @@ public class Werewolf extends A_Nemesis
     {
         upgradeHealth();
         upgradeHealth();
+        upgradeHealth();
         upgradepower();
         upgradepower();
         upgradepower();

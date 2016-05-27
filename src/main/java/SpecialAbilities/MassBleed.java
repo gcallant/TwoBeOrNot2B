@@ -29,7 +29,7 @@ public class MassBleed extends SpecialAbility
             if (character.attack(enemies.getCharacter(x)) && getAffectedChance(character, "cunning", enemies.getCharacter(x)))
             {
                 System.out.println(enemies.getCharacter(x).getName() + " is bleeding!");
-                enemies.getCharacter(x).getConditions().giveBleedDebuff(1.2, calculateRounds(character), "Mass Bleed");
+                enemies.getCharacter(x).getConditions().giveBleedDebuff(1.3, calculateRounds(character), "Mass Bleed");
             }
         }
     }

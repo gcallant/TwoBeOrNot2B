@@ -48,7 +48,11 @@ public class Trent extends A_Nemesis
     {
         upgradeHealth();
         upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
         upgradepower();
-        upgradecunning();
+        upgradepower();
+        upgradepower();
+        upgradepower();
     }
 }

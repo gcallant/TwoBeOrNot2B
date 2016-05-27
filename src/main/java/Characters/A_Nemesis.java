@@ -20,7 +20,6 @@ Warlord:
 public abstract class A_Nemesis extends A_Character
 {
 
-    protected List<Consumable> potions;
     protected int cooldown;
     protected boolean rage;
     protected boolean rageUsed;
@@ -30,9 +29,6 @@ public abstract class A_Nemesis extends A_Character
                      WeaponType weaponType, Weapon weapon, int level, CreatureType creatureType)
     {
         super(name, health, power, cunning, armorType,armor, weaponType, weapon, creatureType);
-        potions = new ArrayList<Consumable>();
-        potions.add(new Healing(5));
-        potions.add(new Healing(5));
         cooldown = 0;
         int curLevel = 1;
 
@@ -90,14 +86,6 @@ public abstract class A_Nemesis extends A_Character
 
         int choiceToAttack = rand.nextInt(heroes.size());
 
-        if(getHealth() < getMaxHealth()/2 && potions.size() > 0)
-        {
-            if(rand.nextBoolean())
-            {
-                potions.get(0).use(this);
-                potions.remove(0);
-            }
-        }
         if((cooldown == 0 && monsters.size() < 6) || (cooldown == 0 && rage))
         {
             specialAbility(rand, heroes, monsters);
@@ -107,7 +95,7 @@ public abstract class A_Nemesis extends A_Character
             }
             else
             {
-                rageCount = Math.max(0,rageCount - 1);
+                rageCount -= 1;
                 if(rageCount == 0)
                 {
                     rage = false;

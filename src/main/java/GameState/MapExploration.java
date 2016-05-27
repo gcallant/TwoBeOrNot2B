@@ -1,10 +1,9 @@
 package GameState;
 
 import DungeonGeneration.GenerateDungeon;
+import Utilities.TestString;
 
 import java.util.Random;
-import Mediator.*;
-import StringTester.TestString;
 
 /**
  * Created by Michael on 5/6/2016.

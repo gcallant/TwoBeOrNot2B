@@ -1,11 +1,12 @@
 package Database;
 
 import Characters.A_Character;
-import Mediator.Mediator;
+import GameState.Mediator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
 
+import java.io.IOException;
 import java.sql.*;
 
 /**
@@ -113,13 +114,13 @@ public class DatabaseManager
 
 		{
 			statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
-					              "ITEMID INT PRIMARY KEY NOT NULL," +
-					              " ITEMTYPE TEXT NOT NULL," +
-					              " WEAPON BLOB NOT NULL," +
+					              //					              "ITEMID INT PRIMARY KEY NOT NULL," +
+					              //					              " ITEMTYPE TEXT NOT NULL," +
+					              "WEAPON BLOB NOT NULL," +
 					              " ARMOR BLOB NOT NULL," +
-					              " CONSUMABLE BLOB NOT NULL," +
-					              " OWNER TEXT NOT NULL," +
-					              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME));";
+					              " CONSUMABLE BLOB NOT NULL);";
+			//					              " OWNER TEXT NOT NULL," +
+			//					              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME));";
 			try
 			{
 				logger.info("Trying attempt on table INVENTORY");
@@ -184,6 +185,7 @@ public class DatabaseManager
 	{
 		A_Character[] heroes = SaveFactory.getPartyToSave(mediator);
 		int result = 0;
+		sqlStatement = databaseConnector.createStatement();
 
 		for(A_Character hero : heroes)
 		{
@@ -226,9 +228,25 @@ public class DatabaseManager
 		return sqlStatement.executeUpdate(statement);
 	}
 
-	public void saveInventory(Mediator mediator)
+	public void saveInventory(Mediator mediator) throws IOException, SQLException
 	{
+		PreparedStatement preparedStatement = null;
+		Blob[] inventoryBlob = SaveFactory.getSerializedInventoryToSaveAsBlobs(mediator);
+		Blob armorBlob = inventoryBlob[0];
+		Blob weaponBlob = inventoryBlob[1];
+		Blob consumableBlob = inventoryBlob[2];
 
+		String statement = "REPLACE INTO INVENTORY(WEAPON, ARMOR, CONSUMABLE)" +
+				                     "VALUES (?, ?, ?);";
+
+		preparedStatement = databaseConnector.prepareStatement(statement);
+		preparedStatement.setObject(1, weaponBlob);
+		preparedStatement.setObject(2, armorBlob);
+		preparedStatement.setObject(3, consumableBlob);
+		logger.info("In save- attempting to save inventory into db");
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		logger.info("Successfully saved inventory");
 	}
 
 	public void closeConnection()

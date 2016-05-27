@@ -1,9 +1,8 @@
 package GameState;
 
 import Characters.A_Character;
-import Mediator.Mediator;
 import PartyManagement.Party;
-import StringTester.TestString;
+import Utilities.TestString;
 
 /**
  * Created by Grant Callant on 5/25/16.
@@ -19,17 +18,18 @@ public class CheatMenu implements I_State
 			this.mediator = mediator;
 		}
 	}
+
 	@Override
 	public String display()
 	{
 		return "Welcome to alls ails ya'll! What can I do for ya?\nPress: \n1) For infinite health.\n2) For max Power" +
-				         "\n3) To Cancel and return to main menu:";
+				         "\n3) Disable All cheats \n4) To Cancel and return to main menu:";
 	}
 
 	@Override
 	public I_State execute()
 	{
-		int cheat = TestString.ensureInt(3);
+		int cheat = TestString.ensureInt(4);
 
 		switch(cheat)
 		{
@@ -39,15 +39,28 @@ public class CheatMenu implements I_State
 			case 2:
 				applyCheat(2);
 				return new MapExploration(mediator);
+			case 3:
+				disableCheats();
+				return new MapExploration(mediator);
 			default:
 				return new InGameMenu(mediator);
+		}
+	}
+
+	private void disableCheats()
+	{
+		Party party = mediator.giveParty();
+		for(A_Character hero : party.getCharacterParty())
+		{
+			hero.disableGodMode();
+			hero.disableMaxPower();
 		}
 	}
 
 	private void applyCheat(int cheat)
 	{
 		Party party = mediator.giveParty();
-		for(A_Character hero: party.getCharacterParty())
+		for(A_Character hero : party.getCharacterParty())
 		{
 			if(cheat == 1)
 			{

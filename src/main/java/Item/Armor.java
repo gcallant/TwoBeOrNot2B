@@ -1,6 +1,8 @@
 package Item;
 
-public abstract class Armor
+import java.io.Serializable;
+
+public abstract class Armor implements Serializable
 {
    private int power;
    private Enchantment enchantment;

@@ -1,7 +1,6 @@
 package GameState;
 
-import Mediator.*;
-import StringTester.TestString;
+import Utilities.TestString;
 
 /**
  * Created by Michael on 5/6/2016.

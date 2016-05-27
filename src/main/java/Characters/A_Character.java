@@ -382,9 +382,19 @@ public abstract class A_Character
 		maxHealth = Integer.MAX_VALUE;
 	}
 
+	public void disableGodMode()
+	{
+		isInvincible = false;
+	}
+
 	public void setHasMaxPower()
 	{
 		hasMaxPower = true;
+	}
+
+	public void disableMaxPower()
+	{
+		hasMaxPower = false;
 	}
 
 	public Conditions getConditions()
@@ -530,5 +540,4 @@ public abstract class A_Character
 				         armorType == that.armorType &&
 				         weaponType == that.weaponType;
 	}
-
 }

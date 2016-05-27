@@ -1,9 +1,8 @@
 package GameState;
 
 import Factories.GenerateItems;
-import Mediator.Mediator;
 import PartyManagement.Party;
-import StringTester.TestString;
+import Utilities.TestString;
 
 import java.util.Random;
 

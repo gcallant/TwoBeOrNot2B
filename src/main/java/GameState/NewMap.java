@@ -1,7 +1,6 @@
 package GameState;
 
 import DungeonGeneration.GenerateDungeon;
-import Mediator.Mediator;
 
 /**
  * Created by Michael on 5/15/2016.

@@ -2,8 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
-import StringTester.TestString;
-import junit.framework.Test;
+import Utilities.TestString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +13,8 @@ import java.util.Random;
  */
 public class SpecialManager
 {
-    private List<SpecialAbility> specialAbilities;
     Random rand;
+    private List<SpecialAbility> specialAbilities;
 
     public SpecialManager()
     {

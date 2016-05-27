@@ -2,7 +2,7 @@ package PartyManagement;
 
 import Characters.A_Character;
 import Item.*;
-import StringTester.TestString;
+import Utilities.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -212,6 +212,11 @@ public class Inventory
     public List<Armor> getArmor()
     {
         return armors;
+    }
+
+    public List<Consumable> getConsumableList()
+    {
+        return consumables;
     }
 
     public boolean useConsumable(A_Character character, int index)

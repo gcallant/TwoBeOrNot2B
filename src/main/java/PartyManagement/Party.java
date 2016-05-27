@@ -1,15 +1,14 @@
 package PartyManagement;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
-import StringTester.TestString;
+import Utilities.TestString;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Michael on 5/12/2016.
@@ -178,6 +177,11 @@ public class Party
         return characterParty;
     }
 
+    public Inventory getInventory()
+    {
+        return inventory;
+    }
+
     public boolean useInventory()
     {
         System.out.println("Select an item from your inventory");
@@ -266,14 +270,14 @@ public class Party
         }
     }
 
-    public void setFloorLevel(int floorLevel)
-    {
-        this.floorLevel = floorLevel;
-    }
-
     public int getFloorLevel()
     {
         return floorLevel;
+    }
+
+    public void setFloorLevel(int floorLevel)
+    {
+        this.floorLevel = floorLevel;
     }
 
     public boolean contains(A_Character character)

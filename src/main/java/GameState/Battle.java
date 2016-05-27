@@ -4,8 +4,7 @@ import Characters.A_Character;
 import PartyManagement.GenerateMonsterParty;
 import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
-import Mediator.Mediator;
-import StringTester.TestString;
+import Utilities.TestString;
 
 import java.util.ArrayList;
 import java.util.Collections;

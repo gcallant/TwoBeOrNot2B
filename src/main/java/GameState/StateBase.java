@@ -1,6 +1,5 @@
 package GameState;
 
-import Mediator.Mediator;
 /**
  * Created by Michael on 5/6/2016.
  */

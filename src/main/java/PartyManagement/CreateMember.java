@@ -3,7 +3,7 @@ package PartyManagement;
 import Characters.A_Character;
 import Factories.HeroFactory;
 import Heroes.*;
-import StringTester.TestString;
+import Utilities.TestString;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

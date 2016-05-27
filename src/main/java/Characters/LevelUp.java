@@ -1,7 +1,7 @@
 package Characters;
 
 import PartyManagement.Party;
-import StringTester.TestString;
+import Utilities.TestString;
 
 import java.util.Scanner;
 

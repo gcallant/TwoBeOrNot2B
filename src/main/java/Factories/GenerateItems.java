@@ -1,9 +1,9 @@
 package Factories;
 
-import PartyManagement.Party;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
+import PartyManagement.Party;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class GenerateItems {
         largeList.add(new ArrayList<String>());
 
         largeList.get(0).add("Healing");
-        largeList.get(0).add("power");
+        largeList.get(0).add("Power");
 
         largeList.get(1).add("Sword");
         largeList.get(1).add("Hammer");

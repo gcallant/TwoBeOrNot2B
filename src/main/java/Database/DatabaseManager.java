@@ -2,7 +2,6 @@ package Database;
 
 import Characters.A_Character;
 import Mediator.Mediator;
-import Utilities.OSUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
@@ -248,7 +247,7 @@ public class DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			logger.info("Tried to close connection to db", e);
+			logger.debug("Tried to close connection to db", e);
 		}
 	}
 

@@ -2,20 +2,22 @@ package TestFactories;
 
 import Factories.ConsumableFactory;
 import Item.Consumable;
-import Item.Strength;
+import Item.Power;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by SaraPage on 5/23/2016.
  */
 public class ConsumableFactoryTest
 {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     ConsumableFactory factory;
     Consumable testConsumable;
 
@@ -23,7 +25,7 @@ public class ConsumableFactoryTest
     public void setUp() throws Exception
     {
         factory = new ConsumableFactory();
-        testConsumable = new Strength(2);
+        testConsumable = new Power(2);
     }
 
     @After
@@ -32,10 +34,6 @@ public class ConsumableFactoryTest
         factory = null;
         testConsumable = null;
     }
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
 
     @Test
     public void testGenerate() throws Exception

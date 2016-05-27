@@ -1,36 +1,35 @@
 package Characters;
 
-import java.util.*;
-
 import BuffsAndDebuffs.Conditions;
 import BuffsAndDebuffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
 import com.google.common.base.Objects;
 
+import java.util.Random;
+
 public abstract class A_Character
 {
-	private String     name;
-	private int        health;
-	private int	       maxHealth;
-	private int        power;
-	private int 	   cunning;
-	private int        level;
-	private int        experience;
-	private Armor      armor;
-	private Weapon     weapon;
-	private boolean    isDefeated;
-	private int        initiative;
-	private ArmorType  armorType;
-	private WeaponType weaponType;
-	protected Conditions conditions;
-	private CreatureType creatureType;
+	protected Conditions   conditions;
+	protected Random       rand;
+	private   String       name;
+	private   int          health;
+	private   int          maxHealth;
+	private   int          power;
+	private   int          cunning;
+	private   int          level;
+	private   int          experience;
+	private   Armor        armor;
+	private   Weapon       weapon;
+	private   boolean      isDefeated;
+	private   int          initiative;
+	private   ArmorType    armorType;
+	private   WeaponType   weaponType;
+	private   CreatureType creatureType;
 	private boolean isInvincible = false;
 	private boolean hasMaxPower = false;
 	private boolean isSummon;
 	private A_Character owner;
-
-	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
 					   ArmorType armorType, Armor newArmor, WeaponType weaponType,
@@ -137,7 +136,7 @@ public abstract class A_Character
 			case "cunning":
 				attackBonus = this.getCunning();
 				break;
-			case "power":
+			case "Power":
 				attackBonus = this.getPower();
 				break;
 		}
@@ -315,7 +314,7 @@ public abstract class A_Character
 	@Override
 	public String toString()
 	{
-		return "Name: " + getName() + "\tHealth: " + getHealth() + "/" + getMaxHealth() + "\tpower: " + getPower() +
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "/" + getMaxHealth() + "\tPower: " + getPower() +
 				         "\tcunning: " + getCunning() + "\t" + getArmor() + "\t" + getWeapon();
 	}
 
@@ -326,7 +325,10 @@ public abstract class A_Character
 
 	public String displayStats()
 	{
-		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level*100) + " Health: " + getHealth() + "/" + getMaxHealth() + " power: " + getPower() + (power != getPower() ? ("(" + power + ")"):"") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")"):"") + " " + getArmor() + " " + getWeapon();
+		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level * 100) + " " +
+				         "Health: " + getHealth() + "/" + getMaxHealth() + " Power: " + getPower() + (power != getPower()
+						                                                                                        ? ("(" +
+								                                                                                             power + ")") : "") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")") : "") + " " + getArmor() + " " + getWeapon();
 	}
 
 	public String battleDisplay()
@@ -349,11 +351,6 @@ public abstract class A_Character
 	*  * * *    * * *     *     * * *  *
 	* * * * * * * * * * * * * * * * * *
 	*/
-
-	private void setDefeated(boolean isDown)
-	{
-		isDefeated = isDown;
-	}
 
 	public void resetTurn()
 	{
@@ -390,13 +387,14 @@ public abstract class A_Character
 		hasMaxPower = true;
 	}
 
-	public void setSummon(A_Character owner)
+	public Conditions getConditions()
 	{
-		if(owner != null)
-		{
-			isSummon = true;
-			this.owner = owner;
-		}
+		return conditions;
+	}
+
+	public boolean getDefeated()
+	{
+		return isDefeated;
 	}
 
 	/*
@@ -409,14 +407,9 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * * * *
 	*/
 
-	public Conditions getConditions()
+	private void setDefeated(boolean isDown)
 	{
-		return conditions;
-	}
-
-	public boolean getDefeated()
-	{
-		return isDefeated;
+		isDefeated = isDown;
 	}
 
 	public Weapon getWeapon()
@@ -495,6 +488,15 @@ public abstract class A_Character
 		return isSummon;
 	}
 
+	public void setSummon(A_Character owner)
+	{
+		if(owner != null)
+		{
+			isSummon = true;
+			this.owner = owner;
+		}
+	}
+
 	public A_Character getOwner()
 	{
 		return this.owner;
@@ -529,12 +531,4 @@ public abstract class A_Character
 				         weaponType == that.weaponType;
 	}
 
-	@Override
-	public int hashCode()
-	{
-		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType);
-		return Objects.hashCode(name, health, maxHealth, power, cunning, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType, conditions, rand);
-	}
 }

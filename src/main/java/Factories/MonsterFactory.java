@@ -1,5 +1,6 @@
 package Factories;
-import Characters.*;
+
+import Characters.A_Character;
 import Item.*;
 import Monsters.*;
 
@@ -10,7 +11,6 @@ public class MonsterFactory
 {
 
     public A_Character createMonster(String monsterType, String monsterName, int level, boolean normal, int floor)
-    public A_Character createMonster(String monsterType, String monsterName, int level, boolean normal)
     {
         switch(monsterType)
         {

@@ -8,6 +8,11 @@ import PartyManagement.Party;
  */
 public class PoisonCloud extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - ";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         abilityExecution(character, enemies);
@@ -28,7 +33,7 @@ public class PoisonCloud extends SpecialAbility
         {
             if (character.attack(enemies.getCharacter(x)))
             {
-                if (getAffectedChance(character, "power", enemies.getCharacter(x)))
+                if(getAffectedChance(character, "Power", enemies.getCharacter(x)))
                 {
                     System.out.println(enemies.getCharacter(x).getName() + " is affected by the poison!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(2.0, character.getPower(), "Poison Cloud");
@@ -40,10 +45,5 @@ public class PoisonCloud extends SpecialAbility
     public String toString()
     {
         return "Poison Cloud";
-    }
-
-    public static String description()
-    {
-        return "     - ";
     }
 }

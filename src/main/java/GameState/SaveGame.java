@@ -44,12 +44,14 @@ public class SaveGame implements I_State
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("Tried to save game- had a sql exception ", e);
 		}
 		catch(DatabaseManagerException e)
 		{
-			e.printStackTrace();
+			logger.debug("Tried to save game- had a DatabaseManager Exception ", e);
 		}
+
+		databaseManager.closeConnection();
 
 		System.out.println("\nThank you. Your game is now saved. Would you like to exit? [y/N]:");
 		char confirmQuit = TestString.ensureChar(validInputs);

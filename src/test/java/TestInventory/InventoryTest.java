@@ -1,7 +1,7 @@
 package TestInventory;
 
-import PartyManagement.Inventory;
 import Item.*;
+import PartyManagement.Inventory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,7 +94,7 @@ public class InventoryTest
         inventory.addToInventory(new Healing(1));
         assertNotNull(inventory.removeFromInventory(consumable.get(0)));
 
-        assertNull(inventory.removeFromInventory(new Strength(1)));
+        assertNull(inventory.removeFromInventory(new Power(1)));
     }
 
 }

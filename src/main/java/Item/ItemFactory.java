@@ -2,26 +2,26 @@ package Item;
 
 public class ItemFactory
 {
-	/*public static Storable getStorable(String type, int power)
+	/*public static Storable getStorable(String type, int Power)
 	{
-		if(power < 1)
+		if(Power < 1)
 		{
-			System.out.println("Power of " + power + " is not a valid amount");
+			System.out.println("Power of " + Power + " is not a valid amount");
 			return null;
 		}
 		//Checking if it is a weapon type
 		switch(type)
 		{
 			case "Bow":
-				return new Bow(power);
+				return new Bow(Power);
 			case "Dagger":
-				return new Dagger(power);
+				return new Dagger(Power);
 			case "Hammer":
-				return new Hammer(power);
+				return new Hammer(Power);
 			case "Staff":
-				return new Staff(power);
+				return new Staff(Power);
 			case "Sword":
-				return new Sword(power);
+				return new Sword(Power);
 			default:
 		}
 
@@ -29,7 +29,7 @@ public class ItemFactory
 		switch(type)
 		{
 			case "Chainmail":
-				return new Chainmail(power);
+				return new Chainmail(Power);
 			default:
 		}
 
@@ -37,7 +37,7 @@ public class ItemFactory
 		switch(type)
 		{
 			case "Healing":
-				return new Healing(power);
+				return new Healing(Power);
 			default:
 		}
 

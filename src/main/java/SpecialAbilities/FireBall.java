@@ -8,6 +8,12 @@ import PartyManagement.Party;
  */
 public class FireBall extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns " +
+                       "them";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         abilityExecution(character, enemies);
@@ -27,7 +33,7 @@ public class FireBall extends SpecialAbility
         for(int x = 0; x < totalEnemies; x++)
         {
             character.preformAttack(enemies.getCharacter(x));
-            if(getAffectedChance(character, "power", enemies.getCharacter(x)))
+            if(getAffectedChance(character, "Power", enemies.getCharacter(x)))
             {
                 System.out.println(enemies.getCharacter(x).getName() + " is burning!");
                 enemies.getCharacter(x).getConditions().giveBurnDebuff(character.getPower(), calculateRounds(character), "Fireball");
@@ -38,10 +44,5 @@ public class FireBall extends SpecialAbility
     public String toString()
     {
         return "Fireball";
-    }
-
-    public static String description()
-    {
-        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns them";
     }
 }

@@ -5,9 +5,9 @@ import Characters.A_Character;
 /**
  * Created by Michael on 5/18/2016.
  */
-public class power extends Consumable
+public class Power extends Consumable
 {
-    public power(int power)
+    public Power(int power)
     {
         super(power);
     }
@@ -16,7 +16,7 @@ public class power extends Consumable
     {
         character.imbibe(this);
         double damageBuff = 1.0 + .25*((double)getPower());
-        character.getConditions().giveDamageBuff(damageBuff, 4, "power Potion");
+        character.getConditions().giveDamageBuff(damageBuff, 4, "Power Potion");
     }
 
     public String toString()

@@ -8,6 +8,11 @@ import PartyManagement.Party;
  */
 public class OwlsInsight extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Owl's Insight: buffs the casters Power";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         abilityExecution(character);
@@ -30,10 +35,5 @@ public class OwlsInsight extends SpecialAbility
     public String toString()
     {
         return "Owl's Insight";
-    }
-
-    public static String description()
-    {
-        return "     - Owl's Insight: buffs the casters power";
     }
 }

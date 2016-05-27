@@ -1,6 +1,9 @@
 package Factories;
 
-import Item.*;
+import Item.Armor;
+import Item.Chainmail;
+import Item.Cloth;
+import Item.Leather;
 
 /**
  * Created by Michael on 5/19/2016.
@@ -15,7 +18,7 @@ public class ArmorFactory
         }
         if (power < 0)
         {
-            throw new IllegalArgumentException("Invalid power. Cannot create armor.");
+            throw new IllegalArgumentException("Invalid Power. Cannot create armor.");
         }
 
         switch(type)

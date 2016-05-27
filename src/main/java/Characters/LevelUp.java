@@ -24,7 +24,7 @@ public class LevelUp
         {
             System.out.println("You have " + num + " points to spend!");
 
-            System.out.println("Choose what to upgrade!\n1) Health(25)\n2) power\n3) cunning");
+            System.out.println("Choose what to upgrade!\n1) Health(25)\n2) Power\n3) cunning");
 
             choice = TestString.ensureInt(3);
 

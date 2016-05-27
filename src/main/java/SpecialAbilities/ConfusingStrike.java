@@ -9,6 +9,11 @@ import PartyManagement.Party;
 public class ConfusingStrike extends SpecialAbility
 {
 
+    public static String description()
+    {
+        return "     - ";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies) {
         A_Character choiceToStrike = chooseTarget(enemies);
 
@@ -35,7 +40,7 @@ public class ConfusingStrike extends SpecialAbility
         if (character.canAttack(choiceToStrike))
         {
             character.preformAttack(choiceToStrike);
-            if(getAffectedChance(character, "power", choiceToStrike))
+            if(getAffectedChance(character, "Power", choiceToStrike))
             {
                 System.out.println(choiceToStrike.getName() + " was confused!");
                 choiceToStrike.getConditions().giveConfusedDebuff(calculateRounds(character), "Confusing Strike");
@@ -50,10 +55,5 @@ public class ConfusingStrike extends SpecialAbility
 
     public String toString() {
         return "Confusing Strike";
-    }
-
-    public static String description()
-    {
-        return "     - ";
     }
 }

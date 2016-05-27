@@ -9,6 +9,14 @@ public class WeaponFactory
 {
     public Weapon generate(String type, int power)
     {
+        if (type == null)
+        {
+            throw new NullPointerException("Type of weapon is invalid. Cannot create it.");
+        }
+        if (power < 0)
+        {
+            throw new IllegalArgumentException("Power is invalid for a weapon. Cannot create it.");
+        }
         switch(type)
         {
             case "Sword":
@@ -21,7 +29,8 @@ public class WeaponFactory
                 return new Bow(power);
             case "Dagger":
                 return new Dagger(power);
+            default:
+                throw new IllegalArgumentException("Invalid type of weapon. Cannot create it.");
         }
-        return new Sword(power);
     }
 }

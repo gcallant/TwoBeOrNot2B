@@ -14,8 +14,8 @@ import java.util.List;
 public class Inventory
 {
     private List<Weapon>          weapons;
-    private List<Armor>      armors;
-    private List<Consumable> consumables;
+    private List<Armor>           armors;
+    private List<Consumable>      consumables;
     private int                   totalSize;
 
     public Inventory()
@@ -33,6 +33,10 @@ public class Inventory
             this.weapons.add(item);
             totalSize++;
         }
+        else
+        {
+            System.out.println("Invalid item - cannot add to list of weapons.");
+        }
     }
 
     public void addToInventory(Armor item)
@@ -42,6 +46,10 @@ public class Inventory
             this.armors.add(item);
             totalSize++;
         }
+        else
+        {
+            System.out.println("Invalid item - cannot add to list of armor.");
+        }
     }
 
     public void addToInventory(Consumable item)
@@ -50,6 +58,10 @@ public class Inventory
         {
             this.consumables.add(item);
             totalSize++;
+        }
+        else
+        {
+            System.out.println("Invalid item - cannot add to list of consumables.");
         }
     }
 

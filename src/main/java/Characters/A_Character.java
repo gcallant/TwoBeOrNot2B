@@ -522,15 +522,18 @@ public abstract class A_Character
 				         com.google.common.base.Objects.equal(name, that.name) &&
 				         Objects.equal(armor, that.armor) &&
 				         Objects.equal(weapon, that.weapon) &&
+				         name.equals(that.getName()) &&
+				         armor.equals(that.armor) &&
+				         weapon.equals(that.weapon) &&
 				         armorType == that.armorType &&
-				         weaponType == that.weaponType &&
-				         Objects.equal(conditions, that.conditions) &&
-				         Objects.equal(rand, that.rand);
+				         weaponType == that.weaponType;
 	}
 
 	@Override
 	public int hashCode()
 	{
+		return Objects.hashCode(name, health, maxHealth, strength, dexterity, level, experience, armor, weapon,
+		                        isDefeated, initiative, armorType, weaponType);
 		return Objects.hashCode(name, health, maxHealth, power, cunning, level, experience, armor, weapon,
 		                        isDefeated, initiative, armorType, weaponType, conditions, rand);
 	}

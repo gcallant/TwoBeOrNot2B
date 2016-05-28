@@ -180,6 +180,11 @@ public abstract class A_Character
 			totalDamage = Integer.MAX_VALUE;
 		}
 
+		if(toAttack.isInvincible)
+		{
+			totalDamage = 0;
+		}
+
 		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
 
 		toAttack.takeDamage(Math.max(totalDamage, 1));
@@ -378,8 +383,6 @@ public abstract class A_Character
 	public void setGodMode()
 	{
 		isInvincible = true;
-		health = Integer.MAX_VALUE;
-		maxHealth = Integer.MAX_VALUE;
 	}
 
 	public void disableGodMode()
@@ -512,7 +515,7 @@ public abstract class A_Character
 		return this.owner;
 	}
 
-	protected void reassignConditons(Conditions conditions)
+	protected void reassignConditions(Conditions conditions)
 	{
 		this.conditions = conditions;
 	}

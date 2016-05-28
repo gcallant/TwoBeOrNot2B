@@ -5,10 +5,20 @@ package GameState;
  */
 public class LoadGame implements I_State
 {
+	private Mediator mediator = null;
+
+	public LoadGame(Mediator mediator)
+	{
+		if(mediator != null)
+		{
+			this.mediator = mediator;
+		}
+	}
+
 	@Override
 	public String display()
 	{
-		return null;
+		return "\nPlease wait while we retrieve your saved game.\n";
 	}
 
 	@Override

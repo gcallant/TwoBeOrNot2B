@@ -1,10 +1,11 @@
 package Utilities;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 
 /**
@@ -16,6 +17,7 @@ import java.nio.file.FileSystems;
 public class OSUtil
 {
 
+	private static final Logger logger             = LoggerFactory.getLogger("OSUtil");
 	/**
 	 * Method to get the parent directory of where the program is currently being run from.
 	 *
@@ -23,9 +25,8 @@ public class OSUtil
 	 * @throws OSException if parent directory could not be opened
 	 */
 
-	private static String         SEPARATOR          = setSeparator();
-	private static File           EXTERNAL_DIRECTORY = null;
-	private static final Logger logger = LoggerFactory.getLogger("OSUtil");
+	private static       String SEPARATOR          = setSeparator();
+	private static       File   EXTERNAL_DIRECTORY = null;
 
 	private static String setSeparator()
 	{
@@ -78,6 +79,7 @@ public class OSUtil
 		return EXTERNAL_DIRECTORY;
 	}
 
+	@Contract("null -> fail")
 	public static void setExternalDirectory(File externalDirectory) throws OSException
 	{
 		if(externalDirectory != null)
@@ -100,6 +102,12 @@ public class OSUtil
 		}
 	}
 
+	public static boolean pathExists(String path)
+	{
+		File pathToCheck = new File(path);
+		return pathToCheck.exists();
+	}
+
 	public static File createNewDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);
@@ -119,11 +127,33 @@ public class OSUtil
 		return newDirectory;
 	}
 
+	public static File createNewFile(File parentDirectory, String newFileName) throws OSException, IOException
+	{
+		verifyFile(parentDirectory, newFileName);
+		logger.info("Attempting to create new file {} in {}",
+		            newFileName, parentDirectory);
+
+		File newFile = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newFileName);
+		newFile.createNewFile();
+		logger.info("Successfully created new file {} in {}", newFile, parentDirectory);
+		return newFile;
+	}
+
+	@Contract("null, _ -> fail; !null, null -> fail")
+	private static void verifyFile(File parentDirectory, String newFileName) throws OSException
+	{
+		if(parentDirectory == null || newFileName == null || newFileName.isEmpty())
+		{
+			throw new OSException("Directory specified is null, or the provided file name is empty");
+		}
+	}
+
 	public static String getSeparator()
 	{
 		return SEPARATOR;
 	}
 
+	@Contract("null, _ -> fail; !null, null -> fail")
 	private static void verifyDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		if(parentDirectory == null || newDirectoryName == null || newDirectoryName.isEmpty())

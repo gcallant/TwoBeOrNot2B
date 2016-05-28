@@ -23,7 +23,7 @@ public class CheatMenu implements I_State
 	public String display()
 	{
 		return "Welcome to alls ails ya'll! What can I do for ya?\nPress: \n1) For infinite health.\n2) For max Power" +
-				         "\n3) Disable All cheats \n4) To Cancel and return to main menu:";
+				         "\n3) Disable All cheats \n4) To Cancel and return to main welcome:";
 	}
 
 	@Override

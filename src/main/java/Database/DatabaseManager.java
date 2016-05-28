@@ -2,10 +2,12 @@ package Database;
 
 import Characters.A_Character;
 import GameState.Mediator;
+import Utilities.OSUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 
@@ -17,13 +19,15 @@ import java.sql.*;
  */
 public class DatabaseManager
 {
-	private static final String         DRIVER            = "org.sqlite.JDBC";
-	private static final String         DATABASE          = "jdbc:sqlite:DungeonCrawler.db";
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private              Connection     databaseConnector = null;
-	private              Statement      sqlStatement      = null;
-
-
+	private final static File       CWD               = OSUtil.getCurrentDirectory();
+	private static final String     SEPARATOR         = OSUtil.getSeparator();
+	private final static String     RESOURCES         = CWD.getAbsolutePath() + SEPARATOR + "src" + SEPARATOR + "main"
+			                                                      + SEPARATOR + "resources" + SEPARATOR;
+	private static final String     DRIVER            = "org.sqlite.JDBC";
+	private static final String     DATABASE          = "jdbc:sqlite:" + RESOURCES + "DungeonCrawler.db";
+	private final        Logger     logger            = LoggerFactory.getLogger(this.getClass());
+	private              Connection databaseConnector = null;
+	private              Statement  sqlStatement      = null;
 
 	public DatabaseManager()
 	{
@@ -69,11 +73,11 @@ public class DatabaseManager
 		}
 	}
 
-//	@Contract(pure = true)
-//	public static DatabaseManager getInstance()
-//	{
-//		return DatabaseSingle.INSTANCE;
-//	}
+	//	@Contract(pure = true)
+	//	public static DatabaseManager getInstance()
+	//	{
+	//		return DatabaseSingle.INSTANCE;
+	//	}
 
 	private void createTables() throws DatabaseManagerException
 	{
@@ -109,7 +113,7 @@ public class DatabaseManager
 				e.printStackTrace();
 			}
 
-				logger.info("CHARACTERS table created successfully");
+			logger.info("CHARACTERS table created successfully");
 		}
 
 		{
@@ -131,7 +135,7 @@ public class DatabaseManager
 				e.printStackTrace();
 			}
 
-				logger.info("INVENTORY table created successfully");
+			logger.info("INVENTORY table created successfully");
 		}
 
 		if(sqlStatement != null)
@@ -206,10 +210,9 @@ public class DatabaseManager
 	}
 
 	/**
-	 *
 	 * @param hero character to save
-	 * @return either (1) the row count for SQL Data Manipulation Language (DML) statements
-	 *         or (2) 0 for SQL statements that return nothing
+	 * @return either (1) the row count for SQL Data Manipulation Language (DML) statements or (2) 0 for SQL statements
+	 * that return nothing
 	 * @throws SQLException
 	 */
 	private int insertIntoCharacters(A_Character hero) throws SQLException
@@ -223,7 +226,7 @@ public class DatabaseManager
 		String concatValue = "'" + name + "'" + ", " + health + ", " + strength + ", " + cunning +
 				                       ", " + armorPower + ", " + weaponPower;
 		String statement = "REPLACE INTO CHARACTERS(NAME, HEALTH, STRENGTH, CUNNING, ARMOR, WEAPON)" +
-				  "VALUES (" + concatValue + ");";
+				                     "VALUES (" + concatValue + ");";
 		logger.info("Attempting to insert hero {} into db", hero.getName());
 		return sqlStatement.executeUpdate(statement);
 	}
@@ -269,10 +272,8 @@ public class DatabaseManager
 		}
 	}
 
-
-
-//	private static class DatabaseSingle
-//	{
-//		private static final DatabaseManager INSTANCE = new DatabaseManager();
-//	}
+	//	private static class DatabaseSingle
+	//	{
+	//		private static final DatabaseManager INSTANCE = new DatabaseManager();
+	//	}
 }

@@ -5,6 +5,7 @@ import Mediator.Mediator;
 import PartyManagement.CreateMember;
 import PartyManagement.Party;
 import StringTester.TestString;
+import Utilities.Display;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
@@ -62,10 +63,10 @@ public class CharacterCreation implements I_State
     private boolean createNewParty()
     {
         String input = "";
-        System.out.println("You can choose four heroes! Choose wisely.");
+        Display.displayMessage("You can choose four heroes! Choose wisely.");
         while(party.size() < 4)
         {
-            System.out.println("Choose character number " + (party.size() + 1) + ":");
+            Display.displayMessage("Choose character number " + (party.size() + 1) + ":");
             A_Character toAdd = CreateMember.createMember();
             if(toAdd != null)
             {

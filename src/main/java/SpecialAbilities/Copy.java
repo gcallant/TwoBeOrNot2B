@@ -6,6 +6,7 @@ import Item.Dagger;
 import Item.Leather;
 import Nemesis.MasterAssassin;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/26/2016.
@@ -25,7 +26,7 @@ public class Copy extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies, Party enemies)
     {
-        System.out.println(character.getName() + " made copies of themselves!!");
+        Display.displayMessage(character.getName() + " made copies of themselves!!");
         A_Character copy1, copy2;
         int level = enemies.getCharacter(0).getLevel();
 

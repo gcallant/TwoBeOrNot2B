@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class BloodSense extends SpecialAbility
     {
         if(character.attack(choiceToStrike))
         {
-            System.out.println(character.getName() + " healed from " + choiceToStrike.getName() + "'s blood for " + (int)((double)character.getMaxHealth()*.03));
+            Display.displayMessage(character.getName() + " healed from " + choiceToStrike.getName() + "'s blood for " + (int)((double)character.getMaxHealth()*.03));
             character.heal((int)((double)character.getMaxHealth()*.03));
         }
     }

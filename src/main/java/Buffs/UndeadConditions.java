@@ -1,6 +1,7 @@
 package Buffs;
 
 import Characters.A_Character;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/23/2016.
@@ -17,16 +18,16 @@ public class UndeadConditions extends Conditions
 
     public void giveStunnedDebuff(int rounds, String source)
     {
-        System.out.println(name + " is immune to stun!");
+        Display.displayMessage(name + " is immune to stun!");
     }
 
     public void giveBleedDebuff(double percentage, int rounds, String source)
     {
-        System.out.println(name + " is immune to bleed!");
+        Display.displayMessage(name + " is immune to bleed!");
     }
 
     public void givePoisonDebuff(double percentage, int rounds, String source)
     {
-        System.out.println(name + " is immune to poison!");
+        Display.displayMessage(name + " is immune to poison!");
     }
 }

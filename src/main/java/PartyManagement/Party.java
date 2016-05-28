@@ -11,6 +11,7 @@ import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
 import StringTester.TestString;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/12/2016.
@@ -160,7 +161,7 @@ public class Party implements Iterable<A_Character>
 
     public boolean useInventory()
     {
-        System.out.println("Select an item from your inventory");
+        Display.displayMessage("Select an item from your inventory");
         int choice;
         int total = inventory.displayInventory();
         choice = TestString.ensureInt(total);
@@ -184,7 +185,7 @@ public class Party implements Iterable<A_Character>
 
     private boolean consumePotion(int potion)
     {
-        System.out.println("Select who you want to use a potion");
+        Display.displayMessage("Select who you want to use a potion");
         int choice = TestString.getCharacterChoice(characterParty);
 
         if(choice == -1)
@@ -200,7 +201,7 @@ public class Party implements Iterable<A_Character>
 
     private boolean equip(int equip, String str)
     {
-        System.out.println("Select who you want to equip");
+        Display.displayMessage("Select who you want to equip");
         int choice = TestString.getCharacterChoice(characterParty);
 
         if(choice == -1)
@@ -226,7 +227,7 @@ public class Party implements Iterable<A_Character>
     {
         for(A_Character character : characterParty)
         {
-            System.out.println(character.displayStats());
+            Display.displayMessage(character.displayStats());
         }
     }
 

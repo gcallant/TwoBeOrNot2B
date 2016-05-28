@@ -3,6 +3,7 @@ package PartyManagement;
 import Characters.A_Character;
 import Item.*;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +36,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of weapons.");
+            Display.displayMessage("Invalid item - cannot add to list of weapons.");
         }
     }
 
@@ -48,7 +49,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of armor.");
+            Display.displayMessage("Invalid item - cannot add to list of armor.");
         }
     }
 
@@ -61,7 +62,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of consumables.");
+            Display.displayMessage("Invalid item - cannot add to list of consumables.");
         }
     }
 
@@ -121,7 +122,7 @@ public class Inventory
     {
         if(totalSize == 0)
         {
-            System.out.println("1) cancel");
+            Display.displayMessage("1) cancel");
             return 1;
         }
         int total = 1;
@@ -143,7 +144,7 @@ public class Inventory
         }
         returnValue = returnValue + total + ") cancel";
 
-        System.out.println(returnValue);
+        Display.displayMessage(returnValue);
 
         return total;
     }
@@ -193,7 +194,7 @@ public class Inventory
         int itemIndex = 1;
         for(Consumable item : consumables)
         {
-            System.out.println(itemIndex + ".)" + item.toString());
+            Display.displayMessage(itemIndex + ".)" + item.toString());
             itemIndex++;
         }
         return itemIndex;
@@ -221,7 +222,7 @@ public class Inventory
         if(!character.canEquip(weapon))
         {
             addToInventory(weapon);
-            System.out.println(character.getName() + " cannot equip this type of weapon!");
+            Display.displayMessage(character.getName() + " cannot equip this type of weapon!");
             return false;
         }
         Weapon toAdd = character.equip(weapon);
@@ -241,7 +242,7 @@ public class Inventory
         if(!character.canEquip(armor))
         {
             addToInventory(armor);
-            System.out.println(character.getName() + " cannot equip this type of armor!");
+            Display.displayMessage(character.getName() + " cannot equip this type of armor!");
             return false;
         }
 

@@ -5,6 +5,7 @@ import Factories.HeroFactory;
 import Heroes.*;
 import SpecialAbilities.DefendOther;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,20 +31,20 @@ public class CreateMember
 
         Scanner kb = new Scanner(System.in);
 
-        System.out.println("Select the class of hero you want: ");
-        System.out.println("1) " + Warrior.Information());
-        System.out.println("2) " + Mage.Information());
-        System.out.println("3) " + Rogue.Information());
-        System.out.println("4) " + Paladin.Information());
-        System.out.println("5) " + Ranger.Information());
-        System.out.println("6) " + Summoner.Information());
-        System.out.println("7) " + Defender.Information());
+        Display.displayMessage("Select the class of hero you want: ");
+        Display.displayMessage("1) " + Warrior.Information());
+        Display.displayMessage("2) " + Mage.Information());
+        Display.displayMessage("3) " + Rogue.Information());
+        Display.displayMessage("4) " + Paladin.Information());
+        Display.displayMessage("5) " + Ranger.Information());
+        Display.displayMessage("6) " + Summoner.Information());
+        Display.displayMessage("7) " + Defender.Information());
 
         int choice = TestString.ensureInt(names.size());
         String type = names.get(choice - 1);
 
-        System.out.println("You chose a " + type);
-        System.out.println("Enter the name for your character or 'cancel' to cancel: ");
+        Display.displayMessage("You chose a " + type);
+        Display.displayMessage("Enter the name for your character or 'cancel' to cancel: ");
 
         while(name.isEmpty())
         {
@@ -63,7 +64,7 @@ public class CreateMember
         int input;
         Scanner kb = new Scanner(System.in);
 
-        System.out.println("Are you satisfied with your selection?\n1) Yes\n2) No");
+        Display.displayMessage("Are you satisfied with your selection?\n1) Yes\n2) No");
 
         input = TestString.ensureInt(2);
         return input == 1;

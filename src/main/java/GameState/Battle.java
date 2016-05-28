@@ -7,6 +7,7 @@ import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
 import Mediator.Mediator;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -64,7 +65,7 @@ public class Battle implements I_State
 
 			mediator.receiveNewBattle(false);
 
-			System.out.println("You are facing \n" + enemyParty.print());
+			Display.displayMessage("You are facing \n" + enemyParty.print());
 		}
 		else
 		{

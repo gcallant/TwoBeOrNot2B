@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -22,14 +23,14 @@ public class FireBall extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used fireball!");
+        Display.displayMessage(character.getName() + " used fireball!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
             character.preformAttack(enemies.getCharacter(x));
             if(getAffectedChance(character, "power", enemies.getCharacter(x)))
             {
-                System.out.println(enemies.getCharacter(x).getName() + " is burning!");
+                Display.displayMessage(enemies.getCharacter(x).getName() + " is burning!");
                 enemies.getCharacter(x).getConditions().giveBurnDebuff(character.getPower(), calculateRounds(character), "Fireball");
             }
         }

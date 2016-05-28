@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/27/2016.
@@ -44,15 +45,15 @@ public class DefendOther extends SpecialAbility
     {
         if(choiceToDefend == character)
         {
-            System.out.println("Cannot defend yourself");
+            Display.displayMessage("Cannot defend yourself");
             return true;
         }
         if(choiceToDefend.getConditions().isDefendingOther())
         {
-            System.out.println("Cannot defend an ally who is already defending another ally");
+            Display.displayMessage("Cannot defend an ally who is already defending another ally");
             return true;
         }
-        System.out.println(character.getName() + " used defend other on " + choiceToDefend.getName());
+        Display.displayMessage(character.getName() + " used defend other on " + choiceToDefend.getName());
         choiceToDefend.getConditions().giveDefendedStatus(character, character.getMaxHealth()*.05, calculateRounds(character), "Defend Other");
         return false;
     }

@@ -14,6 +14,7 @@ import PartyManagement.GenerateMonsterParty;
 import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,7 +81,7 @@ public class BossBattle implements I_State
 
             mediator.receiveBattleManager(wholeBattle);
             mediator.receiveNewBattle(false);
-            System.out.println("You are facing \n" + enemyParty.print());
+            Display.displayMessage("You are facing \n" + enemyParty.print());
         }
         else
         {

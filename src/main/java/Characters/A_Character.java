@@ -6,6 +6,7 @@ import Buffs.Conditions;
 import Buffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
+import Utilities.Display;
 import com.google.common.base.Objects;
 
 public abstract class A_Character
@@ -115,11 +116,11 @@ public abstract class A_Character
 			this.isDefeated = true;
 			if(isSummon())
 			{
-				System.out.println(getName() + " has been banished");
+				Display.displayMessage(getName() + " has been banished");
 			}
 			else
 			{
-				System.out.println(getName() + " has died!");
+				Display.displayMessage(getName() + " has died!");
 			}
 		}
 	}
@@ -163,7 +164,7 @@ public abstract class A_Character
 		}
 		else
 		{
-			System.out.println(this.getName() + " attacked " + toAttack.getName() + " but missed!");
+			Display.displayMessage(this.getName() + " attacked " + toAttack.getName() + " but missed!");
 			return false;
 		}
 	}
@@ -186,7 +187,7 @@ public abstract class A_Character
 			totalDamage = Integer.MAX_VALUE;
 		}
 
-		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
+		Display.displayMessage(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
 
 		toAttack.takeDamage(Math.max(totalDamage, 1));
 	}
@@ -304,7 +305,7 @@ public abstract class A_Character
 
 	public void imbibe(Consumable consumable)
 	{
-		System.out.println(getName() + " imbibed a " + consumable + "!");
+		Display.displayMessage(getName() + " imbibed a " + consumable + "!");
 	}
 
 	/*

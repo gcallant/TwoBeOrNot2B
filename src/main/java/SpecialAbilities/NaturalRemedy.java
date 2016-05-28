@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/22/2016.
@@ -22,10 +23,10 @@ public class NaturalRemedy extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies)
     {
-        System.out.println(character.getName() + " used natural remedy!");
+        Display.displayMessage(character.getName() + " used natural remedy!");
         for(int x = 0; x < allies.size(); x++)
         {
-            System.out.println(allies.getCharacter(x).getName() + " is regenning their health!");
+            Display.displayMessage(allies.getCharacter(x).getName() + " is regenning their health!");
             allies.getCharacter(x).getConditions().giveRegenBuff(1.06, calculateRounds(character), "Natural Remedy");
         }
     }

@@ -4,6 +4,7 @@ import PartyManagement.Party;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,17 +91,17 @@ public class GenerateItems {
         {
             case 0:
                 Consumable consumable = consumableFactory.generate(largeList.get(rand.nextInt(largeList.size())), power);
-                System.out.println("You found a " + consumable);
+                Display.displayMessage("You found a " + consumable);
                 inventory.addToInventory(consumable);
                 break;
             case 1:
                 Weapon weapon = weaponFactory.generate(largeList.get(rand.nextInt(largeList.size())), power);
-                System.out.println("You found a " + weapon);
+                Display.displayMessage("You found a " + weapon);
                 inventory.addToInventory(weapon);
                 break;
             default:
                 Armor armor = armorFactory.generate(largeList.get(rand.nextInt(largeList.size())), power);
-                System.out.println("You found a " + armor);
+                Display.displayMessage("You found a " + armor);
                 inventory.addToInventory(armor);
                 break;
         }

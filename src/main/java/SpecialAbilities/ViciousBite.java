@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/23/2016.
@@ -30,13 +31,13 @@ public class ViciousBite extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used vicious bite on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used vicious bite on " + choiceToStrike.getName());
 
         if(character.attack(choiceToStrike));
         {
             if(getAffectedChance(character, "power", choiceToStrike))
             {
-                System.out.println(choiceToStrike.getName() + " is now bleeding!");
+                Display.displayMessage(choiceToStrike.getName() + " is now bleeding!");
                 choiceToStrike.getConditions().giveBleedDebuff(1.0 + (.005*character.getCunning()), calculateRounds(character), "Vicious Bite");
             }
         }

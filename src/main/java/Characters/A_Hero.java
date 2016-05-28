@@ -2,6 +2,7 @@ package Characters;
 
 import Item.*;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.Scanner;
 
@@ -57,7 +58,7 @@ public abstract class A_Hero extends A_Character
 		do
 		{
 			cancel = false;
-			System.out.println("It's " + getName() + "'s turn!\n" + battleDisplay());
+			Display.displayMessage("It's " + getName() + "'s turn!\n" + battleDisplay());
 			System.out.print("1.) Attack\n" +
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
@@ -75,7 +76,7 @@ public abstract class A_Hero extends A_Character
 				case 3:
 					if(noSpecial)
 					{
-						System.out.println(getName() + " is exhausted and can't use their special abilities!");
+						Display.displayMessage(getName() + " is exhausted and can't use their special abilities!");
 						cancel = true;
 					}
 					else
@@ -101,7 +102,7 @@ public abstract class A_Hero extends A_Character
 		int index = 1;
 		for(int x = 0; x < party.size(); x++)
 		{
-			System.out.println(index + ".)" + party.getCharacter(x).battleDisplay());
+			Display.displayMessage(index + ".)" + party.getCharacter(x).battleDisplay());
 			index++;
 		}
 		return index;
@@ -129,15 +130,15 @@ public abstract class A_Hero extends A_Character
 
 	private boolean tryToRun(Party heroes, Party monsters)
 	{
-		System.out.println("You attempt to run!");
+		Display.displayMessage("You attempt to run!");
 		int chanceToRun = 0;//rand.nextInt(3*monsters.size()/heroes.size());
 		if(chanceToRun == 0)
 		{
-			System.out.println("You successfully escaped!");
+			Display.displayMessage("You successfully escaped!");
 			heroes.fixParty();
 			return true;
 		}
-		System.out.println("But they caught you!");
+		Display.displayMessage("But they caught you!");
 		return false;
 	}
 
@@ -147,11 +148,11 @@ public abstract class A_Hero extends A_Character
 		int toAttack;
 		for(int x = 0; x < monsters.size(); x++)
 		{
-			System.out.println(index + ".) " + monsters.getCharacter(x).battleDisplay());
+			Display.displayMessage(index + ".) " + monsters.getCharacter(x).battleDisplay());
 			index++;
 		}
 
-		System.out.println("Choose a monster to attack or enter " + (index) + " to cancel attack");
+		Display.displayMessage("Choose a monster to attack or enter " + (index) + " to cancel attack");
 		toAttack = ensureInput(input, index);
 
 		if(toAttack >= index)
@@ -168,7 +169,7 @@ public abstract class A_Hero extends A_Character
 
 	public void gainExperience(int experience)
 	{
-		System.out.println(getName() + " gained " + experience +" experience!");
+		Display.displayMessage(getName() + " gained " + experience +" experience!");
 		super.gainExperience(experience);
 	}
 
@@ -176,7 +177,7 @@ public abstract class A_Hero extends A_Character
 	{
 		if(super.canLevel())
 		{
-			System.out.println(getName() + " leveled up!");
+			Display.displayMessage(getName() + " leveled up!");
 		}
 		return super.canLevel();
 	}

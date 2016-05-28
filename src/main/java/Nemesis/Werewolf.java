@@ -11,6 +11,7 @@ import Mediator.Mediator;
 import PartyManagement.Party;
 import SpecialAbilities.BloodSense;
 import SpecialAbilities.SpecialManager;
+import Utilities.Display;
 
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class Werewolf extends A_Nemesis
 
     public void startRage(Random rand, Party heroes, Party monsters)
     {
-        System.out.println("\n\nTHE WEREWOLF HOWL PIERCES YOUR EARS\n\n");
+        Display.displayMessage("\n\nTHE WEREWOLF HOWL PIERCES YOUR EARS\n\n");
         getConditions().giveRegenBuff(1.2, 5, "Self");
         specialAbility(rand, heroes, monsters);
 

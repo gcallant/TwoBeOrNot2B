@@ -2,6 +2,7 @@ package BuffsCharacter;
 
 import BuffsBoolean.BooleanBuffs;
 import Characters.A_Character;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,10 @@ public abstract class CharacterBuffManage
     {
         if(buff != null)
         {
-            System.out.println(affected.getName() + " is no longer " + toString() + " by " + buff.getContributor().getName());
+            Display.displayMessage(affected.getName() + " is no longer " + toString() + " by " + buff.getContributor().getName());
         }
         buff = new CharacterBuffs(contributor, amount, rounds, source);
-        System.out.println(affected.getName() + " is now " + toString() + " by " + contributor.getName());
+        Display.displayMessage(affected.getName() + " is now " + toString() + " by " + contributor.getName());
     }
 
     public void decrementList()
@@ -40,7 +41,7 @@ public abstract class CharacterBuffManage
         {
             if(!apply())
             {
-                System.out.println(affected.getName() + "'s " + toString() + " has ended from " + buff.getSource());
+                Display.displayMessage(affected.getName() + "'s " + toString() + " has ended from " + buff.getSource());
             }
         }
     }

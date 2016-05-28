@@ -3,6 +3,7 @@ package SpecialAbilities;
 import Characters.A_Character;
 import Characters.CreatureType;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -32,7 +33,7 @@ public class HolyVengeance extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used holy vengeance on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used holy vengeance on " + choiceToStrike.getName());
 
         choiceToStrike.takeDamage((character.getMaxHealth() - character.getHealth())/2);
 

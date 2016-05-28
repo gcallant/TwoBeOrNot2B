@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -31,19 +32,19 @@ public class ConfusingStrike extends SpecialAbility
     {
         character.getConditions().tempDamage(character.getPower());
 
-        System.out.println(character.getName() + " used confusing strike on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used confusing strike on " + choiceToStrike.getName());
         if (character.canAttack(choiceToStrike))
         {
             character.preformAttack(choiceToStrike);
             if(getAffectedChance(character, "power", choiceToStrike))
             {
-                System.out.println(choiceToStrike.getName() + " was confused!");
+                Display.displayMessage(choiceToStrike.getName() + " was confused!");
                 choiceToStrike.getConditions().giveConfusedDebuff(calculateRounds(character), "Confusing Strike");
             }
         }
         else
         {
-            System.out.println("But missed!");
+            Display.displayMessage("But missed!");
         }
         character.getConditions().giveExhaustedDebuff(2, "Confusing Strike");
     }

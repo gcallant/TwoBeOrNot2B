@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -40,7 +41,7 @@ public class Heal extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used heal on " + choiceToStrike.getName() + " for " + character.getPower()*5);
+        Display.displayMessage(character.getName() + " used heal on " + choiceToStrike.getName() + " for " + character.getPower()*5);
         choiceToStrike.heal(character.getCunning()*5);
     }
 

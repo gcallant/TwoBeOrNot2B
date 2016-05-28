@@ -2,6 +2,7 @@ package Buffs;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -77,12 +78,12 @@ public class Conditions
 
                 if (total > 0)
                 {
-                    System.out.println(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)buffsManager.getDefendAmount());
+                    Display.displayMessage(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)buffsManager.getDefendAmount());
                     buffsManager.getDefendedContributor().takeDamage((int) buffsManager.getDefendAmount());
                 }
                 else
                 {
-                    System.out.println(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)(buffsManager.getDefendAmount() + total));
+                    Display.displayMessage(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)(buffsManager.getDefendAmount() + total));
                     buffsManager.getDefendedContributor().takeDamage((int) buffsManager.getDefendAmount() + total);
                 }
                 damage = Math.max(0, total);
@@ -201,6 +202,11 @@ public class Conditions
         buffsManager.addDefendedBuff(contributor, amount, rounds, source);
     }
 
+    public void giveChargeBuff(double multiplier, int rounds, String source)
+    {
+        buffsManager.addChargeBuff(multiplier, rounds, source);
+    }
+
     /*
     * Retrieve Buffs
      */
@@ -243,6 +249,7 @@ public class Conditions
     public int calculateDamage(int damage)
     {
         damage = (int)(((double)damage*buffsManager.getDamageBuffAmount()));
+        damage = (int)(((double)damage*buffsManager.getChargeAmount()));
         return damage;
     }
 
@@ -258,7 +265,7 @@ public class Conditions
 
         if( buffsManager.isStunned())
         {
-            System.out.println(name + " is stunned and cannot attack!");
+            Display.displayMessage(name + " is stunned and cannot attack!");
             return true;
         }
 
@@ -266,7 +273,7 @@ public class Conditions
         {
             if(new Random().nextBoolean())
             {
-                System.out.println(name + " is feared and cannot attack!");
+                Display.displayMessage(name + " is feared and cannot attack!");
                 return true;
             }
         }
@@ -329,15 +336,15 @@ public class Conditions
         burn = calculateBurnDamage();
         if(poison > 0)
         {
-            System.out.println(name + " is poisoned and takes " + poison + " damage!");
+            Display.displayMessage(name + " is poisoned and takes " + poison + " damage!");
         }
         if(bleed > 0)
         {
-            System.out.println(name + " is bleeding and takes " + bleed + " damage!");
+            Display.displayMessage(name + " is bleeding and takes " + bleed + " damage!");
         }
         if(burn > 0)
         {
-            System.out.println(name + " is burning and takes " + burn + " damage!");
+            Display.displayMessage(name + " is burning and takes " + burn + " damage!");
         }
 
         return poison + bleed + burn;
@@ -350,7 +357,7 @@ public class Conditions
         regen = calculateRegen(health) + calculateRegenStatic();
         if(regen > 0)
         {
-            System.out.println(name + " has regen and recovers " + regen + " health!");
+            Display.displayMessage(name + " has regen and recovers " + regen + " health!");
         }
 
         return regen;

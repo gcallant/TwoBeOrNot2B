@@ -5,6 +5,7 @@ import Factories.HeroFactory;
 import Factories.MonsterFactory;
 import Heroes.*;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,11 @@ public class SummonMonster
 
         for(String string : names)
         {
-            System.out.println(total + ") " + string);
+            Display.displayMessage(total + ") " + string);
             total++;
         }
 
-        System.out.println(total + ") cancel");
+        Display.displayMessage(total + ") cancel");
 
         int choice = TestString.ensureInt(total);
 

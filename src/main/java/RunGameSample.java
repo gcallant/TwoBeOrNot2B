@@ -1,5 +1,6 @@
 import Database.DatabaseManager;
 import GameState.StateBase;
+import Utilities.Display;
 import Utilities.OSException;
 import Utilities.OSUtil;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ public class RunGameSample
 
         while(gameState.isNotEnd())
         {
-            System.out.println(gameState.displayCurrentState());
+            Display.displayMessage(gameState.displayCurrentState());
             gameState.executeCurrentState();
         }
     }
@@ -51,7 +52,7 @@ public class RunGameSample
 //        catch(OSException e)
 //        {
 //            e.printStackTrace();
-//            System.out.println("Could not make new directory- program must exit");
+//            Display.displayMessage("Could not make new directory- program must exit");
 //            System.exit(- 1);
 //        }
 //    }

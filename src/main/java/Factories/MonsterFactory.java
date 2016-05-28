@@ -2,6 +2,7 @@ package Factories;
 import Characters.*;
 import Item.*;
 import Monsters.*;
+import Utilities.Display;
 
 /**
  * Created by gm14793 on 5/13/16.
@@ -68,7 +69,7 @@ public class MonsterFactory
                 }
                 return new Sapling(monsterName, 1, 10, 8, new Cloth(1), new Hammer(1), level, floor);
         }
-        System.out.println(monsterType + " is not a  recognized monster. You have been provided with a Goblin.");
+        Display.displayMessage(monsterType + " is not a  recognized monster. You have been provided with a Goblin.");
         return new Goblin("Goblin", 50, 3, 4, new Cloth(1), new Dagger(1), level, floor);
     }
 

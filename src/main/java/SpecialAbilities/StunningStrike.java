@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -33,19 +34,19 @@ public class StunningStrike extends SpecialAbility
     {
         character.getConditions().tempDamage(character.getPower());
 
-        System.out.println(character.getName() + " used stunning strike on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used stunning strike on " + choiceToStrike.getName());
         if(character.canAttack(choiceToStrike))
         {
             character.preformAttack(choiceToStrike);
             if(getAffectedChance(character, "power", choiceToStrike))
             {
-                System.out.println(choiceToStrike.getName() + " was stunned!");
+                Display.displayMessage(choiceToStrike.getName() + " was stunned!");
                 choiceToStrike.getConditions().giveStunnedDebuff(calculateRounds(character),"Stunning Strike");
             }
         }
         else
         {
-            System.out.println("But missed!");
+            Display.displayMessage("But missed!");
         }
         character.getConditions().giveExhaustedDebuff(2, "Stunning Strike");
     }

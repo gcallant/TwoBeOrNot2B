@@ -1,5 +1,7 @@
 package BuffsBoolean;
 
+import Utilities.Display;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public abstract class BooleanBuffList
         {
             if(aBuff.getSource().equals(source))
             {
-                System.out.println(source + " has been refreshed on " + name);
+                Display.displayMessage(source + " has been refreshed on " + name);
                 aBuff.replace(rounds);
                 found = true;
             }
@@ -50,7 +52,7 @@ public abstract class BooleanBuffList
         {
             if(aBuff.decrement())
             {
-                System.out.println(name + "'s " + toString() + " has ended from " + aBuff.getSource());
+                Display.displayMessage(name + "'s " + toString() + " has ended from " + aBuff.getSource());
                 checks.add(aBuff);
             }
         }

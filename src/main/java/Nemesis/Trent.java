@@ -8,6 +8,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.*;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class Trent extends A_Nemesis
     public void startRage(Random rand, Party heroes, Party monsters)
     {
         cooldown = 1;
-        System.out.println("\n\nTHE TRENT'S RAZOR SHARP BARK HARDENS\n\n");
+        Display.displayMessage("\n\nTHE TRENT'S RAZOR SHARP BARK HARDENS\n\n");
         new BossDamageReduction().executeAbilityRandom(this, heroes, monsters);
     }
 

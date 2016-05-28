@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/26/2016.
@@ -30,7 +31,7 @@ public class Roar extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " roared in " + choiceToStrike.getName() + " face!");
+        Display.displayMessage(character.getName() + " roared in " + choiceToStrike.getName() + " face!");
         choiceToStrike.getConditions().recoverConditions();
         choiceToStrike.getConditions().giveDamageReductionBuff(1.0 + character.getCunning()*.01, calculateRounds(character), "Roar");
     }

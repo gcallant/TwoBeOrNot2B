@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class BladedFlurry extends SpecialAbility
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
         int tempBoost = 0;
-        System.out.println(character.getName() + " used bladed flurry on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used bladed flurry on " + choiceToStrike.getName());
 
         if((choiceToStrike.getHealth() == choiceToStrike.getMaxHealth()) || choiceToStrike.getConditions().hasBadCondition())
         {

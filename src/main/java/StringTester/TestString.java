@@ -4,6 +4,7 @@ import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class TestString
         int itemIndex = 1, choice = 0;
         for(A_Character character : list)
         {
-            System.out.println(itemIndex + ".)" + character.inventoryDisplay());
+            Display.displayMessage(itemIndex + ".)" + character.inventoryDisplay());
             itemIndex++;
         }
         return getInput(itemIndex);
@@ -75,7 +76,7 @@ public class TestString
             }
             if(badInput)
             {
-                System.out.println("Bad input. Try a number between 1 and " + max);
+                Display.displayMessage("Bad input. Try a number between 1 and " + max);
             }
         }while(badInput);
         return choice;
@@ -122,7 +123,7 @@ public class TestString
             {
                 System.out.print("Bad input try: ");
                 printChars(validInputs);
-                System.out.println();
+                Display.displayMessage("");
             }
         }while(badInput);
         return letter;

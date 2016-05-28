@@ -69,7 +69,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> necParty = new ArrayList<A_Character>();
 
-		necParty.add(new Necromancer("Lord Denegar, The Vile", 1000, 30, 10, new Cloth(level), new Staff(level), level));
+		necParty.add(new Necromancer("Lord Drengar, The Vile", 1000, 30, 10, new Cloth(level), new Staff(level), level));
 		necParty.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", level, true, floor));
 		necParty.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", level, true, floor));
 
@@ -97,7 +97,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> trentParty = new ArrayList<A_Character>();
 
-		trentParty.add(new Trent("Olohem, The Iron Skin", 1800, 35, 4, new Cloth(level), new Hammer(level), level));
+		trentParty.add(new Trent("Olohem, The Forsaken", 1800, 35, 4, new Cloth(level), new Hammer(level), level));
 		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 1", level, true, floor));
 		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 2", level, true, floor));
 

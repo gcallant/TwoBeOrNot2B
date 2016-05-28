@@ -1,4 +1,4 @@
-package BuffsAndDebuffs;
+package BuffsBoolean;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -28,6 +28,8 @@ public class HeroFactory
 				return new Ranger(name, 200, 8, 9, new Leather(1), new Bow(1));
 			case "Summoner":
 				return new Summoner(name, 150, 3, 7, new Cloth(1), new Staff(1));
+			case "Defender":
+				return new Defender(name, 300, 7, 7, new Chainmail(1), new Sword(1));
 		}
 		return createCharacter("Warrior", "Bob");
 	}

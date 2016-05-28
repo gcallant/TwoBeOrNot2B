@@ -1,11 +1,14 @@
-package BuffsAndDebuffs;
+package Buffs;
+
+import BuffsPercentage.BuffList;
+import BuffsPercentage.Buffs;
 
 /**
  * Created by Michael on 5/24/2016.
  */
-public class BurnDebuff extends BuffList
+public class RegenStaticBuff extends BuffList
 {
-    public BurnDebuff(String name)
+    public RegenStaticBuff(String name)
     {
         super(name);
     }
@@ -15,13 +18,13 @@ public class BurnDebuff extends BuffList
         double total = 0;
         for (Buffs buffs : getList())
         {
-            total += (buffs.buffAmount());
+            total += buffs.buffAmount();
         }
         return total;
     }
 
     public String toString()
     {
-        return "Burn";
+        return "RegenStatic";
     }
 }

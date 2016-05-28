@@ -1,4 +1,6 @@
-package BuffsAndDebuffs;
+package Buffs;
+
+import Characters.A_Character;
 
 /**
  * Created by Michael on 5/23/2016.
@@ -7,10 +9,10 @@ public class UndeadConditions extends Conditions
 {
     private String name;
 
-    public UndeadConditions(String name)
+    public UndeadConditions(A_Character character)
     {
-        super(name);
-        this.name = name;
+        super(character);
+        this.name = character.getName();
     }
 
     public void giveStunnedDebuff(int rounds, String source)

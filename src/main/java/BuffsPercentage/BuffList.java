@@ -1,4 +1,4 @@
-package BuffsAndDebuffs;
+package BuffsPercentage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,29 +1,27 @@
-package BuffsAndDebuffs;
-
-import java.util.List;
+package BuffsPercentage;
 
 /**
  * Created by Michael on 5/22/2016.
  */
-public class DamageReductionBuff extends BuffList
+public class DamageBuffs extends BuffList
 {
-    public DamageReductionBuff(String name)
+    public DamageBuffs(String name)
     {
         super(name);
     }
 
     public double getAmount()
     {
-        double total = 1.0;
+        double total = 0.0;
         for (Buffs buffs : getList())
         {
             total += buffs.buffAmount();
         }
-        return Math.min(total,2.0);
+        return total;
     }
 
     public String toString()
     {
-        return "Damage Reduction";
+        return "Damage buff";
     }
 }

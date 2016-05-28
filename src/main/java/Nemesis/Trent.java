@@ -1,7 +1,5 @@
 package Nemesis;
 
-import BuffsAndDebuffs.UndeadConditions;
-import Characters.A_Character;
 import Characters.A_Nemesis;
 import Characters.CreatureType;
 import Item.Armor;

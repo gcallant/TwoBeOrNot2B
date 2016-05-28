@@ -1,4 +1,11 @@
-package BuffsAndDebuffs;
+package Buffs;
+
+import BuffsBoolean.*;
+import BuffsCharacter.CharacterBuffManage;
+import BuffsCharacter.CharacterBuffs;
+import BuffsCharacter.DefendOther;
+import BuffsPercentage.*;
+import Characters.A_Character;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -19,25 +26,27 @@ public class BuffsManager
     private BooleanBuffList stunned;
     private BooleanBuffList feared;
     private BooleanBuffList confused;
+    private CharacterBuffManage defended;
     private String name;
 
-    public BuffsManager(String name)
+    public BuffsManager(A_Character name)
     {
-        attack = new AttackBuffs(name);
-        attackDebuff = new AttackDebuffs(name);
-        damage = new DamageBuffs(name);
-        damageDebuff = new DamageDebuff(name);
-        regen = new RegenBuffs(name);
-        poison = new PoisonDebuffs(name);
-        bleed = new BleedDebuff(name);
-        regenStatic = new RegenStaticBuff(name);
-        burn = new BurnDebuff(name);
-        exhausted = new ExhaustedDebuffs(name);
-        stunned = new StunnedDebuff(name);
-        feared = new FearDebuff(name);
-        confused = new ConfusionDebuff(name);
-        damageReduction = new DamageReductionBuff(name);
-        this.name = name;
+        attack = new AttackBuffs(name.getName());
+        attackDebuff = new AttackDebuffs(name.getName());
+        damage = new DamageBuffs(name.getName());
+        damageDebuff = new DamageDebuff(name.getName());
+        regen = new RegenBuffs(name.getName());
+        poison = new PoisonDebuffs(name.getName());
+        bleed = new BleedDebuff(name.getName());
+        regenStatic = new RegenStaticBuff(name.getName());
+        burn = new BurnDebuff(name.getName());
+        exhausted = new ExhaustedDebuffs(name.getName());
+        stunned = new StunnedDebuff(name.getName());
+        feared = new FearDebuff(name.getName());
+        confused = new ConfusionDebuff(name.getName());
+        damageReduction = new DamageReductionBuff(name.getName());
+        defended = new DefendOther(name);
+        this.name = name.getName();
     }
 
     //One for every BuffList
@@ -111,6 +120,11 @@ public class BuffsManager
         regenStatic.addBuff(buff, rounds, source);
     }
 
+    public void addDefendedBuff(A_Character contributor, double amount, int rounds, String source)
+    {
+        defended.addBuff(contributor, amount, rounds, source);
+    }
+
     //
 
     public void decrement()
@@ -143,6 +157,8 @@ public class BuffsManager
         burn.decrementList();
 
         damageReduction.decrementList();
+
+        defended.decrementList();
     }
 
     public void decrementBad()
@@ -234,6 +250,30 @@ public class BuffsManager
     {
         return confused.isInEffect();
     }
+
+    public boolean isDefended()
+    {
+        return defended.isInEffect();
+    }
+
+    public double getDefendAmount()
+    {
+        if(isDefended())
+        {
+            return defended.getAmount();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    //
+
+    //For Character Buffs
+    public A_Character getDefendedContributor()
+    {
+        return defended.getContributor();
+    }
     //
 
     public boolean badCondition()
@@ -253,7 +293,8 @@ public class BuffsManager
 
     public void clearBad()
     {
-        while(poison.size() > 0  || stunned.size() > 0 || bleed.size() > 0 || feared.size() > 0 || confused.size() > 0 || burn.size() > 0)
+        while(poison.size() > 0  || stunned.size() > 0 || bleed.size() > 0 ||
+                feared.size() > 0 || confused.size() > 0 || burn.size() > 0)
         {
             decrementBad();
         }
@@ -276,5 +317,6 @@ public class BuffsManager
         regenStatic.clear();
         burn.clear();
         damageReduction.clear();
+        defended.clear();
     }
 }

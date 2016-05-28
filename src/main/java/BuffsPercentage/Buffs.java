@@ -1,6 +1,4 @@
-package BuffsAndDebuffs;
-
-import java.util.List;
+package BuffsPercentage;
 
 /**
  * Created by Michael on 5/21/2016.

@@ -2,8 +2,8 @@ package Characters;
 
 import java.util.*;
 
-import BuffsAndDebuffs.Conditions;
-import BuffsAndDebuffs.UndeadConditions;
+import Buffs.Conditions;
+import Buffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
 import com.google.common.base.Objects;
@@ -57,11 +57,11 @@ public abstract class A_Character
 		rand = new Random();
 		if(creatureType == CreatureType.Undead)
 		{
-			conditions = new UndeadConditions(getName());
+			conditions = new UndeadConditions(this);
 		}
 		else
 		{
-			conditions = new Conditions(getName());
+			conditions = new Conditions(this);
 		}
 	}
 
@@ -108,8 +108,7 @@ public abstract class A_Character
 			return;
 		}
 
-		total = conditions.reduceDamage(total);
-		this.health -= total;
+		this.health -= Math.max(total, 0);
 		if(health <= 0)
 		{
 			health = 0;
@@ -147,17 +146,12 @@ public abstract class A_Character
 		attackBonus = conditions.addAttack(attackBonus);
 		attackBonus = conditions.calculateAttack(attackBonus);
 
-		if(randomChance == 0)
-		{
-			return false;
-		}
-
 		if(randomChance == (ConstantValues.ChanceToHit.getValue() - 1))
 		{
 			return true;
 		}
 
-		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(20) != 0);
+		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(10) != 0);
 	}
 
 	public boolean attack(A_Character toAttack)
@@ -185,7 +179,7 @@ public abstract class A_Character
 			totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
 			totalDamage = conditions.addDamage(totalDamage);
 			totalDamage = conditions.calculateDamage(totalDamage);
-			totalDamage = toAttack.conditions.reduceDamage(totalDamage);
+			totalDamage = toAttack.conditions.reduceDamage(totalDamage, false);
 		}
 		else
 		{

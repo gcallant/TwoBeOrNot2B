@@ -3,6 +3,7 @@ package PartyManagement;
 import Characters.*;
 import Factories.HeroFactory;
 import Heroes.*;
+import SpecialAbilities.DefendOther;
 import StringTester.TestString;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class CreateMember
         names.add("Paladin");
         names.add("Ranger");
         names.add("Summoner");
+        names.add("Defender");
 
         Scanner kb = new Scanner(System.in);
 
@@ -35,6 +37,7 @@ public class CreateMember
         System.out.println("4) " + Paladin.Information());
         System.out.println("5) " + Ranger.Information());
         System.out.println("6) " + Summoner.Information());
+        System.out.println("7) " + Defender.Information());
 
         int choice = TestString.ensureInt(names.size());
         String type = names.get(choice - 1);

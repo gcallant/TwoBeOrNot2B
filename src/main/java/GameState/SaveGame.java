@@ -1,7 +1,7 @@
 package GameState;
 
 import Database.DatabaseManager;
-import Database.DatabaseManagerException;
+import Exceptions.DatabaseManagerException;
 import Utilities.TestString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

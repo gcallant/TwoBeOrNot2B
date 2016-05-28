@@ -1,6 +1,7 @@
 package Database;
 
 import Characters.A_Character;
+import Exceptions.DatabaseManagerException;
 import GameState.Mediator;
 import Utilities.OSUtil;
 import org.slf4j.Logger;

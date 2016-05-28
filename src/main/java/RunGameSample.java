@@ -1,6 +1,6 @@
 import Database.DatabaseManager;
+import Exceptions.OSException;
 import GameState.StateBase;
-import Utilities.OSException;
 import Utilities.OSUtil;
 import Utilities.PrintMenu;
 import Utilities.TestString;

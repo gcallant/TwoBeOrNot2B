@@ -1,7 +1,5 @@
-package Database;
+package Exceptions;
 
-import Characters.A_Character;
-import PartyManagement.Inventory;
 import PartyManagement.Inventory;
 
 /**

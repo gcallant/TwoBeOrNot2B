@@ -58,7 +58,7 @@ public class Ogre extends A_Monster
 
     public int getLevel()
     {
-        return level*10;
+        return level*15;
     }
 
     @Override

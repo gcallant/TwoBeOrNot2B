@@ -23,7 +23,7 @@ public class Ranger extends A_Hero
         specialManager.addSpecialAbility(new PiercingStrike());
         specialManager.addSpecialAbility(new NaturalRemedy());
         specialManager.addSpecialAbility(new EagleEye());
-        specialManager.addSpecialAbility(new Charge());
+        specialManager.addSpecialAbility(new DoubleStrike());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)

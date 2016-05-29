@@ -22,6 +22,7 @@ public class Rogue extends A_Hero
 
         specialManager.addSpecialAbility(new SneakAttack());
         specialManager.addSpecialAbility(new PoisonStrike());
+        specialManager.addSpecialAbility(new BackStab());
     }
 
     public void upgradeAbilities()
@@ -36,28 +37,11 @@ public class Rogue extends A_Hero
 
     public static String Information()
     {
-        return "Rogue:\n" + SneakAttack.description() + "\n" + PoisonStrike.description();
+        return "Rogue:\n" + SneakAttack.description() + "\n" + PoisonStrike.description() + "\n" + BackStab.description();
     }
 
     public String getName()
     {
         return super.getName() + " the Rogue";
     }
-
-    public int powerIncrease()
-    {
-        return 2;
-    }
-
-    public int cunningIncrease()
-    {
-        return 3;
-    }
-
-    public int healthIncrease()
-    {
-        return 15;
-    }
-
-
 }

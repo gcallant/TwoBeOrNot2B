@@ -55,6 +55,6 @@ public class UndeadCleric extends A_Monster
     }
     public int getLevel()
     {
-        return level*3;
+        return level*15;
     }
 }

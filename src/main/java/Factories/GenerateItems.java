@@ -67,20 +67,22 @@ public class GenerateItems {
         largeList.get(2).add("Cloth");
         largeList.get(2).add("Leather");
 
+        int level = inventory.getCharacter(0).getLevel();
+
         int generate = 0;
         switch(floor)
         {
             case 1:
                 generate = floor1[rand.nextInt(floor1.length)];
-                grabItem(inventory, generate, largeList.get(generate), rand.nextInt(floor*2) + 1);
+                grabItem(inventory, generate, largeList.get(generate), level);
                 break;
             case 2:
                 generate = floor2[rand.nextInt(floor2.length)];
-                grabItem(inventory, generate, largeList.get(generate), rand.nextInt(floor*2) + 1);
+                grabItem(inventory, generate, largeList.get(generate), level);
                 break;
             default:
                 generate = floor3[rand.nextInt(floor3.length)];
-                grabItem(inventory, generate, largeList.get(generate), rand.nextInt(floor*2) + 1);
+                grabItem(inventory, generate, largeList.get(generate), level);
                 break;
         }
     }

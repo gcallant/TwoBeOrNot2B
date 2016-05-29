@@ -27,7 +27,7 @@ public class MassBleed extends SpecialAbility
         int totalEnemies = enemies.size();
         for (int x = 0; x < totalEnemies; x++)
         {
-            if (character.attack(enemies.getCharacter(x)) && getAffectedChance(character, "cunning", enemies.getCharacter(x)))
+            if (character.attack(enemies.getCharacter(x)) && getAffectedChance(character, "power", enemies.getCharacter(x)))
             {
                 Display.displayMessage(enemies.getCharacter(x).getName() + " is bleeding!");
                 enemies.getCharacter(x).getConditions().giveBleedDebuff(1.3, calculateRounds(character), "Mass Bleed");

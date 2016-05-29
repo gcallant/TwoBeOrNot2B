@@ -7,27 +7,31 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.FearsomeGaze;
+import SpecialAbilities.SlimeWave;
+import SpecialAbilities.SpecialManager;
+import SpecialAbilities.WarCry;
 
 import java.util.Random;
 
 /**
- * Created by Michael on 5/25/2016.
+ * Created by Michael on 5/28/2016.
  */
-public class Sapling extends A_Monster
+public class Slime extends A_Monster
 {
     private SpecialManager specialManager;
     private int level;
 
-    public Sapling(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor) {
-        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Medium, weapon, 5, level, CreatureType.Undead);
+    public Slime(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level, int floor) {
+        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Medium, weapon, 8, level, CreatureType.Animal);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new Heal());
+
+        specialManager.addSpecialAbility(new SlimeWave());
 
         if(floor >= 3)
         {
-            specialManager.addSpecialAbility(new BarkSkin());
+
         }
 
         this.level = level;
@@ -45,9 +49,11 @@ public class Sapling extends A_Monster
         upgradeHealth();
         upgradecunning();
         upgradecunning();
+        upgradecunning();
+        upgradecunning();
     }
 
     public int getLevel() {
-        return 17 * level;
+        return 20 * level;
     }
 }

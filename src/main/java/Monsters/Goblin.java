@@ -53,6 +53,6 @@ public class Goblin extends A_Monster
 
 	public int getLevel()
 	{
-		return level*4;
+		return level*5;
 	}
 }

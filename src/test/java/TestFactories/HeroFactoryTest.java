@@ -38,16 +38,15 @@ public class HeroFactoryTest
     @Test
     public void testCreateCharacter()
     {
-        //Create the appropriate character
+        //checking for valid return type
         assertNotNull(testHero);
 
-        //edge cases
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.createCharacter("Rogue", null);
         factory.createCharacter(null, "Sneaky");
         factory.createCharacter(null, null);
 
-        //If the user enters a hero that's not valid
         exception.expect(IllegalArgumentException.class);
         testHero = factory.createCharacter("Hero", "Sneaky");
     }

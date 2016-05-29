@@ -39,8 +39,10 @@ public class WeaponFactoryTest
     @Test
     public void testGenerate() throws Exception
     {
+        //checking for valid return type
         assertNotNull(testWeapon);
 
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.generate(null, 5);
 

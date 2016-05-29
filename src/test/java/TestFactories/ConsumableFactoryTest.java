@@ -40,8 +40,10 @@ public class ConsumableFactoryTest
     @Test
     public void testGenerate() throws Exception
     {
+        //checking for valid return type
         assertNotNull(testConsumable);
 
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.generate(null, 5);
 

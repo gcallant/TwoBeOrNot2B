@@ -41,10 +41,10 @@ public class ItemTester
 		armorList.add(new Chainmail(1));
 		armorList.add(new Cloth(1));
 
-		consumableList.add(new power(3));
+		consumableList.add(new Power(3));
 		consumableList.add(new Healing(2));
 		consumableList.add(new Healing(1));
-		consumableList.add(new power(1));
+		consumableList.add(new Power(1));
 	}
 
 	@Test

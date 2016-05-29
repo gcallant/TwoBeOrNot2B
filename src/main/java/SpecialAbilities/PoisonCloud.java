@@ -29,7 +29,7 @@ public class PoisonCloud extends SpecialAbility
         {
             if (character.attack(enemies.getCharacter(x)))
             {
-                if (getAffectedChance(character, "power", enemies.getCharacter(x)))
+                if (getAffectedChance(character, "Power", enemies.getCharacter(x)))
                 {
                     Display.displayMessage(enemies.getCharacter(x).getName() + " is affected by the poison!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(2.0, character.getPower(), "Poison Cloud");

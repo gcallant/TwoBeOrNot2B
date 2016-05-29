@@ -195,7 +195,7 @@ public class Party implements Iterable<A_Character>
 
         A_Character character = characterParty.get(choice);
 
-        inventory.useConsumable(character, choice);
+        inventory.useConsumable(character, potion);
         return false;
     }
 
@@ -221,6 +221,11 @@ public class Party implements Iterable<A_Character>
                 break;
         }
         return true;
+    }
+
+    public boolean consumePotion()
+    {
+        return inventory.consumePotion(this);
     }
 
     public void displayStats()

@@ -137,7 +137,7 @@ public abstract class A_Character
 			case "cunning":
 				attackBonus = this.getCunning();
 				break;
-			case "power":
+			case "Power":
 				attackBonus = this.getPower();
 				break;
 		}
@@ -321,7 +321,7 @@ public abstract class A_Character
 	@Override
 	public String toString()
 	{
-		return "Name: " + getName() + "\tHealth: " + getHealth() + "/" + getMaxHealth() + "\tpower: " + getPower() +
+		return "Name: " + getName() + "\tHealth: " + getHealth() + "/" + getMaxHealth() + "\tPower: " + getPower() +
 				         "\tcunning: " + getCunning() + "\t" + getArmor() + "\t" + getWeapon();
 	}
 
@@ -332,7 +332,7 @@ public abstract class A_Character
 
 	public String displayStats()
 	{
-		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level*100) + " Health: " + getHealth() + "/" + getMaxHealth() + " power: " + getPower() + (power != getPower() ? ("(" + power + ")"):"") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")"):"") + " " + getArmor() + " " + getWeapon();
+		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level*100) + " Health: " + getHealth() + "/" + getMaxHealth() + " Power: " + getPower() + (power != getPower() ? ("(" + power + ")"):"") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")"):"") + " " + getArmor() + " " + getWeapon();
 	}
 
 	public String battleDisplay()

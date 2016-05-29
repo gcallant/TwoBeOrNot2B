@@ -94,7 +94,7 @@ public class InventoryTest
         inventory.addToInventory(new Healing(1));
         assertNotNull(inventory.removeFromInventory(consumable.get(0)));
 
-        assertNull(inventory.removeFromInventory(new power(1)));
+        assertNull(inventory.removeFromInventory(new Power(1)));
     }
 
 }

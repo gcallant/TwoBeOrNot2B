@@ -25,7 +25,7 @@ public class LevelUp
         {
             Display.displayMessage("You have " + num + " points to spend!");
 
-            Display.displayMessage("Choose what to upgrade!\n1) Health(35)\n2) power\n3) cunning");
+            Display.displayMessage("Choose what to upgrade!\n1) Health(35)\n2) Power\n3) cunning");
 
             choice = TestString.ensureInt(3);
 

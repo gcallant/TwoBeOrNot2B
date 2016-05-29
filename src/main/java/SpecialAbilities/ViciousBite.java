@@ -35,7 +35,7 @@ public class ViciousBite extends SpecialAbility
 
         if(character.attack(choiceToStrike));
         {
-            if(getAffectedChance(character, "power", choiceToStrike))
+            if(getAffectedChance(character, "Power", choiceToStrike))
             {
                 Display.displayMessage(choiceToStrike.getName() + " is now bleeding!");
                 choiceToStrike.getConditions().giveBleedDebuff(1.0 + (.005*character.getCunning()), calculateRounds(character), "Vicious Bite");

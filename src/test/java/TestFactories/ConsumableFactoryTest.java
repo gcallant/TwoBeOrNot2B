@@ -2,7 +2,7 @@ package TestFactories;
 
 import Factories.ConsumableFactory;
 import Item.Consumable;
-import Item.power;
+import Item.Power;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,7 +23,7 @@ public class ConsumableFactoryTest
     public void setUp() throws Exception
     {
         factory = new ConsumableFactory();
-        testConsumable = new power(2);
+        testConsumable = new Power(2);
     }
 
     @After

@@ -36,7 +36,7 @@ public class ConfusingStrike extends SpecialAbility
         if (character.canAttack(choiceToStrike))
         {
             character.preformAttack(choiceToStrike);
-            if(getAffectedChance(character, "power", choiceToStrike))
+            if(getAffectedChance(character, "Power", choiceToStrike))
             {
                 Display.displayMessage(choiceToStrike.getName() + " was confused!");
                 choiceToStrike.getConditions().giveConfusedDebuff(calculateRounds(character), "Confusing Strike");

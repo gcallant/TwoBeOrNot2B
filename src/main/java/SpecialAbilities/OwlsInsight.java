@@ -35,6 +35,6 @@ public class OwlsInsight extends SpecialAbility
 
     public static String description()
     {
-        return "     - Owl's Insight: buffs the casters power";
+        return "     - Owl's Insight: buffs the casters Power";
     }
 }

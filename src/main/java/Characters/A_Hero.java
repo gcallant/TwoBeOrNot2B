@@ -63,7 +63,8 @@ public abstract class A_Hero extends A_Character
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
 					                   "4.) Use Item\n" +
-					                   "5.) Run\n");
+									   "5.) View Stats\n" +
+					                   "6.) Run\n");
 			choice = ensureInput(input, 5);
 			switch(choice)
 			{
@@ -85,9 +86,13 @@ public abstract class A_Hero extends A_Character
 					}
 					break;
 				case 4:
-					//cancel = heroes.consumePotion();
+					cancel = heroes.consumePotion();
 					break;
 				case 5:
+					displayPartyStats(heroes);
+					cancel = true;
+					break;
+				case 6:
 					return tryToRun(heroes, monsters);
 			}
 
@@ -95,6 +100,11 @@ public abstract class A_Hero extends A_Character
 		while(choice < 1 || choice > 5 || cancel);
 		endTurn();
 		return false;
+	}
+
+	private void displayPartyStats(Party party)
+	{
+		party.displayStats();
 	}
 
 	protected int pickCharacter(Party party)

@@ -189,6 +189,47 @@ public class Inventory
         }
     }
 
+    public boolean consumePotion(Party party)
+    {
+        int total = 1;
+        Display.displayMessage("Choose a potion to use: ");
+        for(Consumable consumable: consumables)
+        {
+            Display.displayMessage(total + ") " + consumable.toString());
+            total++;
+        }
+
+        Display.displayMessage(total + ") cancel");
+        int choice = TestString.ensureInt(total);
+
+        if(choice == total)
+        {
+            return true;
+        }
+
+        Consumable consumable = consumables.get(choice - 1);
+
+        Display.displayMessage("Choose who to use " + consumable.toString() + " on: ");
+        total = 1;
+        for(int x = 0; x < party.size(); x++)
+        {
+            Display.displayMessage(total + ") " + party.getCharacter(x));
+            total++;
+        }
+
+        Display.displayMessage(total + ") cancel");
+        choice = TestString.ensureInt(total);
+
+        if(choice == total)
+        {
+            return true;
+        }
+
+        consumable.use(party.getCharacter(choice - 1));
+        removeFromInventory(consumable);
+        return false;
+    }
+
     private int getConsumables()
     {
         int itemIndex = 1;

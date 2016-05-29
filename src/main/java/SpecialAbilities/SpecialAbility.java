@@ -57,7 +57,7 @@ public abstract class SpecialAbility
         int total;
         switch(type)
         {
-            case "power":
+            case "Power":
                 total = Math.max(Math.min(10 - attacker.getPower() + defender.getResistance(), 9),1);
                 return value > total;
             case "cunning":

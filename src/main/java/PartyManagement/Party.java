@@ -1,10 +1,12 @@
 package PartyManagement;
 
 import Characters.A_Character;
+import Exceptions.DatabaseManagerException;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
 import Utilities.TestString;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +30,32 @@ public class Party
         this.inventory = new Inventory();
         this.partyLevel = 1;
         this.floorLevel = 1;
+    }
+
+    public Party(List<A_Character> characterParty, Inventory inventory, int level) throws DatabaseManagerException
+    {
+        verifyArguments(characterParty, inventory, level);
+        this.characterParty = characterParty;
+        this.inventory = inventory;
+        this.floorLevel = level;
+    }
+
+    @Contract("null, _, _ -> fail; !null, null, _ -> fail")
+    private void verifyArguments(List<A_Character> characterParty, Inventory inventory, int level)
+    throws DatabaseManagerException
+    {
+        if(characterParty == null)
+        {
+            throw new DatabaseManagerException().notLoaded("Characterparty was null", null);
+        }
+        if(inventory == null)
+        {
+            throw new DatabaseManagerException().notLoaded("Inventory was null", inventory);
+        }
+        if(level < 2)
+        {
+            throw new DatabaseManagerException().notLoaded("Level is less than start level", null);
+        }
     }
 
     public void addToInventory(Weapon item)

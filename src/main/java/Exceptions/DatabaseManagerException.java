@@ -53,4 +53,9 @@ public class DatabaseManagerException extends Exception
 	{
 		return new DatabaseManagerException(message, inventory);
 	}
+
+	public DatabaseManagerException notLoaded(String message, Inventory inventory)
+	{
+		return new DatabaseManagerException(message, inventory);
+	}
 }

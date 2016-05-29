@@ -1,5 +1,11 @@
 package GameState;
 
+import Database.DatabaseManager;
+import Exceptions.DatabaseManagerException;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  * Created by Grant Callant on 5/25/16.
  */
@@ -24,7 +30,29 @@ public class LoadGame implements I_State
 	@Override
 	public I_State execute()
 	{
-		return null;
+		DatabaseManager databaseManager = new DatabaseManager();
+		try
+		{
+			databaseManager.loadParty(mediator);
+			databaseManager.loadInventory(mediator);
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch(DatabaseManagerException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		return new NewMap(mediator);
 	}
 
 	@Override

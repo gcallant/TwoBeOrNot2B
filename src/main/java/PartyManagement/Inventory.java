@@ -1,6 +1,7 @@
 package PartyManagement;
 
 import Characters.A_Character;
+import Exceptions.DatabaseManagerException;
 import Item.*;
 import Utilities.TestString;
 
@@ -25,6 +26,37 @@ public class Inventory
         consumables = new ArrayList<Consumable>();
         totalSize = 0;
     }
+
+    public Inventory(List<Weapon> weapons, List<Armor> armors, List<Consumable> consumables)
+    throws DatabaseManagerException
+    {
+        if(weapons == null)
+        {
+            this.weapons = new ArrayList<>();
+        }
+        else
+        {
+            this.weapons = weapons;
+        }
+        if(armors == null)
+        {
+            this.armors = new ArrayList<>();
+        }
+        else
+        {
+            this.armors = armors;
+        }
+        if(consumables == null)
+        {
+            this.consumables = new ArrayList<>();
+        }
+        else
+        {
+            this.consumables = consumables;
+        }
+        this.totalSize = weapons.size() + armors.size() + consumables.size();
+    }
+
 
     public void addToInventory(Weapon item)
     {

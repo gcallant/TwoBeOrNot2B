@@ -109,6 +109,28 @@ public class OSUtil
 		return pathToCheck.exists();
 	}
 
+	public static boolean deleteFile(String path)
+	{
+		if(! pathExists(path) || isDirectory(path))
+		{
+			return false;
+		}
+		File toDelete = new File(path);
+		return toDelete.delete();
+	}
+
+	private static boolean isFile(String path)
+	{
+		File pathToCheck = new File(path);
+		return pathToCheck.isFile();
+	}
+
+	private static boolean isDirectory(String path)
+	{
+		File pathToCheck = new File(path);
+		return pathToCheck.isDirectory();
+	}
+
 	public static File createNewDirectory(File parentDirectory, String newDirectoryName) throws OSException
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);

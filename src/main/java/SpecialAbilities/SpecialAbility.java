@@ -32,6 +32,7 @@ public abstract class SpecialAbility
             Display.displayMessage(choices + ") " + party.getCharacter(x).battleDisplay());
             choices++;
         }
+        Display.displayMessage(choices + ") cancel");
         choice = TestString.ensureInt(choices);
 
         if(choice == choices)

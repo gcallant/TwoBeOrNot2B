@@ -162,7 +162,7 @@ public abstract class A_Hero extends A_Character
 			index++;
 		}
 
-		Display.displayMessage("Choose a monster to attack or enter " + (index) + " to cancel attack");
+		Display.displayMessage(index + ".) cancel");
 		toAttack = ensureInput(input, index);
 
 		if(toAttack >= index)

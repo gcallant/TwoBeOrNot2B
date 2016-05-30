@@ -1,13 +1,12 @@
 package GameState;
 
-import Characters.*;
-import Mediator.Mediator;
+import Characters.A_Character;
 import PartyManagement.CreateMember;
 import PartyManagement.Party;
+import Utilities.Display;
 import Utilities.FileUtil;
 import Utilities.OSUtil;
 import Utilities.TestString;
-import Utilities.Display;
 import com.google.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 /*
  * Created by Michael on 5/12/2016.

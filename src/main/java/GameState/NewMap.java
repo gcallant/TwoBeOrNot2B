@@ -1,7 +1,7 @@
 package GameState;
 
-import Utilities.Display;
 import DungeonGeneration.GenerateDungeon;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/15/2016.

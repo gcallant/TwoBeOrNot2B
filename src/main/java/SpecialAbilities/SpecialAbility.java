@@ -2,8 +2,8 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
-import Utilities.TestString;
 import Utilities.Display;
+import Utilities.TestString;
 
 import java.util.Random;
 

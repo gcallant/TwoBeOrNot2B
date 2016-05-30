@@ -1,22 +1,17 @@
 package PartyManagement;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import Characters.A_Character;
 import Exceptions.DatabaseManagerException;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
-import Utilities.TestString;
 import Utilities.Display;
+import Utilities.TestString;
 import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,11 +24,6 @@ public class Party implements Iterable<A_Character>
     private Inventory         inventory;
     private int               partyLevel;
     private int               floorLevel;
-
-    public Iterator<A_Character> iterator()
-    {
-        return characterParty.iterator();
-    }
 
     public Party(List<A_Character> characterParty)
     {
@@ -49,6 +39,11 @@ public class Party implements Iterable<A_Character>
         this.characterParty = characterParty;
         this.inventory = inventory;
         this.floorLevel = level;
+    }
+
+    public Iterator<A_Character> iterator()
+    {
+        return characterParty.iterator();
     }
 
     @Contract("null, _, _ -> fail; !null, null, _ -> fail")

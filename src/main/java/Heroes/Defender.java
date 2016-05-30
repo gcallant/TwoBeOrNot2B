@@ -6,7 +6,8 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.DefendOther;
+import SpecialAbilities.SpecialManager;
 
 /**
  * Created by Michael on 5/27/2016.
@@ -23,6 +24,11 @@ public class Defender extends A_Hero
         specialManager.addSpecialAbility(new DefendOther());
     }
 
+    public static String Information()
+    {
+        return "Defender:\n" + DefendOther.description();
+    }
+
     public boolean specialAbility(Party heroes, Party monsters)
     {
         return specialManager.chooseSpecialAbility(this, heroes, monsters);
@@ -31,11 +37,6 @@ public class Defender extends A_Hero
     public String getName()
     {
         return super.getName() + " the Defender";
-    }
-
-    public static String Information()
-    {
-        return "Defender:\n" + DefendOther.description();
     }
 
     public void upgradeAbilities()

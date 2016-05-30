@@ -1,7 +1,6 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Factories.MonsterFactory;
 import PartyManagement.Party;
 import PartyManagement.SummonMonster;
 
@@ -10,6 +9,11 @@ import PartyManagement.SummonMonster;
  */
 public class SummonCreature extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Summon a dire wolf, undead cleric, or a skeleton";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         if(character.getConditions().summoningSickness())
@@ -33,10 +37,5 @@ public class SummonCreature extends SpecialAbility
     public String toString()
     {
         return "Summon Creature";
-    }
-
-    public static String description()
-    {
-        return "     - Summon a dire wolf, undead cleric, or a skeleton";
     }
 }

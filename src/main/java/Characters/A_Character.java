@@ -1,7 +1,5 @@
 package Characters;
 
-import java.util.*;
-
 import Buffs.Conditions;
 import Buffs.UndeadConditions;
 import Item.*;
@@ -13,27 +11,26 @@ import java.util.Random;
 
 public abstract class A_Character
 {
-	private String     name;
-	private int        health;
-	private int	       maxHealth;
-	private int        power;
-	private int 	   cunning;
-	private int        level;
-	private int        experience;
-	private Armor      armor;
-	private Weapon     weapon;
-	private boolean    isDefeated;
-	private int        initiative;
-	private ArmorType  armorType;
-	private WeaponType weaponType;
-	protected Conditions conditions;
-	private CreatureType creatureType;
+	protected Conditions   conditions;
+	protected Random       rand;
+	private   String       name;
+	private   int          health;
+	private   int          maxHealth;
+	private   int          power;
+	private   int          cunning;
+	private   int          level;
+	private   int          experience;
+	private   Armor        armor;
+	private   Weapon       weapon;
+	private   boolean      isDefeated;
+	private   int          initiative;
+	private   ArmorType    armorType;
+	private   WeaponType   weaponType;
+	private   CreatureType creatureType;
 	private boolean isInvincible = false;
 	private boolean hasMaxPower = false;
 	private boolean isSummon;
 	private A_Character owner;
-
-	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
 					   ArmorType armorType, Armor newArmor, WeaponType weaponType,
@@ -364,11 +361,6 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * *
 	*/
 
-	private void setDefeated(boolean isDown)
-	{
-		isDefeated = isDown;
-	}
-
 	public void resetTurn()
 	{
 		int toHeal = conditions.takeTurnHealing(getMaxHealth());
@@ -390,16 +382,6 @@ public abstract class A_Character
 	public void resetStats()
 	{
 		conditions.resetConditions();
-	}
-
-	public void setHealth(int health)
-	{
-		this.health = health;
-	}
-
-	public void setConditions(Conditions conditions)
-	{
-		this.conditions = conditions;
 	}
 
 	public void setGodMode()
@@ -427,18 +409,29 @@ public abstract class A_Character
 		return conditions;
 	}
 
+	public void setConditions(Conditions conditions)
+	{
+		this.conditions = conditions;
+	}
+
 	public boolean getDefeated()
 	{
 		return isDefeated;
 	}
 
-	public void setSummon(A_Character owner)
+	private void setDefeated(boolean isDown)
 	{
-		if(owner != null)
-		{
-			isSummon = true;
-			this.owner = owner;
-		}
+		isDefeated = isDown;
+	}
+
+	public Weapon getWeapon()
+	{
+		return weapon;
+	}
+
+	public Armor getArmor()
+	{
+		return armor;
 	}
 
 
@@ -452,26 +445,6 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * * * *
 	*/
 
-	public Conditions getConditions()
-	{
-		return conditions;
-	}
-
-	public boolean getDefeated()
-	{
-		return isDefeated;
-	}
-
-	public Weapon getWeapon()
-	{
-		return weapon;
-	}
-
-	public Armor getArmor()
-	{
-		return armor;
-	}
-
 	public String getName()
 	{
 		return name;
@@ -480,6 +453,11 @@ public abstract class A_Character
 	public int getHealth()
 	{
 		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
 	}
 
 	public int getPower()
@@ -536,6 +514,15 @@ public abstract class A_Character
 	public boolean isSummon()
 	{
 		return isSummon;
+	}
+
+	public void setSummon(A_Character owner)
+	{
+		if(owner != null)
+		{
+			isSummon = true;
+			this.owner = owner;
+		}
 	}
 
 	public A_Character getOwner()

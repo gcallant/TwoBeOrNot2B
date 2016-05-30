@@ -6,7 +6,10 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.BackStab;
+import SpecialAbilities.PoisonStrike;
+import SpecialAbilities.SneakAttack;
+import SpecialAbilities.SpecialManager;
 
 /**
  * Created by gm14793 on 5/9/16.
@@ -25,6 +28,11 @@ public class Rogue extends A_Hero
         specialManager.addSpecialAbility(new BackStab());
     }
 
+    public static String Information()
+    {
+        return "Rogue:\n" + SneakAttack.description() + "\n" + PoisonStrike.description() + "\n" + BackStab.description();
+    }
+
     public void upgradeAbilities()
     {
         specialManager.upgradeAbilities();
@@ -33,11 +41,6 @@ public class Rogue extends A_Hero
     public boolean specialAbility(Party heroes, Party monsters)
     {
        return specialManager.chooseSpecialAbility(this, heroes, monsters);
-    }
-
-    public static String Information()
-    {
-        return "Rogue:\n" + SneakAttack.description() + "\n" + PoisonStrike.description() + "\n" + BackStab.description();
     }
 
     public String getName()

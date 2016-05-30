@@ -1,11 +1,9 @@
 package PartyManagement;
 
 import Characters.A_Character;
-import Factories.HeroFactory;
 import Factories.MonsterFactory;
-import Utilities.TestString;
-import Heroes.*;
 import Utilities.Display;
+import Utilities.TestString;
 
 import java.util.ArrayList;
 import java.util.List;

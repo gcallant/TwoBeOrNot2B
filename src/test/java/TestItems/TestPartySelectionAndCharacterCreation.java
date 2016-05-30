@@ -1,7 +1,7 @@
 package TestItems;
 
-import Factories.*;
 import Characters.A_Character;
+import Factories.HeroFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.junit.After;

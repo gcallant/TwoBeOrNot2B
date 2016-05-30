@@ -8,13 +8,10 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.DoubleStrike;
-import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.ViciousBite;
 
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by Greig on 5/19/2016.

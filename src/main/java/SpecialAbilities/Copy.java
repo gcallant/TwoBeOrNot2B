@@ -1,7 +1,6 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Factories.MonsterFactory;
 import Item.Dagger;
 import Item.Leather;
 import Nemesis.MasterAssassin;
@@ -13,6 +12,11 @@ import Utilities.Display;
  */
 public class Copy extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - ";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         return true;
@@ -44,11 +48,6 @@ public class Copy extends SpecialAbility
     public String toString()
     {
         return "Copy";
-    }
-
-    public static String description()
-    {
-        return "     - ";
     }
 
 }

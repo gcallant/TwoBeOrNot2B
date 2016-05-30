@@ -1,10 +1,6 @@
 package Utilities;
 
 import Characters.A_Character;
-import Item.Armor;
-import Item.Consumable;
-import Item.Weapon;
-import Utilities.Display;
 
 import java.util.List;
 import java.util.Scanner;

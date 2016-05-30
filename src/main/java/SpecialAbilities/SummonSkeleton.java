@@ -2,7 +2,6 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import Factories.MonsterFactory;
-import Monsters.Skeleton;
 import PartyManagement.Party;
 import Utilities.Display;
 
@@ -11,6 +10,11 @@ import Utilities.Display;
  */
 public class SummonSkeleton extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - ";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         abilityExecution(character, allies, enemies);
@@ -41,11 +45,6 @@ public class SummonSkeleton extends SpecialAbility
     public String toString()
     {
         return "Summon Skeleton";
-    }
-
-    public static String description()
-    {
-        return "     - ";
     }
 
 }

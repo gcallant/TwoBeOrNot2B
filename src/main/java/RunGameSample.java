@@ -1,8 +1,8 @@
 import Database.DatabaseManager;
 import Exceptions.OSException;
 import GameState.StateBase;
-import Utilities.OSUtil;
 import Utilities.Display;
+import Utilities.OSUtil;
 import Utilities.PrintMenu;
 import Utilities.TestString;
 import org.slf4j.Logger;
@@ -41,8 +41,8 @@ public class RunGameSample
 			System.out.println(gameState.displayCurrentState());
 			gameState.executeCurrentState();
 		}
-	}
-        while(gameState.isNotEnd())
+
+	    while(gameState.isNotEnd())
         {
             Display.displayMessage(gameState.displayCurrentState());
             gameState.executeCurrentState();

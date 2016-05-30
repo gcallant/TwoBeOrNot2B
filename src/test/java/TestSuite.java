@@ -1,13 +1,11 @@
-import GameState.StateBase;
 import TestFactories.*;
 import TestGameState.*;
-import TestInventory.*;
 import TestItem.*;
 import TestDungeonGeneration.*;
+import TestPartyManagement.InventoryTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 

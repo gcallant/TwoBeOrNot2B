@@ -1,4 +1,4 @@
-package TestInventory;
+package TestPartyManagement;
 
 import PartyManagement.Inventory;
 import Item.*;

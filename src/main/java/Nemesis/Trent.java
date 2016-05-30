@@ -7,7 +7,10 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.BossDamageReduction;
+import SpecialAbilities.Grapple;
+import SpecialAbilities.PoisonCloud;
+import SpecialAbilities.SpecialManager;
 import Utilities.Display;
 
 import java.util.Random;

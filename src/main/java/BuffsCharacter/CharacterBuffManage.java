@@ -1,11 +1,7 @@
 package BuffsCharacter;
 
-import BuffsBoolean.BooleanBuffs;
 import Characters.A_Character;
 import Utilities.Display;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Michael on 5/27/2016.

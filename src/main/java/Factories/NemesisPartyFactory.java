@@ -1,11 +1,7 @@
 package Factories;
 
 import Characters.A_Character;
-import Characters.A_Nemesis;
 import Item.*;
-import Monsters.Assassin;
-import Monsters.DireWolf;
-import Monsters.Skeleton;
 import Nemesis.MasterAssassin;
 import Nemesis.Necromancer;
 import Nemesis.Trent;

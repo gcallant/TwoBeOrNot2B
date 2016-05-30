@@ -9,6 +9,11 @@ import Utilities.Display;
  */
 public class StunningStrike extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Stunning Strike: Hits for increased damage and has a chance to stun";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         A_Character choiceToStrike = chooseTarget(enemies);
@@ -64,10 +69,5 @@ public class StunningStrike extends SpecialAbility
     public String toString()
     {
         return "Stunning Strike";
-    }
-
-    public static String description()
-    {
-        return "     - Stunning Strike: Hits for increased damage and has a chance to stun";
     }
 }

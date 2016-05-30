@@ -1,6 +1,9 @@
 package Factories;
 
-import Item.*;
+import Item.Armor;
+import Item.Chainmail;
+import Item.Cloth;
+import Item.Leather;
 
 /**
  * Created by Michael on 5/19/2016.

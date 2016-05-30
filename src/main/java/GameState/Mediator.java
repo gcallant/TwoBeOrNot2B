@@ -1,15 +1,11 @@
-package Mediator;
+package GameState;
 
-import Characters.A_Character;
 import Characters.A_Nemesis;
+import DungeonGeneration.GenerateDungeon;
 import Factories.NemesisPartyFactory;
 import PartyManagement.BattleManager;
 import PartyManagement.Party;
-import DungeonGeneration.GenerateDungeon;
 import com.google.common.base.Objects;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Michael on 5/12/2016.

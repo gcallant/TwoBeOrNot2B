@@ -10,6 +10,11 @@ import Utilities.Display;
 public class ConfusingStrike extends SpecialAbility
 {
 
+    public static String description()
+    {
+        return "     - ";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies) {
         A_Character choiceToStrike = chooseTarget(enemies);
 
@@ -51,10 +56,5 @@ public class ConfusingStrike extends SpecialAbility
 
     public String toString() {
         return "Confusing Strike";
-    }
-
-    public static String description()
-    {
-        return "     - ";
     }
 }

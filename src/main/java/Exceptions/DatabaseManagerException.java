@@ -1,7 +1,5 @@
-package Database;
+package Exceptions;
 
-import Characters.A_Character;
-import PartyManagement.Inventory;
 import PartyManagement.Inventory;
 
 /**
@@ -52,6 +50,11 @@ public class DatabaseManagerException extends Exception
 	}
 
 	public DatabaseManagerException notSaved(String message, Inventory inventory)
+	{
+		return new DatabaseManagerException(message, inventory);
+	}
+
+	public DatabaseManagerException notLoaded(String message, Inventory inventory)
 	{
 		return new DatabaseManagerException(message, inventory);
 	}

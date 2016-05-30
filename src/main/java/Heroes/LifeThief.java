@@ -6,8 +6,6 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.MeteorShower;
-import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StealLife;
 import com.google.common.base.Objects;
@@ -26,14 +24,14 @@ public class LifeThief extends A_Hero
         specialManager.addSpecialAbility(new StealLife());
     }
 
-    public boolean specialAbility(Party heroes, Party monsters)
-    {
-        return specialManager.chooseSpecialAbility(this, heroes, monsters);
-    }
-
     public static String Information()
     {
         return "Life Thief:\n" + StealLife.description() + "\n";
+    }
+
+    public boolean specialAbility(Party heroes, Party monsters)
+    {
+        return specialManager.chooseSpecialAbility(this, heroes, monsters);
     }
 
     public String getName()

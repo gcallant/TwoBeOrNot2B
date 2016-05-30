@@ -9,7 +9,6 @@ import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.HealingLight;
 import SpecialAbilities.HealingLightHero;
-import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 
 import java.util.Random;

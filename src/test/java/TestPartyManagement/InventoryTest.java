@@ -1,7 +1,7 @@
 package TestPartyManagement;
 
-import PartyManagement.Inventory;
 import Item.*;
+import PartyManagement.Inventory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,7 +9,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by SaraPage on 5/22/2016.

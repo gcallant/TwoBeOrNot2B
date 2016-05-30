@@ -1,10 +1,12 @@
 package Characters;
 
-import Item.*;
-import Mediator.Mediator;
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
 import PartyManagement.Party;
 
-import java.util.*;
+import java.util.Random;
 
 /**
  * Created by Greig on 5/19/2016.

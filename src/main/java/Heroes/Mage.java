@@ -6,10 +6,9 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.MeteorShower;
+import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.SpecialManager;
-import SpecialAbilities.StunningStrike;
 import com.google.common.base.Objects;
 
 /**
@@ -27,19 +26,19 @@ public class Mage extends A_Hero
 		specialManager.addSpecialAbility(new MeteorShower());
 	}
 
-	public boolean specialAbility(Party heroes, Party monsters)
-	{
-		return specialManager.chooseSpecialAbility(this, heroes, monsters);
-	}
-
 	public static String Information()
 	{
 		return "Mage:\n" + OwlsInsight.description() + "\n" + MeteorShower.description();
 	}
 
+	public boolean specialAbility(Party heroes, Party monsters)
+	{
+		return specialManager.chooseSpecialAbility(this, heroes, monsters);
+	}
+
 	public String getName()
 	{
-		return super.getName() + " the mage";
+		return super.getName() + " the Mage";
 	}
 
 	public void upgradeAbilities()

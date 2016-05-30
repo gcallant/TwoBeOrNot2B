@@ -2,7 +2,9 @@ package Item;
 
 import Characters.A_Character;
 
-public abstract class Consumable
+import java.io.Serializable;
+
+public abstract class Consumable implements Serializable
 {
    private int power;
    private int rounds;

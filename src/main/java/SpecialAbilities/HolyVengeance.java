@@ -1,7 +1,6 @@
 package SpecialAbilities;
 
 import Characters.A_Character;
-import Characters.CreatureType;
 import PartyManagement.Party;
 import Utilities.Display;
 
@@ -10,6 +9,11 @@ import Utilities.Display;
  */
 public class HolyVengeance extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Holy Vengeance: Does damage based on missing health to an enemy";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         A_Character choiceToStrike = chooseTarget(enemies);
@@ -42,10 +46,5 @@ public class HolyVengeance extends SpecialAbility
     public String toString()
     {
         return "Holy Vengeance";
-    }
-
-    public static String description()
-    {
-        return "     - Holy Vengeance: Does damage based on missing health to an enemy";
     }
 }

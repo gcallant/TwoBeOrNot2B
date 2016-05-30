@@ -7,10 +7,8 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.FearsomeGaze;
 import SpecialAbilities.SlimeWave;
 import SpecialAbilities.SpecialManager;
-import SpecialAbilities.WarCry;
 
 import java.util.Random;
 

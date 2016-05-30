@@ -1,4 +1,4 @@
-package Utilities;
+package Exceptions;
 
 /**
  * Created by Grant Callant on 5/14/2016.

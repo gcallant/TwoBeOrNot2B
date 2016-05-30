@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class RicochetShot extends SpecialAbility
 
     private boolean abilityExecution(A_Character character, A_Character choiceToStrike, Party enemies)
     {
-        System.out.println(character.getName() + " used ricochet shot on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used ricochet shot on " + choiceToStrike.getName());
         List<A_Character> charactersHit = new ArrayList<A_Character>();
         charactersHit.add(choiceToStrike);
         A_Character secondaryStrike = null;

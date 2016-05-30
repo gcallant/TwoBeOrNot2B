@@ -1,8 +1,11 @@
 package PartyManagement;
 
 import Characters.A_Character;
+import Factories.HeroFactory;
 import Factories.MonsterFactory;
 import Utilities.TestString;
+import Heroes.*;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,11 @@ public class SummonMonster
 
         for(String string : names)
         {
-            System.out.println(total + ") " + string);
+            Display.displayMessage(total + ") " + string);
             total++;
         }
 
-        System.out.println(total + ") cancel");
+        Display.displayMessage(total + ") cancel");
 
         int choice = TestString.ensureInt(total);
 

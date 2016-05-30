@@ -34,6 +34,9 @@ public class MonsterFactoryTest
         testMonster = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void testCreateCharacter() throws Exception
     {

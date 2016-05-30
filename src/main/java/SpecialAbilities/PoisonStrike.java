@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/22/2016.
@@ -30,10 +31,10 @@ public class PoisonStrike extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
         if(getAffectedChance(character, "cunning", choiceToStrike))
         {
-            System.out.println(choiceToStrike.getName() + " has been poisoned!");
+            Display.displayMessage(choiceToStrike.getName() + " has been poisoned!");
             choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getCunning() * .01), calculateRounds(character), "Poison Strike");
         }
     }

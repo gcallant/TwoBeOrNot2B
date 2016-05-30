@@ -1,7 +1,5 @@
 package Nemesis;
 
-import BuffsAndDebuffs.UndeadConditions;
-import Characters.A_Character;
 import Characters.A_Nemesis;
 import Characters.CreatureType;
 import Item.Armor;
@@ -10,6 +8,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.*;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -40,7 +39,7 @@ public class Trent extends A_Nemesis
     public void startRage(Random rand, Party heroes, Party monsters)
     {
         cooldown = 1;
-        System.out.println("\n\nTHE TRENT'S RAZOR SHARP BARK HARDENS\n\n");
+        Display.displayMessage("\n\nTHE TRENT'S RAZOR SHARP BARK HARDENS\n\n");
         new BossDamageReduction().executeAbilityRandom(this, heroes, monsters);
     }
 
@@ -48,7 +47,11 @@ public class Trent extends A_Nemesis
     {
         upgradeHealth();
         upgradeHealth();
+        upgradeHealth();
+        upgradeHealth();
         upgradepower();
-        upgradecunning();
+        upgradepower();
+        upgradepower();
+        upgradepower();
     }
 }

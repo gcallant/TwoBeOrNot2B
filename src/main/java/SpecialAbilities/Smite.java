@@ -3,6 +3,7 @@ package SpecialAbilities;
 import Characters.A_Character;
 import Characters.CreatureType;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -34,7 +35,7 @@ public class Smite extends SpecialAbility
     {
         character.getConditions().tempDamage(character.getPower());
 
-        System.out.println(character.getName() + " used smite on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used smite on " + choiceToStrike.getName());
         if(choiceToStrike.getCreatureType() == CreatureType.Undead)
         {
             character.getConditions().tempDamage(character.getPower()*4);
@@ -42,7 +43,7 @@ public class Smite extends SpecialAbility
         }
         else
         {
-            System.out.println("But it did nothing...");
+            Display.displayMessage("But it did nothing...");
         }
     }
 

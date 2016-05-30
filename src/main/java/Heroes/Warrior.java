@@ -24,6 +24,7 @@ public class Warrior extends A_Hero
 		specialManager = new SpecialManager();
 
 		specialManager.addSpecialAbility(new StunningStrike());
+		specialManager.addSpecialAbility(new Charge());
 		specialManager.addSpecialAbility(new IntimidatingShout());
 		specialManager.addSpecialAbility(new WarCry());
 		specialManager.addSpecialAbility(new Roar());
@@ -47,7 +48,8 @@ public class Warrior extends A_Hero
 
 	public static String Information()
 	{
-		return "Warrior:\n" + StunningStrike.description() + "\n" + IntimidatingShout.description() + "\n" + WarCry.description() + "\n" + Roar.description();
+		return "Warrior:\n" + StunningStrike.description() + "\n" + Charge.description() + "\n" + IntimidatingShout.description()
+				+ "\n" + WarCry.description() + "\n" + Roar.description();
 	}
 
 	public void upgradeAbilities()

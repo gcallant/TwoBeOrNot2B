@@ -1,10 +1,14 @@
 package GameState;
 
 import Characters.A_Character;
+import PartyManagement.BattleManager;
 import PartyManagement.GenerateMonsterParty;
 import PartyManagement.InitiativeSort;
 import PartyManagement.Party;
 import Utilities.TestString;
+import Mediator.Mediator;
+import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,15 +21,13 @@ public class Battle implements I_State
 {
 	private Party               heroParty;
 	private Party               enemyParty;
-	private List<A_Character>   wholeBattle;
-	private int                 nextToAttack;
+	private BattleManager 		wholeBattle;
 	private boolean             newBattle;
 	private Mediator            mediator;
 	private int                 floorLevel;
 
 	public Battle(Mediator mediator)
 	{
-		nextToAttack = 0;
 		newBattle = true;
 		this.mediator = mediator;
 		floorLevel = this.mediator.giveCurrentLevel();
@@ -48,83 +50,44 @@ public class Battle implements I_State
 	public I_State execute()
 	{
 		TestString.enterInput();
-		boolean heroesDefeated = true;
-		boolean enemiesDefeated = true;
 
 		if(mediator.giveNewBattle())
 		{
 			heroParty = mediator.giveParty();
 			enemyParty = new GenerateMonsterParty().generateEnemyParty(floorLevel, mediator.givePartyLevel(), mediator.giveNormal());
-			wholeBattle = new ArrayList<A_Character>();
+
+			wholeBattle = new BattleManager(heroParty, enemyParty);
 
 			mediator.receiveEnemies(enemyParty);
 
-			for(int index = 0; index < heroParty.size(); index++)
-			{
-				A_Character character = heroParty.getCharacter(index);
-				character.generateInitiative();
-				wholeBattle.add(character);
-			}
-			for(int index = 0; index < enemyParty.size(); index++)
-			{
-				A_Character character = enemyParty.getCharacter(index);
-				character.generateInitiative();
-				wholeBattle.add(character);
-			}
+			wholeBattle.addMembers();
 
-			Collections.sort(wholeBattle, new InitiativeSort());
+			mediator.receiveBattleManager(wholeBattle);
 
-			mediator.receiveCurrentTurn(0);
-			mediator.receiveTurnOrder(wholeBattle);
 			mediator.receiveNewBattle(false);
-			System.out.println("You are facing \n" + enemyParty.print());
+
+			Display.displayMessage("You are facing \n" + enemyParty.print());
 		}
 		else
 		{
 			heroParty = mediator.giveParty();
 			enemyParty = mediator.giveEnemies();
-			wholeBattle = mediator.giveTurnOrder();
-			nextToAttack = mediator.giveCurrentTurn();
-			heroParty.sortDefeated();
-			enemyParty.sortDefeated();
+			wholeBattle = mediator.giveBattleManager();
+			wholeBattle.startOfTurn();
 		}
 
-		addCharacters(heroParty);
-		addCharacters(enemyParty);
-
-		while(wholeBattle.get(this.nextToAttack).getDefeated())
+		if(!wholeBattle.takeAction())
 		{
-			this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
+			mediator.receiveNewBattle(true);
+			return new MapExploration(mediator);
 		}
 
-		A_Character currentTurn = wholeBattle.get(this.nextToAttack);
-
-		if(heroParty.contains(currentTurn) && currentTurn.isSummon())
-		{
-			if(currentTurn.takeAction(enemyParty, heroParty))
-			{
-				mediator.receiveNewBattle(true);
-				return new MapExploration(mediator);
-			}
-		}
-		else
-		{
-			if(currentTurn.takeAction(heroParty, enemyParty))
-			{
-				mediator.receiveNewBattle(true);
-				return new MapExploration(mediator);
-			}
-		}
-
-		mediator.receiveCurrentTurn((this.nextToAttack + 1) % wholeBattle.size());
-		this.nextToAttack = (this.nextToAttack + 1) % wholeBattle.size();
-
-		if(heroParty.isDefeated())
+		if(wholeBattle.heroesLost())
 		{
 			mediator.receiveNewBattle(true);
 			return new MainMenu(mediator);
 		}
-		if(enemyParty.isDefeated())
+		if(wholeBattle.heroesWon())
 		{
 			mediator.receiveNewBattle(true);
 			heroParty.fixParty();
@@ -149,18 +112,7 @@ public class Battle implements I_State
 		Battle thatBat = (Battle)obj;
 
 		boolean partiesEqual = this.heroParty.equals(thatBat.heroParty) && this.enemyParty.equals(thatBat.enemyParty);
-		boolean intsEqual = this.floorLevel == thatBat.floorLevel && this.nextToAttack == thatBat.nextToAttack;
+		boolean intsEqual = this.floorLevel == thatBat.floorLevel;
 		return  partiesEqual && intsEqual && this.newBattle == thatBat.newBattle && this.mediator.equals(thatBat.mediator);
-	}
-
-	private void addCharacters(Party party)
-	{
-		for(int x = 0; x < party.size(); x++)
-		{
-			if(!wholeBattle.contains(party.getCharacter(x)))
-			{
-				wholeBattle.add(party.getCharacter(x));
-			}
-		}
 	}
 }

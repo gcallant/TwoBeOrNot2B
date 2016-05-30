@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -31,7 +32,7 @@ public class DoubleStrike extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used double strike on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used double strike on " + choiceToStrike.getName());
 
         character.attack(choiceToStrike);
         character.attack(choiceToStrike);
@@ -39,11 +40,11 @@ public class DoubleStrike extends SpecialAbility
 
     public String toString()
     {
-        return "Stunning Strike";
+        return "Double Strike";
     }
 
     public static String description()
     {
-        return "     - Stunning Strike: Hits for increased damage and has a chance to stun";
+        return "     - Double Strike: Attacks a target twice";
     }
 }

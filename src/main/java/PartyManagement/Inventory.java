@@ -3,6 +3,7 @@ package PartyManagement;
 import Characters.A_Character;
 import Exceptions.DatabaseManagerException;
 import Item.*;
+import Utilities.Display;
 import Utilities.TestString;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of weapons.");
+            Display.displayMessage("Invalid item - cannot add to list of weapons.");
         }
     }
 
@@ -80,7 +81,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of armor.");
+            Display.displayMessage("Invalid item - cannot add to list of armor.");
         }
     }
 
@@ -93,7 +94,7 @@ public class Inventory
         }
         else
         {
-            System.out.println("Invalid item - cannot add to list of consumables.");
+            Display.displayMessage("Invalid item - cannot add to list of consumables.");
         }
     }
 
@@ -153,7 +154,7 @@ public class Inventory
     {
         if(totalSize == 0)
         {
-            System.out.println("1) cancel");
+            Display.displayMessage("1) cancel");
             return 1;
         }
         int total = 1;
@@ -175,7 +176,7 @@ public class Inventory
         }
         returnValue = returnValue + total + ") cancel";
 
-        System.out.println(returnValue);
+        Display.displayMessage(returnValue);
 
         return total;
     }
@@ -220,20 +221,56 @@ public class Inventory
         }
     }
 
-    public int getConsumables()
+    public boolean consumePotion(Party party)
+    {
+        int total = 1;
+        Display.displayMessage("Choose a potion to use: ");
+        for(Consumable consumable: consumables)
+        {
+            Display.displayMessage(total + ") " + consumable.toString());
+            total++;
+        }
+
+        Display.displayMessage(total + ") cancel");
+        int choice = TestString.ensureInt(total);
+
+        if(choice == total)
+        {
+            return true;
+        }
+
+        Consumable consumable = consumables.get(choice - 1);
+
+        Display.displayMessage("Choose who to use " + consumable.toString() + " on: ");
+        total = 1;
+        for(int x = 0; x < party.size(); x++)
+        {
+            Display.displayMessage(total + ") " + party.getCharacter(x));
+            total++;
+        }
+
+        Display.displayMessage(total + ") cancel");
+        choice = TestString.ensureInt(total);
+
+        if(choice == total)
+        {
+            return true;
+        }
+
+        consumable.use(party.getCharacter(choice - 1));
+        removeFromInventory(consumable);
+        return false;
+    }
+
+    private int getConsumables()
     {
         int itemIndex = 1;
         for(Consumable item : consumables)
         {
-            System.out.println(itemIndex + ".)" + item.toString());
+            Display.displayMessage(itemIndex + ".)" + item.toString());
             itemIndex++;
         }
         return itemIndex;
-    }
-
-    public int chooseConsumable()
-    {
-        return TestString.getConsumableChoice(consumables);
     }
 
     public List<Weapon> getWeapons()
@@ -273,7 +310,7 @@ public class Inventory
         if(!character.canEquip(weapon))
         {
             addToInventory(weapon);
-            System.out.println(character.getName() + " cannot equip this type of weapon!");
+            Display.displayMessage(character.getName() + " cannot equip this type of weapon!");
             return false;
         }
         Weapon toAdd = character.equip(weapon);
@@ -293,18 +330,13 @@ public class Inventory
         if(!character.canEquip(armor))
         {
             addToInventory(armor);
-            System.out.println(character.getName() + " cannot equip this type of armor!");
+            Display.displayMessage(character.getName() + " cannot equip this type of armor!");
             return false;
         }
 
         Armor toAdd = character.equip(armor);
         addToInventory(toAdd);
         return true;
-    }
-
-    public String getConsumable(int index)
-    {
-        return consumables.get(index).toString();
     }
 
     @Override

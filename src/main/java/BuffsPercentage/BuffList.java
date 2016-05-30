@@ -1,4 +1,6 @@
-package BuffsAndDebuffs;
+package BuffsPercentage;
+
+import Utilities.Display;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public abstract class BuffList
         {
             if(aBuff.getSource().equals(source))
             {
-                System.out.println(source + "'s " + toString() + " has been refreshed on " + name);
+                Display.displayMessage(source + "'s " + toString() + " has been refreshed on " + name);
                 aBuff.replace(buff, rounds);
                 found = true;
             }
@@ -49,7 +51,7 @@ public abstract class BuffList
         {
             if(aBuff.decrement())
             {
-                System.out.println(name + "'s " + toString() + " has ended from " + aBuff.getSource());
+                Display.displayMessage(name + "'s " + toString() + " has ended from " + aBuff.getSource());
                 checks.add(aBuff);
             }
         }

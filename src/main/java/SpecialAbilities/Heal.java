@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -40,8 +41,8 @@ public class Heal extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " used heal on " + choiceToStrike.getName() + " for " + character.getPower()*5);
-        choiceToStrike.heal(character.getPower()*5);
+        Display.displayMessage(character.getName() + " used heal on " + choiceToStrike.getName() + " for " + character.getPower()*5);
+        choiceToStrike.heal(character.getCunning()*5);
     }
 
     public String toString()
@@ -51,6 +52,6 @@ public class Heal extends SpecialAbility
 
     public static String description()
     {
-        return "     - ";
+        return "     - Restores a moderate amount to an individual. Based off of cunning.";
     }
 }

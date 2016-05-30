@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/23/2016.
@@ -22,7 +23,7 @@ public class PoisonBomb extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used poison bomb!");
+        Display.displayMessage(character.getName() + " used poison bomb!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {
@@ -30,7 +31,7 @@ public class PoisonBomb extends SpecialAbility
             {
                 if(getAffectedChance(character, "cunning", enemies.getCharacter(x)))
                 {
-                    System.out.println(enemies.getCharacter(x).getName() + " is poisoned!");
+                    Display.displayMessage(enemies.getCharacter(x).getName() + " is poisoned!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(1.2, calculateRounds(character), "Poison Bomb");
                 }
             }

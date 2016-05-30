@@ -1,11 +1,11 @@
-package BuffsAndDebuffs;
+package BuffsPercentage;
 
 /**
  * Created by Michael on 5/22/2016.
  */
-public class AttackDebuffs extends BuffList
+public class AttackBuffs extends BuffList
 {
-    public AttackDebuffs(String name)
+    public AttackBuffs(String name)
     {
         super(name);
     }
@@ -22,6 +22,6 @@ public class AttackDebuffs extends BuffList
 
     public String toString()
     {
-        return "Attack debuff";
+        return "Attack buff";
     }
 }

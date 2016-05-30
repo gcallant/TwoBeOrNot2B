@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/22/2016.
@@ -30,7 +31,7 @@ public class PiercingStrike extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike, Party enemies)
     {
-        System.out.println(character.getName() + " used piercing strike on " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " used piercing strike on " + choiceToStrike.getName());
         A_Character secondaryStrike = null;
         if(enemies.size() > 1)
         {

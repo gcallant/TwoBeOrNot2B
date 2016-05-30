@@ -27,12 +27,12 @@ public class Assassin extends A_Monster
 
         if(floor >= 3)
         {
-            specialManager.addSpecialAbility(new SneakAttack());
+            specialManager.addSpecialAbility(new BladedFlurry());
             specialManager.addSpecialAbility(new PoisonStrike());
         }
         else
         {
-            specialManager.addSpecialAbility(new BladedFlurry());
+            specialManager.addSpecialAbility(new SneakAttack());
         }
 
         this.level = level;

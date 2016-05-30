@@ -1,11 +1,13 @@
 package GameState;
 
-import Characters.A_Character;
+import Characters.*;
+import Mediator.Mediator;
 import PartyManagement.CreateMember;
 import PartyManagement.Party;
 import Utilities.FileUtil;
 import Utilities.OSUtil;
 import Utilities.TestString;
+import Utilities.Display;
 import com.google.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -18,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 /*
  * Created by Michael on 5/12/2016.
@@ -94,6 +95,21 @@ public class CharacterCreation implements I_State
 		}
 	}
 
+    private boolean createNewParty()
+    {
+        String input = "";
+        Display.displayMessage("You can choose four heroes! Choose wisely.");
+        while(party.size() < 4)
+        {
+            Display.displayMessage("Choose character number " + (party.size() + 1) + ":");
+            A_Character toAdd = CreateMember.createMember();
+            if(toAdd != null)
+            {
+                party.add(toAdd);
+            }
+        }
+        return CreateMember.confirm();
+    }
 	private boolean createRandomNewParty()
 	{
 		String input = "";
@@ -128,27 +144,11 @@ public class CharacterCreation implements I_State
 
 	private void displayRandomParty(List<A_Character> party)
 	{
-		System.out.println("Here is your generated party!\n");
+		Display.displayMessage("Here is your generated party!\n");
 		for(A_Character hero : party)
 		{
 			System.out.println(hero.getName());
 		}
-	}
-
-	private boolean createNewParty()
-	{
-		String input = "";
-		System.out.println("You can choose four heroes! Choose wisely.");
-		while(party.size() < 4)
-		{
-			System.out.println("Choose character number " + (party.size() + 1) + ":");
-			A_Character toAdd = CreateMember.createMember();
-			if(toAdd != null)
-			{
-				party.add(toAdd);
-			}
-		}
-		return CreateMember.confirm();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ import Database.DatabaseManager;
 import Exceptions.OSException;
 import GameState.StateBase;
 import Utilities.OSUtil;
+import Utilities.Display;
 import Utilities.PrintMenu;
 import Utilities.TestString;
 import org.slf4j.Logger;
@@ -21,10 +22,10 @@ public class RunGameSample
 	private static final Logger logger             = LoggerFactory.getLogger("RunGameSample");
 	private static       File   EXTERNAL_DIRECTORY = null;
 
-	public static void main(String[] args)
-	{
-		StateBase gameState = new StateBase();
-		Scanner kb = new Scanner(System.in);
+    public static void main(String[] args)
+    {
+        StateBase gameState = new StateBase();
+        Scanner kb = new Scanner(System.in);
 
 		if(! shown())
 		{
@@ -41,6 +42,12 @@ public class RunGameSample
 			gameState.executeCurrentState();
 		}
 	}
+        while(gameState.isNotEnd())
+        {
+            Display.displayMessage(gameState.displayCurrentState());
+            gameState.executeCurrentState();
+        }
+    }
 
 	private static void showIntro()
 	{
@@ -94,20 +101,20 @@ public class RunGameSample
 		database.closeConnection();
 	}
 
-	//    private static void createExternalDirectory()
-	//    {
-	//        try
-	//        {
-	//            File parent = OSUtil.getParentDirectory();
-	//            EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
-	//            OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
-	//
-	//        }
-	//        catch(OSException e)
-	//        {
-	//            e.printStackTrace();
-	//            System.out.println("Could not make new directory- program must exit");
-	//            System.exit(- 1);
-	//        }
-	//    }
+//    private static void createExternalDirectory()
+//    {
+//        try
+//        {
+//            File parent = OSUtil.getParentDirectory();
+//            EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
+//            OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
+//
+//        }
+//        catch(OSException e)
+//        {
+//            e.printStackTrace();
+//            Display.displayMessage("Could not make new directory- program must exit");
+//            System.exit(- 1);
+//        }
+//    }
 }

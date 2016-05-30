@@ -4,6 +4,7 @@ import Characters.A_Character;
 import Item.Armor;
 import Item.Consumable;
 import Item.Weapon;
+import Utilities.Display;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,18 +14,6 @@ import java.util.Scanner;
  */
 public class TestString
 {
-    public static String testInput(String command, String[] validInputs)
-    {
-        for(int x = 0; x < validInputs.length; x++)
-        {
-            if(command.toLowerCase().equals(validInputs[x]))
-            {
-                return command.toLowerCase();
-            }
-        }
-        return "";
-    }
-
     public static int getCharacterChoice(List<A_Character> list)
     {
         Scanner kb = new Scanner(System.in);
@@ -32,52 +21,13 @@ public class TestString
         int itemIndex = 1, choice = 0;
         for(A_Character character : list)
         {
-            System.out.println(itemIndex + ".)" + character.inventoryDisplay());
+            Display.displayMessage(itemIndex + ".)" + character.inventoryDisplay());
             itemIndex++;
         }
         return getInput(itemIndex);
     }
 
-    public static int getConsumableChoice(List<Consumable> list)
-    {
-        Scanner kb = new Scanner(System.in);
-        String validInput;
-        int itemIndex = 1, choice = 0;
-        for(Consumable consumable : list)
-        {
-            System.out.println(itemIndex + ".)" + consumable.toString());
-            itemIndex++;
-        }
-        return getInput(itemIndex);
-    }
-
-    public static int getArmorChoice(List<Armor> list)
-    {
-        Scanner kb = new Scanner(System.in);
-        String validInput;
-        int itemIndex = 1, choice = 0;
-        for(Armor armor : list)
-        {
-            System.out.println(itemIndex + ".)" + armor.toString());
-            itemIndex++;
-        }
-        return getInput(itemIndex);
-    }
-
-    public static int getWeaponChoice(List<Weapon> list)
-    {
-        Scanner kb = new Scanner(System.in);
-        String validInput;
-        int itemIndex = 1, choice = 0;
-        for(Weapon weapon : list)
-        {
-            System.out.println(itemIndex + ".)" + weapon.toString());
-            itemIndex++;
-        }
-        return getInput(itemIndex);
-    }
-
-    public static int getInput(int itemIndex)
+    private static int getInput(int itemIndex)
     {
         if(itemIndex == 1)
         {
@@ -125,7 +75,7 @@ public class TestString
             }
             if(badInput)
             {
-                System.out.println("Bad input. Try a number between 1 and " + max);
+                Display.displayMessage("Bad input. Try a number between 1 and " + max);
             }
         }while(badInput);
         return choice;
@@ -172,7 +122,7 @@ public class TestString
             {
                 System.out.print("Bad input try: ");
                 printChars(validInputs);
-                System.out.println();
+                Display.displayMessage("");
             }
         }while(badInput);
         return letter;

@@ -7,6 +7,7 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
+import SpecialAbilities.*;
 
 import java.util.Random;
 
@@ -15,28 +16,54 @@ import java.util.Random;
  */
 public class MasterAssassin extends A_Nemesis
 {
-    public MasterAssassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
+    SpecialManager specialManager;
+    public MasterAssassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
-        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, 1, CreatureType.Undead);
-    }
+        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, level, CreatureType.Humanoid);
 
-    public boolean takeAction(Party heroes, Party monsters)
-    {
-        return false;
+        specialManager = new SpecialManager();
+        specialManager.addSpecialAbility(new BladedFlurry());
     }
 
     public void levelUp()
     {
-
+        upgradeHealth();
+        upgradeHealth();
+        upgradecunning();
+        upgradecunning();
+        upgradecunning();
+        upgradepower();
+        upgradepower();
     }
 
-    public void startRage(Random rand, Party heroes, Party enemeis)
+    public void startRage(Random rand, Party heroes, Party monsters)
     {
 
+        new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
+        new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
+        specialManager.executeRandomAbility(this, monsters, heroes);
     }
 
     public boolean specialAbility(Random rand, Party heroes, Party monsters)
     {
+        int count = 0;
+        for(int x = 0; x < monsters.size(); x++)
+        {
+            if(monsters.getCharacter(x).getName().equals("Scarlett, The Shadow"))
+            {
+                count++;
+            }
+        }
+
+        if(count == 1)
+        {
+            new Copy().executeAbilityRandom(this, monsters, heroes);
+        }
+        else
+        {
+            new PoisonStrike().executeAbilityRandom(this, monsters, heroes);
+            specialManager.executeRandomAbility(this, monsters, heroes);
+        }
         return false;
     }
 }

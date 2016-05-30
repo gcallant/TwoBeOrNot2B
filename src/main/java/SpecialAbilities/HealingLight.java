@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -22,7 +23,7 @@ public class HealingLight extends SpecialAbility
 
     public void abilityExecution(A_Character character, Party allies, Party enemies)
     {
-        System.out.println(character.getName() + " used healing light and healed his whole party for " + 2*character.getPower());
+        Display.displayMessage(character.getName() + " used healing light and healed his whole party for " + 2*character.getPower());
         for(int x = 0; x < allies.size(); x++)
         {
             allies.getCharacter(x).heal(2*character.getPower());

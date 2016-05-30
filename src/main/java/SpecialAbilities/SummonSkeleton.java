@@ -4,6 +4,7 @@ import Characters.A_Character;
 import Factories.MonsterFactory;
 import Monsters.Skeleton;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/23/2016.
@@ -24,7 +25,7 @@ public class SummonSkeleton extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies, Party enemies)
     {
-        System.out.println(character.getName() + " summoned a skeleton!");
+        Display.displayMessage(character.getName() + " summoned a skeleton!");
         A_Character monster;
         if(rand.nextBoolean())
         {

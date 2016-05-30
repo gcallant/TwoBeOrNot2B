@@ -8,6 +8,7 @@ import Item.Consumable;
 import Item.Weapon;
 import PartyManagement.Inventory;
 import Utilities.OSUtil;
+import Utilities.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
@@ -52,13 +53,13 @@ public class DatabaseManager
 		catch(ClassNotFoundException e)
 		{
 			e.printStackTrace();
-			System.out.println("Couldn't find JDBC driver for SQLite\nSaving (and/or) loading will be unsupported.");
+			Display.displayMessage("Couldn't find JDBC driver for SQLite\nSaving (and/or) loading will be unsupported.");
 			closeConnection();
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
-			System.out.println("Could not connect to database\n" + DATABASE +
+			Display.displayMessage("Could not connect to database\n" + DATABASE +
 					                     "\nSaving (and/or) loading will be unsupported.");
 			closeConnection();
 		}
@@ -73,18 +74,18 @@ public class DatabaseManager
 			catch(DatabaseManagerException e1)
 			{
 				e1.printStackTrace();
-				System.out.println("Could not create necessary tables in database\n" + DATABASE +
+				Display.displayMessage("Could not create necessary tables in database\n" + DATABASE +
 						                     "\nSaving (and/or) loading will be unsupported.");
 				logger.trace("Tried recreate, could not", e, e1);
 			}
 		}
 	}
 
-	//	@Contract(pure = true)
-	//	public static DatabaseManager getInstance()
-	//	{
-	//		return DatabaseSingle.INSTANCE;
-	//	}
+//	@Contract(pure = true)
+//	public static DatabaseManager getInstance()
+//	{
+//		return DatabaseSingle.INSTANCE;
+//	}
 
 	private void createTables() throws DatabaseManagerException
 	{
@@ -340,8 +341,8 @@ public class DatabaseManager
 		}
 	}
 
-	//	private static class DatabaseSingle
-	//	{
-	//		private static final DatabaseManager INSTANCE = new DatabaseManager();
-	//	}
+//	private static class DatabaseSingle
+//	{
+//		private static final DatabaseManager INSTANCE = new DatabaseManager();
+//	}
 }

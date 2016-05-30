@@ -3,7 +3,7 @@ package SpecialAbilities;
 import Characters.A_Character;
 import PartyManagement.Party;
 import Utilities.TestString;
-
+import Utilities.Display;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,8 +13,8 @@ import java.util.Random;
  */
 public class SpecialManager
 {
-    Random rand;
     private List<SpecialAbility> specialAbilities;
+    Random rand;
 
     public SpecialManager()
     {
@@ -34,10 +34,10 @@ public class SpecialManager
 
         for(SpecialAbility specialAbility : specialAbilities)
         {
-            System.out.println(options + ") " + specialAbility);
+            Display.displayMessage(options + ") " + specialAbility);
             options++;
         }
-        System.out.println(options + ") " + "cancel");
+        Display.displayMessage(options + ") " + "cancel");
 
         choice = TestString.ensureInt(options);
 
@@ -69,13 +69,13 @@ public class SpecialManager
             }
         }
 
-        System.out.println("Choose an ability to upgrade!!!!");
+        Display.displayMessage("Choose an ability to upgrade!!!!");
         for(SpecialAbility specialAbility : upgradeAble)
         {
-            System.out.println(choices + ") " + specialAbility.toString());
+            Display.displayMessage(choices + ") " + specialAbility.toString());
             choices++;
         }
-        System.out.println(choices + ") cancel");
+        Display.displayMessage(choices + ") cancel");
 
         choice = TestString.ensureInt(choices);
 

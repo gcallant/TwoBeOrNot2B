@@ -38,7 +38,7 @@ public class Paladin extends A_Hero
 
     public static String Information()
     {
-        return "Paladin:\n" + HealingLightHero.description() + "\n" + Smite.description();
+        return "Paladin:\n" + HealingLightHero.description() + "\n" + Smite.description() + "\n" + Heal.description();
     }
 
     public void upgradeAbilities()

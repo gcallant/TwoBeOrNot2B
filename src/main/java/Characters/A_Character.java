@@ -1,35 +1,39 @@
 package Characters;
 
-import BuffsAndDebuffs.Conditions;
-import BuffsAndDebuffs.UndeadConditions;
+import java.util.*;
+
+import Buffs.Conditions;
+import Buffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
+import Utilities.Display;
 import com.google.common.base.Objects;
 
 import java.util.Random;
 
 public abstract class A_Character
 {
-	protected Conditions   conditions;
-	protected Random       rand;
-	private   String       name;
-	private   int          health;
-	private   int          maxHealth;
-	private   int          power;
-	private   int          cunning;
-	private   int          level;
-	private   int          experience;
-	private   Armor        armor;
-	private   Weapon       weapon;
-	private   boolean      isDefeated;
-	private   int          initiative;
-	private   ArmorType    armorType;
-	private   WeaponType   weaponType;
-	private   CreatureType creatureType;
+	private String     name;
+	private int        health;
+	private int	       maxHealth;
+	private int        power;
+	private int 	   cunning;
+	private int        level;
+	private int        experience;
+	private Armor      armor;
+	private Weapon     weapon;
+	private boolean    isDefeated;
+	private int        initiative;
+	private ArmorType  armorType;
+	private WeaponType weaponType;
+	protected Conditions conditions;
+	private CreatureType creatureType;
 	private boolean isInvincible = false;
 	private boolean hasMaxPower = false;
 	private boolean isSummon;
 	private A_Character owner;
+
+	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
 					   ArmorType armorType, Armor newArmor, WeaponType weaponType,
@@ -56,11 +60,11 @@ public abstract class A_Character
 		rand = new Random();
 		if(creatureType == CreatureType.Undead)
 		{
-			conditions = new UndeadConditions(getName());
+			conditions = new UndeadConditions(this);
 		}
 		else
 		{
-			conditions = new Conditions(getName());
+			conditions = new Conditions(this);
 		}
 	}
 
@@ -107,19 +111,18 @@ public abstract class A_Character
 			return;
 		}
 
-		total = conditions.reduceDamage(total);
-		this.health -= total;
+		this.health -= Math.max(total, 0);
 		if(health <= 0)
 		{
 			health = 0;
 			this.isDefeated = true;
 			if(isSummon())
 			{
-				System.out.println(getName() + " has been banished");
+				Display.displayMessage(getName() + " has been banished");
 			}
 			else
 			{
-				System.out.println(getName() + " has died!");
+				Display.displayMessage(getName() + " has died!");
 			}
 		}
 	}
@@ -141,11 +144,17 @@ public abstract class A_Character
 				break;
 		}
 		attackBonus += weapon.getPower();
-		attackBonus += rand.nextInt(ConstantValues.ChanceToHit.getValue());
+		int randomChance = rand.nextInt(ConstantValues.ChanceToHit.getValue());
+		attackBonus += randomChance;
 		attackBonus = conditions.addAttack(attackBonus);
 		attackBonus = conditions.calculateAttack(attackBonus);
 
-		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(20) != 0);
+		if(randomChance == (ConstantValues.ChanceToHit.getValue() - 1))
+		{
+			return true;
+		}
+
+		return (attackBonus >= toAttack.totalDefense()) && (rand.nextInt(10) != 0);
 	}
 
 	public boolean attack(A_Character toAttack)
@@ -157,7 +166,7 @@ public abstract class A_Character
 		}
 		else
 		{
-			System.out.println(this.getName() + " attacked " + toAttack.getName() + " but missed!");
+			Display.displayMessage(this.getName() + " attacked " + toAttack.getName() + " but missed!");
 			return false;
 		}
 	}
@@ -173,7 +182,7 @@ public abstract class A_Character
 			totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
 			totalDamage = conditions.addDamage(totalDamage);
 			totalDamage = conditions.calculateDamage(totalDamage);
-			totalDamage = toAttack.conditions.reduceDamage(totalDamage);
+			totalDamage = toAttack.conditions.reduceDamage(totalDamage, false);
 		}
 		else
 		{
@@ -185,7 +194,8 @@ public abstract class A_Character
 			totalDamage = 0;
 		}
 
-		System.out.println(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
+
+		Display.displayMessage(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
 
 		toAttack.takeDamage(Math.max(totalDamage, 1));
 	}
@@ -303,7 +313,7 @@ public abstract class A_Character
 
 	public void imbibe(Consumable consumable)
 	{
-		System.out.println(getName() + " imbibed a " + consumable + "!");
+		Display.displayMessage(getName() + " imbibed a " + consumable + "!");
 	}
 
 	/*
@@ -330,10 +340,7 @@ public abstract class A_Character
 
 	public String displayStats()
 	{
-		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level * 100) + " " +
-				         "Health: " + getHealth() + "/" + getMaxHealth() + " Power: " + getPower() + (power != getPower()
-						                                                                                        ? ("(" +
-								                                                                                             power + ")") : "") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")") : "") + " " + getArmor() + " " + getWeapon();
+		return "Name: " + getName() + " Level: " + getLevel() + " Experience: " + experience + "/" + (level*100) + " Health: " + getHealth() + "/" + getMaxHealth() + " Power: " + getPower() + (power != getPower() ? ("(" + power + ")"):"") + " cunning: " + getCunning() + (cunning != getCunning() ? ("(" + cunning + ")"):"") + " " + getArmor() + " " + getWeapon();
 	}
 
 	public String battleDisplay()
@@ -357,6 +364,11 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * *
 	*/
 
+	private void setDefeated(boolean isDown)
+	{
+		isDefeated = isDown;
+	}
+
 	public void resetTurn()
 	{
 		int toHeal = conditions.takeTurnHealing(getMaxHealth());
@@ -378,6 +390,16 @@ public abstract class A_Character
 	public void resetStats()
 	{
 		conditions.resetConditions();
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
+	public void setConditions(Conditions conditions)
+	{
+		this.conditions = conditions;
 	}
 
 	public void setGodMode()
@@ -410,6 +432,16 @@ public abstract class A_Character
 		return isDefeated;
 	}
 
+	public void setSummon(A_Character owner)
+	{
+		if(owner != null)
+		{
+			isSummon = true;
+			this.owner = owner;
+		}
+	}
+
+
 	/*
 	* * * * * * * * * * * * * * * * * * * *
 	*  * * * *   * * *   * * *     * * *  *
@@ -420,9 +452,14 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * * * *
 	*/
 
-	private void setDefeated(boolean isDown)
+	public Conditions getConditions()
 	{
-		isDefeated = isDown;
+		return conditions;
+	}
+
+	public boolean getDefeated()
+	{
+		return isDefeated;
 	}
 
 	public Weapon getWeapon()
@@ -501,21 +538,12 @@ public abstract class A_Character
 		return isSummon;
 	}
 
-	public void setSummon(A_Character owner)
-	{
-		if(owner != null)
-		{
-			isSummon = true;
-			this.owner = owner;
-		}
-	}
-
 	public A_Character getOwner()
 	{
 		return this.owner;
 	}
 
-	protected void reassignConditions(Conditions conditions)
+	protected void reassignConditons(Conditions conditions)
 	{
 		this.conditions = conditions;
 	}

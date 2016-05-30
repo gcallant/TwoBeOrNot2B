@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -28,7 +29,8 @@ public class StealLife extends SpecialAbility
 
     private void abilityExecution(A_Character character, A_Character choiceToStrike)
     {
-        System.out.println(character.getName() + " stole life from " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " stole " + character.getCunning()*3 + " life from " + choiceToStrike.getName());
+        Display.displayMessage(character.getName() + " healed for " + character.getCunning()*2);
         choiceToStrike.takeDamage(character.getCunning()*3);
         character.heal(character.getCunning()*2);
     }

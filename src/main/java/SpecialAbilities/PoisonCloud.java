@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/26/2016.
@@ -22,15 +23,15 @@ public class PoisonCloud extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used poison cloud!");
+        Display.displayMessage(character.getName() + " used poison cloud!");
         int totalEnemies = enemies.size();
         for (int x = 0; x < totalEnemies; x++)
         {
             if (character.attack(enemies.getCharacter(x)))
             {
-                if (getAffectedChance(character, "power", enemies.getCharacter(x)))
+                if (getAffectedChance(character, "Power", enemies.getCharacter(x)))
                 {
-                    System.out.println(enemies.getCharacter(x).getName() + " is affected by the poison!");
+                    Display.displayMessage(enemies.getCharacter(x).getName() + " is affected by the poison!");
                     enemies.getCharacter(x).getConditions().givePoisonDebuff(2.0, character.getPower(), "Poison Cloud");
                 }
             }

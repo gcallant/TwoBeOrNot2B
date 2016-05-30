@@ -2,8 +2,10 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 5/25/2016.
@@ -19,7 +21,7 @@ public class BloodSense extends SpecialAbility
 
     public boolean executeAbilityRandom(A_Character character, Party allies, Party enemies)
     {
-        ArrayList<Integer> bleeders = new ArrayList<Integer>();
+        List<Integer> bleeders = new ArrayList<Integer>();
         int count = 0;
 
         for(int x = 0; x < enemies.size(); x++)
@@ -50,7 +52,7 @@ public class BloodSense extends SpecialAbility
     {
         if(character.attack(choiceToStrike))
         {
-            System.out.println(character.getName() + " healed from " + choiceToStrike.getName() + "'s blood for " + (int)((double)character.getMaxHealth()*.03));
+            Display.displayMessage(character.getName() + " healed from " + choiceToStrike.getName() + "'s blood for " + (int)((double)character.getMaxHealth()*.03));
             character.heal((int)((double)character.getMaxHealth()*.03));
         }
     }

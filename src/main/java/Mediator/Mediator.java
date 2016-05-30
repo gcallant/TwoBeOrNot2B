@@ -3,6 +3,7 @@ package Mediator;
 import Characters.A_Character;
 import Characters.A_Nemesis;
 import Factories.NemesisPartyFactory;
+import PartyManagement.BattleManager;
 import PartyManagement.Party;
 import DungeonGeneration.GenerateDungeon;
 import com.google.common.base.Objects;
@@ -20,15 +21,14 @@ public class Mediator
     private GenerateDungeon   map;
     private int               dungeonSize;
     private boolean           newBattle;
-    private int               currentTurn;
-    private List<A_Character> turnOrder;
+    private BattleManager     battleManager;
     private int               floorLevel;
-    private int partyLevel;
-    private boolean noEnemies;
-    private boolean normal;
-    private int monsterChance;
-    private int monsterCount;
-    private A_Nemesis bigBoss;
+    private int               partyLevel;
+    private boolean           noEnemies;
+    private boolean           normal;
+    private int               monsterChance;
+    private int               monsterCount;
+    private A_Nemesis         bigBoss;
     private NemesisPartyFactory nemesisPartyFactory;
 
     public Mediator()
@@ -87,24 +87,14 @@ public class Mediator
         return enemies;
     }
 
-    public void receiveTurnOrder(List<A_Character> turnOrder)
+    public void receiveBattleManager(BattleManager battleManager)
     {
-        this.turnOrder = turnOrder;
+        this.battleManager = battleManager;
     }
 
-    public List<A_Character>  giveTurnOrder()
+    public BattleManager giveBattleManager()
     {
-        return turnOrder;
-    }
-
-    public void receiveCurrentTurn(int currentTurn)
-    {
-        this.currentTurn = currentTurn;
-    }
-
-    public int giveCurrentTurn()
-    {
-        return currentTurn;
+        return battleManager;
     }
 
     public void receiveCurrentLevel(int floorLevel)
@@ -189,13 +179,11 @@ public class Mediator
 
         if(dungeonSize != mediator.dungeonSize) { return false; }
         if(newBattle != mediator.newBattle) { return false; }
-        if(currentTurn != mediator.currentTurn) { return false; }
         if(floorLevel != mediator.floorLevel) { return false; }
         if(characterParty != null ? ! characterParty.equals(mediator.characterParty) : mediator.characterParty != null)
         { return false; }
         if(enemies != null ? ! enemies.equals(mediator.enemies) : mediator.enemies != null) { return false; }
         if(map != null ? ! map.equals(mediator.map) : mediator.map != null) { return false; }
-        if(turnOrder != null ? ! turnOrder.equals(mediator.turnOrder) : mediator.turnOrder != null) { return false; }
 
         return true;
     }
@@ -203,7 +191,7 @@ public class Mediator
     @Override
     public int hashCode()
     {
-        return Objects.hashCode(characterParty, enemies, map, dungeonSize, newBattle, currentTurn, turnOrder, floorLevel, partyLevel);
+        return Objects.hashCode(characterParty, enemies, map, dungeonSize, newBattle, floorLevel, partyLevel);
     }
 
     public void receivePartyLevel(int partyLevel)

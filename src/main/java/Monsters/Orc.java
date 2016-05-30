@@ -54,7 +54,7 @@ public class Orc extends A_Monster
 
 	public int getLevel()
 	{
-		return level*5;
+		return level*8;
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class ArmorFactory
         }
         if (power < 0)
         {
-            throw new IllegalArgumentException("Invalid power. Cannot create armor.");
+            throw new IllegalArgumentException("Invalid Power. Cannot create armor.");
         }
 
         switch(type)

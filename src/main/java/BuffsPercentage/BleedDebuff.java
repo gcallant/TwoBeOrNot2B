@@ -1,4 +1,4 @@
-package BuffsAndDebuffs;
+package BuffsPercentage;
 
 /**
  * Created by Michael on 5/23/2016.

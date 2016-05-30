@@ -2,6 +2,7 @@ package Characters;
 
 import PartyManagement.Party;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.Scanner;
 
@@ -22,9 +23,9 @@ public class LevelUp
         character.upgradecunning();
         while(num > 0)
         {
-            System.out.println("You have " + num + " points to spend!");
+            Display.displayMessage("You have " + num + " points to spend!");
 
-            System.out.println("Choose what to upgrade!\n1) Health(25)\n2) power\n3) cunning");
+            Display.displayMessage("Choose what to upgrade!\n1) Health(35)\n2) Power\n3) cunning");
 
             choice = TestString.ensureInt(3);
 

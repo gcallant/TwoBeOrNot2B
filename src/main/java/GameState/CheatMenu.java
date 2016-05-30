@@ -22,7 +22,7 @@ public class CheatMenu implements I_State
 	@Override
 	public String display()
 	{
-		return "Welcome to alls ails ya'll! What can I do for ya?\nPress: \n1) For infinite health.\n2) For max power" +
+		return "Welcome to alls ails ya'll! What can I do for ya?\nPress: \n1) For infinite health.\n2) For max Power" +
 				         "\n3) To Cancel and return to main menu:";
 	}
 
@@ -47,7 +47,7 @@ public class CheatMenu implements I_State
 	private void applyCheat(int cheat)
 	{
 		Party party = mediator.giveParty();
-		for(A_Character hero: party.getCharacterParty())
+		for(A_Character hero: party)
 		{
 			if(cheat == 1)
 			{

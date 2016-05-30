@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -22,7 +23,7 @@ public class EagleEye extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies)
     {
-        System.out.println(character.getName() + " used eagle eye!");
+        Display.displayMessage(character.getName() + " used eagle eye!");
         double buff = 1.0 + ((double)character.getPower()*.025);
 
         for(int x = 0; x < allies.size(); x++)

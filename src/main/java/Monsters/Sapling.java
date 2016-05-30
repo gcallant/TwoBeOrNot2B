@@ -48,6 +48,6 @@ public class Sapling extends A_Monster
     }
 
     public int getLevel() {
-        return 25 * level;
+        return 17 * level;
     }
 }

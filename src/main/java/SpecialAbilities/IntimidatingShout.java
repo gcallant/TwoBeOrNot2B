@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -22,7 +23,7 @@ public class IntimidatingShout extends  SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used intimidating shout!");
+        Display.displayMessage(character.getName() + " used intimidating shout!");
         double debuff = 1.0 - ((double)character.getCunning()*.025);
         if(debuff < .25)
         {

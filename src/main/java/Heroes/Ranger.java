@@ -23,6 +23,7 @@ public class Ranger extends A_Hero
         specialManager.addSpecialAbility(new PiercingStrike());
         specialManager.addSpecialAbility(new NaturalRemedy());
         specialManager.addSpecialAbility(new EagleEye());
+        specialManager.addSpecialAbility(new DoubleStrike());
     }
 
     public boolean specialAbility(Party heroes, Party monsters)
@@ -32,7 +33,8 @@ public class Ranger extends A_Hero
 
     public static String Information()
     {
-        return "Ranger:\n" + PiercingStrike.description() + "\n" + NaturalRemedy.description() + "\n" + EagleEye.description();
+        return "Ranger:\n" + PiercingStrike.description() + "\n" + NaturalRemedy.description() + "\n" + EagleEye.description()
+                + "\n" + Charge.description();
     }
 
     public String getName()

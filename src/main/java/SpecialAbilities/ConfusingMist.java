@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -23,7 +24,7 @@ public class ConfusingMist extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used confusing mist!");
+        Display.displayMessage(character.getName() + " used confusing mist!");
         int totalEnemies = enemies.size();
         for(int x = 0; x < totalEnemies; x++)
         {

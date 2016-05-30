@@ -31,12 +31,13 @@ public class GenerateMonsterParty
         int[] numberOfGoblins = {10,2,2};
         int[] numberOfOrcs = {5, 5, 3};
         int[] numberOfOgres = {2, 4, 5};
-        int[] numberOfUndeadClerics = {5, 10, 3};
+        int[] numberOfUndeadClerics = {3, 10, 3};
         int[] numberOfWarChiefs = {1, 3, 4};
         int[] numberOfAssassins = {1, 5, 6};
         int[] numberOfDireWolfs = {2, 4, 8};
         int[] numberOfSkeletons = {3, 5, 7};
-        int[] numberOfSaplings = {4, 6, 6};
+        int[] numberOfSaplings = {2, 4, 6};
+        int[] numberOfSlimes = {2, 4, 3};
 
         //Manually add one monster to each of the lists
         addInValues("Goblin",numberOfGoblins);
@@ -48,6 +49,7 @@ public class GenerateMonsterParty
         addInValues("Dire Wolf", numberOfDireWolfs);
         addInValues("Skeleton", numberOfSkeletons);
         addInValues("Sapling", numberOfSaplings);
+        addInValues("Slime", numberOfSlimes);
     }
 
     private void addInValues(String name, int[] numToAdd)

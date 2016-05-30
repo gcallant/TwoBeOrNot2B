@@ -3,6 +3,7 @@ package SpecialAbilities;
 import Characters.A_Character;
 import PartyManagement.Party;
 import StringTester.TestString;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -25,12 +26,13 @@ public abstract class SpecialAbility
     {
         int choices = 1;
         int choice;
-        System.out.println("Choose a target to use " + this + " on");
+        Display.displayMessage("Choose a target to use " + this + " on");
         for(int x = 0; x < party.size(); x++)
         {
-            System.out.println(choices + ") " + party.getCharacter(x).battleDisplay());
+            Display.displayMessage(choices + ") " + party.getCharacter(x).battleDisplay());
             choices++;
         }
+        Display.displayMessage(choices + ") cancel");
         choice = TestString.ensureInt(choices);
 
         if(choice == choices)
@@ -56,7 +58,7 @@ public abstract class SpecialAbility
         int total;
         switch(type)
         {
-            case "power":
+            case "Power":
                 total = Math.max(Math.min(10 - attacker.getPower() + defender.getResistance(), 9),1);
                 return value > total;
             case "cunning":

@@ -1,7 +1,5 @@
 package Nemesis;
 
-import BuffsAndDebuffs.UndeadConditions;
-import Characters.A_Character;
 import Characters.A_Nemesis;
 import Characters.CreatureType;
 import Item.Armor;
@@ -11,6 +9,7 @@ import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.SummonSkeleton;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -37,7 +36,7 @@ public class Necromancer extends A_Nemesis
 	public void startRage(Random rand, Party heroes, Party monsters)
 	{
 		cooldown = 1;
-		System.out.println("\n\nTHE NECROMANCER IS SUMMONING THE DARK ARTS\n\n");
+		Display.displayMessage("\n\nTHE NECROMANCER IS SUMMONING THE DARK ARTS\n\n");
 		specialAbility(rand, heroes, monsters);
 		specialAbility(rand, heroes, monsters);
 		specialAbility(rand, heroes, monsters);

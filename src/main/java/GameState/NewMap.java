@@ -2,6 +2,7 @@ package GameState;
 
 import DungeonGeneration.GenerateDungeon;
 import Mediator.Mediator;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/15/2016.
@@ -37,7 +38,7 @@ public class NewMap implements I_State
         mediator.receiveMap(dungeon);
         if(mediator.giveCurrentLevel() > 3)
         {
-            System.out.println("WOW! You actually beat the game! Neat.");
+            Display.displayMessage("WOW! You actually beat the game! Neat.");
             return new MainMenu(mediator);
         }
         return new MapExploration(mediator);

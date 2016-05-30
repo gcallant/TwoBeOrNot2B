@@ -10,7 +10,7 @@ public abstract class Weapon
    {
       if(power < 0)
       {
-         throw new IllegalArgumentException(power + " is an invalid value for weapon power.");
+         throw new IllegalArgumentException(power + " is an invalid value for weapon Power.");
       }
       this.power = power;
       this.enchantment = null;

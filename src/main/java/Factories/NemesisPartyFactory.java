@@ -26,9 +26,11 @@ public class NemesisPartyFactory
 	public NemesisPartyFactory()
 	{
 		possibleNemesis = new ArrayList<String>();
+
 		possibleNemesis.add("Necromancer");
 		possibleNemesis.add("Werewolf");
 		possibleNemesis.add("Trent");
+		possibleNemesis.add("Master Assassin");
 	}
 
 	public Party getRandomNemesis(int level, int floor)
@@ -55,6 +57,9 @@ public class NemesisPartyFactory
 			case "Trent":
 				party = TrentParty(level, floor);
 				break;
+			case "Master Assassin":
+				party = AssassinParty(level, floor);
+				break;
 		}
 
 		return party;
@@ -63,33 +68,56 @@ public class NemesisPartyFactory
 	private Party NecromancerParty(int level, int floor)
 	{
 		List<A_Character> necParty = new ArrayList<A_Character>();
-		necParty.add(new Necromancer("Lord Denegar, The Vile", 1000, 20, 10, new Cloth(level), new Staff(level), level));
+
+		necParty.add(new Necromancer("Lord Drengar, The Vile", 1000, 30, 10, new Cloth(level), new Staff(level), level));
 		necParty.add(new MonsterFactory().createMonster("Skeleton", "Skeleton", level, true, floor));
 		necParty.add(new MonsterFactory().createMonster("Undead Cleric", "Skeleton Cleric", level, true, floor));
+
 		Party party = new Party(necParty);
 		party.setFloorLevel(floor);
+
 		return party;
 	}
 
 	private Party WerewolfParty(int level, int floor)
 	{
 		List<A_Character> wereParty = new ArrayList<A_Character>();
+
 		wereParty.add(new Werewolf("Krant, the Dire", 600, 20, 10, new Cloth(level), new Hammer(level), level));
-		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf", level, true, floor));
-		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf", level, true, floor));
+		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 1", level, true, floor));
+		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 2", level, true, floor));
+
 		Party party = new Party(wereParty);
 		party.setFloorLevel(floor);
+
 		return party;
 	}
 
 	private Party TrentParty(int level, int floor)
 	{
 		List<A_Character> trentParty = new ArrayList<A_Character>();
-		trentParty.add(new Trent("Olohem, The Iron Skin", 1800, 30, 4, new Cloth(level), new Hammer(level), level));
-		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling", level, true, floor));
-		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling", level, true, floor));
+
+		trentParty.add(new Trent("Olohem, The Forsaken", 1800, 35, 4, new Cloth(level), new Hammer(level), level));
+		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 1", level, true, floor));
+		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 2", level, true, floor));
+
 		Party party = new Party(trentParty);
 		party.setFloorLevel(floor);
+
+		return party;
+	}
+
+	private Party AssassinParty(int level, int floor)
+	{
+		List<A_Character> assassinParty = new ArrayList<A_Character>();
+
+		assassinParty.add(new MasterAssassin("Scarlett, The Shadow", 800, 15, 25, new Leather(level), new Dagger(level), level));
+		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 1", level, true, floor));
+		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 2", level, true, floor));
+
+		Party party = new Party(assassinParty);
+		party.setFloorLevel(floor);
+
 		return party;
 	}
 }

@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/21/2016.
@@ -33,7 +34,7 @@ public class Grapple extends SpecialAbility
     {
         character.getConditions().tempDamage(character.getPower());
 
-        System.out.println(character.getName() + " used grapple on " + choiceToStrike.getName() + ". " + choiceToStrike.getName() +
+        Display.displayMessage(character.getName() + " used grapple on " + choiceToStrike.getName() + ". " + choiceToStrike.getName() +
                             " is stunned and takes " + character.getPower()*2 + " damage!");
 
         choiceToStrike.getConditions().giveStunnedDebuff(2,"Grapple");

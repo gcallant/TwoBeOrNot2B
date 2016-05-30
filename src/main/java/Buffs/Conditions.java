@@ -1,10 +1,9 @@
-package BuffsAndDebuffs;
+package Buffs;
 
-import BuffsAndDebuffs.BuffsManager;
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
-import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -16,11 +15,12 @@ public class Conditions
     private boolean summoningSickness;
     private int maxSummoning;
     private int currentSummoning;
+    private boolean isDefendingOther;
 
-    public Conditions(String name)
+    public Conditions(A_Character character)
     {
-        this.name = name;
-        buffsManager = new BuffsManager(name);
+        this.name = character.getName();
+        buffsManager = new BuffsManager(character);
         summoningSickness = false;
         maxSummoning = 1;
         currentSummoning = 0;
@@ -48,12 +48,46 @@ public class Conditions
         defended = true;
     }
 
-    public int reduceDamage(int damage)
+    public void defendOther()
+    {
+        isDefendingOther = true;
+    }
+
+    public void stopDefendOther()
+    {
+        isDefendingOther = false;
+    }
+
+    public boolean isDefendingOther()
+    {
+        return isDefendingOther;
+    }
+
+    public int reduceDamage(int damage, boolean test)
     {
         damage = (int)((double)damage/buffsManager.getDamageReductionAmount());
         if(defended)
         {
             damage = damage/2;
+        }
+        if(!test)
+        {
+            if (buffsManager.isDefended() && damage > 0)
+            {
+                int total = damage - (int) buffsManager.getDefendAmount();
+
+                if (total > 0)
+                {
+                    Display.displayMessage(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)buffsManager.getDefendAmount());
+                    buffsManager.getDefendedContributor().takeDamage((int) buffsManager.getDefendAmount());
+                }
+                else
+                {
+                    Display.displayMessage(buffsManager.getDefendedContributor().getName() + " defended " + name + " for " + (int)(buffsManager.getDefendAmount() + total));
+                    buffsManager.getDefendedContributor().takeDamage((int) buffsManager.getDefendAmount() + total);
+                }
+                damage = Math.max(0, total);
+            }
         }
         return damage;
     }
@@ -163,6 +197,16 @@ public class Conditions
         buffsManager.addConfusedDebuff(rounds, source);
     }
 
+    public void giveDefendedStatus(A_Character contributor, double amount, int rounds, String source)
+    {
+        buffsManager.addDefendedBuff(contributor, amount, rounds, source);
+    }
+
+    public void giveChargeBuff(double multiplier, int rounds, String source)
+    {
+        buffsManager.addChargeBuff(multiplier, rounds, source);
+    }
+
     /*
     * Retrieve Buffs
      */
@@ -205,6 +249,7 @@ public class Conditions
     public int calculateDamage(int damage)
     {
         damage = (int)(((double)damage*buffsManager.getDamageBuffAmount()));
+        damage = (int)(((double)damage*buffsManager.getChargeAmount()));
         return damage;
     }
 
@@ -220,7 +265,7 @@ public class Conditions
 
         if( buffsManager.isStunned())
         {
-            System.out.println(name + " is stunned and cannot attack!");
+            Display.displayMessage(name + " is stunned and cannot attack!");
             return true;
         }
 
@@ -228,7 +273,7 @@ public class Conditions
         {
             if(new Random().nextBoolean())
             {
-                System.out.println(name + " is feared and cannot attack!");
+                Display.displayMessage(name + " is feared and cannot attack!");
                 return true;
             }
         }
@@ -291,15 +336,15 @@ public class Conditions
         burn = calculateBurnDamage();
         if(poison > 0)
         {
-            System.out.println(name + " is poisoned and takes " + poison + " damage!");
+            Display.displayMessage(name + " is poisoned and takes " + poison + " damage!");
         }
         if(bleed > 0)
         {
-            System.out.println(name + " is bleeding and takes " + bleed + " damage!");
+            Display.displayMessage(name + " is bleeding and takes " + bleed + " damage!");
         }
         if(burn > 0)
         {
-            System.out.println(name + " is burning and takes " + burn + " damage!");
+            Display.displayMessage(name + " is burning and takes " + burn + " damage!");
         }
 
         return poison + bleed + burn;
@@ -312,7 +357,7 @@ public class Conditions
         regen = calculateRegen(health) + calculateRegenStatic();
         if(regen > 0)
         {
-            System.out.println(name + " has regen and recovers " + regen + " health!");
+            Display.displayMessage(name + " has regen and recovers " + regen + " health!");
         }
 
         return regen;
@@ -340,7 +385,7 @@ public class Conditions
         String str = "";
         str += (calculateAttack(100) != 100) ? " Attack " + calculateAttack(100) + "%": "";
         str += (calculateDamage(100) != 100) ? " Damage " + calculateDamage(100) + "%": "";
-        str += (reduceDamage(100) != 100) ? " Damage Reduction " + reduceDamage(100) + "%": "";
+        str += (reduceDamage(100, true) != 100) ? " Damage Reduction " + reduceDamage(100, true) + "%": "";
         str += (buffsManager.isExhausted()) ? " Exhausted": "";
         str += (buffsManager.isStunned()) ? " Stunned": "";
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";

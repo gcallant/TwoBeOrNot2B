@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -22,7 +23,7 @@ public class OverlordsShout extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party enemies)
     {
-        System.out.println(character.getName() + " used overlords shout!");
+        Display.displayMessage(character.getName() + " used overlords shout!");
         double debuff = 1.0 - ((double)character.getCunning()*.025);
         if(debuff < .25)
         {
@@ -30,7 +31,7 @@ public class OverlordsShout extends SpecialAbility
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            System.out.println(enemies.getCharacter(x).getName() + " has their damage and attack reduced!");
+            Display.displayMessage(enemies.getCharacter(x).getName() + " has their damage and attack reduced!");
             enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, calculateRounds(character), "Overlords Shout");
             enemies.getCharacter(x).getConditions().giveAttackDebuff(debuff, calculateRounds(character), "Overlords Shout");
         }

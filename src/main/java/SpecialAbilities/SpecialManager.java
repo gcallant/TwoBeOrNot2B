@@ -3,6 +3,7 @@ package SpecialAbilities;
 import Characters.A_Character;
 import PartyManagement.Party;
 import StringTester.TestString;
+import Utilities.Display;
 import junit.framework.Test;
 
 import java.util.ArrayList;
@@ -35,10 +36,10 @@ public class SpecialManager
 
         for(SpecialAbility specialAbility : specialAbilities)
         {
-            System.out.println(options + ") " + specialAbility);
+            Display.displayMessage(options + ") " + specialAbility);
             options++;
         }
-        System.out.println(options + ") " + "cancel");
+        Display.displayMessage(options + ") " + "cancel");
 
         choice = TestString.ensureInt(options);
 
@@ -70,13 +71,13 @@ public class SpecialManager
             }
         }
 
-        System.out.println("Choose an ability to upgrade!!!!");
+        Display.displayMessage("Choose an ability to upgrade!!!!");
         for(SpecialAbility specialAbility : upgradeAble)
         {
-            System.out.println(choices + ") " + specialAbility.toString());
+            Display.displayMessage(choices + ") " + specialAbility.toString());
             choices++;
         }
-        System.out.println(choices + ") cancel");
+        Display.displayMessage(choices + ") cancel");
 
         choice = TestString.ensureInt(choices);
 

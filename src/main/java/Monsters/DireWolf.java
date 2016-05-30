@@ -29,11 +29,11 @@ public class DireWolf extends A_Monster
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Heavy, weapon, 6, level, CreatureType.Animal);
 
         specialManager = new SpecialManager();
-        specialManager.addSpecialAbility(new ViciousBite());
+        specialManager.addSpecialAbility(new DoubleStrike());
 
         if(floor >= 3)
         {
-            specialManager.addSpecialAbility(new DoubleStrike());
+            specialManager.addSpecialAbility(new ViciousBite());
         }
 
         this.level = level;

@@ -2,6 +2,7 @@ package Factories;
 import Characters.*;
 import Item.*;
 import Monsters.*;
+import Utilities.Display;
 
 /**
  * Created by gm14793 on 5/13/16.
@@ -10,7 +11,6 @@ public class MonsterFactory
 {
 
     public A_Character createMonster(String monsterType, String monsterName, int level, boolean normal, int floor)
-    public A_Character createMonster(String monsterType, String monsterName, int level, boolean normal)
     {
         switch(monsterType)
         {
@@ -67,9 +67,15 @@ public class MonsterFactory
                 {
                     return new Sapling(monsterName, 200, 10, 8, new Cloth(level), new Hammer(level), level, floor);
                 }
-                return new Sapling(monsterName, 1, 10, 8, new Cloth(1), new Hammer(1), level, floor);
+                return new Sapling(monsterName, 1, 10, 8, new Cloth(1), new Hammer(1), 1, 1);
+            case "Slime":
+                if(normal)
+                {
+                    return new Slime(monsterName, 100, 5, 13, new Cloth(level), new Staff(level), level, floor);
+                }
+                return new Slime(monsterName, 1, 5, 13, new Cloth(1), new Staff(1), 1, 1);
         }
-        System.out.println(monsterType + " is not a  recognized monster. You have been provided with a Goblin.");
+        Display.displayMessage(monsterType + " is not a  recognized monster. You have been provided with a Goblin.");
         return new Goblin("Goblin", 50, 3, 4, new Cloth(1), new Dagger(1), level, floor);
     }
 

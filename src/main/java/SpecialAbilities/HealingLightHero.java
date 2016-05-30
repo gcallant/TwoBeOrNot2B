@@ -2,6 +2,7 @@ package SpecialAbilities;
 
 import Characters.A_Character;
 import PartyManagement.Party;
+import Utilities.Display;
 
 /**
  * Created by Michael on 5/24/2016.
@@ -12,7 +13,7 @@ public class HealingLightHero extends HealingLight
     {
         for(int x = 0; x < enemies.size(); x++)
         {
-            System.out.println(character.getName() + " deals " + character.getPower() + " to " + enemies.getCharacter(x).getName());
+            Display.displayMessage(character.getName() + " deals " + character.getPower() + " to " + enemies.getCharacter(x).getName());
             enemies.getCharacter(x).takeDamage(2*character.getPower());
         }
 

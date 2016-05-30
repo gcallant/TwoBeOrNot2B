@@ -40,7 +40,7 @@ public class Victory implements I_State
 
         Random rand = new Random();
         int currentLevel = mediator.giveCurrentLevel();
-        int totalItems = rand.nextInt(mediator.giveCurrentLevel()*2 + 1);
+        int totalItems = rand.nextInt(mediator.giveCurrentLevel()*2 + 1) + 1;
         for(int x = 0; x < totalItems; x++)
         {
             generateItems.generateItem(heroes, mediator.giveCurrentLevel());

@@ -4,6 +4,7 @@ import Database.DatabaseManager;
 import Database.DatabaseManagerException;
 import Mediator.Mediator;
 import StringTester.TestString;
+import Utilities.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +52,7 @@ public class SaveGame implements I_State
 			e.printStackTrace();
 		}
 
-		System.out.println("\nThank you. Your game is now saved. Would you like to exit? [y/N]:");
+		Display.displayMessage("\nThank you. Your game is now saved. Would you like to exit? [y/N]:");
 		char confirmQuit = TestString.ensureChar(validInputs);
 
 		if(confirmQuit == 'y' || confirmQuit == 'Y')

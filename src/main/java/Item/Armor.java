@@ -8,7 +8,7 @@ public abstract class Armor
    public Armor(int power)
    {
       if (power < 0) {
-         throw new IllegalArgumentException(power + " is an invalid value for potion power.");
+         throw new IllegalArgumentException(power + " is an invalid value for potion Power.");
       }
 
       this.power = power;

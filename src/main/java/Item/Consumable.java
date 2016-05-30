@@ -11,7 +11,7 @@ public abstract class Consumable
    {
       if(power < 0)
       {
-         throw new IllegalArgumentException(power + " is an invalid value for potion power.");
+         throw new IllegalArgumentException(power + " is an invalid value for potion Power.");
       }
       this.rounds = 4;
       this.power = power;

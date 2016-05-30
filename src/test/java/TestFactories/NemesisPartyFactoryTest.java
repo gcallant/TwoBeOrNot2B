@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
  */
 public class NemesisPartyFactoryTest
 {
-    NemesisPartyFactory factory;
-    Party party;
+    private NemesisPartyFactory factory;
+    private Party party;
 
     @Before
     public void setUp() throws Exception

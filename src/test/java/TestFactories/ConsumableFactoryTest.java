@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
  */
 public class ConsumableFactoryTest
 {
-    ConsumableFactory factory;
-    Consumable testConsumable;
+    private ConsumableFactory factory;
+    private Consumable testConsumable;
 
     @Before
     public void setUp() throws Exception

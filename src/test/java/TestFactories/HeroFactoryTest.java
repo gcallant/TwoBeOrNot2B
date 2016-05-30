@@ -15,8 +15,8 @@ import static org.junit.Assert.*;
  */
 public class HeroFactoryTest
 {
-    HeroFactory factory;
-    A_Character testHero;
+    private HeroFactory factory;
+    private A_Character testHero;
 
     @Before
     public void setUp() throws Exception

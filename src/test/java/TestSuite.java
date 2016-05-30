@@ -1,7 +1,9 @@
 import GameState.StateBase;
-import TestItems.ItemTester;
-import TestItems.TestDungeonCreation;
-import TestItems.TestPartySelectionAndCharacterCreation;
+import TestFactories.*;
+import TestGameState.*;
+import TestInventory.*;
+import TestItem.*;
+import TestDungeonGeneration.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -17,16 +19,14 @@ import static org.junit.Assert.assertEquals;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( {ItemTester.class, TestDungeonCreation.class,
-		                       TestPartySelectionAndCharacterCreation.class})
+@Suite.SuiteClasses({BattleTest.class, ArmorTest.class, ConsumableTest.class, WeaponTest.class, ItemTester.class, InventoryTest.class, TestDungeonCreation.class, ArmorFactoryTest.class, ConsumableFactoryTest.class, GenerateItemsTest.class, HeroFactoryTest.class, MonsterFactoryTest.class, NemesisPartyFactoryTest.class, WeaponFactoryTest.class})
 
-public class TestSuite {
+public class TestSuite
+{
 	@Test
-	public void testSomething(){
-		StateBase mockedState = Mockito.mock(StateBase.class);
-		Mockito.when(mockedState.displayCurrentState()).thenReturn("This is a test");
+	public void testSomething()
+	{
 
-		assertEquals(mockedState.displayCurrentState(),"This is a test");
 	}
 }
 

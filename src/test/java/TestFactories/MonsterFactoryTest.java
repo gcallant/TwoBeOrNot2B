@@ -15,8 +15,8 @@ import static org.junit.Assert.assertNotNull;
  */
 public class MonsterFactoryTest
 {
-    MonsterFactory factory;
-    A_Character testMonster;
+    private MonsterFactory factory;
+    private A_Character testMonster;
     @Before
     public void setUp() throws Exception
     {

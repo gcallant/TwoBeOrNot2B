@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
  */
 public class WeaponFactoryTest
 {
-    WeaponFactory factory;
-    Weapon testWeapon;
+    private WeaponFactory factory;
+    private Weapon testWeapon;
 
     @Before
     public void setUp() throws Exception

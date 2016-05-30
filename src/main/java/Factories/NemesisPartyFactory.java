@@ -31,6 +31,11 @@ public class NemesisPartyFactory
 
 	public Party getRandomNemesis(int level, int floor)
 	{
+		if (level < 1 || floor < 1)
+		{
+			throw new IllegalArgumentException("Invalid level or floor. Values must be greater than 0.");
+		}
+
 		Random rand = new Random();
 		int nemesisParty;
 		Party party = NecromancerParty(level, floor);

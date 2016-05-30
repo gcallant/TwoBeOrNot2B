@@ -9,17 +9,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by SaraPage on 5/23/2016.
  */
 public class WeaponFactoryTest
 {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    WeaponFactory factory;
-    Weapon testWeapon;
+    private WeaponFactory factory;
+    private Weapon testWeapon;
 
     @Before
     public void setUp() throws Exception
@@ -35,11 +33,16 @@ public class WeaponFactoryTest
         testWeapon = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void testGenerate() throws Exception
     {
+        //checking for valid return type
         assertNotNull(testWeapon);
 
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.generate(null, 5);
 

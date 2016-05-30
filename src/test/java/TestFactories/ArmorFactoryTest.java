@@ -7,19 +7,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by SaraPage on 5/23/2016.
  */
 public class ArmorFactoryTest
 {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    ArmorFactory factory;
-    Armor testArmor;
+    private ArmorFactory factory;
+    private Armor testArmor;
 
     @Before
     public void setUp() throws Exception
@@ -35,11 +34,16 @@ public class ArmorFactoryTest
         testArmor = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void testGenerate() throws Exception
     {
+        //checking for valid return type
         assertNotNull(testArmor);
 
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.generate(null, 5);
 

@@ -15,16 +15,13 @@ import static org.junit.Assert.assertNotNull;
  */
 public class MonsterFactoryTest
 {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    MonsterFactory factory;
-    A_Character testMonster;
-
+    private MonsterFactory factory;
+    private A_Character testMonster;
     @Before
     public void setUp() throws Exception
     {
         factory = new MonsterFactory();
-        testMonster = factory.createMonster("Orc", "Orc 1", 1, true, 3);
+        testMonster = factory.createMonster("Orc", "Orc 1", 1, true, 1);
     }
 
     @After
@@ -34,21 +31,23 @@ public class MonsterFactoryTest
         testMonster = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void testCreateCharacter() throws Exception
     {
-        //Create a valid character
+        //checking for valid return type
         assertNotNull(testMonster);
 
-        //edge cases
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
-        factory.createMonster("Goblin", null, 2, true, 2);
-        factory.createMonster(null, "Sneaky", 3, true, 4);
-        factory.createMonster(null, null, 1, true, 3);
+        factory.createMonster("Goblin", null, 2, true, 1);
+        factory.createMonster(null, "Sneaky", 3, true, 1);
+        factory.createMonster(null, null, 1, true, 1);
 
-        //If the user enters a monster that's not valid
         exception.expect(IllegalArgumentException.class);
-        testMonster = factory.createMonster("Goblin", "Goblin 1", - 1, true, 6);
-        testMonster = factory.createMonster("Monster", "Goblin 1", 3, true, 9);
+        testMonster = factory.createMonster("Goblin", "Goblin 1", -1, true, 1);
+        testMonster = factory.createMonster("Monster", "Goblin 1", 3, true, 1);
     }
 }

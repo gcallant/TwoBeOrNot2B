@@ -1,4 +1,4 @@
-package TestItems;
+package TestDungeonGeneration;
 
 import DungeonGeneration.GenerateDungeon;
 import org.junit.After;

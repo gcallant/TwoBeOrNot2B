@@ -12,10 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,15 +38,17 @@ public class CharacterCreation implements I_State
 	}
 
 	@NotNull
-	private static List<String> readInNames() throws IOException
+	private List<String> readInNames() throws IOException
 	{
 		File cwd = OSUtil.getCurrentDirectory();
-		File randomNames = new File(cwd.getAbsolutePath() + SEPARATOR + "src" + SEPARATOR + "main" + SEPARATOR +
-				                              "resources" + SEPARATOR + "RandomNames.txt");
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(randomNames));
+		InputStream randomNames = getClass().getResourceAsStream("/RandomNames.txt");
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(randomNames));
 		String readLine = "";
 		int lineCount = FileUtil.countFileLines(new Scanner(randomNames));
 		List<String> readList = new ArrayList<>(lineCount);
+		randomNames = getClass().getResourceAsStream("/RandomNames.txt");
+		bufferedReader = new BufferedReader(new InputStreamReader(randomNames));
+
 
 		while((readLine = bufferedReader.readLine()) != null)
 		{

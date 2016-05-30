@@ -103,28 +103,41 @@ public class BossBattle implements I_State
         {
             mediator.receiveNewBattle(true);
             heroParty.fixParty();
-            return new Victory(mediator);
+            return new BossVictory(mediator);
         }
 
         return new BossBattle(mediator);
     }
 
-   /* @Override
-    public boolean equals(Object obj)
+    @Override
+    public boolean equals(Object o)
     {
-        if (obj == null)
-        {
-            return false;
-        }
-        if (!(obj instanceof Battle))
-        {
-            return false;
-        }
+        if(this == o) { return true; }
+        if(! (o instanceof BossBattle)) { return false; }
 
-        Battle thatBat = (Battle)obj;
+        BossBattle that = (BossBattle) o;
 
-        boolean partiesEqual = this.heroParty.equals(thatBat.heroParty) && this.enemyParty.equals(thatBat.enemyParty);
-        boolean intsEqual = this.floorLevel == thatBat.floorLevel && this.nextToAttack == thatBat.nextToAttack;
-        return  partiesEqual && intsEqual && this.newBattle == thatBat.newBattle && this.mediator.equals(thatBat.mediator);
-    }*/
+        if(nextToAttack != that.nextToAttack) { return false; }
+        if(newBattle != that.newBattle) { return false; }
+        if(floorLevel != that.floorLevel) { return false; }
+        if(heroParty != null ? ! heroParty.equals(that.heroParty) : that.heroParty != null) { return false; }
+        if(enemyParty != null ? ! enemyParty.equals(that.enemyParty) : that.enemyParty != null) { return false; }
+        if(wholeBattle != null ? ! wholeBattle.equals(that.wholeBattle) : that.wholeBattle != null) { return false; }
+        if(mediator != null ? ! mediator.equals(that.mediator) : that.mediator != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = heroParty != null ? heroParty.hashCode() : 0;
+        result = 31 * result + (enemyParty != null ? enemyParty.hashCode() : 0);
+        result = 31 * result + (wholeBattle != null ? wholeBattle.hashCode() : 0);
+        result = 31 * result + nextToAttack;
+        result = 31 * result + (newBattle ? 1 : 0);
+        result = 31 * result + (mediator != null ? mediator.hashCode() : 0);
+        result = 31 * result + floorLevel;
+        return result;
+    }
 }

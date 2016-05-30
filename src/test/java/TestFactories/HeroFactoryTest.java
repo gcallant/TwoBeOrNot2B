@@ -8,13 +8,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by SaraPage on 5/20/2016.
  */
 public class HeroFactoryTest
 {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     HeroFactory factory;
     A_Character testHero;
 
@@ -31,9 +33,6 @@ public class HeroFactoryTest
         factory = null;
         testHero = null;
     }
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void testCreateCharacter()

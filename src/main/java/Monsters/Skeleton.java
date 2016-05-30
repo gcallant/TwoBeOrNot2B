@@ -8,7 +8,6 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.FearsomeGaze;
-import SpecialAbilities.SneakAttack;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.WarCry;
 

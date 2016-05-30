@@ -1,7 +1,5 @@
 package Characters;
 
-import java.util.*;
-
 import Buffs.Conditions;
 import Buffs.UndeadConditions;
 import Item.*;
@@ -9,29 +7,30 @@ import PartyManagement.Party;
 import Utilities.Display;
 import com.google.common.base.Objects;
 
+import java.util.Random;
+
 public abstract class A_Character
 {
-	private String     name;
-	private int        health;
-	private int	       maxHealth;
-	private int        power;
-	private int 	   cunning;
-	private int        level;
-	private int        experience;
-	private Armor      armor;
-	private Weapon     weapon;
-	private boolean    isDefeated;
-	private int        initiative;
-	private ArmorType  armorType;
-	private WeaponType weaponType;
-	protected Conditions conditions;
-	private CreatureType creatureType;
+	protected Conditions   conditions;
+	protected Random       rand;
+	private   String       name;
+	private   int          health;
+	private   int          maxHealth;
+	private   int          power;
+	private   int          cunning;
+	private   int          level;
+	private   int          experience;
+	private   Armor        armor;
+	private   Weapon       weapon;
+	private   boolean      isDefeated;
+	private   int          initiative;
+	private   ArmorType    armorType;
+	private   WeaponType   weaponType;
+	private   CreatureType creatureType;
 	private boolean isInvincible = false;
 	private boolean hasMaxPower = false;
 	private boolean isSummon;
 	private A_Character owner;
-
-	protected Random   rand;
 
 	public A_Character(String name, int health, int power, int cunning,
 					   ArmorType armorType, Armor newArmor, WeaponType weaponType,
@@ -186,6 +185,12 @@ public abstract class A_Character
 		{
 			totalDamage = Integer.MAX_VALUE;
 		}
+
+		if(toAttack.isInvincible)
+		{
+			totalDamage = 0;
+		}
+
 
 		Display.displayMessage(this.getName() + " attacked " + toAttack.getName() + " for " + Math.max(totalDamage, 1) + " damage!");
 
@@ -356,11 +361,6 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * *
 	*/
 
-	private void setDefeated(boolean isDown)
-	{
-		isDefeated = isDown;
-	}
-
 	public void resetTurn()
 	{
 		int toHeal = conditions.takeTurnHealing(getMaxHealth());
@@ -384,21 +384,14 @@ public abstract class A_Character
 		conditions.resetConditions();
 	}
 
-	public void setHealth(int health)
-	{
-		this.health = health;
-	}
-
-	public void setConditions(Conditions conditions)
-	{
-		this.conditions = conditions;
-	}
-
 	public void setGodMode()
 	{
 		isInvincible = true;
-		health = Integer.MAX_VALUE;
-		maxHealth = Integer.MAX_VALUE;
+	}
+
+	public void disableGodMode()
+	{
+		isInvincible = false;
 	}
 
 	public void setHasMaxPower()
@@ -406,33 +399,29 @@ public abstract class A_Character
 		hasMaxPower = true;
 	}
 
-	public void setSummon(A_Character owner)
+	public void disableMaxPower()
 	{
-		if(owner != null)
-		{
-			isSummon = true;
-			this.owner = owner;
-		}
+		hasMaxPower = false;
 	}
-
-	/*
-	* * * * * * * * * * * * * * * * * * * *
-	*  * * * *   * * *   * * *     * * *  *
-	*  *         *         *       *      *
-	*  *   * *   * * *     *       * * *  *
-	*  *     *   *         *           *  *
-	*  * * * *   * * *     *       * * *  *
-	* * * * * * * * * * * * * * * * * * * *
-	*/
 
 	public Conditions getConditions()
 	{
 		return conditions;
 	}
 
+	public void setConditions(Conditions conditions)
+	{
+		this.conditions = conditions;
+	}
+
 	public boolean getDefeated()
 	{
 		return isDefeated;
+	}
+
+	private void setDefeated(boolean isDown)
+	{
+		isDefeated = isDown;
 	}
 
 	public Weapon getWeapon()
@@ -445,6 +434,17 @@ public abstract class A_Character
 		return armor;
 	}
 
+
+	/*
+	* * * * * * * * * * * * * * * * * * * *
+	*  * * * *   * * *   * * *     * * *  *
+	*  *         *         *       *      *
+	*  *   * *   * * *     *       * * *  *
+	*  *     *   *         *           *  *
+	*  * * * *   * * *     *       * * *  *
+	* * * * * * * * * * * * * * * * * * * *
+	*/
+
 	public String getName()
 	{
 		return name;
@@ -453,6 +453,11 @@ public abstract class A_Character
 	public int getHealth()
 	{
 		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
 	}
 
 	public int getPower()
@@ -511,6 +516,15 @@ public abstract class A_Character
 		return isSummon;
 	}
 
+	public void setSummon(A_Character owner)
+	{
+		if(owner != null)
+		{
+			isSummon = true;
+			this.owner = owner;
+		}
+	}
+
 	public A_Character getOwner()
 	{
 		return this.owner;
@@ -543,12 +557,5 @@ public abstract class A_Character
 				         weapon.equals(that.weapon) &&
 				         armorType == that.armorType &&
 				         weaponType == that.weaponType;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		return Objects.hashCode(name, health, maxHealth, power, cunning, level, experience, armor, weapon,
-		                        isDefeated, initiative, armorType, weaponType);
 	}
 }

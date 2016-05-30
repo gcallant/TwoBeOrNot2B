@@ -1,13 +1,13 @@
 package GameState;
 
 import Database.DatabaseManager;
-import Database.DatabaseManagerException;
-import Mediator.Mediator;
-import StringTester.TestString;
+import Exceptions.DatabaseManagerException;
 import Utilities.Display;
+import Utilities.TestString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -36,20 +36,61 @@ public class SaveGame implements I_State
 	public I_State execute()
 	{
 		char [] validInputs = {'y', 'Y', 'n', 'N'};
+		boolean saved = false;
 
 		DatabaseManager databaseManager = new DatabaseManager();
 		try
 		{
+			logger.info("Attempting to save characters");
 			databaseManager.saveCharacters(mediator);
+			logger.info("Attempting to save Inventory");
 			databaseManager.saveInventory(mediator);
+			saved = true;
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("Tried to save game- had a SQL Exception ", e);
+			logger.info("Going to try re-saving");
+			saved = resave(databaseManager);
 		}
 		catch(DatabaseManagerException e)
 		{
-			e.printStackTrace();
+			logger.debug("Tried to save game- had a DatabaseManager Exception ", e);
+			logger.info("Going to try re-saving");
+			saved = resave(databaseManager);
+		}
+		catch(IOException e)
+		{
+			logger.debug("Tried to save game- had an IOException ", e);
+			logger.info("Going to try re-saving");
+			saved = resave(databaseManager);
+		}
+
+		databaseManager.closeConnection();
+
+		if(! saved)
+		{
+			System.out.println("\nSorry your game was not saved- would you like to try again? [Y/n]:");
+			char confirmNotSaved = TestString.ensureChar(validInputs);
+
+			if(confirmNotSaved == 'y' || confirmNotSaved == 'Y')
+			{
+				return new SaveGame(mediator);
+			}
+			else
+			{
+				System.out.println("\nOkay. Would you like to exit? [y/N]:");
+				char confirmQuit = TestString.ensureChar(validInputs);
+
+				if(confirmQuit == 'y' || confirmQuit == 'Y')
+				{
+					return new QuitGame(mediator);
+				}
+				else
+				{
+					return new NewMap(mediator);
+				}
+			}
 		}
 
 		Display.displayMessage("\nThank you. Your game is now saved. Would you like to exit? [y/N]:");
@@ -63,6 +104,34 @@ public class SaveGame implements I_State
 		{
 			return new NewMap(mediator);
 		}
+	}
+
+	private boolean resave(DatabaseManager databaseManager)
+	{
+		try
+		{
+			databaseManager.saveCharacters(mediator);
+			databaseManager.saveInventory(mediator);
+		}
+		catch(IOException e)
+		{
+			logger.debug("Tried to resave game- failed", e);
+			System.out.println("Save game failed- game is *not* saved.");
+			return false;
+		}
+		catch(SQLException e)
+		{
+			logger.debug("Tried to resave game- failed", e);
+			System.out.println("Save game failed- game is *not* saved.");
+			return false;
+		}
+		catch(DatabaseManagerException e)
+		{
+			logger.debug("Tried to resave game- failed", e);
+			System.out.println("Save game failed- game is *not* saved.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override

@@ -1,14 +1,15 @@
 package PartyManagement;
 
-import Characters.*;
+import Characters.A_Character;
 import Factories.HeroFactory;
 import Heroes.*;
-import SpecialAbilities.DefendOther;
-import StringTester.TestString;
 import Utilities.Display;
+import Utilities.TestString;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -16,6 +17,7 @@ import java.util.Scanner;
  */
 public class CreateMember
 {
+    @Nullable
     public static A_Character createMember()
     {
         String name = "";
@@ -57,6 +59,29 @@ public class CreateMember
         }
 
         return new HeroFactory().createCharacter(type, name);
+    }
+
+    public static A_Character createRandomMember(final List<String> randomNameList)
+    {
+        String classType = "";
+        List<String> classes = new ArrayList<String>();
+
+        classes.add("Warrior");
+        classes.add("Mage");
+        classes.add("Rogue");
+        classes.add("Paladin");
+        classes.add("Ranger");
+        classes.add("Summoner");
+        classes.add("Defender");
+
+        String name = "";
+        Random random = new Random(System.currentTimeMillis());
+        int randomNameIndex = random.nextInt(randomNameList.size());
+        int randomClassIndex = random.nextInt(classes.size());
+        name = randomNameList.get(randomNameIndex);
+        classType = classes.get(randomClassIndex);
+
+        return new HeroFactory().createCharacter(classType, name);
     }
 
     public static boolean confirm()

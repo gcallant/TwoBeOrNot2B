@@ -1,7 +1,6 @@
 package PartyManagement;
 
 import Characters.A_Character;
-import GameState.MapExploration;
 
 import java.util.ArrayList;
 import java.util.Collections;

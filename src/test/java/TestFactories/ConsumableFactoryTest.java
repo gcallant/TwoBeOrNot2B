@@ -9,13 +9,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by SaraPage on 5/23/2016.
  */
 public class ConsumableFactoryTest
 {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
     ConsumableFactory factory;
     Consumable testConsumable;
 
@@ -32,10 +34,6 @@ public class ConsumableFactoryTest
         factory = null;
         testConsumable = null;
     }
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
 
     @Test
     public void testGenerate() throws Exception

@@ -10,7 +10,6 @@
     <groupId>TwoBeOrNot2B</groupId>
     <artifactId>DungeonCrawler</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>
@@ -21,6 +20,24 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/main/resources/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.akathist.maven.plugins.launch4j</groupId>
@@ -36,7 +53,7 @@
                         <configuration>
                             <headerType>console</headerType>
                             <outfile>target/DungeonCrawler.exe</outfile>
-                            <jar>target/DungeonCrawler-1.0.jar</jar>
+                            <jar>target/DungeonCrawler-1.0-jar.jar</jar>
                             <errTitle>DungeonCrawler</errTitle>
                             <classPath>
                                 <mainClass>RunGameSample</mainClass>
@@ -60,23 +77,6 @@
                                 <internalName>dc</internalName>
                                 <originalFilename>original.exe</originalFilename>
                             </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
                         </configuration>
                     </execution>
                 </executions>

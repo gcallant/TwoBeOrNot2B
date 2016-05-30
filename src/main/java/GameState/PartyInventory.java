@@ -1,8 +1,7 @@
 package GameState;
 
 import PartyManagement.Party;
-import Mediator.Mediator;
-import StringTester.TestString;
+import Utilities.TestString;
 
 /**
  * Created by Michael on 5/18/2016.

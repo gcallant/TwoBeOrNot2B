@@ -1,7 +1,6 @@
 package GameState;
 
 import DungeonGeneration.GenerateDungeon;
-import Mediator.Mediator;
 import Utilities.Display;
 
 /**

@@ -1,17 +1,18 @@
 package PartyManagement;
 
+import Characters.A_Character;
+import Exceptions.DatabaseManagerException;
+import Item.Armor;
+import Item.Consumable;
+import Item.Weapon;
+import Utilities.Display;
+import Utilities.TestString;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import Characters.A_Character;
-import Item.Armor;
-import Item.Consumable;
-import Item.Weapon;
-import StringTester.TestString;
-import Utilities.Display;
 
 /**
  * Created by Michael on 5/12/2016.
@@ -24,17 +25,43 @@ public class Party implements Iterable<A_Character>
     private int               partyLevel;
     private int               floorLevel;
 
-    public Iterator<A_Character> iterator()
-    {
-        return characterParty.iterator();
-    }
-
     public Party(List<A_Character> characterParty)
     {
         this.characterParty = characterParty;
         this.inventory = new Inventory();
         this.partyLevel = 1;
         this.floorLevel = 1;
+    }
+
+    public Party(List<A_Character> characterParty, Inventory inventory, int level) throws DatabaseManagerException
+    {
+        verifyArguments(characterParty, inventory, level);
+        this.characterParty = characterParty;
+        this.inventory = inventory;
+        this.floorLevel = level;
+    }
+
+    public Iterator<A_Character> iterator()
+    {
+        return characterParty.iterator();
+    }
+
+    @Contract("null, _, _ -> fail; !null, null, _ -> fail")
+    private void verifyArguments(List<A_Character> characterParty, Inventory inventory, int level)
+    throws DatabaseManagerException
+    {
+        if(characterParty == null)
+        {
+            throw new DatabaseManagerException().notLoaded("Characterparty was null", null);
+        }
+        if(inventory == null)
+        {
+            throw new DatabaseManagerException().notLoaded("Inventory was null", inventory);
+        }
+        if(level < 2)
+        {
+            throw new DatabaseManagerException().notLoaded("Level is less than start level", null);
+        }
     }
 
     public void addToInventory(Weapon item)
@@ -159,6 +186,16 @@ public class Party implements Iterable<A_Character>
         return characterParty.get(index);
     }
 
+    public List<A_Character> getCharacterParty()
+    {
+        return characterParty;
+    }
+
+    public Inventory getInventory()
+    {
+        return inventory;
+    }
+
     public boolean useInventory()
     {
         Display.displayMessage("Select an item from your inventory");
@@ -252,14 +289,14 @@ public class Party implements Iterable<A_Character>
         }
     }
 
-    public void setFloorLevel(int floorLevel)
-    {
-        this.floorLevel = floorLevel;
-    }
-
     public int getFloorLevel()
     {
         return floorLevel;
+    }
+
+    public void setFloorLevel(int floorLevel)
+    {
+        this.floorLevel = floorLevel;
     }
 
     public boolean contains(A_Character character)

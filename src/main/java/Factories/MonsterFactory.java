@@ -1,5 +1,6 @@
 package Factories;
-import Characters.*;
+
+import Characters.A_Character;
 import Item.*;
 import Monsters.*;
 import Utilities.Display;

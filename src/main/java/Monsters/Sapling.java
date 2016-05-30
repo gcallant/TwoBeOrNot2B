@@ -7,7 +7,9 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.BarkSkin;
+import SpecialAbilities.Heal;
+import SpecialAbilities.SpecialManager;
 
 import java.util.Random;
 

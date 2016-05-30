@@ -1,6 +1,9 @@
 package Characters;
 
-import Item.*;
+import Item.Armor;
+import Item.ArmorType;
+import Item.Weapon;
+import Item.WeaponType;
 import PartyManagement.Party;
 import Utilities.Display;
 

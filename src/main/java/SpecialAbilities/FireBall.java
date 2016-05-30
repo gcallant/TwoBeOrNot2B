@@ -9,6 +9,12 @@ import Utilities.Display;
  */
 public class FireBall extends SpecialAbility
 {
+    public static String description()
+    {
+        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns " +
+                       "them";
+    }
+
     public boolean executeAbility(A_Character character, Party allies, Party enemies)
     {
         abilityExecution(character, enemies);
@@ -39,10 +45,5 @@ public class FireBall extends SpecialAbility
     public String toString()
     {
         return "Fireball";
-    }
-
-    public static String description()
-    {
-        return "     - Fireball: Attacks all enemies for a small amount of damage, has no chance to miss, and burns them";
     }
 }

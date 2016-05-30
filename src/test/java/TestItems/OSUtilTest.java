@@ -1,15 +1,5 @@
 package TestItems;
 
-import Utilities.OSUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.nio.file.FileSystems;
-
-import static org.junit.Assert.*;
-
 /**
  * Created by Grant Callant on 5/14/2016. GitHub
  *

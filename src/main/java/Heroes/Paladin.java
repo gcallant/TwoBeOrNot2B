@@ -6,7 +6,10 @@ import Item.ArmorType;
 import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
-import SpecialAbilities.*;
+import SpecialAbilities.Heal;
+import SpecialAbilities.HealingLightHero;
+import SpecialAbilities.Smite;
+import SpecialAbilities.SpecialManager;
 import com.google.common.base.Objects;
 
 /**
@@ -26,6 +29,11 @@ public class Paladin extends A_Hero
         specialManager.addSpecialAbility(new Heal());
     }
 
+    public static String Information()
+    {
+        return "Paladin:\n" + HealingLightHero.description() + "\n" + Smite.description() + "\n" + Heal.description();
+    }
+
     public boolean specialAbility(Party heroes, Party monsters)
     {
        return specialManager.chooseSpecialAbility(this, heroes, monsters);
@@ -34,11 +42,6 @@ public class Paladin extends A_Hero
     public String getName()
     {
         return super.getName() + " the Paladin";
-    }
-
-    public static String Information()
-    {
-        return "Paladin:\n" + HealingLightHero.description() + "\n" + Smite.description() + "\n" + Heal.description();
     }
 
     public void upgradeAbilities()

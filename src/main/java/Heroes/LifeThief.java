@@ -15,7 +15,7 @@ import com.google.common.base.Objects;
  */
 public class LifeThief extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
     public LifeThief(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Light, weapon);

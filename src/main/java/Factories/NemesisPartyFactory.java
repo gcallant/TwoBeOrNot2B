@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class NemesisPartyFactory
 {
-	List<String> possibleNemesis;
+	private List<String> possibleNemesis;
 
 	public NemesisPartyFactory()
 	{

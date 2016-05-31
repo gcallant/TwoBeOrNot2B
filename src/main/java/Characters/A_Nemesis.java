@@ -24,8 +24,8 @@ public abstract class A_Nemesis extends A_Character
 
     protected int cooldown;
     protected boolean rage;
-    protected boolean rageUsed;
-    protected int rageCount;
+    private boolean rageUsed;
+    private int rageCount;
 
     public A_Nemesis(String name, int health, int power, int cunning, ArmorType armorType, Armor armor,
                      WeaponType weaponType, Weapon weapon, int level, CreatureType creatureType)

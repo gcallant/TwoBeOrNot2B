@@ -14,10 +14,10 @@ import java.util.Random;
  * Created by Michael on 5/19/2016.
  */
 public class GenerateItems {
-    ArmorFactory armorFactory;
-    ConsumableFactory consumableFactory;
-    WeaponFactory weaponFactory;
-    Random rand;
+    private ArmorFactory armorFactory;
+    private ConsumableFactory consumableFactory;
+    private WeaponFactory weaponFactory;
+    private Random rand;
 
     public GenerateItems()
     {

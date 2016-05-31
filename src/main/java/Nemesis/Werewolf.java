@@ -19,7 +19,7 @@ import java.util.Random;
  */
 public class Werewolf extends A_Nemesis
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
     public Werewolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Medium, weapon, level, CreatureType.Animal);

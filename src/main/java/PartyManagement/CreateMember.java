@@ -53,8 +53,11 @@ public class CreateMember
             name = kb.nextLine();
             String finalName = name;
             //TODO ensure party doesn't already contain said character
-            //            if(party.stream().filter(hero -> createMember(type, finalName)).forEach(hero -> party
-            // .contains(hero)))
+            //            party.stream().findFd
+            //
+            // irst(party.contains(new HeroFactory().createCharacter(type, finalName)))
+            //            party.stream().filter(party.contains(new HeroFactory().createCharacter(type, finalName)))
+            // .forEach();
             {
                 Display.displayMessage("You're already got one such mate in your party- why not try another?");
                 TestString.enterInput();

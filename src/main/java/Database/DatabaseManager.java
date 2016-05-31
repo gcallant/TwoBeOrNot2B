@@ -60,7 +60,7 @@ public class DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("We had a sql exception, couldn't load", e);
 			Display.displayMessage("Could not connect to database\n" + DATABASE +
 					                         "\nSaving (and/or) loading will be unsupported.");
 			closeConnection();

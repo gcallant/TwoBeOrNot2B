@@ -18,18 +18,18 @@ import java.util.Scanner;
 public class CreateMember
 {
     @Nullable
-    public static A_Character createMember()
+    public static A_Character createMember(List<A_Character> party)
     {
         String name = "";
-        List<String> names = new ArrayList<String>();
+        List<String> classes = new ArrayList<String>();
 
-        names.add("Warrior");
-        names.add("Mage");
-        names.add("Rogue");
-        names.add("Paladin");
-        names.add("Ranger");
-        names.add("Summoner");
-        names.add("Defender");
+        classes.add("Warrior");
+        classes.add("Mage");
+        classes.add("Rogue");
+        classes.add("Paladin");
+        classes.add("Ranger");
+        classes.add("Summoner");
+        classes.add("Defender");
 
         Scanner kb = new Scanner(System.in);
 
@@ -42,15 +42,23 @@ public class CreateMember
         Display.displayMessage("6) " + Summoner.Information());
         Display.displayMessage("7) " + Defender.Information());
 
-        int choice = TestString.ensureInt(names.size());
-        String type = names.get(choice - 1);
+        int choice = TestString.ensureInt(classes.size());
+        String type = classes.get(choice - 1);
 
         Display.displayMessage("You chose a " + type);
         Display.displayMessage("Enter the name for your character or 'cancel' to cancel: ");
 
-        while(name.isEmpty())
+        while(name.isEmpty() || party.contains(name))
         {
             name = kb.nextLine();
+            String finalName = name;
+            //TODO ensure party doesn't already contain said character
+            //            if(party.stream().filter(hero -> createMember(type, finalName)).forEach(hero -> party
+            // .contains(hero)))
+            {
+                Display.displayMessage("You're already got one such mate in your party- why not try another?");
+                TestString.enterInput();
+            }
         }
 
         if(name.toLowerCase().equals("cancel"))

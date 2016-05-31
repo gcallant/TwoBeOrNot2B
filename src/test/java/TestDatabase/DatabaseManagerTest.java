@@ -3,6 +3,7 @@
 //import Characters.A_Character;
 //import Database.DatabaseManager;
 //import Factories.CharacterFactory;
+//import Factories.HeroFactory;
 //import Logging.LoggingManager;
 //import Exceptions.OSException;
 //import Utilities.OSUtil;
@@ -55,8 +56,8 @@
 //	@Test
 //	public void testCharacter()
 //	{
-//		CharacterFactory characterFactory = new CharacterFactory();
-//		A_Character character = characterFactory.createCharacter("Cloud", 10, 7, 2);
+//		HeroFactory characterFactory = new HeroFactory();
+//		A_Character character = characterFactory.createCharacter("Warrior", "Cloud");
 //	}
 //
 //	@After

@@ -32,7 +32,7 @@ public abstract class Armor implements Serializable
       return "Armor: ";
    }
 
-   protected abstract int getBase();
+   public abstract int getBase();
 
    public abstract ArmorType getArmorType();
 

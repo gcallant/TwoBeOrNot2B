@@ -289,8 +289,8 @@ public class DatabaseManager
 		int health = hero.getHealth();
 		int power = hero.getHealth();
 		int cunning = hero.getCunning();
-		int armorPower = hero.getArmor().getPower();
-		int weaponPower = hero.getWeapon().getPower();
+		int armorPower = (hero.getArmor().getPower() - hero.getArmor().getBase()); //Adds base back on load
+		int weaponPower = (hero.getWeapon().getPower() - hero.getWeapon().getBase());
 		int floor = level[0];
 		String concatValue = "'" + name + "'" + ", " + health + ", " + power + ", " + cunning +
 				                       ", " + armorPower + ", " + weaponPower + "," + floor;

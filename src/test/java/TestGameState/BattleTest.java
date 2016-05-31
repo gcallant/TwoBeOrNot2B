@@ -3,9 +3,9 @@ package TestGameState;
 import Characters.A_Character;
 import Factories.HeroFactory;
 import Factories.MonsterFactory;
-import Mediator.*;
 import GameState.Battle;
 import GameState.I_State;
+import GameState.Mediator;
 import PartyManagement.Party;
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +14,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Created by SaraPage on 5/29/2016.
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 public class BattleTest
 {
     private Mediator mediator;
-    private I_State state;
+    private I_State  state;
 
     @Before
     public void setUp() throws Exception

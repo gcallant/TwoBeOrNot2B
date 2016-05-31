@@ -52,6 +52,6 @@ public class Heal extends SpecialAbility
 
     public static String description()
     {
-        return "     - Restores a moderate amount to an individual. Based off of cunning.";
+        return "     - Heal: Restores a moderate amount to an individual. Based off of cunning.";
     }
 }

@@ -45,8 +45,8 @@ public class Sapling extends A_Monster
         upgradeHealth();
         upgradeHealth();
         upgradeHealth();
-        upgradecunning();
-        upgradecunning();
+        upgradeCunning();
+        upgradeCunning();
     }
 
     public int getLevel() {

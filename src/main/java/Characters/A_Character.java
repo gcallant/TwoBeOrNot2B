@@ -212,6 +212,11 @@ public abstract class A_Character
 		return this.level;
 	}
 
+	public void setLevel(int level)
+	{
+		this.level = level;
+	}
+
 	protected void levelUp()
 	{
 		health = maxHealth;
@@ -223,6 +228,16 @@ public abstract class A_Character
 	protected boolean canLevel()
 	{
 		return experience/(level*100) > 0;
+	}
+
+	public int getExperience()
+	{
+		return experience;
+	}
+
+	public void setExperience(int experience)
+	{
+		this.experience = experience;
 	}
 
 	public void gainExperience(int experience)
@@ -237,12 +252,12 @@ public abstract class A_Character
 		}
 	}
 
-	public void upgradepower()
+	public void upgradePower()
 	{
 		this.power += 1;
 	}
 
-	public void upgradecunning()
+	public void upgradeCunning()
 	{
 		this.cunning += 1;
 	}
@@ -259,7 +274,7 @@ public abstract class A_Character
 	* * * * * * * * * * * * * * * * * * * * * * *
 	*  * * *   * * *    *   *   * * *   * * *   *
 	*  *       *   *    *   *     *     *   *   *
-	*  * * *   *  **    *   *     *     * * *   *
+	*  * * *   *  *    *   *     *     * * *   *
 	*  *       * * *    *   *     *     *       *
 	*  * * *        *   * * *   * * *   *       *
 	* * * * * * * * * * * * * * * * * * * * * * *

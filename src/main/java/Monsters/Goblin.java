@@ -44,9 +44,9 @@ public class Goblin extends A_Monster
 
 	public void levelUp()
 	{
-		upgradecunning();
+		upgradeCunning();
 		upgradeHealth();
-		upgradepower();
+		upgradePower();
 	}
 
 	public int getLevel()

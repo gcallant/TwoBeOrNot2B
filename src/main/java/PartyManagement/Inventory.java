@@ -5,6 +5,8 @@ import Exceptions.DatabaseManagerException;
 import Item.*;
 import Utilities.Display;
 import Utilities.TestString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +21,7 @@ public class Inventory
     private List<Armor>           armors;
     private List<Consumable>      consumables;
     private int                   totalSize;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Inventory()
     {
@@ -56,6 +59,7 @@ public class Inventory
             this.consumables = consumables;
         }
         this.totalSize = weapons.size() + armors.size() + consumables.size();
+        logger.info("Successfully loaded new Inventory object from saved game");
     }
 
 

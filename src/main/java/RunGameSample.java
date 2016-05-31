@@ -99,7 +99,7 @@ public class RunGameSample
 	{
 		try
 		{
-			File parent = OSUtil.getParentDirectory();
+			File parent = OSUtil.getCurrentDirectory();
 			EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
 			OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
 

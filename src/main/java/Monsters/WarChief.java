@@ -48,12 +48,12 @@ public class WarChief extends A_Monster
 
     public void levelUp()
     {
-        upgradepower();
-        upgradepower();
-        upgradepower();
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
+        upgradePower();
+        upgradePower();
+        upgradePower();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
         upgradeHealth();
         upgradeHealth();
         upgradeHealth();

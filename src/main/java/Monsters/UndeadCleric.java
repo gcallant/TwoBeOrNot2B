@@ -46,9 +46,9 @@ public class UndeadCleric extends A_Monster
 
     public void levelUp()
     {
-        upgradepower();
-        upgradepower();
-        upgradecunning();
+        upgradePower();
+        upgradePower();
+        upgradeCunning();
         upgradeHealth();
         upgradeHealth();
     }

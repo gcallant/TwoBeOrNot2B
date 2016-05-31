@@ -29,11 +29,11 @@ public class MasterAssassin extends A_Nemesis
     {
         upgradeHealth();
         upgradeHealth();
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
-        upgradepower();
-        upgradepower();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
+        upgradePower();
+        upgradePower();
     }
 
     public void startRage(Random rand, Party heroes, Party monsters)

@@ -48,9 +48,9 @@ public class Necromancer extends A_Nemesis
 		upgradeHealth();
 		upgradeHealth();
 		upgradeHealth();
-		upgradepower();
-		upgradepower();
-		upgradecunning();
-		upgradecunning();
+		upgradePower();
+		upgradePower();
+		upgradeCunning();
+		upgradeCunning();
 	}
 }

@@ -19,8 +19,8 @@ public class LevelUp
         int choice = 0;
 
         character.upgradeHealth();
-        character.upgradepower();
-        character.upgradecunning();
+        character.upgradePower();
+        character.upgradeCunning();
         while(num > 0)
         {
             Display.displayMessage("You have " + num + " points to spend!");
@@ -33,9 +33,11 @@ public class LevelUp
             {
                 case 1: character.upgradeHealth();
                     break;
-                case 2: character.upgradepower();
+                case 2:
+                    character.upgradePower();
                     break;
-                case 3: character.upgradecunning();
+                case 3:
+                    character.upgradeCunning();
                     break;
             }
 

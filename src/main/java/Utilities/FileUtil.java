@@ -21,7 +21,7 @@ public class FileUtil
 			count++;
 			fin.nextLine();
 		}
-		fin.close();
+		//		fin.close();
 		return count;
 	}
 }

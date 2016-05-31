@@ -18,44 +18,42 @@ import java.nio.file.FileSystems;
 public class OSUtil
 {
 
+	private static final String SEPARATOR          = setSeparator();
 	private static final Logger logger             = LoggerFactory.getLogger("OSUtil");
-	/**
-	 * Method to get the parent directory of where the program is currently being run from.
-	 *
-	 * @return parent directory as a File
-	 * @throws OSException if parent directory could not be opened
-	 */
-
-	private static       String SEPARATOR          = setSeparator();
 	private static       File   EXTERNAL_DIRECTORY = null;
 
 	private static String setSeparator()
 	{
 		String separator = FileSystems.getDefault().getSeparator();
 
-		if(separator.compareTo("\\") == 0)
-		{
-			separator = "\\\\";
-		}
+		//		if(separator.compareTo("\\") == 0)
+		//		{
+		//			separator = "\\\\";
+		//		}
 		return separator;
 	}
-//
-//	@Nullable
-//	private static LoggingManager waitForLoggerConfiguration()
-//	{
-//		if(logger.isConfigured())
-//		{
-//			return logger = LoggingManager.getInstance();
-//		}
-//		return null;
-//	}
+	//
+	//	@Nullable
+	//	private static LoggingManager waitForLoggerConfiguration()
+	//	{
+	//		if(logger.isConfigured())
+	//		{
+	//			return logger = LoggingManager.getInstance();
+	//		}
+	//		return null;
+	//	}
 
+	/**
+	 * Method to get the parent directory of where the program is currently being run from.
+	 *
+	 * @return parent directory as a File
+	 * @throws OSException if parent directory could not be opened
+	 */
 	public static File getParentDirectory() throws OSException
 	{
 		File cwd = new File(System.getProperty("user.dir"));
 
-
-			logger.info("Got Current directory {}", cwd);
+		logger.info("Got Current directory {}", cwd);
 
 		File parent = new File(cwd.getParent());
 		if(parent == null || parent.isFile())
@@ -63,8 +61,7 @@ public class OSUtil
 			throw new OSException("Couldn't get parent directory");
 		}
 
-
-			logger.info("Got Parent directory {}", parent);
+		logger.info("Got Parent directory {}", parent);
 
 		return parent;
 	}
@@ -135,8 +132,8 @@ public class OSUtil
 	{
 		verifyDirectory(parentDirectory, newDirectoryName);
 
-			logger.info("Attempting to create new directory {} in {}",
-			                        newDirectoryName, parentDirectory);
+		logger.info("Attempting to create new directory {} in {}",
+		            newDirectoryName, parentDirectory);
 
 		File newDirectory = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newDirectoryName);
 		newDirectory.mkdir();
@@ -145,7 +142,7 @@ public class OSUtil
 			throw new OSException(new Throwable("Could not create new directory"));
 		}
 
-			logger.info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
+		logger.info("Successfully created new directory {} in {}", newDirectory, parentDirectory);
 
 		return newDirectory;
 	}
@@ -190,11 +187,11 @@ public class OSUtil
 		}
 
 		File newDirectory = new File(parentDirectory.getAbsolutePath() + SEPARATOR + newDirectoryName);
-				if(newDirectory.exists())
-				{
-					logger.info("Tried to create directory {}, but it already exists", newDirectory.getAbsolutePath());
-					return;
-				}
+		if(newDirectory.exists())
+		{
+			logger.info("Tried to create directory {}, but it already exists", newDirectory.getAbsolutePath());
+			return;
+		}
 
 		if(! parentDirectory.canWrite())
 		{

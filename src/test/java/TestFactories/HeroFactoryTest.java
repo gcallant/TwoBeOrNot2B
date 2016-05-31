@@ -8,17 +8,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by SaraPage on 5/20/2016.
  */
 public class HeroFactoryTest
 {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    HeroFactory factory;
-    A_Character testHero;
+    private HeroFactory factory;
+    private A_Character testHero;
 
     @Before
     public void setUp() throws Exception
@@ -34,19 +32,21 @@ public class HeroFactoryTest
         testHero = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
     @Test
     public void testCreateCharacter()
     {
-        //Create the appropriate character
+        //checking for valid return type
         assertNotNull(testHero);
 
-        //edge cases
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.createCharacter("Rogue", null);
         factory.createCharacter(null, "Sneaky");
         factory.createCharacter(null, null);
 
-        //If the user enters a hero that's not valid
         exception.expect(IllegalArgumentException.class);
         testHero = factory.createCharacter("Hero", "Sneaky");
     }

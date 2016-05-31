@@ -86,6 +86,8 @@ class SaveFactory
 				return new Ranger(name, health, power, cunning, new Leather(armor), new Bow(weapon));
 			case "Summoner":
 				return new Summoner(name, health, power, cunning, new Cloth(armor), new Staff(weapon));
+			case "Defender":
+				return new Defender(name, health, power, cunning, new Chainmail(armor), new Sword(weapon));
 		}
 		return null;
 	}

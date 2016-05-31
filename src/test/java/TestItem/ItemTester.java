@@ -1,4 +1,4 @@
-package TestItems;
+package TestItem;
 
 import Item.*;
 import org.junit.After;

@@ -20,7 +20,7 @@ public class Leather extends Armor
         return this.armorType;
     }
 
-    protected int getBase()
+    public int getBase()
     {
         return this.base;
     }

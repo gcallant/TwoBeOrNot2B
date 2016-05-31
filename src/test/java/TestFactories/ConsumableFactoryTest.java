@@ -9,17 +9,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by SaraPage on 5/23/2016.
  */
 public class ConsumableFactoryTest
 {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    ConsumableFactory factory;
-    Consumable testConsumable;
+    private ConsumableFactory factory;
+    private Consumable testConsumable;
 
     @Before
     public void setUp() throws Exception
@@ -35,11 +33,17 @@ public class ConsumableFactoryTest
         testConsumable = null;
     }
 
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
+
     @Test
     public void testGenerate() throws Exception
     {
+        //checking for valid return type
         assertNotNull(testConsumable);
 
+        //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
         factory.generate(null, 5);
 

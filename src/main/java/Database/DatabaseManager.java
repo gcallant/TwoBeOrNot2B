@@ -27,15 +27,15 @@ import java.util.List;
  */
 public class DatabaseManager
 {
-	private final static File       CWD               = OSUtil.getCurrentDirectory();
-	private static final String     SEPARATOR         = OSUtil.getSeparator();
-	private final static String     RESOURCES         = CWD.getAbsolutePath() + SEPARATOR + "src" + SEPARATOR + "main"
-			                                                      + SEPARATOR + "resources" + SEPARATOR;
-	private static final String     DRIVER            = "org.sqlite.JDBC";
-	private static final String     DATABASE          = "jdbc:sqlite:" + RESOURCES + "DungeonCrawler.db";
-	private final        Logger     logger            = LoggerFactory.getLogger(this.getClass());
-	private              Connection databaseConnector = null;
-	private              Statement  sqlStatement      = null;
+	private final static File       CWD                = OSUtil.getCurrentDirectory();
+	private static final String     SEPARATOR          = OSUtil.getSeparator();
+	private static final File       EXTERNAL_DIRECTORY = OSUtil.getExternalDirectory();
+	private final static String     RESOURCES          = EXTERNAL_DIRECTORY.getAbsolutePath();
+	private static final String     DRIVER             = "org.sqlite.JDBC";
+	private static final String     DATABASE           = "jdbc:sqlite:" + RESOURCES + SEPARATOR + "DungeonCrawler.db";
+	private final        Logger     logger             = LoggerFactory.getLogger(this.getClass());
+	private              Connection databaseConnector  = null;
+	private              Statement  sqlStatement       = null;
 
 	public DatabaseManager()
 	{
@@ -289,8 +289,8 @@ public class DatabaseManager
 		int health = hero.getHealth();
 		int power = hero.getHealth();
 		int cunning = hero.getCunning();
-		int armorPower = hero.getArmor().getPower();
-		int weaponPower = hero.getWeapon().getPower();
+		int armorPower = (hero.getArmor().getPower() - hero.getArmor().getBase()); //Adds base back on load
+		int weaponPower = (hero.getWeapon().getPower() - hero.getWeapon().getBase());
 		int floor = level[0];
 		String concatValue = "'" + name + "'" + ", " + health + ", " + power + ", " + cunning +
 				                       ", " + armorPower + ", " + weaponPower + "," + floor;

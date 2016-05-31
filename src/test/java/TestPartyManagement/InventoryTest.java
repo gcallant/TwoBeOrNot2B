@@ -1,4 +1,4 @@
-package TestInventory;
+package TestPartyManagement;
 
 import Item.*;
 import PartyManagement.Inventory;
@@ -50,7 +50,7 @@ public class InventoryTest
     public void addWeaponToInventoryTest() throws Exception
     {
         inventory.addToInventory(new Hammer(2));
-     //   assertEquals(weapons, inventory.getWeapons());
+    //    assertEquals(weapons, inventory.getWeapons());
         Weapon weapon = null;
 
     }

@@ -5,6 +5,7 @@ import Utilities.Display;
 import Utilities.OSUtil;
 import Utilities.PrintMenu;
 import Utilities.TestString;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,8 @@ public class RunGameSample
 
     public static void main(String[] args)
     {
-        StateBase gameState = new StateBase();
-        Scanner kb = new Scanner(System.in);
+	    StateBase gameState = initialSetup();
+	    Scanner kb = new Scanner(System.in);
 
 		if(! shown())
 		{
@@ -33,13 +34,7 @@ public class RunGameSample
 		}
 		else
 		{
-			System.out.println("Welcome back!");
-		}
-
-		while(gameState.isNotEnd())
-		{
-			System.out.println(gameState.displayCurrentState());
-			gameState.executeCurrentState();
+			Display.displayMessage("Welcome back!");
 		}
 
 	    while(gameState.isNotEnd())
@@ -51,14 +46,14 @@ public class RunGameSample
 
 	private static void showIntro()
 	{
-		System.out.println(PrintMenu.welcome());
-		System.out.println("Press enter to continue...");
+		Display.displayMessage(PrintMenu.welcome());
+		Display.displayMessage("Press enter to continue...");
 		TestString.enterInput();
-		System.out.println(PrintMenu.enjoy());
-		System.out.println("Press enter to continue...");
+		Display.displayMessage(PrintMenu.enjoy());
+		Display.displayMessage("Press enter to continue...");
 		TestString.enterInput();
-		System.out.println(PrintMenu.names());
-		System.out.println("Press enter to continue...");
+		Display.displayMessage(PrintMenu.names());
+		Display.displayMessage("Press enter to continue...");
 		TestString.enterInput();
 		setFlagShown();
 	}
@@ -67,8 +62,7 @@ public class RunGameSample
 	{
 		try
 		{
-			OSUtil.createNewFile(new File(OSUtil.getCurrentDirectory().getAbsolutePath() + SEPARATOR + "src" + SEPARATOR +
-					                                "main" + SEPARATOR + "resources" + SEPARATOR), "alreadyShown");
+			OSUtil.createNewFile(new File(EXTERNAL_DIRECTORY + SEPARATOR), "alreadyShown");
 		}
 		catch(OSException e)
 		{
@@ -84,37 +78,37 @@ public class RunGameSample
 	{
 		boolean shown = false;
 
-		shown = OSUtil.pathExists(OSUtil.getCurrentDirectory().getAbsolutePath() + SEPARATOR + "src" + SEPARATOR +
-				                            "main" + SEPARATOR + "resources" + SEPARATOR + "alreadyShown");
+		shown = OSUtil.pathExists(EXTERNAL_DIRECTORY + SEPARATOR + "alreadyShown");
 		return shown;
 	}
 
-	//    @NotNull
-	//    private static StateBase initialSetup()
-	//    {
-	//        createExternalDirectory();
-	//        return new StateBase();
-	//    }
+	@NotNull
+	private static StateBase initialSetup()
+	{
+		createExternalDirectory();
+		//		     new JFXPanel();
+		return new StateBase();
+	}
 
 	private static void cleanUp(DatabaseManager database)
 	{
 		database.closeConnection();
 	}
 
-//    private static void createExternalDirectory()
-//    {
-//        try
-//        {
-//            File parent = OSUtil.getParentDirectory();
-//            EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
-//            OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
-//
-//        }
-//        catch(OSException e)
-//        {
-//            e.printStackTrace();
-//            Display.displayMessage("Could not make new directory- program must exit");
-//            System.exit(- 1);
-//        }
-//    }
+	private static void createExternalDirectory()
+	{
+		try
+		{
+			File parent = OSUtil.getParentDirectory();
+			EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
+			OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
+
+		}
+		catch(OSException e)
+		{
+			e.printStackTrace();
+			Display.displayMessage("Could not make new directory- program must exit");
+			System.exit(- 1);
+		}
+	}
 }

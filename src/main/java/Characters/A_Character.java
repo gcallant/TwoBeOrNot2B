@@ -303,7 +303,16 @@ public abstract class A_Character
 	{
 		if(amount > 0)
 		{
+			int healed = amount;
 			health = Math.min(health + amount, maxHealth);
+			if(health == maxHealth)
+			{
+				System.out.println(this.toString() + " was healed to maximum health!");
+			}
+			else
+			{
+				System.out.println(this.toString() + " was healed for " + healed + " health.");
+			}
 			removeDefeated();
 		}
 	}

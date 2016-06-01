@@ -38,6 +38,6 @@ public class NaturalRemedy extends SpecialAbility
 
     public static String description()
     {
-        return "     - Natural Remedy: Grants the caster regeneration for a few rounds";
+        return "     - Natural Remedy: Grants the caster and his allies regeneration for a few rounds";
     }
 }

@@ -17,7 +17,7 @@ public class Ranger extends A_Hero
 
     public Ranger(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
-        super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Ranged, weapon);
+        super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Ranged, weapon);
         specialManager = new SpecialManager();
 
         specialManager.addSpecialAbility(new PiercingStrike());

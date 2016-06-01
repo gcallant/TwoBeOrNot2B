@@ -28,7 +28,7 @@ public class EagleEye extends SpecialAbility
 
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character)*2, "War Cry");
+            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character)*2, "Eagle Eye");
         }
     }
 

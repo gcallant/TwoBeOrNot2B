@@ -32,15 +32,15 @@ public class Hammer extends Weapon
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
+		if(this == o) { return true; }
+		if(! (o instanceof Hammer)) { return false; }
+		if(! super.equals(o)) { return false; }
 
 		Hammer hammer = (Hammer) o;
 
-		if (base != hammer.base) return false;
-		if (damageType != hammer.damageType) return false;
-		if (weaponType != hammer.weaponType) return false;
+		if(base != hammer.base) { return false; }
+		if(damageType != hammer.damageType) { return false; }
+		if(weaponType != hammer.weaponType) { return false; }
 
 		return true;
 	}
@@ -48,9 +48,9 @@ public class Hammer extends Weapon
 	@Override
 	public int hashCode()
 	{
-		int result = damageType.hashCode();
+		int result = damageType != null ? damageType.hashCode() : 0;
 		result = 31 * result + base;
-		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + (weaponType != null ? weaponType.hashCode() : 0);
 		return result;
 	}
 }

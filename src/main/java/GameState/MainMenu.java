@@ -1,5 +1,7 @@
 package GameState;
 
+import Utilities.Display;
+import Utilities.OSUtil;
 import Utilities.TestString;
 
 /**
@@ -30,7 +32,7 @@ public class MainMenu implements I_State
 		switch(command)
 		{
 			case 1:
-				return new CharacterCreation(mediator);
+				return checkForSavedGames();
 			case 2:
 				return new LoadGame(mediator);
 			case 3:
@@ -40,20 +42,55 @@ public class MainMenu implements I_State
 		}
 	}
 
-	@Override
-	public boolean equals(Object obj)
+	private I_State checkForSavedGames()
 	{
-		if(obj == null)
+		char[] validInputs = {'y', 'Y', 'n', 'N'};
+		String savedGame = OSUtil.getExternalDirectory().getAbsolutePath() + OSUtil.getSeparator() + "DungeonCrawler.db";
+		if(OSUtil.pathExists(savedGame))
 		{
-			return false;
-		}
-		if(! (obj instanceof MainMenu))
-		{
-			return false;
-		}
+			Display.displayMessage("Are you sure you want to start a new game? If you have a previous saved game" +
+					                         " it will be removed. [y/N]");
 
-		MainMenu menu = (MainMenu) obj;
+			char choice = TestString.ensureChar(validInputs);
+			if(choice == 'y' || choice == 'Y')
+			{
+				Display.displayMessage("Just to confirm- you want to REMOVE your PREVIOUS saved game and start a NEW GAME? [y/N]");
+				choice = TestString.ensureChar(validInputs);
 
-		return this.mediator.equals(menu.mediator);
+				if(choice == 'y' || choice == 'Y')
+				{
+					OSUtil.deleteFile(savedGame);
+					return new CharacterCreation(mediator);
+				}
+				else
+				{
+					return new MainMenu(mediator);
+				}
+			}
+			else
+			{
+				return new MainMenu(mediator);
+			}
+		}
+		return new CharacterCreation(mediator);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if(this == o) { return true; }
+		if(! (o instanceof MainMenu)) { return false; }
+
+		MainMenu mainMenu = (MainMenu) o;
+
+		if(mediator != null ? ! mediator.equals(mainMenu.mediator) : mainMenu.mediator != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return mediator != null ? mediator.hashCode() : 0;
 	}
 }

@@ -32,15 +32,15 @@ public class Bow extends Weapon
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
+		if(this == o) { return true; }
+		if(! (o instanceof Bow)) { return false; }
+		if(! super.equals(o)) { return false; }
 
 		Bow bow = (Bow) o;
 
-		if (base != bow.base) return false;
-		if (damageType != bow.damageType) return false;
-		if (weaponType != bow.weaponType) return false;
+		if(base != bow.base) { return false; }
+		if(damageType != bow.damageType) { return false; }
+		if(weaponType != bow.weaponType) { return false; }
 
 		return true;
 	}
@@ -48,9 +48,9 @@ public class Bow extends Weapon
 	@Override
 	public int hashCode()
 	{
-		int result = damageType.hashCode();
+		int result = damageType != null ? damageType.hashCode() : 0;
 		result = 31 * result + base;
-		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + (weaponType != null ? weaponType.hashCode() : 0);
 		return result;
 	}
 }

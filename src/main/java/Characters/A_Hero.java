@@ -6,6 +6,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import Utilities.Display;
+import Utilities.TestString;
 
 import java.util.Scanner;
 
@@ -30,7 +31,6 @@ public abstract class A_Hero extends A_Character
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
-		Scanner input = new Scanner(System.in);
 		int choice;
 		boolean cancel, noTurn, noSpecial;
 
@@ -62,17 +62,17 @@ public abstract class A_Hero extends A_Character
 		{
 			cancel = false;
 			Display.displayMessage("It's " + getName() + "'s turn!\n" + battleDisplay());
-			System.out.print("1.) Attack\n" +
+			Display.displayMessage("1.) Attack\n" +
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
 					                   "4.) Use Item\n" +
 									   "5.) View Stats\n" +
 					                   "6.) Run\n");
-			choice = ensureInput(input, 5);
+			choice = TestString.ensureInt(6);
 			switch(choice)
 			{
 				case 1:
-					cancel = doAttack(heroes, monsters, input);
+					cancel = doAttack(heroes, monsters);
 					break;
 				case 2:
 					conditions.defend();
@@ -155,7 +155,7 @@ public abstract class A_Hero extends A_Character
 		return false;
 	}
 
-	private boolean doAttack(Party heroes, Party monsters, Scanner input)
+	private boolean doAttack(Party heroes, Party monsters)
 	{
 		int index = 1;
 		int toAttack;
@@ -166,7 +166,7 @@ public abstract class A_Hero extends A_Character
 		}
 
 		Display.displayMessage(index + ".) cancel");
-		toAttack = ensureInput(input, index);
+		toAttack = TestString.ensureInt(index);
 
 		if(toAttack >= index)
 		{

@@ -32,15 +32,15 @@ public class Staff extends Weapon
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
+		if(this == o) { return true; }
+		if(! (o instanceof Staff)) { return false; }
+		if(! super.equals(o)) { return false; }
 
 		Staff staff = (Staff) o;
 
-		if (base != staff.base) return false;
-		if (damageType != staff.damageType) return false;
-		if (weaponType != staff.weaponType) return false;
+		if(base != staff.base) { return false; }
+		if(damageType != staff.damageType) { return false; }
+		if(weaponType != staff.weaponType) { return false; }
 
 		return true;
 	}
@@ -48,9 +48,9 @@ public class Staff extends Weapon
 	@Override
 	public int hashCode()
 	{
-		int result = damageType.hashCode();
+		int result = damageType != null ? damageType.hashCode() : 0;
 		result = 31 * result + base;
-		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + (weaponType != null ? weaponType.hashCode() : 0);
 		return result;
 	}
 }

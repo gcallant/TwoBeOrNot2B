@@ -70,9 +70,7 @@
                             <versionInfo>
                                 <fileVersion>1.0.0.0</fileVersion>
                                 <txtFileVersion>version</txtFileVersion>
-                                <fileDescription>An awesome game created by a group of amazing people at EWU. We are:
-                                    Sara, Greig, Michael and Grant - we are Two (*b) || !(*(2 + b))
-                                </fileDescription>
+                                <fileDescription>An awesome game created by a group of amazing people at EWU. We are: Sara, Greig, Michael and Grant - we are Two (*b) || !(*(2 + b))</fileDescription>
                                 <copyright>2016 Two (*b) || !(*(2 + b)) Software</copyright>
                                 <productVersion>1.0.0.0</productVersion>
                                 <txtProductVersion>version</txtProductVersion>

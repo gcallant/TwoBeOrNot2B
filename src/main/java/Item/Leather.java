@@ -33,14 +33,14 @@ public class Leather extends Armor
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if(this == o) { return true; }
+        if(! (o instanceof Leather)) { return false; }
+        if(! super.equals(o)) { return false; }
 
         Leather leather = (Leather) o;
 
-        if (base != leather.base) return false;
-        if (armorType != leather.armorType) return false;
+        if(base != leather.base) { return false; }
+        if(armorType != leather.armorType) { return false; }
 
         return true;
     }
@@ -50,7 +50,7 @@ public class Leather extends Armor
     {
         int result = super.hashCode();
         result = 31 * result + base;
-        result = 31 * result + armorType.hashCode();
+        result = 31 * result + (armorType != null ? armorType.hashCode() : 0);
         return result;
     }
 }

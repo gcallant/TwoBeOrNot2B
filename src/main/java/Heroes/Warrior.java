@@ -7,7 +7,6 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.*;
-import com.google.common.base.Objects;
 
 /**
  * Created by SaraPage on 4/29/2016.
@@ -63,14 +62,22 @@ public class Warrior extends A_Hero
 		if(this == o) { return true; }
 		if(! (o instanceof Warrior)) { return false; }
 		if(! super.equals(o)) { return false; }
+
 		Warrior warrior = (Warrior) o;
-		return level == warrior.level &&
-				         Objects.equal(specialManager, warrior.specialManager);
+
+		if(level != warrior.level) { return false; }
+		if(specialManager != null ? ! specialManager.equals(warrior.specialManager) : warrior.specialManager != null)
+		{ return false; }
+
+		return true;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(super.hashCode(), specialManager, level);
+		int result = super.hashCode();
+		result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+		result = 31 * result + level;
+		return result;
 	}
 }

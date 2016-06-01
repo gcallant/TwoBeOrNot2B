@@ -48,19 +48,19 @@ public class CreateMember
         Display.displayMessage("You chose a " + type);
         Display.displayMessage("Enter the name for your character or 'cancel' to cancel: ");
 
-        while(name.isEmpty() || party.contains(name))
+        while(name.isEmpty())
         {
             name = kb.nextLine();
-            String finalName = name;
-            //TODO ensure party doesn't already contain said character
-            //            party.stream().findFd
-            //
-            // irst(party.contains(new HeroFactory().createCharacter(type, finalName)))
-            //            party.stream().filter(party.contains(new HeroFactory().createCharacter(type, finalName)))
-            // .forEach();
+
+            for(A_Character hero: party)
             {
-                Display.displayMessage("You're already got one such mate in your party- why not try another?");
-                TestString.enterInput();
+                if(hero.getName().equals(new HeroFactory().createCharacter(type, name).getName()))
+                {
+                    Display.displayMessage("You're already got one such mate in your party- why not try another?" +
+                                                   "\nPress Enter");
+                    TestString.enterInput();
+                    return null;
+                }
             }
         }
 

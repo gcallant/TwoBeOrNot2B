@@ -136,31 +136,6 @@ public class DatabaseManager
 			}
 		}
 
-		{
-			statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
-					              "WEAPON BLOB NOT NULL," +
-					              " ARMOR BLOB NOT NULL," +
-					              " CONSUMABLE BLOB NOT NULL);";
-			try
-			{
-				logger.info("Trying attempt on table INVENTORY");
-				result = sqlStatement.executeUpdate(statement);
-			}
-			catch(SQLException e)
-			{
-				logger.debug("Could not execute statement to create Inventory table", e);
-			}
-
-			if(result > 0)
-			{
-				logger.info("INVENTORY table created successfully");
-			}
-			else
-			{
-				logger.info("Found an existing INVENTORY table- using it");
-			}
-		}
-
 		if(sqlStatement != null)
 		{
 			try
@@ -179,6 +154,35 @@ public class DatabaseManager
 					throw new DatabaseManagerException().notClosable("Could not close sqlStatement", e1);
 				}
 			}
+		}
+	}
+
+	private void createInventoryTable()
+	{
+		int result = 0;
+
+		String statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
+				              " WEAPON BLOB NOT NULL," +
+				              " ARMOR BLOB NOT NULL," +
+				              " CONSUMABLE BLOB NOT NULL);";
+		try
+		{
+			sqlStatement = databaseConnector.createStatement();
+			logger.info("Trying attempt on table INVENTORY");
+			result = sqlStatement.executeUpdate(statement);
+		}
+		catch(SQLException e)
+		{
+			logger.debug("Could not execute statement to create Inventory table", e);
+		}
+
+		if(result > 0)
+		{
+			logger.info("INVENTORY table created successfully");
+		}
+		else
+		{
+			logger.info("Found an existing INVENTORY table- using it");
 		}
 	}
 
@@ -306,7 +310,7 @@ public class DatabaseManager
 		int health = hero.getHealth();
 		int level = hero.getLevel();
 		int experience = hero.getExperience();
-		int power = hero.getHealth();
+		int power = hero.getPower();
 		int cunning = hero.getCunning();
 		int armorPower = (hero.getArmor().getPower() - hero.getArmor().getBase()); //Adds base back on load
 		int weaponPower = (hero.getWeapon().getPower() - hero.getWeapon().getBase());
@@ -322,11 +326,14 @@ public class DatabaseManager
 	public void saveInventory(Mediator mediator) throws IOException, SQLException
 	{
 		PreparedStatement preparedStatement = null;
+		sqlStatement = databaseConnector.createStatement();
 		Blob[] inventoryBlob = SaveFacade.getSerializedInventoryToSaveAsBlobs(mediator);
 		Blob armorBlob = inventoryBlob[0];
 		Blob weaponBlob = inventoryBlob[1];
 		Blob consumableBlob = inventoryBlob[2];
 
+		dropInventoryTable();
+		createInventoryTable();
 		String statement = "REPLACE INTO INVENTORY(WEAPON, ARMOR, CONSUMABLE)" +
 				                     "VALUES (?, ?, ?);";
 
@@ -338,6 +345,22 @@ public class DatabaseManager
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		logger.info("Successfully saved inventory");
+	}
+
+	private void dropInventoryTable() throws SQLException
+	{
+		logger.info("Attempting to drop inventory table...");
+		sqlStatement = databaseConnector.createStatement();
+		String statement = "DROP TABLE IF EXISTS INVENTORY;";
+		int result = sqlStatement.executeUpdate(statement);
+		if(result > 0)
+		{
+			logger.info("Successfully dropped inventory table");
+		}
+		else
+		{
+			logger.info("Inventory table didn't exist");
+		}
 	}
 
 	public void closeConnection()

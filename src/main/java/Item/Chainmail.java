@@ -30,14 +30,14 @@ public class Chainmail extends Armor
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
+		if(this == o) { return true; }
+		if(! (o instanceof Chainmail)) { return false; }
+		if(! super.equals(o)) { return false; }
 
 		Chainmail chainmail = (Chainmail) o;
 
-		if (base != chainmail.base) return false;
-		if (armorType != chainmail.armorType) return false;
+		if(base != chainmail.base) { return false; }
+		if(armorType != chainmail.armorType) { return false; }
 
 		return true;
 	}
@@ -47,7 +47,7 @@ public class Chainmail extends Armor
 	{
 		int result = super.hashCode();
 		result = 31 * result + base;
-		result = 31 * result + armorType.hashCode();
+		result = 31 * result + (armorType != null ? armorType.hashCode() : 0);
 		return result;
 	}
 }

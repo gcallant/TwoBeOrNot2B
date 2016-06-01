@@ -10,7 +10,6 @@ import SpecialAbilities.Heal;
 import SpecialAbilities.HealingLightHero;
 import SpecialAbilities.Smite;
 import SpecialAbilities.SpecialManager;
-import com.google.common.base.Objects;
 
 /**
  * Created by Michael on 5/18/2016.
@@ -55,13 +54,20 @@ public class Paladin extends A_Hero
         if(this == o) { return true; }
         if(! (o instanceof Paladin)) { return false; }
         if(! super.equals(o)) { return false; }
+
         Paladin paladin = (Paladin) o;
-        return Objects.equal(specialManager, paladin.specialManager);
+
+        if(specialManager != null ? ! specialManager.equals(paladin.specialManager) : paladin.specialManager != null)
+        { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hashCode(super.hashCode(), specialManager);
+        int result = super.hashCode();
+        result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+        return result;
     }
 }

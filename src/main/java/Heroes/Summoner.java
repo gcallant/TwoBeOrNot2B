@@ -40,4 +40,27 @@ public class Summoner extends A_Hero
     {
         return super.getName() + " the Summoner";
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof Summoner)) { return false; }
+        if(! super.equals(o)) { return false; }
+
+        Summoner summoner = (Summoner) o;
+
+        if(specialManager != null ? ! specialManager.equals(summoner.specialManager) : summoner.specialManager != null)
+        { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+        return result;
+    }
 }

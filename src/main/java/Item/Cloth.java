@@ -33,14 +33,14 @@ public class Cloth extends Armor
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if(this == o) { return true; }
+        if(! (o instanceof Cloth)) { return false; }
+        if(! super.equals(o)) { return false; }
 
         Cloth cloth = (Cloth) o;
 
-        if (base != cloth.base) return false;
-        if (armorType != cloth.armorType) return false;
+        if(base != cloth.base) { return false; }
+        if(armorType != cloth.armorType) { return false; }
 
         return true;
     }
@@ -50,7 +50,7 @@ public class Cloth extends Armor
     {
         int result = super.hashCode();
         result = 31 * result + base;
-        result = 31 * result + armorType.hashCode();
+        result = 31 * result + (armorType != null ? armorType.hashCode() : 0);
         return result;
     }
 }

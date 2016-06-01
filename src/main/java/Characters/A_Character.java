@@ -5,7 +5,6 @@ import Buffs.UndeadConditions;
 import Item.*;
 import PartyManagement.Party;
 import Utilities.Display;
-import com.google.common.base.Objects;
 
 import java.util.Random;
 
@@ -555,22 +554,56 @@ public abstract class A_Character
 	{
 		if(this == o) { return true; }
 		if(! (o instanceof A_Character)) { return false; }
+
 		A_Character that = (A_Character) o;
-		return health == that.health &&
-				         maxHealth == that.maxHealth &&
-				         power == that.power &&
-				         cunning == that.cunning &&
-				         level == that.level &&
-				         experience == that.experience &&
-				         isDefeated == that.isDefeated &&
-				         initiative == that.initiative &&
-				         com.google.common.base.Objects.equal(name, that.name) &&
-				         Objects.equal(armor, that.armor) &&
-				         Objects.equal(weapon, that.weapon) &&
-				         name.equals(that.getName()) &&
-				         armor.equals(that.armor) &&
-				         weapon.equals(that.weapon) &&
-				         armorType == that.armorType &&
-				         weaponType == that.weaponType;
+
+		if(health != that.health) { return false; }
+		if(maxHealth != that.maxHealth) { return false; }
+		if(power != that.power) { return false; }
+		if(cunning != that.cunning) { return false; }
+		if(level != that.level) { return false; }
+		if(experience != that.experience) { return false; }
+		if(isDefeated != that.isDefeated) { return false; }
+		if(initiative != that.initiative) { return false; }
+		if(isInvincible != that.isInvincible) { return false; }
+		if(hasMaxPower != that.hasMaxPower) { return false; }
+		if(isSummon != that.isSummon) { return false; }
+		if(conditions != null ? ! conditions.equals(that.conditions) : that.conditions != null) { return false; }
+		if(rand != null ? ! rand.equals(that.rand) : that.rand != null) { return false; }
+		if(name != null ? ! name.equals(that.name) : that.name != null) { return false; }
+		if(armor != null ? ! armor.equals(that.armor) : that.armor != null) { return false; }
+		if(weapon != null ? ! weapon.equals(that.weapon) : that.weapon != null) { return false; }
+		if(armorType != that.armorType) { return false; }
+		if(weaponType != that.weaponType) { return false; }
+		if(creatureType != that.creatureType) { return false; }
+		if(owner != null ? ! owner.equals(that.owner) : that.owner != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = conditions != null ? conditions.hashCode() : 0;
+		result = 31 * result + (rand != null ? rand.hashCode() : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + health;
+		result = 31 * result + maxHealth;
+		result = 31 * result + power;
+		result = 31 * result + cunning;
+		result = 31 * result + level;
+		result = 31 * result + experience;
+		result = 31 * result + (armor != null ? armor.hashCode() : 0);
+		result = 31 * result + (weapon != null ? weapon.hashCode() : 0);
+		result = 31 * result + (isDefeated ? 1 : 0);
+		result = 31 * result + initiative;
+		result = 31 * result + (armorType != null ? armorType.hashCode() : 0);
+		result = 31 * result + (weaponType != null ? weaponType.hashCode() : 0);
+		result = 31 * result + (creatureType != null ? creatureType.hashCode() : 0);
+		result = 31 * result + (isInvincible ? 1 : 0);
+		result = 31 * result + (hasMaxPower ? 1 : 0);
+		result = 31 * result + (isSummon ? 1 : 0);
+		result = 31 * result + (owner != null ? owner.hashCode() : 0);
+		return result;
 	}
 }

@@ -39,12 +39,13 @@ public abstract class Armor implements Serializable
    @Override
    public boolean equals(Object o)
    {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if(this == o) { return true; }
+      if(! (o instanceof Armor)) { return false; }
 
       Armor armor = (Armor) o;
 
-      if (power != armor.power) return false;
+      if(power != armor.power) { return false; }
+      if(enchantment != null ? ! enchantment.equals(armor.enchantment) : armor.enchantment != null) { return false; }
 
       return true;
    }
@@ -53,7 +54,7 @@ public abstract class Armor implements Serializable
    public int hashCode()
    {
       int result = power;
-      result = 31 * result + enchantment.hashCode();
+      result = 31 * result + (enchantment != null ? enchantment.hashCode() : 0);
       return result;
    }
 }

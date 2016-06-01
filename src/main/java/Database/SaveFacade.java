@@ -1,7 +1,6 @@
 package Database;
 
 import Characters.A_Character;
-import Characters.A_Hero;
 import GameState.Mediator;
 import Item.Armor;
 import Item.Consumable;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,14 +30,14 @@ class SaveFacade
 {
 	private static final Logger logger = LoggerFactory.getLogger("SaveFacade");
 
-	static A_Character[] getPartyToSave(Mediator mediator, int[] level)
+	static List<A_Character> getPartyToSave(Mediator mediator, int[] level)
 	{
 		Party party = mediator.giveParty();
 		level[0] = party.getFloorLevel() + 1; //Because we save before starting next level
-		A_Character[] heroes = new A_Hero[4];
-		for(int i = 0; i < heroes.length; i++)
+		List<A_Character> heroes = new ArrayList<>(4);
+		for(int i = 0; i < heroes.size(); i++)
 		{
-			heroes[i] = party.getCharacter(i);
+			heroes.add(party.getCharacter(i));
 		}
 		return heroes;
 	}

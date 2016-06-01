@@ -67,8 +67,7 @@ public class ConsumableTest
     public void testUseForHealing() throws Exception
     {
         //We first need a character-mage's maxHealth is set to 180 initially
-        HeroFactory factory = new HeroFactory();
-        A_Character mage = factory.createCharacter("Mage", "myMage");
+        A_Character mage = HeroFactory.createCharacter("Mage", "myMage");
 
         //This will set the health to be the min of health+power and maxHealth
         //After it's used, mage's health should be set to 105 and isDefeated should be false

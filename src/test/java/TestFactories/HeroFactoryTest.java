@@ -8,27 +8,24 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by SaraPage on 5/20/2016.
  */
 public class HeroFactoryTest
 {
-    private HeroFactory factory;
     private A_Character testHero;
 
     @Before
     public void setUp() throws Exception
     {
-        factory = new HeroFactory();
-        testHero = factory.createCharacter("Warrior", "HeroName");
+        testHero = HeroFactory.createCharacter("Warrior", "HeroName");
     }
 
     @After
     public void tearDown() throws Exception
     {
-        factory = null;
         testHero = null;
     }
 
@@ -43,12 +40,12 @@ public class HeroFactoryTest
 
         //edge cases - null values and invalid input
         exception.expect(NullPointerException.class);
-        factory.createCharacter("Rogue", null);
-        factory.createCharacter(null, "Sneaky");
-        factory.createCharacter(null, null);
+        HeroFactory.createCharacter("Rogue", null);
+        HeroFactory.createCharacter(null, "Sneaky");
+        HeroFactory.createCharacter(null, null);
 
         exception.expect(IllegalArgumentException.class);
-        testHero = factory.createCharacter("Hero", "Sneaky");
+        testHero = HeroFactory.createCharacter("Hero", "Sneaky");
     }
 
 }

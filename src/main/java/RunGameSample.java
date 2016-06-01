@@ -34,7 +34,7 @@ public class RunGameSample
 		}
 		else
 		{
-			Display.displayMessage("Welcome back!");
+			Display.displayMessage("\nWelcome back!\n");
 		}
 
 	    while(gameState.isNotEnd())
@@ -47,13 +47,13 @@ public class RunGameSample
 	private static void showIntro()
 	{
 		Display.displayMessage(PrintMenu.welcome());
-		Display.displayMessage("Press enter to continue...");
+		Display.displayMessage("\nPress enter to continue...\n");
 		TestString.enterInput();
 		Display.displayMessage(PrintMenu.enjoy());
-		Display.displayMessage("Press enter to continue...");
+		Display.displayMessage("\nPress enter to continue...\n");
 		TestString.enterInput();
 		Display.displayMessage(PrintMenu.names());
-		Display.displayMessage("Press enter to continue...");
+		Display.displayMessage("\nPress enter to continue...\n");
 		TestString.enterInput();
 		setFlagShown();
 	}

@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class DatabaseManager
 {
-	private final static File       CWD                = OSUtil.getCurrentDirectory();
 	private static final String     SEPARATOR          = OSUtil.getSeparator();
 	private static final File       EXTERNAL_DIRECTORY = OSUtil.getExternalDirectory();
 	private final static String     RESOURCES          = EXTERNAL_DIRECTORY.getAbsolutePath();
@@ -39,7 +38,7 @@ public class DatabaseManager
 	private              Connection databaseConnector  = null;
 	private              Statement  sqlStatement       = null;
 
-	public DatabaseManager()
+	private DatabaseManager()
 	{
 		try
 		{
@@ -275,7 +274,7 @@ public class DatabaseManager
 	public void saveCharacters(Mediator mediator) throws SQLException, DatabaseManagerException
 	{
 		int[] level = new int[1];
-		A_Character[] heroes = SaveFacade.getPartyToSave(mediator, level);
+		List<A_Character> heroes = SaveFacade.getPartyToSave(mediator, level);
 		int result = 0;
 		sqlStatement = databaseConnector.createStatement();
 

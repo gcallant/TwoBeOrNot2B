@@ -38,7 +38,7 @@ public class LoadGame implements I_State
 		char[] validInputs = {'y', 'Y', 'n', 'N'};
 		boolean loaded = false;
 
-		DatabaseManager databaseManager = new DatabaseManager();
+		DatabaseManager databaseManager = DatabaseManager.getInstance();
 		try
 		{
 			logger.info("Attempting to load party now");
@@ -70,6 +70,7 @@ public class LoadGame implements I_State
 			logger.info("Going to try re-loading");
 			loaded = retryLoad(databaseManager);
 		}
+		databaseManager.closeConnection();
 
 		if(! loaded)
 		{

@@ -54,7 +54,7 @@ public class CreateMember
 
             for(A_Character hero: party)
             {
-                if(hero.getName().equals(new HeroFactory().createCharacter(type, name).getName()))
+                if(hero.getName().equals(HeroFactory.createCharacter(type, name).getName()))
                 {
                     Display.displayMessage("You're already got one such mate in your party- why not try another?" +
                                                    "\nPress Enter");
@@ -69,7 +69,7 @@ public class CreateMember
             return null;
         }
 
-        return new HeroFactory().createCharacter(type, name);
+        return HeroFactory.createCharacter(type, name);
     }
 
     public static A_Character createRandomMember(final List<String> randomNameList)
@@ -92,7 +92,7 @@ public class CreateMember
         name = randomNameList.get(randomNameIndex);
         classType = classes.get(randomClassIndex);
 
-        return new HeroFactory().createCharacter(classType, name);
+        return HeroFactory.createCharacter(classType, name);
     }
 
     public static boolean confirm()

@@ -103,7 +103,7 @@ public class BossBattle implements I_State
         {
             mediator.receiveNewBattle(true);
             heroParty.fixParty();
-            return new Victory(mediator);
+            return new BossVictory(mediator);
         }
 
         return new BossBattle(mediator);

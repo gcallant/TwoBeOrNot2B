@@ -133,7 +133,7 @@ public abstract class A_Nemesis extends A_Character
 
     public int getLevel()
     {
-        return 100*getLevel();
+        return 100*super.getLevel();
     }
 
 }

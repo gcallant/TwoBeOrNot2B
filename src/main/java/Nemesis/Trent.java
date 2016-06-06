@@ -34,7 +34,7 @@ public class Trent extends A_Nemesis
         specialManager.executeRandomAbility(this, monsters, heroes);
         if(rage)
         {
-            new PoisonCloud().executeAbilityRandom(this, heroes, monsters);
+            new PoisonCloud().executeAbilityRandom(this, monsters, heroes);
         }
         return true;
     }

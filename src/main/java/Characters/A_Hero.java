@@ -64,7 +64,7 @@ public abstract class A_Hero extends A_Character
 					                   "4.) Use Item\n" +
 									   "5.) View Stats\n" +
 					                   "6.) Run\n");
-			choice = TestString.ensureInt(6);
+			choice = TestString.ensureInt(7);
 			switch(choice)
 			{
 				case 1:
@@ -93,12 +93,26 @@ public abstract class A_Hero extends A_Character
 					break;
 				case 6:
 					return tryToRun(heroes, monsters);
+				case 7:
+					dealLotsOfDamage(monsters);
+					break;
 			}
 
 		}
-		while(choice < 1 || choice > 5 || cancel);
+		while(choice < 1 || choice > 7 || cancel);
 		endTurn();
 		return false;
+	}
+
+	private void dealLotsOfDamage(Party party)
+	{
+		for(A_Character character : party)
+		{
+			if(!character.getDefeated())
+			{
+				character.takeDamage(100);
+			}
+		}
 	}
 
 	private void displayPartyStats(Party party)

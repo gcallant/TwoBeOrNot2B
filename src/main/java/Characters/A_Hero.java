@@ -6,16 +6,12 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import Utilities.Display;
+import Utilities.TestString;
 
 import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.
- */
-
-
-/*
-Druid class with pet
  */
 public abstract class A_Hero extends A_Character
 {
@@ -68,7 +64,7 @@ public abstract class A_Hero extends A_Character
 					                   "4.) Use Item\n" +
 									   "5.) View Stats\n" +
 					                   "6.) Run\n");
-			choice = ensureInput(input, 5);
+			choice = TestString.ensureInt(6);
 			switch(choice)
 			{
 				case 1:

@@ -42,6 +42,11 @@ public class Ranger extends A_Hero
         return super.getName() + " the Ranger";
     }
 
+    public void upgradeAbilities()
+    {
+        specialManager.upgradeAbilities();
+    }
+
     public void endTurn()
     {
         conditions.decrementBadConditions();

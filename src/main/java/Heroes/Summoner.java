@@ -36,6 +36,11 @@ public class Summoner extends A_Hero
         return specialManager.chooseSpecialAbility(this, heroes, monsters);
     }
 
+    public void upgradeAbilities()
+    {
+        specialManager.upgradeAbilities();
+    }
+
     public String getName()
     {
         return super.getName() + " the Summoner";

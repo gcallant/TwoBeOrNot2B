@@ -84,7 +84,7 @@ public class SaveGame implements I_State
 
 				if(confirmQuit == 'y' || confirmQuit == 'Y')
 				{
-					return new QuitGame(mediator);
+					return new ExitGame(mediator);
 				}
 				else
 				{
@@ -98,7 +98,7 @@ public class SaveGame implements I_State
 
 		if(confirmQuit == 'y' || confirmQuit == 'Y')
 		{
-			return new QuitGame(mediator);
+			return new ExitGame(mediator);
 		}
 		else
 		{

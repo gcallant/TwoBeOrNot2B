@@ -39,6 +39,6 @@ public class EagleEye extends SpecialAbility
 
     public static String description()
     {
-        return "     - Increase the whole parties attack chance for many rounds";
+        return "     - Eagle Eye: Increase the whole parties attack chance for many rounds";
     }
 }

@@ -57,7 +57,6 @@ public class NemesisPartyFactory
 				party = AssassinParty(level, floor);
 				break;
 		}
-
 		return party;
 	}
 
@@ -79,7 +78,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> wereParty = new ArrayList<A_Character>();
 
-		wereParty.add(new Werewolf("Krant, the Dire", 800, 20, 10, new Cloth(level), new Hammer(level), level));
+		wereParty.add(new Werewolf("Krant, the Dire", 600, 15, 10, new Cloth(level), new Hammer(level), level));
 		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 1", level, true, floor));
 		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 2", level, true, floor));
 

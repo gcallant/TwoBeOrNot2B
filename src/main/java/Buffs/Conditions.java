@@ -6,7 +6,7 @@ import Utilities.Display;
 
 import java.util.Random;
 
-/**
+/*
  * Created by Michael on 5/20/2016.
  */
 public class Conditions
@@ -389,6 +389,8 @@ public class Conditions
         str += (buffsManager.isExhausted()) ? " Exhausted": "";
         str += (buffsManager.isStunned()) ? " Stunned": "";
         str += (buffsManager.getPoisonAmount() != 0) ? " Poisoned" : "";
+        str += (buffsManager.isFeared()) ? " Feared": "";
+        str += (buffsManager.getBurnAmount() != 0) ? " Burning" : "";
         str += (buffsManager.getRegenAmount() != 0) ? " Regen" : "";
         str += (buffsManager.isConfused()) ? " Confused" : "";
         str += (buffsManager.getBleedAmount() != 0) ? " Bleeding" : "";

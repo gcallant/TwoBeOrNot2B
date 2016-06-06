@@ -31,7 +31,6 @@ public class OverlordsShout extends SpecialAbility
         }
         for(int x = 0; x < enemies.size(); x++)
         {
-            Display.displayMessage(enemies.getCharacter(x).getName() + " has their damage and attack reduced!");
             enemies.getCharacter(x).getConditions().giveDamageDebuff(debuff, calculateRounds(character), "Overlords Shout");
             enemies.getCharacter(x).getConditions().giveAttackDebuff(debuff, calculateRounds(character), "Overlords Shout");
         }

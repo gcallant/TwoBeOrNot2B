@@ -17,6 +17,6 @@ public class ConfusionDebuff extends BooleanBuffList
 
     public String toString()
     {
-        return "Confused";
+        return " has been Confused";
     }
 }

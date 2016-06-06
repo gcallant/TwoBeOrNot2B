@@ -17,6 +17,6 @@ public class StunnedDebuff extends BooleanBuffList
 
     public String toString()
     {
-        return "Stun";
+        return " has been Stunned";
     }
 }

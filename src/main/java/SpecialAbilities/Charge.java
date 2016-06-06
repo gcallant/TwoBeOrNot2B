@@ -23,7 +23,6 @@ public class Charge extends SpecialAbility
 
     private void abilityExecution(A_Character character)
     {
-        Display.displayMessage(character.getName() + " is charging up an attack!");
         character.getConditions().giveChargeBuff(3.5, 2, "Charge");
         character.getConditions().giveExhaustedDebuff(2, "Charge");
     }

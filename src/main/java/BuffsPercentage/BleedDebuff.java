@@ -22,6 +22,6 @@ public class BleedDebuff extends BuffList
 
     public String toString()
     {
-        return "Bleed";
+        return " is bleeding!";
     }
 }

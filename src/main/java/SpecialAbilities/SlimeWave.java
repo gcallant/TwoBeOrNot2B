@@ -29,7 +29,6 @@ public class SlimeWave extends SpecialAbility
         {
             if(getAffectedChance(character, "cunning", choiceToStrike))
             {
-                Display.displayMessage(choiceToStrike.getName() + " has been exhausted!");
                 choiceToStrike.getConditions().giveExhaustedDebuff(Math.max(1, calculateRounds(character)/3), "Slime Wave");
             }
         }

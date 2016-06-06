@@ -131,4 +131,9 @@ public abstract class A_Nemesis extends A_Character
 
     public abstract boolean specialAbility(Random rand, Party heroes, Party monsters);
 
+    public int getLevel()
+    {
+        return 100*getLevel();
+    }
+
 }

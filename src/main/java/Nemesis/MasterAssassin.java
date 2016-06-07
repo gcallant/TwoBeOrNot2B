@@ -8,6 +8,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.*;
+import Utilities.Display;
 
 import java.util.Random;
 
@@ -38,7 +39,7 @@ public class MasterAssassin extends A_Nemesis
 
     public void startRage(Random rand, Party heroes, Party monsters)
     {
-
+        Display.displayMessage("\n\nTHE ASSASSIN MOVES INTO THE SHADOWS\n\n");
         new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
         new PoisonBomb().executeAbilityRandom(this, monsters, heroes);
         specialManager.executeRandomAbility(this, monsters, heroes);

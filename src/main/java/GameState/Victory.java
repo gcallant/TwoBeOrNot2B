@@ -2,6 +2,7 @@ package GameState;
 
 import Factories.GenerateItems;
 import PartyManagement.Party;
+import Utilities.Display;
 import Utilities.TestString;
 
 import java.util.Random;
@@ -46,6 +47,8 @@ public class Victory implements I_State
             generateItems.generateItem(heroes, mediator.giveCurrentLevel());
         }
 
+        Display.displayMessage("Press enter to continue");
+        TestString.enterInput();
         return new MapExploration(mediator);
     }
 

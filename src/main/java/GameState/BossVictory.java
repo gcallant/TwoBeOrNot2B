@@ -2,6 +2,7 @@ package GameState;
 
 import Factories.GenerateItems;
 import PartyManagement.Party;
+import Utilities.Display;
 import Utilities.TestString;
 
 import java.util.Random;
@@ -35,17 +36,20 @@ public class BossVictory implements I_State
         Party enemies = mediator.giveEnemies();
         Party heroes = mediator.giveParty();
 
-        heroes.gainExperience(enemies.calculatePartyLevel());
-        GenerateItems generateItems = new GenerateItems();
-
-        Random rand = new Random();
-        int currentLevel = mediator.giveCurrentLevel();
-        int totalItems = rand.nextInt(mediator.giveCurrentLevel()*2 + 1);
-        for(int x = 0; x < totalItems; x++)
+        if(mediator.giveCurrentLevel() < 3)
         {
-            generateItems.generateItem(heroes, mediator.giveCurrentLevel());
-        }
+            heroes.gainExperience(enemies.calculatePartyLevel());
+            GenerateItems generateItems = new GenerateItems();
 
+            Random rand = new Random();
+            int currentLevel = mediator.giveCurrentLevel();
+            int totalItems = rand.nextInt(mediator.giveCurrentLevel() * 2 + 1);
+            for (int x = 0; x < totalItems; x++) {
+                generateItems.generateItem(heroes, mediator.giveCurrentLevel());
+            }
+            Display.displayMessage("Press enter to continue");
+            TestString.enterInput();
+        }
         return new SaveGame(mediator);
     }
 

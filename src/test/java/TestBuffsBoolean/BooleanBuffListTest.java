@@ -37,7 +37,7 @@ public class BooleanBuffListTest
     //Since I cannot access the list from BooleanBuffList,
     //the only way to test addBuff() and decrementList() is by checking its size.
     @Test
-    public void addBuff() throws Exception
+    public void testAddBuff() throws Exception
     {
         buffList.addBuff(rounds, name);
         assertEquals(1, buffList.size());
@@ -45,7 +45,7 @@ public class BooleanBuffListTest
     }
 
     @Test
-    public void decrementList() throws Exception
+    public void testDecrementList() throws Exception
     {
         //The buff will only be removed from the list when the rounds of the buff is 0
 
@@ -64,7 +64,7 @@ public class BooleanBuffListTest
     }
 
     @Test
-    public void isInEffect() throws Exception
+    public void testIsInEffect() throws Exception
     {
         buffList.addBuff(rounds, name);
         assertTrue(buffList.isInEffect());

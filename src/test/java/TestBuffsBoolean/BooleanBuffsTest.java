@@ -29,7 +29,7 @@ public class BooleanBuffsTest
     }
 
     @Test
-    public void decrement() throws Exception
+    public void testDecrement() throws Exception
     {
         //decrement() returns true only when rounds is 0
         assertFalse(buff.decrement());
@@ -38,13 +38,13 @@ public class BooleanBuffsTest
     }
 
     @Test
-    public void getSource() throws Exception
+    public void testGetSource() throws Exception
     {
         assertEquals(source, buff.getSource());
     }
 
     @Test
-    public void replace() throws Exception
+    public void testReplace() throws Exception
     {
         //If rounds is replaced with 1 and then decrement() is called, it should return true
         buff.replace(1);

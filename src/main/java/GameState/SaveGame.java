@@ -38,7 +38,7 @@ public class SaveGame implements I_State
 		char [] validInputs = {'y', 'Y', 'n', 'N'};
 		boolean saved = false;
 
-		DatabaseManager databaseManager = DatabaseManager.getInstance();
+		DatabaseManager databaseManager = new DatabaseManager();
 		try
 		{
 			logger.info("Attempting to save characters");
@@ -98,7 +98,7 @@ public class SaveGame implements I_State
 
 		if(confirmQuit == 'y' || confirmQuit == 'Y')
 		{
-			return new QuitGame(mediator);
+			return new ExitGame(mediator);
 		}
 		else
 		{

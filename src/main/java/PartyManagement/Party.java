@@ -58,7 +58,7 @@ public class Party implements Iterable<A_Character>
         {
             throw new DatabaseManagerException().notLoaded("Inventory was null", inventory);
         }
-        if(level < 2)
+        if(level < 1)
         {
             throw new DatabaseManagerException().notLoaded("Level is less than start level", null);
         }

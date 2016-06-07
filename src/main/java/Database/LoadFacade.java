@@ -29,6 +29,7 @@ public class LoadFacade
 	private static       Inventory         inventory = null;
 	private static       Mediator          mediator  = null;
 	private static int floor;
+	private        int currentHealth;
 
 	LoadFacade(Mediator mediator)
 	{
@@ -70,6 +71,7 @@ public class LoadFacade
 		logger.info("Creating new party to load");
 		Party party = new Party(heroes, inventory, floor);
 		logger.info("Party created- now handing it off to mediator");
+		mediator.receiveCurrentLevel(floor);
 		mediator.receiveParty(party);
 	}
 
@@ -131,6 +133,17 @@ public class LoadFacade
 		if(floor > 0)
 		{
 			this.floor = floor;
+		}
+	}
+
+	public void setCurrentHealth(int currentHealth)
+	{
+		if(heroes != null)
+		{
+			for(A_Character hero : heroes)
+			{
+				hero.setHealth(currentHealth);
+			}
 		}
 	}
 }

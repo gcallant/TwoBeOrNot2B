@@ -33,9 +33,9 @@ class SaveFacade
 	static List<A_Character> getPartyToSave(Mediator mediator, int[] level)
 	{
 		Party party = mediator.giveParty();
-		level[0] = party.getFloorLevel() + 1; //Because we save before starting next level
+		level[0] = party.getFloorLevel(); //Because we save before starting next level
 		List<A_Character> heroes = new ArrayList<>(4);
-		for(int i = 0; i < heroes.size(); i++)
+		for(int i = 0; i < party.getCharacterParty().size(); i++)
 		{
 			heroes.add(party.getCharacter(i));
 		}

@@ -9,7 +9,6 @@ import Item.Weapon;
 import PartyManagement.Inventory;
 import Utilities.Display;
 import Utilities.OSUtil;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sqlite.SQLiteConfig;
@@ -38,7 +37,7 @@ public class DatabaseManager
 	private              Connection databaseConnector  = null;
 	private              Statement  sqlStatement       = null;
 
-	private DatabaseManager()
+	public DatabaseManager()
 	{
 		try
 		{
@@ -82,11 +81,11 @@ public class DatabaseManager
 		}
 	}
 
-	@Contract(pure = true)
-	public static DatabaseManager getInstance()
-	{
-		return DatabaseSingle.INSTANCE;
-	}
+	//	@Contract(pure = true)
+	//	public static DatabaseManager getInstance()
+	//	{
+	//		return DatabaseSingle.INSTANCE;
+	//	}
 
 	private void createTables() throws DatabaseManagerException
 	{
@@ -109,6 +108,7 @@ public class DatabaseManager
 					              " LEVEL INT NOT NULL," +
 					              " EXPERIENCE INT NOT NULL," +
 					              " HEALTH INT NOT NULL," +
+					              " MAXHEALTH INT NOT NULL, " +
 					              " POWER INT NOT NULL," +
 					              " CUNNING INT NOT NULL," +
 					              " ARMOR INT NOT NULL," +
@@ -206,7 +206,7 @@ public class DatabaseManager
 		List<A_Character> heroes = new ArrayList<>(4);
 		sqlStatement = databaseConnector.createStatement();
 		ResultSet resultSet = sqlStatement.executeQuery("SELECT * FROM CHARACTERS;");
-		int i = 0, floor = 0, level = 0, experience = 0;
+		int i = 0, floor = 0, level = 0, experience = 0, health = 0;
 
 		while(resultSet.next())
 		{
@@ -214,13 +214,14 @@ public class DatabaseManager
 			logger.info("In load party, loaded {} from db", name);
 			level = resultSet.getInt("LEVEL");
 			experience = resultSet.getInt("EXPERIENCE");
-			int health = resultSet.getInt("HEALTH");
+			health = resultSet.getInt("HEALTH");
+			int maxHealth = resultSet.getInt("MAXHEALTH");
 			int power = resultSet.getInt("POWER");
 			int cunning = resultSet.getInt("CUNNING");
 			int armorPower = resultSet.getInt("ARMOR");
 			int weaponPower = resultSet.getInt("WEAPON");
 			floor = resultSet.getInt("FLOOR");
-			A_Character loadedCharacter = LoadFacade.makeCharacterFromLoad(name, health, power, cunning, armorPower,
+			A_Character loadedCharacter = LoadFacade.makeCharacterFromLoad(name, maxHealth, power, cunning, armorPower,
 			                                                               weaponPower);
 			heroes.add(loadedCharacter);
 			i++;
@@ -232,6 +233,7 @@ public class DatabaseManager
 		LoadFacade loadFacade = new LoadFacade(mediator);
 		loadFacade.setHeroes(heroes);
 		loadFacade.setFloor(floor);
+		loadFacade.setCurrentHealth(health);
 		LoadFacade.setLevelOfHeroes(level);
 		LoadFacade.setExperienceOfHeroes(experience);
 	}
@@ -307,6 +309,7 @@ public class DatabaseManager
 	{
 		String name = hero.getName();
 		int health = hero.getHealth();
+		int maxHealth = hero.getMaxHealth();
 		int level = hero.getLevel();
 		int experience = hero.getExperience();
 		int power = hero.getPower();
@@ -314,9 +317,10 @@ public class DatabaseManager
 		int armorPower = (hero.getArmor().getPower() - hero.getArmor().getBase()); //Adds base back on load
 		int weaponPower = (hero.getWeapon().getPower() - hero.getWeapon().getBase());
 		int floor = floorLevel[0];
-		String concatValue = "'" + name + "'" + ", " + level + ", " + experience + ", " + health + ", " + power + ", " +
+		String concatValue = "'" + name + "'" + ", " + level + ", " + experience + ", " + health + ", " + maxHealth + "," +
+				                       " " + power + ", " +
 				                       cunning + ", " + armorPower + ", " + weaponPower + "," + floor;
-		String statement = "REPLACE INTO CHARACTERS(NAME, LEVEL, EXPERIENCE, HEALTH, POWER, CUNNING, ARMOR, WEAPON, " +
+		String statement = "REPLACE INTO CHARACTERS(NAME, LEVEL, EXPERIENCE, HEALTH, MAXHEALTH, POWER, CUNNING, ARMOR, WEAPON, " +
 				                     "FLOOR)" + "VALUES (" + concatValue + ");";
 		logger.info("Attempting to insert hero {} into db", hero.getName());
 		return sqlStatement.executeUpdate(statement);
@@ -382,8 +386,8 @@ public class DatabaseManager
 		}
 	}
 
-	private static class DatabaseSingle
-	{
-		private static final DatabaseManager INSTANCE = new DatabaseManager();
-	}
+	//	private static class DatabaseSingle
+	//	{
+	//		private static final DatabaseManager INSTANCE = new DatabaseManager();
+	//	}
 }

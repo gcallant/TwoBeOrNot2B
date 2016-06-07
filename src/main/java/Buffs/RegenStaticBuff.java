@@ -27,4 +27,9 @@ public class RegenStaticBuff extends BuffList
     {
         return "RegenStatic";
     }
+
+    public String description()
+    {
+        return "regen";
+    }
 }

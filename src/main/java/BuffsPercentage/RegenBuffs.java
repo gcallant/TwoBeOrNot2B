@@ -24,4 +24,9 @@ public class RegenBuffs extends BuffList
     {
         return " is regening their health!";
     }
+
+    public String description()
+    {
+        return "regen";
+    }
 }

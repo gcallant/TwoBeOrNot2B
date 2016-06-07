@@ -195,7 +195,7 @@ public class Inventory
         }
         else
         {
-            retArray[0] = choice;
+            retArray[0] = choice - 1;
             retArray[1] = 0;
             return retArray;
         }

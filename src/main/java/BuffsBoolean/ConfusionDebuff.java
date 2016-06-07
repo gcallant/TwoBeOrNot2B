@@ -19,4 +19,14 @@ public class ConfusionDebuff extends BooleanBuffList
     {
         return " has been Confused";
     }
+
+    public String discription()
+    {
+        return "confused";
+    }
+
+    public String description()
+    {
+        return "confusion";
+    }
 }

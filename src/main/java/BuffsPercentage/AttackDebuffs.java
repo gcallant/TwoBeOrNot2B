@@ -24,4 +24,9 @@ public class AttackDebuffs extends BuffList
     {
         return " attack has been decreased!";
     }
+
+    public String description()
+    {
+        return "attack decrease";
+    }
 }

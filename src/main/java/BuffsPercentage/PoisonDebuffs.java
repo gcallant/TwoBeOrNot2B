@@ -24,4 +24,9 @@ public class PoisonDebuffs extends BuffList
     {
         return " has been poisoned!";
     }
+
+    public String description()
+    {
+        return "poison";
+    }
 }

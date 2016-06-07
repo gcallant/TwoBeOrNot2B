@@ -32,7 +32,7 @@ public class Werewolf extends A_Nemesis
     {
         Display.displayMessage("\n\nTHE WEREWOLF HOWL PIERCES YOUR EARS\n\n");
         getConditions().giveRegenBuff(1.1, 5, "Self");
-        new MassBleed().executeAbilityRandom(this, heroes, monsters);
+        new MassBleed().executeAbilityRandom(this, monsters, heroes);
         specialAbility(rand, heroes, monsters);
 
     }

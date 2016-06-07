@@ -53,7 +53,7 @@ public abstract class BooleanBuffList
         {
             if(aBuff.decrement())
             {
-                Display.displayMessage(name + "'s " + toString() + " has ended from " + aBuff.getSource());
+                Display.displayMessage(name + "'s " + description() + " has ended from " + aBuff.getSource());
                 checks.add(aBuff);
             }
         }
@@ -81,4 +81,6 @@ public abstract class BooleanBuffList
     }
 
     public abstract boolean isInEffect();
+
+    public abstract String description();
 }

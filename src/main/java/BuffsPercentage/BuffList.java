@@ -32,7 +32,7 @@ public abstract class BuffList
         {
             if(aBuff.getSource().equals(source))
             {
-                Display.displayMessage(source + "'s " + toString() + " has been refreshed on " + name);
+                Display.displayMessage(source + "'s " + description() + " has been refreshed on " + name);
                 aBuff.replace(buff, rounds);
                 found = true;
             }
@@ -52,7 +52,7 @@ public abstract class BuffList
         {
             if(aBuff.decrement())
             {
-                Display.displayMessage(name + "'s " + toString() + " has ended from " + aBuff.getSource());
+                Display.displayMessage(name + "'s " + description() + " has ended from " + aBuff.getSource());
                 checks.add(aBuff);
             }
         }
@@ -79,4 +79,6 @@ public abstract class BuffList
     }
 
     public abstract double getAmount();
+
+    public abstract String description();
 }

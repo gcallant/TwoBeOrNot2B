@@ -24,4 +24,9 @@ public class AttackBuffs extends BuffList
     {
         return " attack has been increased!";
     }
+
+    public String description()
+    {
+        return "attack increase";
+    }
 }

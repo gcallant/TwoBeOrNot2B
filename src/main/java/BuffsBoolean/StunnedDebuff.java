@@ -19,4 +19,9 @@ public class StunnedDebuff extends BooleanBuffList
     {
         return " has been Stunned";
     }
+
+    public String description()
+    {
+        return "stun";
+    }
 }

@@ -45,8 +45,8 @@ public class Orc extends A_Monster
 
 	public void levelUp()
 	{
-		upgradepower();
-		upgradepower();
+		upgradePower();
+		upgradePower();
 		upgradeHealth();
 		upgradeHealth();
 		upgradeHealth();

@@ -22,6 +22,25 @@ public abstract class SpecialAbility
     public abstract boolean executeAbility(A_Character character, Party allies, Party enemies);
     public abstract boolean executeAbilityRandom(A_Character character, Party allies, Party enemies);
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof SpecialAbility)) { return false; }
+
+        SpecialAbility that = (SpecialAbility) o;
+
+        if(rand != null ? ! rand.equals(that.rand) : that.rand != null) { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return rand != null ? rand.hashCode() : 0;
+    }
+
     protected A_Character chooseTarget(Party party)
     {
         int choices = 1;
@@ -37,6 +56,7 @@ public abstract class SpecialAbility
 
         if(choice == choices)
         {
+
             return null;
         }
         return party.getCharacter(choice - 1);

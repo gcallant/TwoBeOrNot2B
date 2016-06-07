@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 
-    <character name="Cloud" health="10" power="7" cunning="2" speed="7" armor="2" weapon="5"/>
+    <character name="Cloud the Warrior" level ="1" experience ="0" health="250" power="10" cunning="5" armor="1" weapon="1" floor="1"/>
+    <character name="Barrett the Warrior" level ="1" experience ="0" health="250" power="10" cunning="5" armor="1" weapon="1" floor="1"/>
+    <character name="Tiffa the Ranger" level ="1" experience ="0" health="200" power="8" cunning="9" armor="1" weapon="1" floor="1"/>
+    <character name="Yuffie the Rogue" level ="1" experience ="0" health="200" power="6" cunning="10" armor="1" weapon="1" floor="1"/>
+    <character name="Aris the Mage" level ="1" experience ="0" health="180" power="5" cunning="6" armor="1" weapon="1" floor="1"/>
+    <character name="RedXIII the Defender" level ="1" experience ="0" health="300" power="7" cunning="7" armor="1" weapon="1" floor="1"/>
+    <character name="Cid the Paladin" level ="1" experience ="0" health="300" power="8" cunning="4" armor="1" weapon="1" floor="1"/>
 
 </dataset>

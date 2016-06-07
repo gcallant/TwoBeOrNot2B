@@ -35,11 +35,10 @@ public class BattleTest
 
     private void createCharacters()
     {
-        HeroFactory heroFactory = new HeroFactory();
         List<A_Character> heroes = new ArrayList<A_Character>();
-        heroes.add(heroFactory.createCharacter("Warrior", "Warrior 1"));
-        heroes.add(heroFactory.createCharacter("Mage", "Mage 1"));
-        heroes.add(heroFactory.createCharacter("Paladin", "Paladin 1"));
+        heroes.add(HeroFactory.createCharacter("Warrior", "Warrior 1"));
+        heroes.add(HeroFactory.createCharacter("Mage", "Mage 1"));
+        heroes.add(HeroFactory.createCharacter("Paladin", "Paladin 1"));
         mediator.receiveParty(new Party(heroes));
 
         MonsterFactory monsterFactory = new MonsterFactory();

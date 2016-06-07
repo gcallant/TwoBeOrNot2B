@@ -41,6 +41,7 @@ public abstract class BooleanBuffList
         if(!found)
         {
             list.add(new BooleanBuffs(rounds, source));
+
         }
     }
 
@@ -59,6 +60,7 @@ public abstract class BooleanBuffList
 
         for(BooleanBuffs aBuff : checks)
         {
+            Display.displayMessage(name + toString());
             list.remove(aBuff);
         }
     }

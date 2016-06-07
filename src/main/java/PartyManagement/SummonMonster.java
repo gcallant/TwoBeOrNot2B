@@ -45,6 +45,7 @@ public class SummonMonster
         String type = names.get(choice -1);
 
         A_Character character = new MonsterFactory().createMonster(type, type + " summon", owner.getLevel(), true, partyToAdd.getFloorLevel());
+        Display.displayMessage(owner.getName() + " summoned a " + type + "!");
         character.setSummon(owner);
         owner.getConditions().summon();
 

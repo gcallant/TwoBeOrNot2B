@@ -9,14 +9,13 @@ import PartyManagement.Party;
 import SpecialAbilities.MeteorShower;
 import SpecialAbilities.OwlsInsight;
 import SpecialAbilities.SpecialManager;
-import com.google.common.base.Objects;
 
 /**
  * Created by SaraPage on 4/29/2016.
  */
 public class Mage extends A_Hero
 {
-	SpecialManager specialManager;
+	private SpecialManager specialManager;
 	public Mage(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
 	{
 		super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon);
@@ -52,13 +51,22 @@ public class Mage extends A_Hero
 		if(this == o) { return true; }
 		if(! (o instanceof Mage)) { return false; }
 		if(! super.equals(o)) { return false; }
+
 		Mage mage = (Mage) o;
-		return Objects.equal(specialManager, mage.specialManager);
+
+		if(specialManager != null ? ! specialManager.equals(mage.specialManager) : mage.specialManager != null)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Objects.hashCode(super.hashCode(), specialManager);
+		int result = super.hashCode();
+		result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+		return result;
 	}
 }

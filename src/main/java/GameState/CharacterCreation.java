@@ -101,8 +101,8 @@ public class CharacterCreation implements I_State
         while(party.size() < 4)
         {
             Display.displayMessage("Choose character number " + (party.size() + 1) + ":");
-            A_Character toAdd = CreateMember.createMember();
-            if(toAdd != null)
+	        A_Character toAdd = CreateMember.createMember(party);
+	        if(toAdd != null)
             {
                 party.add(toAdd);
             }

@@ -58,7 +58,7 @@ public class Party implements Iterable<A_Character>
         {
             throw new DatabaseManagerException().notLoaded("Inventory was null", inventory);
         }
-        if(level < 2)
+        if(level < 1)
         {
             throw new DatabaseManagerException().notLoaded("Level is less than start level", null);
         }
@@ -307,14 +307,16 @@ public class Party implements Iterable<A_Character>
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if(this == o) { return true; }
+        if(! (o instanceof Party)) { return false; }
 
         Party party = (Party) o;
 
-        if (partyLevel != party.partyLevel) return false;
-        if (!characterParty.equals(party.characterParty)) return false;
-        if (!inventory.equals(party.inventory)) return false;
+        if(partyLevel != party.partyLevel) { return false; }
+        if(floorLevel != party.floorLevel) { return false; }
+        if(characterParty != null ? ! characterParty.equals(party.characterParty) : party.characterParty != null)
+        { return false; }
+        if(inventory != null ? ! inventory.equals(party.inventory) : party.inventory != null) { return false; }
 
         return true;
     }
@@ -322,9 +324,10 @@ public class Party implements Iterable<A_Character>
     @Override
     public int hashCode()
     {
-        int result = characterParty.hashCode();
-        result = 31 * result + inventory.hashCode();
+        int result = characterParty != null ? characterParty.hashCode() : 0;
+        result = 31 * result + (inventory != null ? inventory.hashCode() : 0);
         result = 31 * result + partyLevel;
+        result = 31 * result + floorLevel;
         return result;
     }
 }

@@ -70,7 +70,7 @@ public class SaveGame implements I_State
 
 		if(! saved)
 		{
-			System.out.println("\nSorry your game was not saved- would you like to try again? [Y/n]:");
+			Display.displayMessage("\nSorry your game was not saved- would you like to try again? [Y/n]:");
 			char confirmNotSaved = TestString.ensureChar(validInputs);
 
 			if(confirmNotSaved == 'y' || confirmNotSaved == 'Y')
@@ -79,12 +79,12 @@ public class SaveGame implements I_State
 			}
 			else
 			{
-				System.out.println("\nOkay. Would you like to exit? [y/N]:");
+				Display.displayMessage("\nOkay. Would you like to exit? [y/N]:");
 				char confirmQuit = TestString.ensureChar(validInputs);
 
 				if(confirmQuit == 'y' || confirmQuit == 'Y')
 				{
-					return new QuitGame(mediator);
+					return new ExitGame(mediator);
 				}
 				else
 				{
@@ -98,7 +98,7 @@ public class SaveGame implements I_State
 
 		if(confirmQuit == 'y' || confirmQuit == 'Y')
 		{
-			return new QuitGame(mediator);
+			return new ExitGame(mediator);
 		}
 		else
 		{
@@ -112,26 +112,26 @@ public class SaveGame implements I_State
 		{
 			databaseManager.saveCharacters(mediator);
 			databaseManager.saveInventory(mediator);
+			return true;
 		}
 		catch(IOException e)
 		{
 			logger.debug("Tried to resave game- failed", e);
-			System.out.println("Save game failed- game is *not* saved.");
+			Display.displayMessage("Save game failed- game is *not* saved.");
 			return false;
 		}
 		catch(SQLException e)
 		{
 			logger.debug("Tried to resave game- failed", e);
-			System.out.println("Save game failed- game is *not* saved.");
+			Display.displayMessage("Save game failed- game is *not* saved.");
 			return false;
 		}
 		catch(DatabaseManagerException e)
 		{
 			logger.debug("Tried to resave game- failed", e);
-			System.out.println("Save game failed- game is *not* saved.");
+			Display.displayMessage("Save game failed- game is *not* saved.");
 			return false;
 		}
-		return true;
 	}
 
 	@Override

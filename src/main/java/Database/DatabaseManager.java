@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ import java.util.List;
  */
 public class DatabaseManager
 {
-	private final static File       CWD                = OSUtil.getCurrentDirectory();
 	private static final String     SEPARATOR          = OSUtil.getSeparator();
 	private static final File       EXTERNAL_DIRECTORY = OSUtil.getExternalDirectory();
 	private final static String     RESOURCES          = EXTERNAL_DIRECTORY.getAbsolutePath();
@@ -58,9 +58,9 @@ public class DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("We had a sql exception, couldn't load", e);
 			Display.displayMessage("Could not connect to database\n" + DATABASE +
-					                     "\nSaving (and/or) loading will be unsupported.");
+					                         "\nSaving (and/or) loading will be unsupported.");
 			closeConnection();
 		}
 		catch(DatabaseManagerException e)
@@ -75,17 +75,17 @@ public class DatabaseManager
 			{
 				e1.printStackTrace();
 				Display.displayMessage("Could not create necessary tables in database\n" + DATABASE +
-						                     "\nSaving (and/or) loading will be unsupported.");
-				logger.trace("Tried recreate, could not", e, e1);
+						                         "\nSaving (and/or) loading will be unsupported.");
+				logger.trace("Tried to recreate tables, could not", e, e1);
 			}
 		}
 	}
 
-//	@Contract(pure = true)
-//	public static DatabaseManager getInstance()
-//	{
-//		return DatabaseSingle.INSTANCE;
-//	}
+	//	@Contract(pure = true)
+	//	public static DatabaseManager getInstance()
+	//	{
+	//		return DatabaseSingle.INSTANCE;
+	//	}
 
 	private void createTables() throws DatabaseManagerException
 	{
@@ -97,7 +97,7 @@ public class DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("Could not create new sqlStatement in tables", e);
 		}
 
 		String statement = "";
@@ -105,7 +105,10 @@ public class DatabaseManager
 		{
 			statement = "CREATE TABLE IF NOT EXISTS CHARACTERS(" +
 					              "NAME TEXT PRIMARY KEY NOT NULL," +
+					              " LEVEL INT NOT NULL," +
+					              " EXPERIENCE INT NOT NULL," +
 					              " HEALTH INT NOT NULL," +
+					              " MAXHEALTH INT NOT NULL, " +
 					              " POWER INT NOT NULL," +
 					              " CUNNING INT NOT NULL," +
 					              " ARMOR INT NOT NULL," +
@@ -119,7 +122,7 @@ public class DatabaseManager
 			}
 			catch(SQLException e)
 			{
-				e.printStackTrace();
+				logger.debug("Could not execute statement to create Character table", e);
 			}
 
 			if(result > 0)
@@ -129,35 +132,6 @@ public class DatabaseManager
 			else
 			{
 				logger.info("Found existing CHARACTERS table- using it");
-			}
-		}
-
-		{
-			statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
-					              //					              "ITEMID INT PRIMARY KEY NOT NULL," +
-					              //					              " ITEMTYPE TEXT NOT NULL," +
-					              "WEAPON BLOB NOT NULL," +
-					              " ARMOR BLOB NOT NULL," +
-					              " CONSUMABLE BLOB NOT NULL);";
-			//					              " OWNER TEXT NOT NULL," +
-			//					              " FOREIGN KEY(OWNER) REFERENCES CHARACTERS(NAME));";
-			try
-			{
-				logger.info("Trying attempt on table INVENTORY");
-				result = sqlStatement.executeUpdate(statement);
-			}
-			catch(SQLException e)
-			{
-				e.printStackTrace();
-			}
-
-			if(result > 0)
-			{
-				logger.info("INVENTORY table created successfully");
-			}
-			else
-			{
-				logger.info("Found an existing INVENTORY table- using it");
 			}
 		}
 
@@ -182,6 +156,35 @@ public class DatabaseManager
 		}
 	}
 
+	private void createInventoryTable()
+	{
+		int result = 0;
+
+		String statement = "CREATE TABLE IF NOT EXISTS INVENTORY(" +
+				              " WEAPON BLOB NOT NULL," +
+				              " ARMOR BLOB NOT NULL," +
+				              " CONSUMABLE BLOB NOT NULL);";
+		try
+		{
+			sqlStatement = databaseConnector.createStatement();
+			logger.info("Trying attempt on table INVENTORY");
+			result = sqlStatement.executeUpdate(statement);
+		}
+		catch(SQLException e)
+		{
+			logger.debug("Could not execute statement to create Inventory table", e);
+		}
+
+		if(result > 0)
+		{
+			logger.info("INVENTORY table created successfully");
+		}
+		else
+		{
+			logger.info("Found an existing INVENTORY table- using it");
+		}
+	}
+
 	private boolean tableIsPresent(String tableName)
 	{
 		try
@@ -193,40 +196,46 @@ public class DatabaseManager
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+			logger.debug("Error checking if table is present in db", e);
 		}
 		return false;
 	}
 
-	public void loadParty(Mediator mediator) throws SQLException
+	public void loadParty(Mediator mediator) throws SQLException, DatabaseManagerException
 	{
-		A_Character[] heroes = new A_Character[4];
+		List<A_Character> heroes = new ArrayList<>(4);
 		sqlStatement = databaseConnector.createStatement();
 		ResultSet resultSet = sqlStatement.executeQuery("SELECT * FROM CHARACTERS;");
-		int i = 0, floor = 0;
+		int i = 0, floor = 0, level = 0, experience = 0, health = 0;
 
-		while(resultSet.next() && i < 4)
+		while(resultSet.next())
 		{
 			String name = resultSet.getString("NAME");
 			logger.info("In load party, loaded {} from db", name);
-			int health = resultSet.getInt("HEALTH");
+			level = resultSet.getInt("LEVEL");
+			experience = resultSet.getInt("EXPERIENCE");
+			health = resultSet.getInt("HEALTH");
+			int maxHealth = resultSet.getInt("MAXHEALTH");
 			int power = resultSet.getInt("POWER");
 			int cunning = resultSet.getInt("CUNNING");
 			int armorPower = resultSet.getInt("ARMOR");
 			int weaponPower = resultSet.getInt("WEAPON");
 			floor = resultSet.getInt("FLOOR");
-			A_Character loadedCharacter = SaveFactory.makeCharacterFromLoad(name, health, power, cunning, armorPower,
-			                                                                weaponPower);
-			heroes[i] = loadedCharacter;
+			A_Character loadedCharacter = LoadFacade.makeCharacterFromLoad(name, maxHealth, power, cunning, armorPower,
+			                                                               weaponPower);
+			heroes.add(loadedCharacter);
 			i++;
 		}
 		logger.info("Successfully loaded all characters in party");
 
 		resultSet.close();
 		sqlStatement.close();
-		SaveFactory saveFactory = new SaveFactory(mediator);
-		saveFactory.setHeroes(heroes);
-		saveFactory.setFloor(floor);
+		LoadFacade loadFacade = new LoadFacade(mediator);
+		loadFacade.setHeroes(heroes);
+		loadFacade.setFloor(floor);
+		loadFacade.setCurrentHealth(health);
+		LoadFacade.setLevelOfHeroes(level);
+		LoadFacade.setExperienceOfHeroes(experience);
 	}
 
 	public void loadInventory(Mediator mediator)
@@ -235,26 +244,39 @@ public class DatabaseManager
 		sqlStatement = databaseConnector.createStatement();
 		ResultSet resultSet = sqlStatement.executeQuery("SELECT * FROM INVENTORY;");
 
+		logger.info("Attempting to load armor from inventory");
 		InputStream armorBlob = resultSet.getBinaryStream("ARMOR");
+
+		logger.info("Attempting to load weapons from inventory");
 		InputStream weaponBlob = resultSet.getBinaryStream("WEAPON");
+
+		logger.info("Attempting to load consumables from inventory");
 		InputStream consumableBlob = resultSet.getBinaryStream("CONSUMABLE");
+
+		logger.info("Loaded all inventory from db");
 
 		resultSet.close();
 		sqlStatement.close();
 
-		List<Armor> armorList = SaveFactory.getListFromBlob(armorBlob);
-		List<Weapon> weapons = SaveFactory.getListFromBlob(weaponBlob);
-		List<Consumable> consumables = SaveFactory.getListFromBlob(consumableBlob);
+		logger.info("Converting armor to a list");
+		List<Armor> armorList = LoadFacade.getListFromBlob(armorBlob);
 
+		logger.info("Converting weapons to a list");
+		List<Weapon> weapons = LoadFacade.getListFromBlob(weaponBlob);
+
+		logger.info("Converting consumables to a list");
+		List<Consumable> consumables = LoadFacade.getListFromBlob(consumableBlob);
+
+		logger.info("All inventory converted to lists- creating inventory");
 		Inventory inventory = new Inventory(weapons, armorList, consumables);
-		SaveFactory.setInventory(inventory);
-		SaveFactory.createPartyToLoad();
+		LoadFacade.setInventory(inventory);
+		LoadFacade.createPartyToLoad();
 	}
 
 	public void saveCharacters(Mediator mediator) throws SQLException, DatabaseManagerException
 	{
 		int[] level = new int[1];
-		A_Character[] heroes = SaveFactory.getPartyToSave(mediator, level);
+		List<A_Character> heroes = SaveFacade.getPartyToSave(mediator, level);
 		int result = 0;
 		sqlStatement = databaseConnector.createStatement();
 
@@ -277,25 +299,29 @@ public class DatabaseManager
 	}
 
 	/**
-	 * @param hero character to save
-	 * @param level
+	 * @param hero       character to save
+	 * @param floorLevel
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML) statements or (2) 0 for SQL statements
 	 * that return nothing
 	 * @throws SQLException
 	 */
-	private int insertIntoCharacters(A_Character hero, int[] level) throws SQLException
+	private int insertIntoCharacters(A_Character hero, int[] floorLevel) throws SQLException
 	{
 		String name = hero.getName();
 		int health = hero.getHealth();
-		int power = hero.getHealth();
+		int maxHealth = hero.getMaxHealth();
+		int level = hero.getLevel();
+		int experience = hero.getExperience();
+		int power = hero.getPower();
 		int cunning = hero.getCunning();
 		int armorPower = (hero.getArmor().getPower() - hero.getArmor().getBase()); //Adds base back on load
 		int weaponPower = (hero.getWeapon().getPower() - hero.getWeapon().getBase());
-		int floor = level[0];
-		String concatValue = "'" + name + "'" + ", " + health + ", " + power + ", " + cunning +
-				                       ", " + armorPower + ", " + weaponPower + "," + floor;
-		String statement = "REPLACE INTO CHARACTERS(NAME, HEALTH, POWER, CUNNING, ARMOR, WEAPON, FLOOR)" +
-				                     "VALUES (" + concatValue + ");";
+		int floor = floorLevel[0];
+		String concatValue = "'" + name + "'" + ", " + level + ", " + experience + ", " + health + ", " + maxHealth + "," +
+				                       " " + power + ", " +
+				                       cunning + ", " + armorPower + ", " + weaponPower + "," + floor;
+		String statement = "REPLACE INTO CHARACTERS(NAME, LEVEL, EXPERIENCE, HEALTH, MAXHEALTH, POWER, CUNNING, ARMOR, WEAPON, " +
+				                     "FLOOR)" + "VALUES (" + concatValue + ");";
 		logger.info("Attempting to insert hero {} into db", hero.getName());
 		return sqlStatement.executeUpdate(statement);
 	}
@@ -303,11 +329,14 @@ public class DatabaseManager
 	public void saveInventory(Mediator mediator) throws IOException, SQLException
 	{
 		PreparedStatement preparedStatement = null;
-		Blob[] inventoryBlob = SaveFactory.getSerializedInventoryToSaveAsBlobs(mediator);
+		sqlStatement = databaseConnector.createStatement();
+		Blob[] inventoryBlob = SaveFacade.getSerializedInventoryToSaveAsBlobs(mediator);
 		Blob armorBlob = inventoryBlob[0];
 		Blob weaponBlob = inventoryBlob[1];
 		Blob consumableBlob = inventoryBlob[2];
 
+		dropInventoryTable();
+		createInventoryTable();
 		String statement = "REPLACE INTO INVENTORY(WEAPON, ARMOR, CONSUMABLE)" +
 				                     "VALUES (?, ?, ?);";
 
@@ -319,6 +348,22 @@ public class DatabaseManager
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		logger.info("Successfully saved inventory");
+	}
+
+	private void dropInventoryTable() throws SQLException
+	{
+		logger.info("Attempting to drop inventory table...");
+		sqlStatement = databaseConnector.createStatement();
+		String statement = "DROP TABLE IF EXISTS INVENTORY;";
+		int result = sqlStatement.executeUpdate(statement);
+		if(result > 0)
+		{
+			logger.info("Successfully dropped inventory table");
+		}
+		else
+		{
+			logger.info("Inventory table didn't exist");
+		}
 	}
 
 	public void closeConnection()
@@ -341,8 +386,8 @@ public class DatabaseManager
 		}
 	}
 
-//	private static class DatabaseSingle
-//	{
-//		private static final DatabaseManager INSTANCE = new DatabaseManager();
-//	}
+	//	private static class DatabaseSingle
+	//	{
+	//		private static final DatabaseManager INSTANCE = new DatabaseManager();
+	//	}
 }

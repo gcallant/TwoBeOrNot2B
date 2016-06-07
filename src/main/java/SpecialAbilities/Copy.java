@@ -30,7 +30,7 @@ public class Copy extends SpecialAbility
 
     private void abilityExecution(A_Character character, Party allies, Party enemies)
     {
-        Display.displayMessage(character.getName() + " made copies of themselves!!");
+        Display.displayMessage(character.getName() + " copied herself!!");
         A_Character copy1, copy2;
         int level = enemies.getCharacter(0).getLevel();
 

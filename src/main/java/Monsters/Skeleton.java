@@ -41,9 +41,9 @@ public class Skeleton extends A_Monster
 	}
 
 	public void levelUp() {
-		upgradepower();
-		upgradepower();
-		upgradepower();
+		upgradePower();
+		upgradePower();
+		upgradePower();
 		upgradeHealth();
 		upgradeHealth();
 	}

@@ -5,6 +5,8 @@ import Exceptions.DatabaseManagerException;
 import Item.*;
 import Utilities.Display;
 import Utilities.TestString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +21,7 @@ public class Inventory
     private List<Armor>           armors;
     private List<Consumable>      consumables;
     private int                   totalSize;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Inventory()
     {
@@ -56,6 +59,7 @@ public class Inventory
             this.consumables = consumables;
         }
         this.totalSize = weapons.size() + armors.size() + consumables.size();
+        logger.info("Successfully loaded new Inventory object from saved game");
     }
 
 
@@ -342,15 +346,19 @@ public class Inventory
     @Override
     public boolean equals(Object o)
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if(this == o) { return true; }
+        if(! (o instanceof Inventory)) { return false; }
 
         Inventory inventory = (Inventory) o;
 
-        if (totalSize != inventory.totalSize) return false;
-        if (!weapons.equals(inventory.weapons)) return false;
-        if (!armors.equals(inventory.armors)) return false;
-        if (!consumables.equals(inventory.consumables)) return false;
+        if(totalSize != inventory.totalSize) { return false; }
+        if(weapons != null ? ! weapons.equals(inventory.weapons) : inventory.weapons != null) { return false; }
+        if(armors != null ? ! armors.equals(inventory.armors) : inventory.armors != null) { return false; }
+        if(consumables != null ? ! consumables.equals(inventory.consumables) : inventory.consumables != null)
+        {
+            return false;
+        }
+        if(logger != null ? ! logger.equals(inventory.logger) : inventory.logger != null) { return false; }
 
         return true;
     }
@@ -358,10 +366,11 @@ public class Inventory
     @Override
     public int hashCode()
     {
-        int result = weapons.hashCode();
-        result = 31 * result + armors.hashCode();
-        result = 31 * result + consumables.hashCode();
+        int result = weapons != null ? weapons.hashCode() : 0;
+        result = 31 * result + (armors != null ? armors.hashCode() : 0);
+        result = 31 * result + (consumables != null ? consumables.hashCode() : 0);
         result = 31 * result + totalSize;
+        result = 31 * result + (logger != null ? logger.hashCode() : 0);
         return result;
     }
 }

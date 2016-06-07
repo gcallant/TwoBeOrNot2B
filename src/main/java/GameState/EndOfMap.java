@@ -7,7 +7,7 @@ import Utilities.TestString;
  */
 public class EndOfMap implements I_State
 {
-    Mediator mediator;
+    private Mediator mediator;
 
     public EndOfMap(Mediator mediator)
     {

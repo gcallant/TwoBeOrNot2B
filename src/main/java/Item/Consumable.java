@@ -40,12 +40,13 @@ public abstract class Consumable implements Serializable
    @Override
    public boolean equals(Object o)
    {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if(this == o) { return true; }
+      if(! (o instanceof Consumable)) { return false; }
 
       Consumable that = (Consumable) o;
 
-      if (power != that.power) return false;
+      if(power != that.power) { return false; }
+      if(rounds != that.rounds) { return false; }
 
       return true;
    }
@@ -53,6 +54,8 @@ public abstract class Consumable implements Serializable
    @Override
    public int hashCode()
    {
-      return power;
+      int result = power;
+      result = 31 * result + rounds;
+      return result;
    }
 }

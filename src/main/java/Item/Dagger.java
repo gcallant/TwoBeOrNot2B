@@ -32,15 +32,15 @@ public class Dagger extends Weapon
 	@Override
 	public boolean equals(Object o)
 	{
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
+		if(this == o) { return true; }
+		if(! (o instanceof Dagger)) { return false; }
+		if(! super.equals(o)) { return false; }
 
 		Dagger dagger = (Dagger) o;
 
-		if (base != dagger.base) return false;
-		if (damageType != dagger.damageType) return false;
-		if (weaponType != dagger.weaponType) return false;
+		if(base != dagger.base) { return false; }
+		if(damageType != dagger.damageType) { return false; }
+		if(weaponType != dagger.weaponType) { return false; }
 
 		return true;
 	}
@@ -48,9 +48,9 @@ public class Dagger extends Weapon
 	@Override
 	public int hashCode()
 	{
-		int result = damageType.hashCode();
+		int result = damageType != null ? damageType.hashCode() : 0;
 		result = 31 * result + base;
-		result = 31 * result + weaponType.hashCode();
+		result = 31 * result + (weaponType != null ? weaponType.hashCode() : 0);
 		return result;
 	}
 }

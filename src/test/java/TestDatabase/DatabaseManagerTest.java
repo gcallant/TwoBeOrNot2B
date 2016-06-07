@@ -2,14 +2,15 @@
 //
 //import Characters.A_Character;
 //import Database.DatabaseManager;
-//import Factories.CharacterFactory;
-//import Factories.HeroFactory;
-//import Logging.LoggingManager;
 //import Exceptions.OSException;
+//import Factories.HeroFactory;
+//import Utilities.Display;
 //import Utilities.OSUtil;
 //import org.junit.After;
 //import org.junit.Before;
 //import org.junit.Test;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 //import org.unitils.dbunit.annotation.DataSet;
 //
 //import java.io.File;
@@ -25,7 +26,9 @@
 //@DataSet( {"DatabaseManagerCharacterTest.xml"})
 //public class DatabaseManagerTest
 //{
-//	private static final String GAME_NAME          = "DCrawler";
+//	private static final String GAME_NAME          = "DungeonCrawler";
+//	private static final String SEPARATOR          = OSUtil.getSeparator();
+//	private static final Logger logger             = LoggerFactory.getLogger("RunGameSample");
 //	private static       File   EXTERNAL_DIRECTORY = null;
 //	DatabaseManager databaseManager = null;
 //
@@ -33,14 +36,14 @@
 //	public void setUp() throws Exception
 //	{
 //		createExternalDirectory();
-//		databaseManager = new DatabaseManager();
+//		databaseManager = DatabaseManager.getInstance();
 //	}
 //
 //	private static void createExternalDirectory()
 //	{
 //		try
 //		{
-//			File parent = OSUtil.getParentDirectory();
+//			File parent = OSUtil.getCurrentDirectory();
 //			EXTERNAL_DIRECTORY = OSUtil.createNewDirectory(parent, GAME_NAME);
 //			OSUtil.setExternalDirectory(EXTERNAL_DIRECTORY);
 //
@@ -48,7 +51,7 @@
 //		catch(OSException e)
 //		{
 //			e.printStackTrace();
-//			System.out.println("Could not make new directory- program must exit");
+//			Display.displayMessage("Could not make new directory- program must exit");
 //			System.exit(- 1);
 //		}
 //	}
@@ -56,8 +59,13 @@
 //	@Test
 //	public void testCharacter()
 //	{
-//		HeroFactory characterFactory = new HeroFactory();
-//		A_Character character = characterFactory.createCharacter("Warrior", "Cloud");
+//		A_Character cloud = HeroFactory.createCharacter("Warrior", "Cloud");
+//		A_Character barrett = HeroFactory.createCharacter("Warrior", "Barrett");
+//		A_Character tiffa = HeroFactory.createCharacter("Ranger", "Tiffa");
+//		A_Character yuffie = HeroFactory.createCharacter("Rogue", "Yuffie");
+//		A_Character aris = HeroFactory.createCharacter("Mage", "Aris");
+//		A_Character red = HeroFactory.createCharacter("Defender", "RedXIII");
+//		A_Character cid = HeroFactory.createCharacter("Paladin", "Cid");
 //	}
 //
 //	@After

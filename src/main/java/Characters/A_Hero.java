@@ -6,16 +6,12 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import Utilities.Display;
+import Utilities.TestString;
 
 import java.util.Scanner;
 
 /**
  * Created by SaraPage on 4/29/2016.
- */
-
-
-/*
-Druid class with pet
  */
 public abstract class A_Hero extends A_Character
 {
@@ -30,7 +26,6 @@ public abstract class A_Hero extends A_Character
 
 	public boolean takeAction(Party heroes, Party monsters)
 	{
-		Scanner input = new Scanner(System.in);
 		int choice;
 		boolean cancel, noTurn, noSpecial;
 
@@ -68,11 +63,11 @@ public abstract class A_Hero extends A_Character
 					                   "4.) Use Item\n" +
 									   "5.) View Stats\n" +
 					                   "6.) Run\n");
-			choice = ensureInput(input, 5);
+			choice = TestString.ensureInt(7);
 			switch(choice)
 			{
 				case 1:
-					cancel = doAttack(heroes, monsters, input);
+					cancel = doAttack(heroes, monsters);
 					break;
 				case 2:
 					conditions.defend();
@@ -97,12 +92,26 @@ public abstract class A_Hero extends A_Character
 					break;
 				case 6:
 					return tryToRun(heroes, monsters);
+				case 7:
+					dealLotsOfDamage(monsters);
+					break;
 			}
 
 		}
-		while(choice < 1 || choice > 5 || cancel);
+		while(choice < 1 || choice > 7 || cancel);
 		endTurn();
 		return false;
+	}
+
+	private void dealLotsOfDamage(Party party)
+	{
+		for(A_Character character : party)
+		{
+			if(!character.getDefeated())
+			{
+				character.takeDamage(100);
+			}
+		}
 	}
 
 	private void displayPartyStats(Party party)
@@ -155,7 +164,7 @@ public abstract class A_Hero extends A_Character
 		return false;
 	}
 
-	private boolean doAttack(Party heroes, Party monsters, Scanner input)
+	private boolean doAttack(Party heroes, Party monsters)
 	{
 		int index = 1;
 		int toAttack;
@@ -166,7 +175,7 @@ public abstract class A_Hero extends A_Character
 		}
 
 		Display.displayMessage(index + ".) cancel");
-		toAttack = ensureInput(input, index);
+		toAttack = TestString.ensureInt(index);
 
 		if(toAttack >= index)
 		{

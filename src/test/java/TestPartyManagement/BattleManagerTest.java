@@ -12,8 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by SaraPage on 5/29/2016.
  */
@@ -29,11 +27,10 @@ public class BattleManagerTest
 
     private void createPartiesAndManager()
     {
-        HeroFactory factory1 = new HeroFactory();
         List<A_Character> list1 = new ArrayList<A_Character>();
-        list1.add(factory1.createCharacter("Warrior", "Warrior 1"));
-        list1.add(factory1.createCharacter("Rogue", "Rogue 1"));
-        list1.add(factory1.createCharacter("Paladin", "Paladin 1"));
+        list1.add(HeroFactory.createCharacter("Warrior", "Warrior 1"));
+        list1.add(HeroFactory.createCharacter("Rogue", "Rogue 1"));
+        list1.add(HeroFactory.createCharacter("Paladin", "Paladin 1"));
 
         MonsterFactory factory2 = new MonsterFactory();
         List<A_Character> list2 = new ArrayList<A_Character>();

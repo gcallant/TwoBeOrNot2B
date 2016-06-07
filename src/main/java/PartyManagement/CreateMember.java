@@ -18,18 +18,18 @@ import java.util.Scanner;
 public class CreateMember
 {
     @Nullable
-    public static A_Character createMember()
+    public static A_Character createMember(List<A_Character> party)
     {
         String name = "";
-        List<String> names = new ArrayList<String>();
+        List<String> classes = new ArrayList<String>();
 
-        names.add("Warrior");
-        names.add("Mage");
-        names.add("Rogue");
-        names.add("Paladin");
-        names.add("Ranger");
-        names.add("Summoner");
-        names.add("Defender");
+        classes.add("Warrior");
+        classes.add("Mage");
+        classes.add("Rogue");
+        classes.add("Paladin");
+        classes.add("Ranger");
+        classes.add("Summoner");
+        classes.add("Defender");
 
         Scanner kb = new Scanner(System.in);
 
@@ -42,8 +42,8 @@ public class CreateMember
         Display.displayMessage("6) " + Summoner.Information());
         Display.displayMessage("7) " + Defender.Information());
 
-        int choice = TestString.ensureInt(names.size());
-        String type = names.get(choice - 1);
+        int choice = TestString.ensureInt(classes.size());
+        String type = classes.get(choice - 1);
 
         Display.displayMessage("You chose a " + type);
         Display.displayMessage("Enter the name for your character or 'cancel' to cancel: ");
@@ -51,6 +51,17 @@ public class CreateMember
         while(name.isEmpty())
         {
             name = kb.nextLine();
+
+            for(A_Character hero: party)
+            {
+                if(hero.getName().equals(HeroFactory.createCharacter(type, name).getName()))
+                {
+                    Display.displayMessage("You're already got one such mate in your party- why not try another?" +
+                                                   "\nPress Enter");
+                    TestString.enterInput();
+                    return null;
+                }
+            }
         }
 
         if(name.toLowerCase().equals("cancel"))
@@ -58,7 +69,7 @@ public class CreateMember
             return null;
         }
 
-        return new HeroFactory().createCharacter(type, name);
+        return HeroFactory.createCharacter(type, name);
     }
 
     public static A_Character createRandomMember(final List<String> randomNameList)
@@ -81,7 +92,7 @@ public class CreateMember
         name = randomNameList.get(randomNameIndex);
         classType = classes.get(randomClassIndex);
 
-        return new HeroFactory().createCharacter(classType, name);
+        return HeroFactory.createCharacter(classType, name);
     }
 
     public static boolean confirm()

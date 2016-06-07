@@ -1,0 +1,37 @@
+<launch4jConfig>
+    <headerType>console</headerType>
+    <outfile>target/DungeonCrawler.exe</outfile>
+    <jar>target/DungeonCrawler-1.0-jar.jar</jar>
+    <errTitle>DungeonCrawler</errTitle>
+    <downloadUrl>http://java.com/download</downloadUrl>
+    <priority>normal</priority>
+    <icon>${project.basedir}/src/main/resources/ewuicon.jpg</icon>
+    <classPath>
+        <mainClass>RunGameSample</mainClass>
+        <addDependencies>true</addDependencies>
+        <preCp>anything</preCp>
+    </classPath>
+    <singleInstance>
+        <mutexName>text</mutexName>
+        <windowTitle>Dungeon Crawler</windowTitle>
+    </singleInstance>
+    <jre>
+        <minVersion>1.8.0</minVersion>
+        <opts>
+            <opt>-Djava.endorsed.dirs=</opt>
+        </opts>
+    </jre>
+    <versionInfo>
+        <fileVersion>1.0.0.0</fileVersion>
+        <txtFileVersion>version</txtFileVersion>
+        <fileDescription>An awesome game created by a group of amazing people at EWU. We are: Sara, Greig, Michael and
+            Grant - we are Two (*b) || !(*(2 + b))
+        </fileDescription>
+        <copyright>2016 Two (*b) || !(*(2 + b)) Software</copyright>
+        <productVersion>1.0.0.0</productVersion>
+        <txtProductVersion>version</txtProductVersion>
+        <productName>DungeonCrawler</productName>
+        <internalName>DungeonCrawler</internalName>
+        <originalFilename>DungeonCrawler.exe</originalFilename>
+    </versionInfo>
+</launch4jConfig>

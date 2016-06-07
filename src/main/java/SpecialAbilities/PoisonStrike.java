@@ -34,7 +34,6 @@ public class PoisonStrike extends SpecialAbility
         Display.displayMessage(character.getName() + " used Poison Strike on " + choiceToStrike.getName());
         if(getAffectedChance(character, "cunning", choiceToStrike))
         {
-            Display.displayMessage(choiceToStrike.getName() + " has been poisoned!");
             choiceToStrike.getConditions().givePoisonDebuff(1.0 + (character.getCunning() * .01), calculateRounds(character), "Poison Strike");
         }
     }

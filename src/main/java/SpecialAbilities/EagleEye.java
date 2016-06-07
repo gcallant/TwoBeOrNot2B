@@ -28,7 +28,7 @@ public class EagleEye extends SpecialAbility
 
         for(int x = 0; x < allies.size(); x++)
         {
-            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character)*2, "War Cry");
+            allies.getCharacter(x).getConditions().giveAttackBuff(buff, calculateRounds(character)*2, "Eagle Eye");
         }
     }
 
@@ -39,6 +39,6 @@ public class EagleEye extends SpecialAbility
 
     public static String description()
     {
-        return "     - Increase the whole parties attack chance for many rounds";
+        return "     - Eagle Eye: Increase the whole parties attack chance for many rounds";
     }
 }

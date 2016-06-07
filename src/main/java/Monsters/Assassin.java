@@ -49,11 +49,11 @@ public class Assassin extends A_Monster
 
     public void levelUp()
     {
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
-        upgradepower();
-        upgradepower();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
+        upgradePower();
+        upgradePower();
         upgradeHealth();
     }
 

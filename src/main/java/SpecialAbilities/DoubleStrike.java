@@ -35,7 +35,10 @@ public class DoubleStrike extends SpecialAbility
         Display.displayMessage(character.getName() + " used double strike on " + choiceToStrike.getName());
 
         character.attack(choiceToStrike);
-        character.attack(choiceToStrike);
+        if(!character.getDefeated())
+        {
+            character.attack(choiceToStrike);
+        }
     }
 
     public String toString()

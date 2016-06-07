@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class MasterAssassin extends A_Nemesis
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
     public MasterAssassin(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
         super(name, health, power, cunning, ArmorType.Light, armor, WeaponType.Staff, weapon, level, CreatureType.Humanoid);
@@ -29,11 +29,11 @@ public class MasterAssassin extends A_Nemesis
     {
         upgradeHealth();
         upgradeHealth();
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
-        upgradepower();
-        upgradepower();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
+        upgradePower();
+        upgradePower();
     }
 
     public void startRage(Random rand, Party heroes, Party monsters)

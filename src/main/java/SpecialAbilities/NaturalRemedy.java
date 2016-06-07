@@ -26,7 +26,6 @@ public class NaturalRemedy extends SpecialAbility
         Display.displayMessage(character.getName() + " used natural remedy!");
         for(int x = 0; x < allies.size(); x++)
         {
-            Display.displayMessage(allies.getCharacter(x).getName() + " is regenning their health!");
             allies.getCharacter(x).getConditions().giveRegenBuff(1.06, calculateRounds(character), "Natural Remedy");
         }
     }
@@ -38,6 +37,6 @@ public class NaturalRemedy extends SpecialAbility
 
     public static String description()
     {
-        return "     - Natural Remedy: Grants the caster regeneration for a few rounds";
+        return "     - Natural Remedy: Grants the caster and his allies regeneration for a few rounds";
     }
 }

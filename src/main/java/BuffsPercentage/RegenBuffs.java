@@ -22,6 +22,6 @@ public class RegenBuffs extends BuffList
 
     public String toString()
     {
-        return "Regen";
+        return " is regening their health!";
     }
 }

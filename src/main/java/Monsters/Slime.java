@@ -45,10 +45,10 @@ public class Slime extends A_Monster
         upgradeHealth();
         upgradeHealth();
         upgradeHealth();
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
-        upgradecunning();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
+        upgradeCunning();
     }
 
     public int getLevel() {

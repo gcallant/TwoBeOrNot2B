@@ -43,4 +43,27 @@ public class Defender extends A_Hero
     {
         specialManager.upgradeAbilities();
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) { return true; }
+        if(! (o instanceof Defender)) { return false; }
+        if(! super.equals(o)) { return false; }
+
+        Defender defender = (Defender) o;
+
+        if(specialManager != null ? ! specialManager.equals(defender.specialManager) : defender.specialManager != null)
+        { return false; }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = super.hashCode();
+        result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+        return result;
+    }
 }

@@ -8,14 +8,13 @@ import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.SpecialManager;
 import SpecialAbilities.StealLife;
-import com.google.common.base.Objects;
 
 /**
  * Created by Michael on 5/24/2016.
  */
 public class LifeThief extends A_Hero
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
     public LifeThief(String name, int health, int power, int cunning, Armor armor, Weapon weapon)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Light, weapon);
@@ -45,13 +44,21 @@ public class LifeThief extends A_Hero
         if(this == o) { return true; }
         if(! (o instanceof LifeThief)) { return false; }
         if(! super.equals(o)) { return false; }
+
         LifeThief lifeThief = (LifeThief) o;
-        return Objects.equal(specialManager, lifeThief.specialManager);
+
+        if(specialManager != null ? ! specialManager.equals(lifeThief.specialManager) : lifeThief.specialManager !=
+                                                                                                null)
+        { return false; }
+
+        return true;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hashCode(super.hashCode(), specialManager);
+        int result = super.hashCode();
+        result = 31 * result + (specialManager != null ? specialManager.hashCode() : 0);
+        return result;
     }
 }

@@ -55,6 +55,7 @@
                             <outfile>target/DungeonCrawler.exe</outfile>
                             <jar>target/DungeonCrawler-1.0-jar.jar</jar>
                             <errTitle>DungeonCrawler</errTitle>
+                            <downloadUrl>http://java.com/download</downloadUrl>
                             <classPath>
                                 <mainClass>RunGameSample</mainClass>
                                 <addDependencies>true</addDependencies>
@@ -68,14 +69,14 @@
                             </jre>
                             <versionInfo>
                                 <fileVersion>1.0.0.0</fileVersion>
-                                <txtFileVersion>txt file version?</txtFileVersion>
-                                <fileDescription>a description</fileDescription>
-                                <copyright>my copyright</copyright>
+                                <txtFileVersion>version</txtFileVersion>
+                                <fileDescription>An awesome game created by a group of amazing people at EWU. We are: Sara, Greig, Michael and Grant - we are Two (*b) || !(*(2 + b))</fileDescription>
+                                <copyright>2016 Two (*b) || !(*(2 + b)) Software</copyright>
                                 <productVersion>1.0.0.0</productVersion>
-                                <txtProductVersion>txt product version</txtProductVersion>
+                                <txtProductVersion>version</txtProductVersion>
                                 <productName>DungeonCrawler</productName>
-                                <internalName>dc</internalName>
-                                <originalFilename>original.exe</originalFilename>
+                                <internalName>DungeonCrawler</internalName>
+                                <originalFilename>DungeonCrawler.exe</originalFilename>
                             </versionInfo>
                         </configuration>
                     </execution>

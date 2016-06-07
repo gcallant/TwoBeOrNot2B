@@ -2,6 +2,7 @@ package GameState;
 
 import DungeonGeneration.GenerateDungeon;
 import Utilities.TestString;
+import javafx.scene.input.KeyCombination;
 
 import java.util.Random;
 
@@ -33,7 +34,7 @@ public class MapExploration implements I_State
     public String display()
     {
         myMap = mediator.giveMap();
-        return myMap.printCharacter() + "\nSelect a direction\nu (Up)\nd (Down)\nr (Right)\nl (Left)\nOr m for the Menu";
+        return myMap.printCharacter() + "\nSelect a direction\nw (Up)\ns (Down)\nd (Right)\na (Left)\nOr m for the Menu";
     }
 
     public I_State moveDirection(String command)
@@ -67,10 +68,10 @@ public class MapExploration implements I_State
     public I_State execute()
     {
         char[] validInputs = new char[11];
-        validInputs[0] = 'u';
-        validInputs[1] = 'd';
-        validInputs[2] = 'r';
-        validInputs[3] = 'l';
+        validInputs[0] = 'w';
+        validInputs[1] = 's';
+        validInputs[2] = 'd';
+        validInputs[3] = 'a';
         validInputs[4] = 'm';
         validInputs[5] = 'n';
         validInputs[6] = 'e';
@@ -79,15 +80,16 @@ public class MapExploration implements I_State
         validInputs[9] = 'z';
         validInputs[10] = '|';
         char command = TestString.ensureChar(validInputs);
+
         switch(command)
         {
-            case 'u':
+            case 'w':
                 return moveDirection("up");
-            case 'd':
+            case 's':
                 return moveDirection("down");
-            case 'r':
+            case 'd':
                 return moveDirection("right");
-            case 'l':
+            case 'a':
                 return moveDirection("left");
             case 'm':
                 return new InGameMenu(mediator);

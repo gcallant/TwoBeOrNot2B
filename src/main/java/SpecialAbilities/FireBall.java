@@ -36,7 +36,6 @@ public class FireBall extends SpecialAbility
             character.preformAttack(enemies.getCharacter(x));
             if(getAffectedChance(character, "Power", enemies.getCharacter(x)))
             {
-                Display.displayMessage(enemies.getCharacter(x).getName() + " is burning!");
                 enemies.getCharacter(x).getConditions().giveBurnDebuff(character.getPower(), calculateRounds(character), "Fireball");
             }
         }

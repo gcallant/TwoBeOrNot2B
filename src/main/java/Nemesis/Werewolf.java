@@ -8,6 +8,7 @@ import Item.Weapon;
 import Item.WeaponType;
 import PartyManagement.Party;
 import SpecialAbilities.BloodSense;
+import SpecialAbilities.MassBleed;
 import SpecialAbilities.SpecialManager;
 import Utilities.Display;
 
@@ -18,7 +19,7 @@ import java.util.Random;
  */
 public class Werewolf extends A_Nemesis
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
     public Werewolf(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
         super(name, health, power, cunning, ArmorType.Medium, armor, WeaponType.Medium, weapon, level, CreatureType.Animal);
@@ -30,7 +31,8 @@ public class Werewolf extends A_Nemesis
     public void startRage(Random rand, Party heroes, Party monsters)
     {
         Display.displayMessage("\n\nTHE WEREWOLF HOWL PIERCES YOUR EARS\n\n");
-        getConditions().giveRegenBuff(1.2, 5, "Self");
+        getConditions().giveRegenBuff(1.1, 5, "Self");
+        new MassBleed().executeAbilityRandom(this, heroes, monsters);
         specialAbility(rand, heroes, monsters);
 
     }

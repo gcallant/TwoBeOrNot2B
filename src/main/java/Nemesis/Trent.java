@@ -20,7 +20,7 @@ import java.util.Random;
  */
 public class Trent extends A_Nemesis
 {
-    SpecialManager specialManager;
+    private SpecialManager specialManager;
 
     public Trent(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
     {
@@ -34,7 +34,7 @@ public class Trent extends A_Nemesis
         specialManager.executeRandomAbility(this, monsters, heroes);
         if(rage)
         {
-            new PoisonCloud().executeAbilityRandom(this, heroes, monsters);
+            new PoisonCloud().executeAbilityRandom(this, monsters, heroes);
         }
         return true;
     }

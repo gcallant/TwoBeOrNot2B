@@ -106,7 +106,7 @@ public abstract class A_Character
 		{
 			return;
 		}
-
+		total = conditions.reduceDamage(total, false);
 		this.health -= Math.max(total, 0);
 		if(health <= 0)
 		{
@@ -178,7 +178,6 @@ public abstract class A_Character
 			totalDamage += rand.nextInt(ConstantValues.RandomDamage.getValue());
 			totalDamage = conditions.addDamage(totalDamage);
 			totalDamage = conditions.calculateDamage(totalDamage);
-			totalDamage = toAttack.conditions.reduceDamage(totalDamage, false);
 		}
 		else
 		{

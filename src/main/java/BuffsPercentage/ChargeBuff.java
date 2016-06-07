@@ -22,6 +22,6 @@ public class ChargeBuff extends BuffList
 
     public String toString()
     {
-        return "Charge";
+        return " is charging up an attack!";
     }
 }

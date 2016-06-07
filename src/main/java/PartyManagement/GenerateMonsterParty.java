@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class GenerateMonsterParty
 {
-    MonsterFactory factory;
+    private MonsterFactory factory;
     private int                numOfDifficultyLevels;
     private List<List<String>> listsOfMonsters;
 

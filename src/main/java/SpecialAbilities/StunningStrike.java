@@ -45,7 +45,6 @@ public class StunningStrike extends SpecialAbility
             character.preformAttack(choiceToStrike);
             if(getAffectedChance(character, "Power", choiceToStrike))
             {
-                Display.displayMessage(choiceToStrike.getName() + " was stunned!");
                 choiceToStrike.getConditions().giveStunnedDebuff(calculateRounds(character),"Stunning Strike");
             }
         }

@@ -22,6 +22,6 @@ public class AttackBuffs extends BuffList
 
     public String toString()
     {
-        return "Attack buff";
+        return " attack has been increased!";
     }
 }

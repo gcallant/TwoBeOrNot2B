@@ -22,6 +22,6 @@ public class BurnDebuff extends BuffList
 
     public String toString()
     {
-        return "Burn";
+        return " is on fire!";
     }
 }

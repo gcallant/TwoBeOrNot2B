@@ -34,7 +34,6 @@ public class BackStab extends SpecialAbility
         Display.displayMessage(character.getName() + " used back stab on " + choiceToStrike.getName());
         if(character.attack(choiceToStrike) && getAffectedChance(character, "cunning", choiceToStrike))
         {
-            Display.displayMessage(choiceToStrike.getName() + " has been exhausted!");
             choiceToStrike.getConditions().giveExhaustedDebuff(Math.max(1, calculateRounds(character)/3), "Back Stab");
         }
     }

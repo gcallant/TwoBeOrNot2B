@@ -18,7 +18,7 @@ import java.util.Random;
  */
 public class Necromancer extends A_Nemesis
 {
-	SpecialManager specialManager;
+	private SpecialManager specialManager;
 
 	public Necromancer(String name, int health, int power, int cunning, Armor armor, Weapon weapon, int level)
 	{

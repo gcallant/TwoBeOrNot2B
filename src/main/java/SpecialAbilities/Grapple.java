@@ -35,7 +35,7 @@ public class Grapple extends SpecialAbility
         character.getConditions().tempDamage(character.getPower());
 
         Display.displayMessage(character.getName() + " used grapple on " + choiceToStrike.getName() + ". " + choiceToStrike.getName() +
-                            " is stunned and takes " + character.getPower()*2 + " damage!");
+                            " takes " + character.getPower()*2 + " damage!");
 
         choiceToStrike.getConditions().giveStunnedDebuff(2,"Grapple");
         choiceToStrike.takeDamage(character.getPower()*2);

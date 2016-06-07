@@ -17,6 +17,6 @@ public class FearDebuff extends BooleanBuffList
 
     public String toString()
     {
-        return "Fear";
+        return " has been Feared";
     }
 }

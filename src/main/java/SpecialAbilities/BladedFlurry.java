@@ -63,7 +63,7 @@ public class BladedFlurry extends SpecialAbility
 
         if((choiceToStrike.getHealth() == choiceToStrike.getMaxHealth()) || choiceToStrike.getConditions().hasBadCondition())
         {
-            character.getConditions().tempDamage(character.getPower()*5);
+            character.getConditions().tempDamage(character.getPower()*4);
             character.getConditions().tempAttack(character.getCunning());
         }
 

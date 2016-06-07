@@ -13,11 +13,6 @@ import java.util.Scanner;
 /**
  * Created by SaraPage on 4/29/2016.
  */
-
-
-/*
-Druid class with pet
- */
 public abstract class A_Hero extends A_Character
 {
 	public A_Hero(String name, int health, int power, int cunning, ArmorType armorType,
@@ -62,13 +57,13 @@ public abstract class A_Hero extends A_Character
 		{
 			cancel = false;
 			Display.displayMessage("It's " + getName() + "'s turn!\n" + battleDisplay());
-			Display.displayMessage("1.) Attack\n" +
+			System.out.print("1.) Attack\n" +
 					                   "2.) Defend\n" +
 					                   "3.) Use Special\n" +
 					                   "4.) Use Item\n" +
 									   "5.) View Stats\n" +
 					                   "6.) Run\n");
-			choice = TestString.ensureInt(6);
+			choice = TestString.ensureInt(7);
 			switch(choice)
 			{
 				case 1:
@@ -97,12 +92,26 @@ public abstract class A_Hero extends A_Character
 					break;
 				case 6:
 					return tryToRun(heroes, monsters);
+				case 7:
+					dealLotsOfDamage(monsters);
+					break;
 			}
 
 		}
-		while(choice < 1 || choice > 5 || cancel);
+		while(choice < 1 || choice > 7 || cancel);
 		endTurn();
 		return false;
+	}
+
+	private void dealLotsOfDamage(Party party)
+	{
+		for(A_Character character : party)
+		{
+			if(!character.getDefeated())
+			{
+				character.takeDamage(100);
+			}
+		}
 	}
 
 	private void displayPartyStats(Party party)

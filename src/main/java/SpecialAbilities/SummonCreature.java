@@ -11,7 +11,7 @@ public class SummonCreature extends SpecialAbility
 {
     public static String description()
     {
-        return "     - Summon a dire wolf, undead cleric, or a skeleton";
+        return "     - Summon a dire wolf, undead cleric, skeleton, or a sapling";
     }
 
     public boolean executeAbility(A_Character character, Party allies, Party enemies)

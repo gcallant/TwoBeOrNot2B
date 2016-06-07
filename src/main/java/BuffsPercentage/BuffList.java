@@ -39,6 +39,7 @@ public abstract class BuffList
         }
         if(!found)
         {
+            Display.displayMessage(name + toString());
             list.add(new Buffs(buff, rounds, source));
         }
     }

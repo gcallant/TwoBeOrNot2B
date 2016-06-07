@@ -34,12 +34,17 @@ public class Ranger extends A_Hero
     public static String Information()
     {
         return "Ranger:\n" + PiercingStrike.description() + "\n" + NaturalRemedy.description() + "\n" + EagleEye.description()
-                + "\n" + Charge.description();
+                + "\n" + DoubleStrike.description();
     }
 
     public String getName()
     {
         return super.getName() + " the Ranger";
+    }
+
+    public void upgradeAbilities()
+    {
+        specialManager.upgradeAbilities();
     }
 
     public void endTurn()

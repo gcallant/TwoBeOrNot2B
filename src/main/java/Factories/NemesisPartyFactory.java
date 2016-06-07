@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class NemesisPartyFactory
 {
-	List<String> possibleNemesis;
+	private List<String> possibleNemesis;
 
 	public NemesisPartyFactory()
 	{
@@ -62,7 +62,6 @@ public class NemesisPartyFactory
 				party = AssassinParty(level, floor);
 				break;
 		}
-
 		return party;
 	}
 
@@ -84,7 +83,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> wereParty = new ArrayList<A_Character>();
 
-		wereParty.add(new Werewolf("Krant, the Dire", 600, 20, 10, new Cloth(level), new Hammer(level), level));
+		wereParty.add(new Werewolf("Krant, the Dire", 600, 15, 10, new Cloth(level), new Hammer(level), level));
 		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 1", level, true, floor));
 		wereParty.add(new MonsterFactory().createMonster("Dire Wolf", "Dire Wolf 2", level, true, floor));
 
@@ -112,7 +111,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> assassinParty = new ArrayList<A_Character>();
 
-		assassinParty.add(new MasterAssassin("Scarlett, The Shadow", 800, 15, 25, new Leather(level), new Dagger(level), level));
+		assassinParty.add(new MasterAssassin("Scarlett, The Shadow", 600, 13, 25, new Leather(level), new Dagger(level), level));
 		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 1", level, true, floor));
 		assassinParty.add(new MonsterFactory().createMonster("Assassin", "Assassin 2", level, true, floor));
 

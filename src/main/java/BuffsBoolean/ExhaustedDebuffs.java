@@ -17,6 +17,6 @@ public class ExhaustedDebuffs extends BooleanBuffList
 
     public String toString()
     {
-        return "Exhaustion";
+        return " has been Exhausted";
     }
 }

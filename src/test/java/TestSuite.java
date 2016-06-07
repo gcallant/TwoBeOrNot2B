@@ -5,7 +5,6 @@ import TestItem.ArmorTest;
 import TestItem.ConsumableTest;
 import TestItem.ItemTester;
 import TestItem.WeaponTest;
-import TestPartyManagement.InventoryTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -18,7 +17,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {BattleTest.class, ArmorTest.class, ConsumableTest.class, WeaponTest.class, ItemTester.class,
-		                       InventoryTest.class, TestDungeonCreation.class, ArmorFactoryTest.class,
+		                        TestDungeonCreation.class, ArmorFactoryTest.class,
 		                       ConsumableFactoryTest.class, GenerateItemsTest.class, HeroFactoryTest.class,
 		                       MonsterFactoryTest.class, NemesisPartyFactoryTest.class, WeaponFactoryTest.class})
 

@@ -19,4 +19,9 @@ public class FearDebuff extends BooleanBuffList
     {
         return " has been Feared";
     }
+
+    public String description()
+    {
+        return "fear";
+    }
 }

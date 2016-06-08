@@ -144,7 +144,7 @@ public class Conditions
 
     public void giveAttackDebuff(double percentage, int rounds, String source)
     {
-        buffsManager.addAttackBuff(percentage, rounds, source);
+        buffsManager.addAttackDebuff(percentage, rounds, source);
     }
 
     public void giveRegenBuff(double percentage, int rounds, String source)

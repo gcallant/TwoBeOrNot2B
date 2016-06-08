@@ -24,4 +24,9 @@ public class DamageReductionBuff extends BuffList
     {
         return " is taking less damage!";
     }
+
+    public String description()
+    {
+        return "damage reduction";
+    }
 }

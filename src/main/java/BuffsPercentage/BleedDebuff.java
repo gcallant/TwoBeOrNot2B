@@ -24,4 +24,9 @@ public class BleedDebuff extends BuffList
     {
         return " is bleeding!";
     }
+
+    public String description()
+    {
+        return "bleeding";
+    }
 }

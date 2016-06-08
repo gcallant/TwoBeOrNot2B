@@ -24,4 +24,9 @@ public class DamageDebuff extends BuffList
     {
         return " damage has been decreased!";
     }
+
+    public String description()
+    {
+        return "damage decrease";
+    }
 }

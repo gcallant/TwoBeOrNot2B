@@ -24,4 +24,9 @@ public class BurnDebuff extends BuffList
     {
         return " is on fire!";
     }
+
+    public String description()
+    {
+        return "burning";
+    }
 }

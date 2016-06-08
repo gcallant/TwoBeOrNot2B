@@ -24,4 +24,9 @@ public class ChargeBuff extends BuffList
     {
         return " is charging up an attack!";
     }
+
+    public String description()
+    {
+        return "charge";
+    }
 }

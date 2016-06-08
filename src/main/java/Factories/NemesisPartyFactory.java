@@ -97,7 +97,7 @@ public class NemesisPartyFactory
 	{
 		List<A_Character> trentParty = new ArrayList<A_Character>();
 
-		trentParty.add(new Trent("Olohem, The Forsaken", 1800, 35, 4, new Cloth(level), new Hammer(level), level));
+		trentParty.add(new Trent("Olohem, The Forsaken", 1200, 35, 4, new Cloth(level), new Hammer(level), level));
 		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 1", level, true, floor));
 		trentParty.add(new MonsterFactory().createMonster("Sapling", "Sapling 2", level, true, floor));
 

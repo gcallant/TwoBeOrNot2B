@@ -12,6 +12,7 @@ public class CharacterBuffs
     private A_Character contributor;
     private double amount;
 
+
     public CharacterBuffs(A_Character contributor, double amount, int rounds, String source)
     {
         this.rounds = rounds;
